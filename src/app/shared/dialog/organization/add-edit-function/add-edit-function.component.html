@@ -1,0 +1,56 @@
+<ng-container *ngIf="data?.action == 'create-primaryFunction' || data?.action == 'update-primaryFunction'">
+    <h4 mat-dialog-title class="my-3 fs-3">{{data?.action == "create-primaryFunction" ? 'Add' : 'Update'}} Function Area</h4>
+    <div mat-dialog-content>
+        <form [formGroup]="primFunForm">
+            <div>
+                <mat-form-field class="fullWidth w-100" appearance="fill">
+                    <mat-label>{{data?.type}} </mat-label>
+                    <input matInput type="text" name="primary_function_area" formControlName="primary_function_area">
+                    <mat-error *ngIf="primFunForm.controls['primary_function_area']?.errors?.required">This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mt-2">
+                <mat-form-field class="fullWidth w-100" appearance="fill">
+                    <mat-label>Status </mat-label>
+                    <mat-select name="status" formControlName="status">
+                        <mat-option value="active">Active</mat-option>
+                        <mat-option value="inActive">Inactive</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="primFunForm.controls['status']?.errors?.required">This field is required</mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+    <div class="mt-2" mat-dialog-actions align="end">
+        <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="savePrimFun()">{{data?.action == "create-primaryFunction" ? 'Submit' :  'Update'}}</button>
+    </div>
+</ng-container>
+<ng-container *ngIf="data?.action == 'create-secondaryFunction' || data?.action == 'update-secondaryFunction'">
+    <h4 mat-dialog-title class="my-3 fs-3">{{data?.action == "create-secondaryFunction" ? 'Add' : 'Update'}} Function Area</h4>
+    <div mat-dialog-content>
+        <form [formGroup]="seconFunForm">
+            <div>
+                <mat-form-field class="fullWidth w-100" appearance="fill">
+                    <mat-label>{{data?.type}} </mat-label>
+                    <input matInput type="text" name="secondary_function_area" formControlName="secondary_function_area">
+                    <mat-error *ngIf="seconFunForm.controls['secondary_function_area']?.errors?.required">This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mt-2">
+                <mat-form-field class="fullWidth w-100" appearance="fill">
+                    <mat-label>Status </mat-label>
+                    <mat-select name="status" formControlName="status">
+                        <mat-option value="active">Active</mat-option>
+                        <mat-option value="inActive">Inactive</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="seconFunForm.controls['status']?.errors?.required">This field is required</mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+    <div class="mt-2" mat-dialog-actions align="end">
+        <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        <button mat-raised-button color="primary" (click)="saveSeconFun()" [mat-dialog-close]="true" cdkFocusInitial>{{data?.action == "create-secondaryFunction" ? 'Submit' :  'Update'}}</button>
+    </div>
+</ng-container>

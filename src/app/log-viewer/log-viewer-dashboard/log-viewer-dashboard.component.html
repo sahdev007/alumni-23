@@ -1,0 +1,188 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Settings</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb--3 mt-3 p-0">
+                <li class="breadcrumb-item"><a href="#" (click)="$event.preventDefault()"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">General Settings</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+<div class="row mb-5">
+    <div class="col-xl-8 mx-auto">
+        <hr/>
+        <h6 class="mb-0 text-uppercase pt-3 pb-3">Log Viewer</h6>
+        <hr/>
+        <div class="card">
+            <div class="card-body">
+                <div class="chart-container1">
+                    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [options]="pieChartOptions" [chartType]="pieChartType" (chartHover)="chartHovered($event)" [colors]="pieChartColors" (chartClick)="chartClicked($event)"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="card border-top border-0 border-4 border-info">
+            <div class="col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="col-sm-6 col-md-12 col-lg-4 mb-3">
+                        <div class="box level-all">
+                            <div class="box-icon">
+                                <i class="lni lni-list"></i>
+                            </div>
+
+                            <div class="box-content">
+                                <span class="box-text">All</span>
+                                <span class="box-number">
+                                    117 entries - 100 %
+                                </span>
+                                <div class="progress" style="height: 3px;">
+                                    <div class="progress-bar" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-12 col-lg-4 mb-3">
+                        <div class="box level-emergency empty">
+                            <div class="box-icon">
+                                <i class="lni lni-bug"></i>
+                            </div>
+
+                            <div class="box-content">
+                                <span class="box-text">Emergency</span>
+                                <span class="box-number">
+                                    0 entries - 0 %
+                                </span>
+                                <div class="progress" style="height: 3px;">
+                                    <div class="progress-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-12 col-lg-4 mb-3">
+                        <div class="box level-alert empty">
+                            <div class="box-icon">
+                                <i class="lni lni-bullhorn"></i>
+                            </div>
+
+                            <div class="box-content">
+                                <span class="box-text">Alert</span>
+                                <span class="box-number">
+                                    0 entries - 0 %
+                                </span>
+                                <div class="progress" style="height: 3px;">
+                                    <div class="progress-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-12 col-lg-4 mb-3">
+                        <div class="box level-critical empty">
+                            <div class="box-icon">
+                                <i class="lni lni-heart-monitor"></i>
+                            </div>
+
+                            <div class="box-content">
+                                <span class="box-text">Critical</span>
+                                <span class="box-number">
+                                    0 entries - 0 %
+                                </span>
+                                <div class="progress" style="height: 3px;">
+                                    <div class="progress-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-12 col-lg-4 mb-3">
+                        <div class="box level-error ">
+                            <div class="box-icon">
+                                <i class="lni lni-timer"></i>
+                            </div>
+
+                            <div class="box-content">
+                                <span class="box-text">Error</span>
+                                <span class="box-number">
+                                    97 entries - 82.91 %
+                                </span>
+                                <div class="progress" style="height: 3px;">
+                                    <div class="progress-bar" style="width: 82.91%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-12 col-lg-4 mb-3">
+                        <div class="box level-warning empty">
+                            <div class="box-icon">
+                                <i class="lni lni-warning"></i>
+                            </div>
+
+                            <div class="box-content">
+                                <span class="box-text">Warning</span>
+                                <span class="box-number">
+                                    0 entries - 0 %
+                                </span>
+                                <div class="progress" style="height: 3px;">
+                                    <div class="progress-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-12 col-lg-4 mb-3">
+                        <div class="box level-notice empty">
+                            <div class="box-icon">
+                                <i class="lni lni-notepad"></i>
+                            </div>
+
+                            <div class="box-content">
+                                <span class="box-text">Notice</span>
+                                <span class="box-number">
+                                    0 entries - 0 %
+                                </span>
+                                <div class="progress" style="height: 3px;">
+                                    <div class="progress-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-12 col-lg-4 mb-3">
+                        <div class="box level-info ">
+                            <div class="box-icon">
+                                <i class="lni lni-information"></i>
+                            </div>
+
+                            <div class="box-content">
+                                <span class="box-text">Info</span>
+                                <span class="box-number">
+                                    8 entries - 6.84 %
+                                </span>
+                                <div class="progress" style="height: 3px;">
+                                    <div class="progress-bar" style="width: 6.84%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-12 col-lg-4 mb-3">
+                        <div class="box level-debug ">
+                            <div class="box-icon">
+                                <i class="lni lni-bug"></i>
+                            </div>
+
+                            <div class="box-content">
+                                <span class="box-text">Debug</span>
+                                <span class="box-number">
+                                    12 entries - 10.26 %
+                                </span>
+                                <div class="progress" style="height: 3px;">
+                                    <div class="progress-bar" style="width: 10.26%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end row-->

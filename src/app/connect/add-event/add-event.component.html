@@ -1,0 +1,283 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+	<div class="breadcrumb-title pe-3">Connect</div>
+	<div class="ps-3">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb mb-0 p-0">
+				<li class="breadcrumb-item"><a routerLink="/"><i class="bx bx-home-alt"></i></a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">{{ updateAction !== 'update-event' ? 'Add' : 'Edit' }} Event</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+<!--end breadcrumb-->
+<ng-container *ngIf="updateAction !== 'update-event'">
+    <!-- <div class="d-sm-flex align-items-center justify-content-between my-3">
+        <h1 class="h3 mb-0 text-gray-800 text-center">Add Event</h1>
+    </div> -->
+
+    <app-loader *ngIf="loading"></app-loader>
+    <form class="example-form" [formGroup]="addEventForm" *ngIf="!loading">
+        <div class="mb-3 row">
+            <div class="col-sm-10 col-md-6">
+                <label for="staticEmail" class="col-form-label fw-bold">Event
+          Name <span class="text-danger">*</span></label>
+                <input type="text" formControlName="title" class="form-control" placeholder="Enter Title here">
+                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.title.touched || submitted) && f.title.errors?.required">
+                    Event name is required.
+                </div>
+            </div>
+            <div class="col-sm-10 col-md-6">
+                <label for="staticEmail" class="col-form-label fw-bold">Event
+          Venue <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="venue" id="formGroupExampleInput" placeholder="Enter event venue" />
+                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.venue.touched || submitted) && f.venue.errors?.required">
+                    Venue is required.
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <!-- <div class="col-sm-10 col-md-6">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold">Event
+          Category</label>
+                <select class="form-select" aria-label="Default select example" formControlName="category">
+                    <option value="" selected>Select Category</option>
+                    <option value="admin">Admin Event</option>
+                </select>
+            </div> -->
+            <div class="col-sm-10 col-md-6">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold">Event
+          Type <span class="text-danger">*</span></label>
+                <select class="form-select" aria-label="Default select example" formControlName="eventsType_id">
+                    <option value="" selected>Select event type</option>
+                    <option *ngFor="let item of updateEventTypes; index as i;" [value]="item?.id">{{item?.type}}</option>
+                </select>
+                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.eventsType_id.touched || submitted) && f.eventsType_id.errors?.required">
+                    Event Type is required.
+                </div>
+            </div>
+            <div class="col-sm-10 col-md-6">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold">Event
+          Hosted By </label>
+                <input type="text" class="form-control" formControlName="eventHost" id="formGroupExampleInput" placeholder="Enter event hosted by" />
+            </div>
+        </div>
+
+        <!-- <div class="mb-3 row">
+            <div class="col-sm-10 col-md-6">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold">Event
+          Hosted By </label>
+                <input type="text" class="form-control" formControlName="eventHost" id="formGroupExampleInput" placeholder="Enter event hosted by" />
+            </div>
+        </div> -->
+       
+
+        <div class="mb-3 row">
+            <div class="col-sm-10 col-md-6">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold">Event
+          Date <span class="text-danger">*</span></label>
+                <input type="date" class="form-control" formControlName="date" id="formGroupExampleInput" placeholder="Enter date" />
+                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.date.touched || submitted) && f.date.errors?.required">
+                    Date is required.
+                </div>
+            </div>
+            <div class="col-sm-10 col-md-6">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold">Event
+          Time</label>
+                <input type="time" class="form-control" formControlName="time" id="formGroupExampleInput" placeholder="Enter time" />
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-10 col-md-6">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold">Cost per person <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" formControlName="cost" id="formGroupExampleInput" placeholder="Enter cost per person" />
+                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.cost.touched || submitted) && f.cost.errors?.required">
+                    Cost is required.
+                </div>
+            </div>
+            <div class="col-sm-10 col-md-6">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold">FB event page link</label>
+                <input type="text" class="form-control" formControlName="eventPageLink" id="formGroupExampleInput" placeholder="Enter FB page link" />
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-10 col-md-6">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold ">Status</label>
+                <select class="form-select" aria-label="Default select example" formControlName="is_active">
+                    <option value="" selected>Select Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <div class="col-sm-10 col-md-6">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold">Contact
+          person number</label>
+                <input type="number" class="form-control" formControlName="contactNumber" id="formGroupExampleInput" placeholder="Enter contact person number" />
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-10 col-md-6">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold">Event
+          Image <span class="text-danger">*</span></label>
+                <input type="file" class="form-control" formControlName="eventImage" id="formGroupLink" (change)="onUploadImage($event)" accept="image/*" />
+                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.eventImage.touched || submitted) && f.eventImage.errors?.required">
+                    Event image is required.
+                </div>
+                <ng-container *ngIf="image !== undefined">
+                    <img [src]="image" class="img-fluid h-md-75 my-3" alt="picture">
+                </ng-container>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-12 col-md-12">
+                <label for="formGroupExampleInput" class="col-form-label fw-bold">Description <span class="text-danger">*</span></label>
+                <!-- <ckeditor formControlName="description"></ckeditor> -->
+                <textarea class="form-control" rows="5" formControlName="description"></textarea>
+                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.description.touched || submitted) && f.description.errors?.required">
+                    Description is required.
+                </div>
+            </div>
+        </div> 
+        <div class="row justify-content-center my-4">
+            <div class="col-lg-4 text-center">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button class="btn btn-sm btn-info mr-2 rounded text-white" (click)="addEvent()" [disabled]="!addEventForm.valid">Add</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-container>
+
+<!-- Edit Event  -->
+<ng-container *ngIf="updateAction == 'update-event'">
+    <div id="content">
+        <div class="container-fluid px-5">
+            <form class="example-form" [formGroup]="addEventForm" *ngIf="!loading">
+                <div class="row">
+                    <div class="col-lg-12 mb-3">
+                        <!-- <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng"></agm-map> -->
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label fw-bold">
+            Title  <span class="text-danger">*</span></label>
+                    <div class="col-sm-10 col-md-10">
+                        <input type="text" formControlName="title" class="form-control" placeholder="Enter Title here">
+                        <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.title.touched || submitted) && f.title.errors?.required">
+                            Title is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="formGroupExampleInput" class="col-sm-2 col-form-label fw-bold">Event
+              Type  <span class="text-danger">*</span></label>
+                    <div class="col-sm-10 col-md-10">
+                        <select class="form-select" aria-label="Default select example" formControlName="eventsType_id">
+                            <option value="" selected>Select event type</option>
+                            <option *ngFor="let item of updateEventTypes; index as i;" [value]="item?.id">{{item?.type}}</option>
+                        </select>
+                        <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.eventsType_id.touched || submitted) && f.eventsType_id.errors?.required">
+                            Event Type is required.
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="mb-3 row">
+                    <label for="formGroupExampleInput" class="col-md-2 col-form-label fw-bold">Description <span class="text-danger">*</span></label>
+                    <div class="col-sm-10 col-md-10">
+                        <ckeditor formControlName="description"></ckeditor>
+                        <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.description.touched || submitted) && f.description.errors?.required">
+                            Description is required.
+                        </div>
+                    </div>
+                </div> -->
+                <div class="mb-3 row">
+                    <label for="formGroupExampleInput" class="col-sm-2 col-form-label fw-bold">Start Date & Time <span class="text-danger">*</span></label>
+                    <div class="col-sm-10 col-md-10">
+                        <input type="date" class="form-control" formControlName="date" id="formGroupExampleInput" placeholder="Enter date" />
+                        <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.date.touched || submitted) && f.date.errors?.required">
+                            Start Date & Time is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label fw-bold">Venue <span class="text-danger">*</span></label>
+                    <div class="col-sm-10 col-md-10">
+                        <input type="text" class="form-control" formControlName="venue" id="formGroupExampleInput" placeholder="Enter event venue" />
+                        <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.venue.touched || submitted) && f.venue.errors?.required">
+                            Venue is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label fw-bold">Price <span class="text-danger">*</span></label>
+                    <div class="col-sm-10 col-md-10">
+                        <input type="text" class="form-control" appNumbersOnly formControlName="cost" id="formGroupExampleInput" placeholder="Enter price" />
+                        <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.cost.touched || submitted) && f.cost.errors?.required">
+                            Cost is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="formGroupExampleInput" class="col-md-2 col-form-label fw-bold">Event
+            Image <span class="text-danger">*</span></label>
+                    <div class="col-sm-10 col-md-10">
+                        <input type="file" class="form-control" id="formGroupLink" (change)="onUploadImage($event)" accept="image/*" />
+                        <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.eventImage.touched || submitted) && f.eventImage.errors?.required">
+                            Event image is required.
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="mb-3 row justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <ng-container *ngIf="image !== undefined">
+                            <img [src]="image" class="img-fluid h-md-75 my-2" alt="picture">
+                        </ng-container>
+                        <ng-container *ngIf="image == undefined">
+                            <img [src]="imgPath + userData?.eventImage" class="img-fluid h-md-75 my-3" alt="picture">
+                        </ng-container>
+                    </div>
+                </div> -->
+                <div class="mb-3 row justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <ng-container *ngIf="image !== undefined">
+                            <img [src]="image" class="img-fluid h-md-75 my-2" alt="picture">
+                        </ng-container>
+                        <ng-container *ngIf="image == undefined">
+                            <img [src]="imgPath + userData?.eventImage" class="img-fluid h-md-75 my-3" alt="picture">
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="formGroupExampleInput" class="col-md-2 col-form-label fw-bold">Expiry Date & Time <span class="text-danger">*</span></label>
+                    <div class="col-sm-10 col-md-10">
+                        <input type="date" class="form-control" formControlName="date" id="formGroupExampleInput" placeholder="Enter date" />
+                        <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.date.touched || submitted) && f.date.errors?.required">
+                            Expiry Date & Time is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-sm-12 col-md-12">
+                        <label for="formGroupExampleInput" class="col-form-label fw-bold">Description <span class="text-danger">*</span></label>
+                        <!-- <ckeditor formControlName="description"></ckeditor> -->
+                        <textarea class="form-control" rows="5" formControlName="description"></textarea>
+                        <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.description.touched || submitted) && f.description.errors?.required">
+                            Description is required.
+                        </div>
+                    </div>
+                </div> 
+                <div class="row justify-content-center mb-3">
+                    <div class="col-lg-4 text-center">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button class="btn btn-sm btn-info mr-2 rounded text-white" (click)="addEvent()" [disabled]="!addEventForm.valid">Update</button>
+                            <!-- <button class="btn btn-sm btn-primary rounded" (click)="navigateBack()">Back</button> -->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container>
+<!-- Edit Event End -->

@@ -1,0 +1,49 @@
+<h4 mat-dialog-title class="my-3">{{data?.action == "create-magazine" ? 'Add' : 'Update'}} Magazine</h4>
+<div mat-dialog-content>
+  <form [formGroup]="magazineForm">
+    <div>
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Magazine Name  </mat-label>
+          <input matInput type="text" name="magazine_name" formControlName="magazine_name">
+          <mat-error *ngIf="magazineForm.controls['magazine_name']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+      </div>
+    <div>
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Magazine Link  </mat-label>
+          <input matInput type="text" name="link" formControlName="link">
+          <mat-error *ngIf="magazineForm.controls['link']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Status </mat-label>
+          <mat-select name="is_active" formControlName="is_active">
+            <mat-option value="active">Active</mat-option>
+            <mat-option value="inActive">Inactive</mat-option>
+          </mat-select>
+          <mat-error *ngIf="magazineForm.controls['is_active']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="form-group row mt-2">
+        <div class="col-sm-12 pl-lg-0 pl-md-0 pl-xl-0">
+            <input type="file" class="form-control mb-2" [(ngModel)]="updatedFile" formControlName="file" id="formGroupLink" (change)="onUploadImage($event)" accept="image/*"  placeholder="Upload Image" />
+            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
+                *ngIf="(f.image.touched || submitted) && f.image.errors?.required">
+                Image is required.
+            </div> -->
+            <mat-error *ngIf="magazineForm.controls['file']?.errors?.required">This field is required</mat-error>
+            <ng-container *ngIf="image !== undefined && data?.data?.file != undefined">
+                <img [src]="image" class="h-25 my-2" alt="picture">
+            </ng-container>
+            <ng-container *ngIf="data?.action === 'update-magazine' && data?.data?.file !== undefined">
+                <img [src]="imgPath + data?.data?.file" class="h-25" alt="logo">
+            </ng-container>
+        </div>
+    </div>
+  </form>
+</div>
+<div class="mt-3" mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save()">{{data?.action == "create-magazine" ? 'Submit' : 'Update'}}</button>
+</div>

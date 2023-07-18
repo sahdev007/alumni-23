@@ -1,0 +1,89 @@
+            @use "~igniteui-angular/theming" as *;
+            // Uncomment the following lines if you want to add a custom palette:
+            // $primary: #731963 !default;
+            // $secondary: #ce5712 !default;
+            // $app-palette: palette($primary, $secondary);
+            /* autoprefixer grid: on */
+            
+            @include core();
+            @include typography($font-family: $material-typeface, $type-scale: $material-type-scale);
+            @include theme($default-palette);
+            // CSS Reset, comment out if not required or using a different module
+            @import '~minireset.css/minireset';
+            /* You can add global styles to this file, and also import other style files */
+            
+            html,
+            body {
+                height: 100%;
+            }
+            
+            body {
+                margin: 0;
+                font-family: Roboto, "Helvetica Neue", sans-serif;
+            }
+            
+            .user-profile.view {
+                input,
+                textarea,
+                select {
+                    pointer-events: none;
+                }
+            }
+            
+            html,
+            body {
+                height: 100%;
+            }
+            
+            body {
+                margin: 0;
+                font-family: Roboto, "Helvetica Neue", sans-serif;
+            }
+            
+            html,
+            body {
+                height: 100%;
+            }
+            
+            body {
+                margin: 0;
+                font-family: Roboto, "Helvetica Neue", sans-serif;
+            }
+            
+            .isActive {
+                color: #12bc12 !important;
+                font-size: 14px !important;
+                border: 0;
+                font-weight: 500;
+            }
+            
+            .isInactive {
+                color: #f44336 !important;
+                font-size: 14px !important;
+                border: 0;
+                font-weight: 500;
+            }
+            
+            .isActive:focus,
+            .isInactive:focus {
+                box-shadow: none;
+            }
+            
+            .mat-table thead {
+                background: #F8F9FA;
+                html,
+                body {
+                    height: 100%;
+                }
+                body {
+                    margin: 0;
+                    font-family: Roboto, "Helvetica Neue", sans-serif;
+                }
+                .user-profile.view {
+                    input,
+                    textarea,
+                    select {
+                        pointer-events: none;
+                    }
+                }
+            }

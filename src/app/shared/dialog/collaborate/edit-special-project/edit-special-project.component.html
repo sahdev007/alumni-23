@@ -1,0 +1,88 @@
+<h4 mat-dialog-title class="my-3">Special Project Details</h4>
+<div mat-dialog-content>
+  <form [formGroup]="editSpecialForm">
+    <div>
+      <mat-form-field class="fullWidth w-100" appearance="fill">
+        <mat-label>Author </mat-label>
+        <input matInput type="text" name="author" formControlName="author" readonly>
+      </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Project Title </mat-label>
+          <input matInput type="text" name="title" formControlName="title">
+          <mat-error *ngIf="editSpecialForm.controls['title']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+      </div>
+    <div>
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Charity/Initiative name </mat-label>
+          <input matInput type="text" name="charityName" formControlName="charityName">
+          <mat-error *ngIf="editSpecialForm.controls['charityName']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="mb-2">
+        <label id="example-radio-group-label">Monetary donations accepted :</label>
+        <mat-radio-group class="ms-2" aria-label="Select an option" formControlName="monetaryDonation">
+            <mat-radio-button value="true" class="me-2">Yes</mat-radio-button>
+            <mat-radio-button value="false">No</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div class="mb-3">
+        <label id="example-radio-group-label">Time/effort donations invited :</label>
+        <mat-radio-group class="ms-2" aria-label="Select an option" formControlName="timeDonation">
+            <mat-radio-button value="true" class="me-2">Yes</mat-radio-button>
+            <mat-radio-button value="false">No</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div>
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Contact Person name </mat-label>
+          <input matInput type="text" name="contactName" formControlName="contactName">
+          <mat-error *ngIf="editSpecialForm.controls['contactName']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <mat-form-field class="fullWidth w-100" appearance="fill">
+                <mat-label>Country Code </mat-label>
+                <input matInput type="text" name="code" formControlName="code">
+                <mat-error *ngIf="editSpecialForm.controls['code']?.errors?.required">This field is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-9">
+            <mat-form-field class="fullWidth w-100" appearance="fill">
+                <mat-label>Contact mobile number </mat-label>
+                <input matInput type="text" name="mobileNumber" formControlName="mobileNumber">
+                <mat-error *ngIf="editSpecialForm.controls['mobileNumber']?.errors?.required">This field is required</mat-error>
+            </mat-form-field>
+         </div>
+     </div>
+    <div>
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Email Id</mat-label>
+          <input matInput type="text" name="email" formControlName="email">
+          <mat-error *ngIf="editSpecialForm.controls['email']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Social Link </mat-label>
+          <input matInput type="text" name="link" formControlName="link">
+          <mat-error *ngIf="editSpecialForm.controls['link']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field class="example-full-width w-100" appearance="fill">
+            <mat-label>Description of Project</mat-label>
+            <textarea matInput formControlName="description" placeholder="Enter Description..."></textarea>
+            <mat-error *ngIf="editSpecialForm.controls['description']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+    </div>
+  </form>
+</div>
+<div class="mt-5" mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" (click)="save()" 
+  [mat-dialog-close]="true" cdkFocusInitial>Submit</button>
+</div>

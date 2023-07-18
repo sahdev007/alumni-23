@@ -1,0 +1,103 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Celebrate</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Journey</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+<div class="mat-elevation-z8 ">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
+        <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+            <th mat-header-cell *matHeaderCellDef>
+                <div style="display: flex; align-items: center;">
+                    <span mat-sort-header class="text-capitalize  fs-6">{{column | replaceUnderscore}}</span>
+                    <button mat-icon-button>
+              <mat-icon mat-icon-button color="primary" [matMenuTriggerFor]="menu"
+                [matMenuTriggerData]="{columnName: column}">filter_list </mat-icon>
+            </button>
+                </div>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="'status'">
+            <th class="text-capitalize  fs-6" mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element">
+                <!-- <mat-form-field appearance="fill" [ngClass]="{ 'isActive': element.is_active === 'active' , 'isInactive': element.is_active === 'inActive' }">
+                <mat-select (selectionChange)="onStatusChange($event, element)" [ngModelOptions]="{ standalone: true }">
+                  <mat-option value="active">Active</mat-option>
+                  <mat-option value="inActive">Inactive</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+                <select class="form-select" aria-label="Default select example" (change)="onStatusChange($event, element)" [ngClass]="{ 'isActive': element.is_active === 'active' , 'isInactive': element.is_active === 'inActive' }">
+                <option value="active">Active</option>
+                <option value="inActive">Inactive</option>
+            </select>
+            </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="'actions'">
+            <th class="text-capitalize  fs-6" mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element">
+                <!-- <button mat-icon-button>
+            <mat-icon mat-icon-button color="accent">visibility</mat-icon>
+          </button> -->
+                <button mat-icon-button (click)="edit(element, 'journey')">
+            <mat-icon mat-icon-button color='primary'>edit</mat-icon>
+          </button>
+                <button mat-icon-button (click)="delete(element, 'Journey')">
+            <mat-icon mat-icon-button color="warn">delete</mat-icon>
+          </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 50]" showFirstLastButtons></mat-paginator>
+</div>
+
+<!-- menu for column filtering-->
+<mat-menu #menu="matMenu" class="matMenu">
+    <ng-template matMenuContent let-dataColumnName="columnName">
+        <div class="flex-column p-2" (click)="$event.stopPropagation();">
+            <div class="mb-1">
+
+                <mat-form-field class="fullWidth w-100" appearance="outline">
+                    <mat-label>Choose a filter *</mat-label>
+                    <mat-select #selectedOperationFilter [value]="'contains'">
+                        <mat-option value="contains" select>Contains</mat-option>
+                        <mat-option value="equals">Equals</mat-option>
+                        <mat-option value="greaterThan">Greater than</mat-option>
+                        <mat-option value="lessThan">Less than</mat-option>
+                        <mat-option value="endWith">End with</mat-option>
+                        <mat-option value="startWith">Start With</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+            <div class="mb-1 fullWidth">
+                <mat-form-field class="fullWidth" appearance="outline">
+                    <mat-label>write a value*</mat-label>
+                    <input matInput #searchValue type="text">
+                </mat-form-field>
+            </div>
+            <div class="fullWidth d-flex flex-row mb-1  justify-content-around">
+                <button [disabled]="!searchValue.value" mat-raised-button color="primary" class="flex-row flex-align-center btn-filter-action" (click)="applyFilter(dataColumnName, selectedOperationFilter.value,  searchValue.value)">
+            <mat-icon>check</mat-icon>
+            <label>filter</label>
+          </button>
+                <button mat-raised-button class="flex-row flex-align-center btn-filter-action" color="warn" (click)="clearFilter(dataColumnName)">
+            <mat-icon>clear</mat-icon>
+            <label>reset</label>
+          </button>
+            </div>
+        </div>
+    </ng-template>
+</mat-menu>

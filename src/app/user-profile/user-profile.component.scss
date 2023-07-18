@@ -1,0 +1,23 @@
+.avatars {
+    height: 100px;
+    width: 100px;
+}
+
+.user-profile {
+    i.lni.lni-pencil {
+        margin: 26px 0 0 -14px;
+        font-size: 13px;
+        cursor: pointer;
+        padding: 7px !important;
+    }
+    li.nav-item {
+        margin: 0 6px;
+    }
+    .upload-profile-pic {
+        position: absolute;
+        background: red;
+        opacity: 0;
+        height: 80px;
+        cursor: pointer;
+    }
+}

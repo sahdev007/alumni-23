@@ -1,0 +1,33 @@
+<h4 mat-dialog-title class="my-3">{{data?.action == "create-youtube" ? 'Add' : 'Update'}} Youtube</h4>
+<div mat-dialog-content>
+  <form [formGroup]="youtubeLinksForm">
+    <div>
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Youtube Link Name  </mat-label>
+          <input matInput type="text" name="title" formControlName="title">
+          <mat-error *ngIf="youtubeLinksForm.controls['title']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+      </div>
+    <div>
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Youtube Link  </mat-label>
+          <input matInput type="text" name="link" formControlName="link">
+          <mat-error *ngIf="youtubeLinksForm.controls['link']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Status </mat-label>
+          <mat-select name="is_active" formControlName="is_active">
+            <mat-option value="active">Active</mat-option>
+            <mat-option value="inActive">Inactive</mat-option>
+          </mat-select>
+          <mat-error *ngIf="youtubeLinksForm.controls['is_active']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+    </div>
+  </form>
+</div>
+<div class="mt-3" mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save()">{{data?.action == "create-youtube" ? 'Submit' : 'Update'}}</button>
+</div>

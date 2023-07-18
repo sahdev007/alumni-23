@@ -1,0 +1,26 @@
+<h4 mat-dialog-title class="my-3">Edit Event Type</h4>
+<div mat-dialog-content>
+    <form [formGroup]="formInstance">
+        <div>
+            <mat-form-field class="fullWidth w-100" appearance="fill">
+                <mat-label>Event Type </mat-label>
+                <input matInput type="text" name="type" formControlName="type">
+                <mat-error *ngIf="formInstance.controls['type']?.errors?.required">This field is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="mt-5">
+            <mat-form-field class="fullWidth w-100" appearance="fill">
+                <mat-label>Status </mat-label>
+                <mat-select name="status" formControlName="status">
+                    <mat-option value="active">Active</mat-option>
+                    <mat-option value="inactive">Inactive</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formInstance.controls['job']?.errors?.required">This field is required</mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div class="mt-5" mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="formInstance.dirty && formInstance.errors" (click)="save()" [mat-dialog-close]="true" cdkFocusInitial>Submit</button>
+</div>

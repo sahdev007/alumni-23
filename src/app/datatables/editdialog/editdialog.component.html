@@ -1,0 +1,35 @@
+<h4 mat-dialog-title class="my-3">Edit Person</h4>
+<div mat-dialog-content>
+    <form [formGroup]="formInstance">
+        <div>
+            <mat-form-field class="fullWidth" appearance="fill">
+                <mat-label>First Name *</mat-label>
+                <input matInput type="text" name="firstName" formControlName="firstName">
+                <mat-error *ngIf="formInstance.controls['firstName']?.errors?.required">field required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="mt-5">
+            <mat-form-field class="fullWidth" appearance="fill">
+                <mat-label>Age *</mat-label>
+                <input matInput type="number" name="age" formControlName="age" />
+                <mat-error *ngIf="formInstance.controls['age']?.errors?.required">field required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="mt-5">
+            <mat-form-field class="fullWidth" appearance="fill">
+                <mat-label>Job *</mat-label>
+                <mat-select name="job" formControlName="job">
+                    <mat-option value="Software Developer">Software Developer</mat-option>
+                    <mat-option value="Physician">Physician</mat-option>
+                    <mat-option value="Dentist">Dentist</mat-option>
+                    <mat-option value="Nurse">Nurse</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formInstance.controls['job']?.errors?.required">field required</mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div class="mt-5" mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="formInstance.dirty && formInstance.errors" (click)="save()" cdkFocusInitial>Yes</button>
+    <button mat-raised-button mat-dialog-close>No</button>
+</div>

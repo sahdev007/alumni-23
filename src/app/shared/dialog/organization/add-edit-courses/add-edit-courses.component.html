@@ -1,0 +1,27 @@
+<h4 mat-dialog-title class="my-3">{{data?.action == "create-course" ? 'Add' : 'Update'}} Course</h4>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div>
+            <mat-form-field class="fullWidth w-100" appearance="fill">
+                <mat-label>Course Name </mat-label>
+                <input matInput type="text" name="course" formControlName="course">
+                <mat-error *ngIf="form.controls['course']?.errors?.required">This field is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="mt-2">
+            <mat-form-field class="fullWidth w-100" appearance="fill">
+                <mat-label>Status </mat-label>
+                <mat-select name="status" formControlName="status">
+                    <mat-option value="active">Active</mat-option>
+                    <mat-option value="inActive">Inactive</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls['status']?.errors?.required">This field is required</mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div class="mt-2" mat-dialog-actions align="end">
+    
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save()">{{data?.action == "create-course" ? 'Submit' :  'Update'}}</button>
+</div>
