@@ -6,5 +6,4 @@ export const environment = {
   
   apiUrl: "https://mirchidigital.co.in/sbsAlumni/api",
   imgUrl: "https://mirchidigital.co.in/sbsAlumni/public/"
-
 };
