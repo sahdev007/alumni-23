@@ -3,9 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AnyAaaaRecord } from 'dns';
 import { Person } from 'src/app/models/person';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { AddEditLeadershipComponent } from 'src/app/shared/dialog/about/add-edit-leadership/add-edit-leadership.component';
+import { ViewLeadershipComponent } from 'src/app/shared/dialog/about/view-leadership/view-leadership.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
@@ -138,6 +140,12 @@ export class LeadershipComponent implements OnInit {
     });
   }
 
+  view(params: any) {
+    const dialogRef = this.dialog.open(ViewLeadershipComponent, {
+      width: '400px',
+      data: { data: params}
+    });
+  }
 
   edit(data: any, params: any, type?:string) {
     const dialogRef = this.dialog.open(AddEditLeadershipComponent, {
