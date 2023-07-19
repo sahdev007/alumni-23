@@ -21,7 +21,6 @@ export class AlumniEventComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['author', 'title', 'type', 'cost'];
   public columnsToDisplay: string[] = [...this.displayedColumns,'status', 'actions'];
 
@@ -35,7 +34,6 @@ export class AlumniEventComponent implements OnInit {
   // private serviceSubscribe: Subscription;
 
   constructor(
-    private personsService: DataService, 
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router,
@@ -148,7 +146,7 @@ export class AlumniEventComponent implements OnInit {
    * @param params 
    */
   edit(id: number, params: any) {
-    this.router.navigate(['/connect/add-event'],{queryParams: { clubId: id, action: params }});
+    this.router.navigate(['/connect/add-event'], {queryParams: { clubId: id, action: params }});
   }
   /**
    * Function to remove items by id
@@ -181,7 +179,6 @@ export class AlumniEventComponent implements OnInit {
         id: params?.id,
         status: e?.target?.value
       }
-      console.log(param);
       await this.connectService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
           this.ngOnInit();
@@ -201,11 +198,6 @@ export class AlumniEventComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-    // this.personsService.getAll();
-    // this.serviceSubscribe = this.personsService.persons$.subscribe(res => {
-    //   this.dataSource.data = res;
-    //   console.log(res);
-    // })
   }
 
   /**
@@ -215,26 +207,17 @@ export class AlumniEventComponent implements OnInit {
     let action = "all-eventsGet";
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
-        // console.log(res.data)
         if(res?.status == 200) {
           res?.data?.filter((x: any) => {
             if(x?.category == 'alumni') {
               this.getAllAlumni.push(x);
             }
           })
-          // console.log(this.getAllAlumni)
           this.dataSource.data = this.getAllAlumni;
         }
-      
-        // if (user?.status == 200) {
-        //   this.rowData = user?.data;
-        //   this.rowData.sort((a: any, b: any) => {
-        //     return a?.order_by - b?.order_by;
-        //   });
-        // }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        console.log(error);
       }
     );
   }

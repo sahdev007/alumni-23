@@ -37,7 +37,6 @@ export class SkillsComponent implements OnInit {
 
 
   private filter() {
-
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
       let find = true;
 
@@ -182,6 +181,7 @@ export class SkillsComponent implements OnInit {
       console.log(param);
       await this.organizationService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          alert(res)
           this.ngOnInit();
         }
       }, error => {

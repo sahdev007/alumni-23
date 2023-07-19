@@ -13,7 +13,7 @@ export class EditShareOpportunitiesComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, 
-    public collaborateService: CollaborateService,
+    private collaborateService: CollaborateService,
     public dialog: MatDialog, public dialogref: MatDialogRef<EditShareOpportunitiesComponent>) { }
 
   ngOnInit(): void {

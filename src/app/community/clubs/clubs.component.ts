@@ -133,9 +133,12 @@ export class ClubsComponent implements OnInit {
     }
   }
 
+  add(params: any, action?: string) {
+    this.router.navigate(['/community/add-clubs']);
+  }
 
   edit(id: number, params: string) {
-    this.router.navigate(['/community/add-clubs'], {queryParams: { clubId: id, action: 'update-club' }});
+    this.router.navigate(['/community/add-clubs'], {queryParams: { clubId: id, action: 'update-club' }, skipLocationChange: true});
   }
 
   delete(data: any, params: string) {
@@ -156,17 +159,12 @@ export class ClubsComponent implements OnInit {
     });
   }
 
-  add(params: any, action?: string) {
-    this.router.navigate(['/community/add-clubs']);
-  }
-
   async onStatusChange(e:any, params: any) {
     let action = "update-club";
       let param = {
         id: params?.id,
         status: e?.target?.value
       }
-      console.log(param);
       await this.communityService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
           this.ngOnInit();
@@ -186,29 +184,17 @@ export class ClubsComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-    // this.personsService.getAll();
-    // this.serviceSubscribe = this.personsService.persons$.subscribe(res => {
-    //   this.dataSource.data = res;
-    //   console.log(res);
-    // })
   }
 
   async getAllData() {
     let action = "all-clubsGet";
     await this.dataService.getAllData(action).subscribe(
       (vid: any) => {
-        console.log(vid.data)
         if(vid?.status == 200) this.dataSource.data = vid?.data;
         console.log(this.dataSource.data);
-        // if (user?.status == 200) {
-        //   this.rowData = user?.data;
-        //   this.rowData.sort((a: any, b: any) => {
-        //     return a?.order_by - b?.order_by;
-        //   });
-        // }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        console.log(error);
       }
     );
   }

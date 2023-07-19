@@ -147,7 +147,7 @@ export class AdminEventComponent implements OnInit {
    * @param params 
    */
   edit(id: number, params: any) {
-    this.router.navigate(['/connect/add-event'],{queryParams: { clubId: id, action: params }});
+    this.router.navigate(['/connect/add-event'], {queryParams: { clubId: id, action: params }});
   }
   /**
    * Function to remove items by id

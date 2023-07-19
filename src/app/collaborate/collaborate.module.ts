@@ -25,6 +25,7 @@ import { MenteeComponent } from './mentorship/mentee/mentee.component';
 import { ParticipateInAdmissionPanelComponent } from './participate-in-admission-panel/participate-in-admission-panel.component';
 import { OfferExpertiseComponent } from './offer-expertise/offer-expertise.component';
 import { ShareOpportunitiesComponent } from './share-opportunities/share-opportunities.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { ShareOpportunitiesComponent } from './share-opportunities/share-opportu
   ],
   imports: [
     CommonModule,
+    EditorModule,
     CollaborateRoutingModule,
 
     CdkTableModule,

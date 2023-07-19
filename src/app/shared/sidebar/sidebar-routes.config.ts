@@ -39,8 +39,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '', title: 'Community', icon: 'bx bx-cookie', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, 
         submenu: [
             { path: '/community/clubs', title: 'Clubs', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
-            { path: '/community/add-clubs', title: 'Add Club', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
-            { path: '/community/add-club-type', title: 'Add Club Type', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
+            { path: '/community/add-club-type', title: 'Club Types', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
             // { path: '/community/industry-clubs', title: 'Industry Clubs', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
             { path: '/community/business-ventures', title: 'Business Ventures', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             // { path: '/community/invite-batchmates', title: 'Invite Batchmates', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
@@ -52,8 +51,7 @@ export const ROUTES: RouteInfo[] = [
             // { path: '/connect/event-at-glance', title: 'Event at Glance', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/connect/admin-events', title: 'Admin Events', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/connect/alumni-events', title: 'Alumni Events', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            { path: '/connect/add-event', title: 'Add Event', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            { path: '/connect/add-event-types', title: 'Add Event Type', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/connect/add-event-types', title: 'Event Types', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             // { path: '/community/business-ventures', title: 'Business Ventures', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             // { path: '/community/invite-batchmates', title: 'Invite Batchmates', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
         ]
@@ -72,8 +70,8 @@ export const ROUTES: RouteInfo[] = [
                 path: '', title: 'Careers & Jobs', icon: 'bx bx-cookie', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
                     { path: '/collaborate/admin-jobs', title: 'Admin Jobs', icon: 'ms-2 bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
                     { path: '/collaborate/alumni-jobs', title: 'Alumni Jobs', icon: 'ms-2 bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-                    { path: '/collaborate/add-job', title: 'Add Job', icon: 'ms-2 bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-                    { path: '/collaborate/add-job-type', title: 'Add Job Type', icon: 'ms-2 bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
+                    // { path: '/collaborate/add-job', title: 'Add Job', icon: 'ms-2 bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+                    { path: '/collaborate/add-job-type', title: 'Job Types', icon: 'ms-2 bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
                 ]
             },
             { path: '/collaborate/special-projects', title: 'Special Projects', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },

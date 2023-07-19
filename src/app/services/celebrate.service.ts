@@ -28,6 +28,7 @@ export class CelebrateService {
       return this.http.post<any>(`${this.url}/${action?.action}`, data);
     } else if(action?.action == "update-gallery" || action?.action == "update-magazine" || action?.action == "update-news"
     || action?.action == "update-getFeatured" || action?.action == "update-journey") {
+      
       return this.http.post<any>(`${this.url}/${action?.action}` + "/" + action?.id,  data);
     } else if(
       action === "update-featured" ||

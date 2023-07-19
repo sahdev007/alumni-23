@@ -19,6 +19,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AddEventComponent } from './add-event/add-event.component';
 import { AdminEventComponent } from './admin-event/admin-event.component';
 import { AlumniEventComponent } from './alumni-event/alumni-event.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { AlumniEventComponent } from './alumni-event/alumni-event.component';
   imports: [
     CommonModule,
     ConnectRoutingModule,
+    EditorModule,
 
     CdkTableModule,
     MatTableModule,

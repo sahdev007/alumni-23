@@ -3,13 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subscription } from 'rxjs';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
-import { DataService } from 'src/app/services/data.service';
 import { AddEditMagazineComponent } from 'src/app/shared/dialog/celebrate/add-edit-magazine/add-edit-magazine.component';
-import { AddMagazineComponent } from 'src/app/shared/dialog/celebrate/add-magazine/add-magazine.component';
-import { EditMagazineComponent } from 'src/app/shared/dialog/celebrate/edit-magazine/edit-magazine.component';
 import { ViewMagazineComponent } from 'src/app/shared/dialog/celebrate/view-magazine/view-magazine.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
@@ -25,7 +21,7 @@ export class MagazineComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['magazine_name', 'link'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'is_active', 'actions'];
 
   public columnsFilters = {};
 
@@ -41,7 +37,6 @@ export class MagazineComponent implements OnInit {
 
 
   private filter() {
-
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
       let find = true;
 
@@ -159,7 +154,9 @@ export class MagazineComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ngOnInit();
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 200);
       }
     });
   }
@@ -189,7 +186,6 @@ export class MagazineComponent implements OnInit {
         id: params?.id,
         is_active: e?.target?.value
       }
-      console.log(param);
       await this.celebrateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
           this.ngOnInit();

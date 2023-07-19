@@ -40,28 +40,24 @@ export class AddEditSocialContactComponent implements OnInit {
 
   async save() {
     this.submitted = true;
-    if(this.formInstance.invalid){
-      return;
+    if(this.data?.action == "update-contact") {
+      await this.contactService.updateData(this.data?.action, this.formInstance?.value).subscribe((item: any) => {
+        if(item.status == 200){
+          console.log('event type updated')
+          this.dialogRef.close();
+        }
+      }, error => {
+          console.log(error);
+      });
     } else {
-      if(this.data?.action == "update-contact") {
-        await this.contactService.updateData(this.data?.action, this.formInstance?.value).subscribe((item: any) => {
-          if(item.status == 200){
-            console.log('event type updated')
-            this.dialogRef.close();
-          }
-        }, error => {
-            console.log(error);
-        });
-      } else {
-        await this.contactService.postData(this.data?.action, this.formInstance?.value).subscribe((item: any) => {
-          if(item.status == 200){
-            console.log('event type created')
-            this.dialogRef.close();
-          }
-        }, error => {
-            console.log(error);
-        });
-      }
+      await this.contactService.postData(this.data?.action, this.formInstance?.value).subscribe((item: any) => {
+        if(item.status == 200){
+          console.log('event type created')
+          this.dialogRef.close();
+        }
+      }, error => {
+          console.log(error);
+      });
     }
   }
 }

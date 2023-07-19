@@ -40,6 +40,7 @@ export class EditSpecialProjectComponent implements OnInit {
       mobileNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(16)]],
       email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$")]],
       link: ['', Validators.required],
+      is_active: ['', Validators.required],
       description: ['', Validators.required]
     });
   }
@@ -49,15 +50,11 @@ export class EditSpecialProjectComponent implements OnInit {
    */
   async save() {
     this.submitted = true;
-    if(this.editSpecialForm.invalid){
-      return
-    } else {
-      await this.collaborateService.updateData(this.data?.action, this.editSpecialForm.value).subscribe((x: any) => {
-        if(x?.status == 200) {
-          console.log('updated Successfully !');
-          this.dialogref.close();
-        }
-      });
-    }
+    await this.collaborateService.updateData(this.data?.action, this.editSpecialForm.value).subscribe((x: any) => {
+      if(x?.status == 200) {
+        console.log('updated Successfully !');
+        this.dialogref.close();
+      }
+    });
   }
 }

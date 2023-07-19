@@ -21,6 +21,8 @@ export class AddEventComponent implements OnInit {
   updateAction: any;
   updatedEventData: any;
 
+  eventStat = [{id:1, value:'active'}, {id:2, value:'inActive'}]
+
   constructor(public fb: FormBuilder, private connectService: ConnectService,
     public router: Router, public arouter: ActivatedRoute) {
     if (localStorage) {
@@ -67,7 +69,7 @@ export class AddEventComponent implements OnInit {
       author: ["test"],
       title: ["", Validators.required],
       venue: ["", Validators.required],
-      category: ["admin"],
+      category: ["alumni"],
       description: ["", Validators.required],
       date: ["", Validators.required],
       time: [""],
@@ -140,5 +142,10 @@ export class AddEventComponent implements OnInit {
           this.router.navigate(['/connect/admin-events']);
         }
       })
+    }
+
+
+    clickToBack(){
+      this.router.navigate(['/connect/admin-events']);
     }
 }

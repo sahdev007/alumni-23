@@ -148,7 +148,9 @@ export class SecondaryIndustryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        setTimeout(() => {
           this.ngOnInit();
+        }, 100);
       }
     });
   }

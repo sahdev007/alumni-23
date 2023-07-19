@@ -20,7 +20,6 @@ export class OfferExpertiseComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['author', 'workshopTopic', 'type', 'dateTime'];
   public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
 
@@ -139,15 +138,6 @@ export class OfferExpertiseComponent implements OnInit {
     this.router.navigate(['/collaborate/add-job']);
   }
 
-  /**
-   * Function to edit project
-   * @param data 
-   * @param params 
-   */
-  edit(data: Person, params: any) {
-    console.log(params);
-  }
-
   view(data: any) {
     const dialogRef = this.dialog.open(ViewExpertiseComponent, {
       width: '500px',
@@ -186,7 +176,6 @@ export class OfferExpertiseComponent implements OnInit {
         id: params?.id,
         status: e?.target?.value
       }
-      console.log(param);
       await this.collaborateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
           this.ngOnInit();

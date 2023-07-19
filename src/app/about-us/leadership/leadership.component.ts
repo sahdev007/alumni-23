@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AnyAaaaRecord } from 'dns';
 import { Person } from 'src/app/models/person';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { AddEditLeadershipComponent } from 'src/app/shared/dialog/about/add-edit-leadership/add-edit-leadership.component';
@@ -140,16 +139,16 @@ export class LeadershipComponent implements OnInit {
     });
   }
 
-  view(params: any) {
+  view(params: any){
     const dialogRef = this.dialog.open(ViewLeadershipComponent, {
       width: '400px',
-      data: { data: params}
+      data: { data: params }
     });
   }
 
-  edit(data: any, params: any, type?:string) {
+  edit(data: any, params: any) {
     const dialogRef = this.dialog.open(AddEditLeadershipComponent, {
-      width: '400px',
+      width: '580px',
       data: {data: data, action: params}
     });
 

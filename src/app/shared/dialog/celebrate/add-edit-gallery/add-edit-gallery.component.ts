@@ -47,10 +47,7 @@ export class AddEditGalleryComponent implements OnInit {
       action: this.data?.action,
       id: this.data?.action == 'create-gallery' ? '' : parseInt(this.data?.data?.id)
     }
-
-    if(this.galleryForm.invalid){
-      return;
-    } else {
+    console.log(action);
       let formData = new FormData();
       formData.append('image', (this.profilePic) ? this.profilePic : '');
       formData.append('title', this.galleryForm.value.title);
@@ -67,7 +64,6 @@ export class AddEditGalleryComponent implements OnInit {
       }, error => {
         console.log(error)
       });
-    }
   }
 
   onUploadImage(event: any) {

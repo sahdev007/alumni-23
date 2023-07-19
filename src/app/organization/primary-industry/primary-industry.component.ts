@@ -149,7 +149,9 @@ export class PrimaryIndustryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ngOnInit();
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 100);
       }
     });
   }

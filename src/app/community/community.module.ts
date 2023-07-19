@@ -23,6 +23,7 @@ import { SharedModule } from '../shared/shared.module';
 import { EditBusinessVenturesComponent } from './edit-business-ventures/edit-business-ventures.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { ViewBusinessVenturesComponent } from './view-business-ventures/view-business-ventures.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     AddClubsComponent,
     AddClubTypeComponent,
     EditBusinessVenturesComponent,
+    ViewBusinessVenturesComponent,
   ],
   imports: [
     CommonModule,

@@ -148,7 +148,7 @@ export class SecondaryFunctionComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-          this.ngOnInit();
+        this.ngOnInit();
       }
     });
   }

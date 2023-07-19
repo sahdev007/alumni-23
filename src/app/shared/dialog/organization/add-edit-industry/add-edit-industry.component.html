@@ -23,7 +23,7 @@
     </div>
     <div class="mt-2" mat-dialog-actions align="end">
         <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="savePrim()">{{data?.action == "create-primaryIndustry" ? 'Submit' :  'Update'}}</button>
+        <button mat-raised-button color="primary" (click)="savePrim()" [mat-dialog-close]="true" cdkFocusInitial>{{data?.action == "create-primaryIndustry" ? 'Submit' :  'Update'}}</button>
     </div>
 </ng-container>
 <ng-container *ngIf="data?.action == 'create-secondaryIndustry' || data?.action == 'update-secondaryIndustry'">
@@ -51,6 +51,6 @@
     </div>
     <div class="mt-2" mat-dialog-actions align="end">
         <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="saveSecon()">{{data?.action == "create-secondaryIndustry" ? 'Submit' :  'Update'}}</button>
+        <button mat-raised-button color="primary" (click)="saveSecon()" [mat-dialog-close]="true" cdkFocusInitial>{{data?.action == "create-secondaryIndustry" ? 'Submit' :  'Update'}}</button>
     </div>
 </ng-container>

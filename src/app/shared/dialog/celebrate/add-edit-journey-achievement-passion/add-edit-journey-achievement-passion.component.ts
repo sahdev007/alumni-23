@@ -66,7 +66,6 @@ export class AddEditJourneyAchievementPassionComponent implements OnInit {
       await this.celebrateService.postData(action, formData).subscribe((res: any) => {
         if (res?.status === 200) {
           this.dialogRef.close();
-          this.ngOnInit();
         }
       }, error => {
       });

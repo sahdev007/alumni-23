@@ -25,7 +25,7 @@ export class KeyContactComponent implements OnInit, OnDestroy, AfterViewInit{
 
   // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['title', 'phone', 'email', 'designation'];
-  public columnsToDisplay: string[] = [...this.displayedColumns,'status', 'actions'];
+  public columnsToDisplay: string[] = [...this.displayedColumns,'is_active', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -201,10 +201,10 @@ export class KeyContactComponent implements OnInit, OnDestroy, AfterViewInit{
   }
 
   async onStatusChange(e:any, params: any) {
-    let action = "update-event";
+    let action = "update-contact";
       let param = {
         id: params?.id,
-        status: e?.target?.value
+        is_active: e?.target?.value
       }
       console.log(param);
       await this.contactService.updateData(action, param).subscribe((res: any) => {

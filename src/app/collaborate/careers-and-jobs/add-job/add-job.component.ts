@@ -12,6 +12,7 @@ import { CollaborateService } from 'src/app/services/collaborate.service';
 export class AddJobComponent implements OnInit {
 
   jobForm: FormGroup;
+  
   status: any;
   profilePic: any;
   image: any;
@@ -23,6 +24,7 @@ export class AddJobComponent implements OnInit {
   internshipData: any;
   newJobId: any;
   updatedJob: any;
+  jobStat = [{id:1, value:'open'},{id:2, value:'closed'}];
 
   constructor(
     public fb : FormBuilder,
@@ -63,7 +65,7 @@ export class AddJobComponent implements OnInit {
               // this.addClubForm.patchValue(this.updatedClubData);
             }
           });
-        }, 500);
+        }, 200);
       }
     });
   }
@@ -91,8 +93,8 @@ export class AddJobComponent implements OnInit {
       email: ['', [Validators.required,  Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$")]],
       website: ['', Validators.required],
       description: ['', Validators.required],
-      is_active: ['closed'],
-      type: 'alumni'
+      is_active: [''],
+      type: 'admin'
     })
   }
 
@@ -103,24 +105,19 @@ export class AddJobComponent implements OnInit {
  */
   async addJob() {
     this.submitted = true;
-    if(this.jobForm?.invalid) {
-      return;
+    this.jobForm.value.author = this.author;
+    if(this.updatedJob != "update-jobs") {
+      await this.collaborateService.postData('create-jobs', this.jobForm?.value).subscribe((res: any) => {
+        if (res?.status == 200) {
+          this.router.navigate(['/collaborate/admin-jobs']);
+        }
+      });
     } else {
-      this.jobForm.value.author = this.author;
-      if(this.updatedJob != "update-jobs") {
-        await this.collaborateService.postData('create-jobs', this.jobForm?.value).subscribe((res: any) => {
-          if (res?.status === 200) {
-            this.router.navigate(['/collaborate/admin-jobs']);
-          }
-        });
-      } else {
-        await this.collaborateService.updateData('update-jobs', this.jobForm?.value).subscribe((res: any) => {
-          if (res?.status === 200) {
-            this.router.navigate(['/collaborate/admin-jobs']);
-          }
-        });
-      }
-
+      await this.collaborateService.updateData('update-jobs', this.jobForm?.value).subscribe((res: any) => {
+        if (res?.status == 200) {
+          this.router.navigate(['/collaborate/admin-jobs']);
+        }
+      });
     }
   }
 
@@ -135,6 +132,10 @@ export class AddJobComponent implements OnInit {
     },error => {
       // this.interceptor.notificationService.openFailureSnackBar(error);
     })
+  }
+
+  clickToBack() {
+    this.router.navigate(['/collaborate/admin-jobs']);
   }
 
 }

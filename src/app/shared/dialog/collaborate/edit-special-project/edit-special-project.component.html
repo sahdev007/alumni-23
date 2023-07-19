@@ -7,19 +7,21 @@
         <input matInput type="text" name="author" formControlName="author" readonly>
       </mat-form-field>
     </div>
-    <div>
+    <div class="row">
+      <div class="col-xl-6">
         <mat-form-field class="fullWidth w-100" appearance="fill">
           <mat-label>Project Title </mat-label>
           <input matInput type="text" name="title" formControlName="title">
           <mat-error *ngIf="editSpecialForm.controls['title']?.errors?.required">This field is required</mat-error>
         </mat-form-field>
       </div>
-    <div>
+      <div class="col-xl-6">
         <mat-form-field class="fullWidth w-100" appearance="fill">
           <mat-label>Charity/Initiative name </mat-label>
           <input matInput type="text" name="charityName" formControlName="charityName">
           <mat-error *ngIf="editSpecialForm.controls['charityName']?.errors?.required">This field is required</mat-error>
         </mat-form-field>
+      </div>
     </div>
     <div class="mb-2">
         <label id="example-radio-group-label">Monetary donations accepted :</label>
@@ -58,26 +60,54 @@
             </mat-form-field>
          </div>
      </div>
-    <div>
+    <div class="row">
+      <div class="col-xl-6">
         <mat-form-field class="fullWidth w-100" appearance="fill">
           <mat-label>Email Id</mat-label>
           <input matInput type="text" name="email" formControlName="email">
           <mat-error *ngIf="editSpecialForm.controls['email']?.errors?.required">This field is required</mat-error>
         </mat-form-field>
-    </div>
-    <div>
+      </div>
+      <div class="col-xl-6">
         <mat-form-field class="fullWidth w-100" appearance="fill">
           <mat-label>Social Link </mat-label>
           <input matInput type="text" name="link" formControlName="link">
           <mat-error *ngIf="editSpecialForm.controls['link']?.errors?.required">This field is required</mat-error>
         </mat-form-field>
+      </div>
     </div>
     <div>
-        <mat-form-field class="example-full-width w-100" appearance="fill">
+        <mat-form-field class="fullWidth w-100" appearance="fill">
+          <mat-label>Status </mat-label>
+          <mat-select name="is_active" formControlName="is_active">
+            <mat-option value="active">Active</mat-option>
+            <mat-option value="inActive">Inactive</mat-option>
+          </mat-select>
+          <mat-error *ngIf="editSpecialForm.controls['is_active']?.errors?.required">This field is required</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <!-- <mat-form-field class="example-full-width w-100" appearance="fill">
             <mat-label>Description of Project</mat-label>
             <textarea matInput formControlName="description" placeholder="Enter Description..."></textarea>
             <mat-error *ngIf="editSpecialForm.controls['description']?.errors?.required">This field is required</mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
+        <label for="inputAddress4" class="col-sm-3 col-form-label">Description :</label>
+        <editor required formControlName="description"
+        [init]="{
+            height: 200,
+            menubar: false,
+            plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar:
+            'undo redo | formatselect | bold italic backcolor | \
+            alignleft aligncenter alignright alignjustify | \
+            bullist numlist outdent indent | removeformat | help'
+        }"
+        ></editor>
     </div>
   </form>
 </div>

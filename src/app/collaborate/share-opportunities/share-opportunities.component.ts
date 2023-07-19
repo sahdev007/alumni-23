@@ -21,7 +21,6 @@ export class ShareOpportunitiesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['author', 'specialization', 'type'];
   public columnsToDisplay: string[] = [...this.displayedColumns, 'position', 'salary', 'status', 'actions'];
 
@@ -32,7 +31,6 @@ export class ShareOpportunitiesComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
     public dialog: MatDialog,
@@ -201,7 +199,6 @@ export class ShareOpportunitiesComponent implements OnInit {
           id: params?.id,
           status: e?.target?.value
         }
-        console.log(param);
         await this.collaborateService.updateData(action, param).subscribe((res: any) => {
           if(res?.status == 200) {
             this.ngOnInit();

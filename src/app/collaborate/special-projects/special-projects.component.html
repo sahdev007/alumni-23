@@ -51,9 +51,9 @@
                 </mat-select>
             </mat-form-field> -->
                 <select class="form-select" aria-label="Default select example" (change)="onStatusChange($event, element)" [ngClass]="{ 'isActive': element.is_active === 'active' , 'isInactive': element.is_active === 'inActive' }">
-                <option value="active">Active</option>
-                <option value="inActive">Inactive</option>
-            </select>
+                    <option value="active">Active</option>
+                    <option value="inActive">Inactive</option>
+                </select>
             </td>
         </ng-container>
 

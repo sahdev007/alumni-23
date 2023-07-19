@@ -43,7 +43,7 @@ export class ContactService {
   }
 
   updateData(action?: any, data?: any) {
-    if (action == "update-eventType" ) {
+    if (action == "update-eventType"  ) {
       return this.http.post(`${this.url}/${action}/${data?.id}`, data);
     } 
     return this.http.put(`${this.url}/${action}/${data?.id}`, data);

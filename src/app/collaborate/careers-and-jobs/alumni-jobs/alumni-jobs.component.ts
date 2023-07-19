@@ -175,7 +175,6 @@ export class AlumniJobsComponent implements OnInit {
         id: params?.id,
         is_active: e?.target?.value
       }
-      console.log(param);
       await this.collaborateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
           this.ngOnInit();

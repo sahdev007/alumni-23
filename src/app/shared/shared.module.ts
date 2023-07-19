@@ -21,10 +21,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { DeletedialogComponent } from './dialog/deletedialog/deletedialog.component';
-import { AddNewsComponent } from './dialog/celebrate/add-news/add-news.component';
-import { EditNewsComponent } from './dialog/celebrate/edit-news/edit-news.component';
-import { EditMagazineComponent } from './dialog/celebrate/edit-magazine/edit-magazine.component';
-import { AddMagazineComponent } from './dialog/celebrate/add-magazine/add-magazine.component';
 import { AddFeaturedAlumniComponent } from './dialog/celebrate/add-featured-alumni/add-featured-alumni.component';
 import { EditFeaturedAlumniComponent } from './dialog/celebrate/edit-featured-alumni/edit-featured-alumni.component';
 import { EditUserComponent } from './dialog/dashboard/edit-user/edit-user.component';
@@ -64,7 +60,6 @@ import { ViewMagazineComponent } from './dialog/celebrate/view-magazine/view-mag
 import { ViewNewsUpdatesComponent } from './dialog/celebrate/view-news-updates/view-news-updates.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { ViewBusinessVenturesComponent } from './dialog/community/view-business-ventures/view-business-ventures.component';
 import { ReplaceUnderscorePipe } from './pipes/replace-underscore.pipe';
 import { AuthGuard } from '../auth/auth.guard';
 import { AddEditSkillsComponent } from './dialog/organization/add-edit-skills/add-edit-skills.component';
@@ -112,10 +107,6 @@ import { AddEditFunctionComponent } from './dialog/organization/add-edit-functio
         SidebarComponent,
         ColorSwitcherComponent,
         DeletedialogComponent,
-        AddNewsComponent,
-        EditNewsComponent,
-        EditMagazineComponent,
-        AddMagazineComponent,
         AddFeaturedAlumniComponent,
         EditFeaturedAlumniComponent,
         EditUserComponent,
@@ -151,7 +142,6 @@ import { AddEditFunctionComponent } from './dialog/organization/add-edit-functio
         AddEditMagazineComponent,
         ViewMagazineComponent,
         ViewNewsUpdatesComponent,
-        ViewBusinessVenturesComponent,
         ReplaceUnderscorePipe,
         AddEditSkillsComponent,
         AddEditInstitutesComponent,

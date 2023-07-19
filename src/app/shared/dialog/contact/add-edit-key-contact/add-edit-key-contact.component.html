@@ -30,11 +30,27 @@
             </mat-form-field>
         </div>
         <div class="mt-2">
-            <mat-form-field class="example-full-width w-100" appearance="fill">
+            <!-- <mat-form-field class="example-full-width w-100" appearance="fill">
                 <mat-label>Description</mat-label>
                 <textarea formControlName="description" rows="3" matInput placeholder="Enter Description here..."></textarea>
                 <mat-error *ngIf="form.controls['description']?.errors?.required">This field is required</mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
+            <label for="inputAddress4" class="col-sm-3 col-form-label">Description :</label>
+            <editor required formControlName="description"
+            [init]="{
+                height: 200,
+                menubar: false,
+                plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar:
+                'undo redo | formatselect | bold italic backcolor | \
+                alignleft aligncenter alignright alignjustify | \
+                bullist numlist outdent indent | removeformat | help'
+            }"
+            ></editor>
         </div>
     </form>
 </div>

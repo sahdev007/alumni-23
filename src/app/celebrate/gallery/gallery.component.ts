@@ -217,7 +217,6 @@ export class GalleryComponent implements OnInit {
     await this.celebrateService.getAllData(action).subscribe(
       (gal: any) => {
         if(gal?.status == 200) this.dataSource.data = gal?.data;
-        console.log(this.dataSource.data);
       },
       (error) => {
         // this.interceptor.notificationService.openFailureSnackBar(error);

@@ -14,13 +14,14 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./featured-alumni.component.scss']
 })
 export class FeaturedAlumniComponent implements OnInit {
-  public status = 'active';
+  public status = '';
+  stat = [{id:1, value:'active'}, {id:2, value:'inActive'}]
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['full_name', 'batch', 'order_by'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'is_active', 'actions'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -175,7 +176,7 @@ export class FeaturedAlumniComponent implements OnInit {
     let action = "update-getFeatured";
       let param = {
         id: params?.id,
-        is_active: e?.target?.value
+        status: e?.target?.value
       }
 
       await this.celebrateService.updateData(action, param).subscribe((res: any) => {

@@ -24,7 +24,7 @@ export class ParticipateInAdmissionPanelComponent implements OnInit {
 
   // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['city', 'location', 'date_time'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'userList','status', 'actions'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'userList','is_active', 'actions'];
 
   /**
    * it holds a list of active filter for each column.

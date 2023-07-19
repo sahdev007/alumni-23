@@ -43,7 +43,7 @@ export class CommunityService {
   }
 
   updateData(action?: any, data?: any) {
-    if (action == "update-club" || action == "update-entrepreneur") {
+    if (action == "update-club") {
       return this.http.post(`${this.url}/${action}/${data?.id}`, data);
     } 
     return this.http.put(`${this.url}/${action}/${data?.id}`, data);

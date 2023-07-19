@@ -87,7 +87,7 @@ export class ConnectService {
   // }
 
   updateData(action?: any, data?: any) {
-    if (action == "update-club" ) {
+    if (action == "update-club" || action=="update-event" ) {
       return this.http.post(`${this.url}/${action}/${data?.id}`, data);
     } 
     return this.http.put(`${this.url}/${action}/${data?.id}`, data);

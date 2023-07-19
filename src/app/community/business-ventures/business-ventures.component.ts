@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { Person } from 'src/app/models/person';
 import { CommunityService } from 'src/app/services/community.service';
 import { DataService } from 'src/app/services/data.service';
-import { ViewBusinessVenturesComponent } from 'src/app/shared/dialog/community/view-business-ventures/view-business-ventures.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
@@ -137,9 +136,8 @@ export class BusinessVenturesComponent implements OnInit {
   }
 
   view(data: any){
-    const dialogRef = this.dialog.open(ViewBusinessVenturesComponent, {
-      width: '400px',
-      data: { data: data }
+    this.router.navigate(['/community/edit-business-ventures'],{
+      queryParams: { userId: data }, skipLocationChange: true
     });
   }
 

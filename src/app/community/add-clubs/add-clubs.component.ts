@@ -119,10 +119,10 @@ export class AddClubsComponent implements OnInit {
 
       let formData = new FormData();
       formData.append('image', (this.clubPic) ? this.clubPic : '');
-      formData.append('name', this.addClubForm.value.name);
-      formData.append('description', this.addClubForm.value.description);
-      formData.append('clubsType_id', this.addClubForm.value.clubsType_id);
-      formData.append('status', this.addClubForm.value.status);
+      formData.append('name', this.addClubForm?.value?.name);
+      formData.append('description', this.addClubForm?.value?.description);
+      formData.append('clubsType_id', this.addClubForm?.value?.clubsType_id);
+      formData.append('status', this.addClubForm?.value?.status);
       
       await this.communityService.postData(action, formData).subscribe((item: any) => {
         if(item?.status == 200) {

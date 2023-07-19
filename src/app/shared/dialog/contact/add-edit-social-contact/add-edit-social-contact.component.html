@@ -36,5 +36,5 @@
 </div>
 <div class="mt-3" mat-dialog-actions align="end">
     <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save()">{{data?.action == "create-contact" ? 'Submit' :  'Update'}}</button>
+    <button mat-raised-button color="primary" (click)="save()" [mat-dialog-close]="true" cdkFocusInitial>{{data?.action == "create-contact" ? 'Submit' :  'Update'}}</button>
 </div>

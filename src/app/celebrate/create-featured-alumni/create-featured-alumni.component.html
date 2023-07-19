@@ -1,4 +1,4 @@
-<div class="get-featured px-4">
+<div class="get-featured px-4 pb-5">
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between my-4">
             <h3 class="mb-0 text-gray-800 text-center">{{pageType == 'update-getFeatured' ? 'Update' : 'Add'}} Featured Alumni</h3>
@@ -506,8 +506,8 @@
                         <div class="col-md-12 my-2 text-start ">
                             <label class="form-label">Description
                                 <span class="text-danger fs-6">*</span></label>
-                                <textarea class="form-control" formControlName="description" name="" id="" cols="30" rows="3"></textarea>
-                                <!-- <editor formControlName="description"
+                                <!-- <textarea class="form-control" formControlName="description" name="" id="" cols="30" rows="3"></textarea> -->
+                                <editor formControlName="description"
                                 [init]="{
                                     height: 199,
                                     menubar: true,
@@ -521,7 +521,7 @@
                                     alignleft aligncenter alignright alignjustify | \
                                     bullist numlist outdent indent | removeformat | help'
                                 }"
-                                ></editor> -->
+                                ></editor>
                                 <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.description.dirty || submitted) && f.description.errors?.required">
                                     Description is required.
                                 </div> -->

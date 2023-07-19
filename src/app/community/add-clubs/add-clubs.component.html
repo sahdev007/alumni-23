@@ -12,7 +12,101 @@
     </div>
 </div>
 <!--end breadcrumb-->
-<div class="card p-3">
+<div class="row">
+	<div class="col-xl-7 mx-auto">
+		<h6 class="mb-0 text-uppercase">Create Club Type</h6>
+		<hr/>
+		<div class="card border-top border-0 border-4 border-primary">
+			<div class="card-body p-5">
+                <div mat-dialog-content>
+                    <form [formGroup]="addClubForm">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-12">
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                            <mat-form-field class="fullWidth w-100" appearance="fill">
+                                                <mat-label>Name </mat-label>
+                                                <input matInput type="text" formControlName="name">
+                                                <mat-error *ngIf="addClubForm.controls['name']?.errors?.required">This field is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                            <mat-form-field class="fullWidth w-100" appearance="fill">
+                                                <mat-label>Club Type </mat-label>
+                                                <mat-select name="clubsType_id" [(ngModel)]="clubType" formControlName="clubsType_id">
+                                                    <mat-option *ngFor="let item of clubData; index as i;" [value]="item?.id">{{item?.type}}</mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="addClubForm.controls['clubsType_id']?.errors?.required">This field is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                            <mat-form-field class="fullWidth w-100" appearance="fill">
+                                                <mat-label>Status </mat-label>
+                                                <mat-select name="status" [(ngModel)]="clubStatus" formControlName="status">
+                                                    <mat-option value="active">Active</mat-option>
+                                                    <mat-option value="inActive">Inactive</mat-option>
+                                                </mat-select>
+                                                <!-- <mat-error *ngIf="addClubForm.controls['status']?.errors?.required">This field is required</mat-error> -->
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                            <div class="form-group row mt-2">
+                                                <div class="col-sm-12 pl-lg-0 pl-md-0 pl-xl-0">
+                                                    <input type="file" class="form-control mb-2" formControlName="clubImage" id="formGroupLink" (change)="onUploadImage($event)" accept="image/*" placeholder="Upload Image" />
+                                                    <mat-error *ngIf="addClubForm.controls['clubImage']?.errors?.required">This field is required</mat-error>
+                                                    <div class="mb-3 row justify-content-center">
+                                                        <div class="col-md-8 text-center">
+                                                            <ng-container *ngIf="updatedClub == undefined && image !== undefined">
+                                                                <img [src]="image" class="img-fluid h-100 my-2" alt="picture">
+                                                            </ng-container>
+                                                            <ng-container *ngIf="updatedClub && image == undefined">
+                                                                <img [src]="imgPath + updatedClubData?.clubImage" class="img-fluid h-100 my-3" alt="club picture">
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <label for="formGroupExampleInput" class="col-form-label fw-bold">Description <span class="text-danger">*</span></label>
+                                            <editor required [(ngModel)]="clubDescription" formControlName="description"
+                                            [init]="{
+                                                height: 200,
+                                                menubar: true,
+                                                plugins: [
+                                                'advlist autolink lists link image charmap print preview anchor',
+                                                'searchreplace visualblocks code fullscreen',
+                                                'insertdatetime media table paste code help wordcount'
+                                                ],
+                                                toolbar:
+                                                'undo redo | formatselect | bold italic backcolor | \
+                                                alignleft aligncenter alignright alignjustify | \
+                                                bullist numlist outdent indent | removeformat | help'
+                                            }"
+                                            ></editor>
+                                            <!-- <mat-form-field class="example-full-width w-100" appearance="fill">
+                                                <mat-label>Description</mat-label>
+                                                <textarea formControlName="description" [(ngModel)]="clubDescription" rows="3" matInput placeholder="Enter Description here..."></textarea>
+                                                <mat-error *ngIf="addClubForm.controls['description']?.errors?.required">This field is required</mat-error>
+                                            </mat-form-field> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                        </div>
+                    </form>
+                </div>
+                <div class="mt-3" mat-dialog-actions align="center">
+                    <button class="me-2" mat-raised-button (click)="cancel()" color="warn" mat-dialog-close>Cancel</button>
+                    <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Submit</button>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <div class="card p-3">
     <h4 mat-dialog-title class="my-3">Create Club Type</h4>
     <div mat-dialog-content>
         <form [formGroup]="addClubForm">
@@ -43,7 +137,7 @@
                                         <mat-option value="active">Active</mat-option>
                                         <mat-option value="inActive">Inactive</mat-option>
                                     </mat-select>
-                                    <!-- <mat-error *ngIf="addClubForm.controls['status']?.errors?.required">This field is required</mat-error> -->
+                                   
                                 </mat-form-field>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
@@ -57,10 +151,7 @@
                                 <div class="form-group row mt-2">
                                     <div class="col-sm-12 pl-lg-0 pl-md-0 pl-xl-0">
                                         <input type="file" class="form-control mb-2" formControlName="clubImage" id="formGroupLink" (change)="onUploadImage($event)" accept="image/*" placeholder="Upload Image" />
-                                        <!-- <div class="invalidText text-start  mt-2 mb-0 alert alert-danger p-2"
-                                        *ngIf="(f.image.touched || submitted) && f.image.errors?.required">
-                                        Image is required.
-                                    </div> -->
+                                       
                                         <mat-error *ngIf="addClubForm.controls['clubImage']?.errors?.required">This field is required</mat-error>
                                         <div class="mb-3 row justify-content-center">
                                             <div class="col-md-8 text-center">
@@ -86,4 +177,4 @@
         <button class="me-2" mat-raised-button (click)="cancel()" color="warn" mat-dialog-close>Cancel</button>
         <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Submit</button>
     </div>
-</div>
+</div> -->

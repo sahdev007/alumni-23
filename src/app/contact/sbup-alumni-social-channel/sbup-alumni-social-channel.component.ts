@@ -1,31 +1,35 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { Person } from 'src/app/models/person';
-import { ContactService } from 'src/app/services/contact.service';
-import { DataService } from 'src/app/services/data.service';
-import { AddEditSocialContactComponent } from 'src/app/shared/dialog/contact/add-edit-social-contact/add-edit-social-contact.component';
-import { ViewContactComponent } from 'src/app/shared/dialog/contact/view-contact/view-contact.component';
-import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { Router } from "@angular/router";
+import { Person } from "src/app/models/person";
+import { ContactService } from "src/app/services/contact.service";
+import { DataService } from "src/app/services/data.service";
+import { AddEditSocialContactComponent } from "src/app/shared/dialog/contact/add-edit-social-contact/add-edit-social-contact.component";
+import { ViewContactComponent } from "src/app/shared/dialog/contact/view-contact/view-contact.component";
+import { DeletedialogComponent } from "src/app/shared/dialog/deletedialog/deletedialog.component";
 
 @Component({
-  selector: 'app-sbup-alumni-social-channel',
-  templateUrl: './sbup-alumni-social-channel.component.html',
-  styleUrls: ['./sbup-alumni-social-channel.component.scss']
+  selector: "app-sbup-alumni-social-channel",
+  templateUrl: "./sbup-alumni-social-channel.component.html",
+  styleUrls: ["./sbup-alumni-social-channel.component.scss"],
 })
 export class SbupAlumniSocialChannelComponent implements OnInit {
-  public status = 'active';
+  public status = "active";
   getAllSocialContact: Array<any> = [];
- 
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
-  public displayedColumns: string[] = ['title', 'link'];
-  public columnsToDisplay: string[] = [...this.displayedColumns,'status', 'actions'];
+  public displayedColumns: string[] = ["title", "link"];
+  public columnsToDisplay: string[] = [
+    ...this.displayedColumns,
+    "is_active",
+    "actions",
+  ];
 
   /**
    * it holds a list of active filter for each column.
@@ -37,28 +41,25 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
   // private serviceSubscribe: Subscription;
 
   constructor(
-    private contactService: ContactService, 
+    private contactService: ContactService,
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router
-    ) {
+  ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
-
 
   private filter() {
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
       let find = true;
 
       for (var columnName in this.columnsFilters) {
-
         let currentData = "" + data[columnName];
 
         //if there is no filter, jump to next loop, otherwise do the filter.
         if (!this.columnsFilters[columnName]) {
           // return;
         }
-
 
         let searchValue = this.columnsFilters[columnName]["contains"];
 
@@ -103,14 +104,13 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
           //exit loop
           // return;
         }
-
       }
 
       return find;
     };
 
     this.dataSource.filter = null;
-    this.dataSource.filter = 'activate';
+    this.dataSource.filter = "activate";
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -141,11 +141,11 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
    */
   add(params: string) {
     const dialogRef = this.dialog.open(AddEditSocialContactComponent, {
-      width: '450px',
-      data: {action: params}
+      width: "450px",
+      data: { action: params },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.ngOnInit();
       }
@@ -155,26 +155,24 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
    * Function to View Contact
    */
   view(params: any) {
-    console.log(params);
     const dialogRef = this.dialog.open(ViewContactComponent, {
-      width: '450px',
-      data: {data: params, type:'socialContact'}
+      width: "450px",
+      data: { data: params, type: "socialContact" },
     });
   }
 
   /**
    * Function to edit project
-   * @param data 
-   * @param params 
+   * @param data
+   * @param params
    */
   edit(data: any, params: any) {
-    console.log(data,params);
     const dialogRef = this.dialog.open(AddEditSocialContactComponent, {
-      width: '450px',
-      data: {data: data, action: params}
+      width: "450px",
+      data: { data: data, action: params },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.ngOnInit();
       }
@@ -182,39 +180,44 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
   }
   /**
    * Function to remove items by id
-   * @param id 
-   * @param params 
-  */
+   * @param id
+   * @param params
+   */
   delete(data: any, params: string) {
     let action: string = "delete-contact";
     const dialogRef = this.dialog.open(DeletedialogComponent, {
-      width: '400px',
-      data: { info: params }
+      width: "400px",
+      data: { info: params },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.contactService.deleteData(action, data?.id).subscribe((res: any) => {
-          if(res?.status == 200) this.ngOnInit();
-        })
+        this.contactService
+          .deleteData(action, data?.id)
+          .subscribe((res: any) => {
+            if (res?.status == 200) this.ngOnInit();
+          });
       }
     });
   }
 
-  async onStatusChange(e:any, params: any) {
-    let action = "update-event";
-      let param = {
-        id: params?.id,
-        status: e?.target?.value
-      }
-      console.log(param);
-      await this.contactService.updateData(action, param).subscribe((res: any) => {
-        if(res?.status == 200) {
+  async onStatusChange(e: any, params: any) {
+    let action = "update-contact";
+    let param = {
+      id: params?.id,
+      is_active: e?.target?.value,
+    };
+    console.log(param);
+    await this.contactService.updateData(action, param).subscribe(
+      (res: any) => {
+        if (res?.status == 200) {
           this.ngOnInit();
         }
-      }, error => {
-          console.log(error);
-      });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   ngAfterViewInit(): void {
@@ -227,7 +230,6 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-
   }
 
   /**
@@ -238,13 +240,13 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
     await this.contactService.getAllData(action).subscribe(
       (res: any) => {
         // console.log(res.data)
-        if(res?.status == 200) {
+        if (res?.status == 200) {
           res?.data?.filter((x: any) => {
-            if(x?.type == 'SbupChannel') {
+            if (x?.type == "SbupChannel") {
               this.getAllSocialContact.push(x);
             }
-          })
-          console.log(this.getAllSocialContact)
+          });
+          console.log(this.getAllSocialContact);
           this.dataSource.data = this.getAllSocialContact;
         }
       },
