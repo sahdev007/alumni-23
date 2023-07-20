@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Bulona-angular": {
+    "Alumni-Admin": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -26,7 +26,7 @@
             "allowedCommonJsDependencies": [
               "chart.js"
            ],
-            "outputPath": "dist/bulona-angular",
+            "outputPath": "dist/alumni-admin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -105,10 +105,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Bulona-angular:build:production"
+              "browserTarget": "alumni-admin:build:production"
             },
             "development": {
-              "browserTarget": "Bulona-angular:build:development"
+              "browserTarget": "alumni-admin:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -116,7 +116,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Bulona-angular:build"
+            "browserTarget": "alumni-admin:build"
           }
         },
         "test": {
@@ -141,5 +141,5 @@
       }
     }
   },
-  "defaultProject": "Bulona-angular"
+  "defaultProject": "alumni-admin"
 }
