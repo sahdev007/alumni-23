@@ -11,6 +11,8 @@
             // CSS Reset, comment out if not required or using a different module
             @import '~minireset.css/minireset';
             /* You can add global styles to this file, and also import other style files */
+
+            @import "~@ng-select/ng-select/themes/default.theme.css";
             
             html,
             body {
@@ -86,4 +88,7 @@
                         pointer-events: none;
                     }
                 }
+            }
+            .ng-dropdown-panel .ng-dropdown-panel-items {
+                max-height: 168px !important;
             }

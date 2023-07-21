@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 import { environment } from 'src/environments/environment';
 
@@ -18,7 +19,7 @@ export class AddEditMagazineComponent implements OnInit {
   updatedFile: any;
   imgPath: any;
 
-  constructor(private celebrateService: CelebrateService, public fb: FormBuilder,
+  constructor(private celebrateService: CelebrateService, private notifyService: TokenInterceptor, public fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog, public dialogref: MatDialogRef<AddEditMagazineComponent>) { 
       this.imgPath = environment.imgUrl;
@@ -64,11 +65,11 @@ export class AddEditMagazineComponent implements OnInit {
 
     await this.celebrateService.postData(action, formData).subscribe((res: any) => {
       if (res?.status === 200) {
-        console.log('Yes Magazine Create');
+        this.notifyService.notificationService.success(res?.message);
         this.dialogref.close();
       }
     }, error => {
-      // this.notify.notificationService.openFailureSnackBar(error);
+      this.notifyService.notificationService.error(error);
     });
 
   }

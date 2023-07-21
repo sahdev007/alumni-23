@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class AddEditJourneyAchievementPassionComponent implements OnInit {
   constructor(public fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddEditJourneyAchievementPassionComponent>,
-    private celebrateService: CelebrateService) { }
+    private celebrateService: CelebrateService, private notifyService: TokenInterceptor) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -66,8 +67,10 @@ export class AddEditJourneyAchievementPassionComponent implements OnInit {
       await this.celebrateService.postData(action, formData).subscribe((res: any) => {
         if (res?.status === 200) {
           this.dialogRef.close();
+          this.notifyService.notificationService.success(res?.message);
         }
       }, error => {
+        this.notifyService.notificationService.error(error);
       });
     }
   }

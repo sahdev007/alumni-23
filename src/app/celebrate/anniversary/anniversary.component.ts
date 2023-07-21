@@ -3,28 +3,25 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
-import { AddEditJourneyAchievementPassionComponent } from 'src/app/shared/dialog/celebrate/add-edit-journey-achievement-passion/add-edit-journey-achievement-passion.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
-  selector: 'app-passion',
-  templateUrl: './passion.component.html',
-  styleUrls: ['./passion.component.scss']
+  selector: 'app-anniversary',
+  templateUrl: './anniversary.component.html',
+  styleUrls: ['./anniversary.component.scss']
 })
-export class PassionComponent implements OnInit {
-
+export class AnniversaryComponent implements OnInit {
   public status = 'active';
   getAllJourney: Array<any> = [];
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['first_name', 'type'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'description', 'status', 'actions'];
+  public displayedColumns: string[] = ['first_name', 'email', 'mobile_number', 'birth_date'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -37,12 +34,10 @@ export class PassionComponent implements OnInit {
   constructor(
     private celebrateService: CelebrateService, 
     public dialog: MatDialog,
-    public router: Router,
     private notifyService: TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
-
 
   private filter() {
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
@@ -135,18 +130,16 @@ export class PassionComponent implements OnInit {
   }
 
   edit(data: any, params: any) {
-    const dialogRef = this.dialog.open(AddEditJourneyAchievementPassionComponent, {
-      width: '400px',
-      data: {data: data, type: params, action: 'update-journey'}
-    });
+    // const dialogRef = this.dialog.open(AddEditJourneyAchievementPassionComponent, {
+    //   width: '400px',
+    //   data: {data: data, type: params, action: 'update-journey'}
+    // });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 500);
-      }
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     this.ngOnInit();
+    //   }
+    // });
   }
 
   delete(data: any, params: string) {
@@ -160,17 +153,17 @@ export class PassionComponent implements OnInit {
       if (result) {
         this.celebrateService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            this.notifyService.notificationService.success(res?.message);
             this.ngOnInit();
+            this.notifyService.notificationService.success(res?.message);
           } 
         })
       }
     });
   }
 
-  add() {
-    this.router.navigate(['/celebrate/create-featured-alumni']);
-  }
+  // add() {
+  //   this.router.navigate(['/celebrate/create-featured-alumni']);
+  // }
 
   async onStatusChange(e:any, params: any) {
     let action = "update-journey";
@@ -198,33 +191,18 @@ export class PassionComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-    // this.personsService.getAll();
-    // this.serviceSubscribe = this.personsService.persons$.subscribe(res => {
-    //   this.dataSource.data = res;
-    //   console.log(res);
-    // })
   }
 
   async getAllData() {
-    let action = "all-journey";
+    let action = "all-anniversary";
     await this.celebrateService.getAllData(action).subscribe(
       (res: any) => {
-        console.log(res.data)
-        if(res?.status == 200) {
-          res?.data?.filter((x:any) => {
-            if(x?.type == 'passion') {
-              this.getAllJourney.push(x);
-            }
-          });
-        }
-        this.dataSource.data = this.getAllJourney;
+        this.dataSource.data = res?.Anniversary;
       },
       (error) => {
         console.log(error)
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notifyService.notificationService.error(error);
       }
     );
   }
-
-
 }

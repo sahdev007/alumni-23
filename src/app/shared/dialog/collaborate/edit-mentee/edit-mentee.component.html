@@ -1,1 +1,35 @@
-<p>edit-mentee works!</p>
+<h4 mat-dialog-title class="my-2 d-flex align-items-center justify-content-between"><span>Update Mentee</span> <mat-icon mat-icon-button color="primary" mat-dialog-close>close</mat-icon></h4>
+
+<form [formGroup]="mentorshipForm">
+    <div mat-dialog-content>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 my-3">
+                <div class="text-start">
+                    <label class="col-form-label fw-bold">{{data?.type == 'mentor' ? 'Mentor' : 'Mentee'}} Name :</label>
+                    <input type="text" [value]="data?.data?.first_name + ' ' + data?.data?.last_name"
+                        class="shadow-none rounded-0 custom-form form-control" readonly>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6  my-3">
+                <label for="formGroupTitle" class="col-12 col-form-label fw-bold">Select Mentee
+                    :</label>
+                <div class="col-sm-12">
+                    <ng-select formControlName="mentee_user_id"
+                        [items]="allUnselectedMentee"
+                        [multiple]="true"
+                        dropdownPosition="bottom"
+                        [closeOnSelect]="false"
+                        [searchable]="true"
+                        bindLabel="first_name"
+                        placeholder="Select Mentee"
+                        [(ngModel)]="selectedMentee">
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="justify-content-center pb-3" mat-dialog-actions align="end">
+        <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        <button mat-raised-button color="primary" (click)="updateMentorship()" [mat-dialog-close]="true" cdkFocusInitial>Update</button>
+    </div>
+</form>

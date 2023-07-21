@@ -14,11 +14,6 @@
     </div>
     <!--end breadcrumb-->
     <div class=" mb-4">
-        <!-- <div class="d-flex justify-content-end">
-      <button mat-fab color="primary" (click)="add($event)" class="m-2" aria-label="Example icon button with a delete icon">
-        <mat-icon>add</mat-icon>
-      </button>
-    </div> -->
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
             <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
                 <th mat-header-cell *matHeaderCellDef>

@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 import { DataService } from 'src/app/services/data.service';
@@ -38,7 +39,8 @@ export class NewsAndUpdatesComponent implements OnInit {
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router,
-    private celebrateService : CelebrateService
+    private celebrateService : CelebrateService,
+    private notifyService: TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
@@ -176,7 +178,7 @@ export class NewsAndUpdatesComponent implements OnInit {
       if (result) {
         this.celebrateService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
+            this.notifyService.notificationService.success(res?.message);
             this.ngOnInit();
           } 
         })
@@ -227,12 +229,7 @@ async onStatusChange(e:any, params: any) {
       },
       (error) => {
         console.log(error);
-        // this.interceptor.notificationService.openFailureSnackBar(error);
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
   }
 }

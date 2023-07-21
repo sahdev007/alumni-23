@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { AddEditLeadershipComponent } from 'src/app/shared/dialog/about/add-edit-leadership/add-edit-leadership.component';
@@ -30,7 +31,8 @@ export class LeadershipComponent implements OnInit {
 
   constructor(
     private organizationService: OrganizationService, 
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private notifyService : TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
@@ -128,7 +130,7 @@ export class LeadershipComponent implements OnInit {
 
   add(params: any, action?: string, type?: string) {
     const dialogRef = this.dialog.open(AddEditLeadershipComponent, {
-      width: '400px',
+      width: '480px',
       data: { data: params, action: action}
     });
 
@@ -170,8 +172,8 @@ export class LeadershipComponent implements OnInit {
       if (result) {
         this.organizationService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
             this.ngOnInit();
+            this.notifyService.notificationService.success(res?.message);
           } 
         })
       }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 
 @Component({
@@ -23,7 +24,8 @@ export class AddEditNewsComponent implements OnInit {
   author: string = "sunny";
 
   constructor(public fb: FormBuilder, private celebrateService : CelebrateService,
-    public aroute: ActivatedRoute, public router: Router) {
+    public aroute: ActivatedRoute, public router: Router,
+    private notify: TokenInterceptor) {
     // if (localStorage) {
     //   this.currentUser = JSON.parse(localStorage.getItem("currentUser") || "");
     // }
@@ -88,6 +90,7 @@ export class AddEditNewsComponent implements OnInit {
         (res: any) => {
           if (res?.status === 200) {
             this.router.navigate(["/celebrate/news-and-updates"]);
+            this.notify.notificationService.success(res?.message);
           }
         },
         (error) => {

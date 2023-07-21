@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CommunityService } from 'src/app/services/community.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class AddEditClubTypeComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddEditClubTypeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public fb: FormBuilder, private communityServie: CommunityService) { }
+    public fb: FormBuilder, private communityServie: CommunityService, private notifyService: TokenInterceptor) { }
 
   ngOnInit(): void {
     console.log(this.data)
@@ -46,6 +47,7 @@ export class AddEditClubTypeComponent implements OnInit {
         await this.communityServie.postData(this.data?.action, this.clubTypeForm?.value).subscribe((res: any) => {
           if(res?.status == 200) {
             this.dialogRef.close();
+            this.notifyService.notificationService.success(res?.message);
           }
         });
       } else {
@@ -53,6 +55,7 @@ export class AddEditClubTypeComponent implements OnInit {
         await this.communityServie.updateData(this.data?.action, this.clubTypeForm?.value).subscribe((res: any) => {
           if(res?.status == 200) {
             this.dialogRef.close();
+            this.notifyService.notificationService.success(res?.message);
           }
         });
       }

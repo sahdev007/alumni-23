@@ -9,7 +9,6 @@ import { PassionComponent } from './passion/passion.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { MagazineComponent } from './magazine/magazine.component';
 import { NewsAndUpdatesComponent } from './news-and-updates/news-and-updates.component';
-import { BirthayAnniversaryComponent } from './birthay-anniversary/birthay-anniversary.component';
 
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatTableModule } from '@angular/material/table';
@@ -28,6 +27,8 @@ import { CreateFeaturedAlumniComponent } from './create-featured-alumni/create-f
 import { AddEditNewsComponent } from './add-edit-news/add-edit-news.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import { BirthdayComponent } from './birthday/birthday.component';
+import { AnniversaryComponent } from './anniversary/anniversary.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,6 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     MagazineComponent,
     NewsAndUpdatesComponent,
 
-    BirthayAnniversaryComponent,
     YoutubeLinksComponent,
     CreateFeaturedAlumniComponent,
     AddEditNewsComponent,
@@ -48,10 +48,8 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     YoutubeLinksComponent,
     CreateFeaturedAlumniComponent,
     AddEditNewsComponent,
-
-    BirthayAnniversaryComponent
-
-
+    BirthdayComponent,
+    AnniversaryComponent
   ],
   imports: [
     CommonModule,

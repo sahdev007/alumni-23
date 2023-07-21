@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-// import { DialogAlertBoxComponent } from '../shared/components/dialog-alert-box/dialog-alert-box.component';
-// import { DialogNotificationComponent } from '../shared/components/dialog-notification/dialog-notification.component';
+import Swal from "sweetalert2";
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +46,17 @@ export class NotificationService {
       horizontalPosition: 'end'
     });
   }
+
+  success(message: string) {
+    Swal.fire({text: message, icon:'success', timer: 2500});
+  }
+  warning(message: string) {
+    Swal.fire( {text: message, icon: 'warning', timer: 2500});
+  }
+  error(message: string) {
+    Swal.fire( {text: message, icon: 'error',  timer: 2500})
+  }
+
 
   openSuccessAlert(message: string, action: string = "Ok") {
     // const dialogRef = this.dialog.open(DialogAlertBoxComponent, {

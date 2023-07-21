@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 import { AddEditJourneyAchievementPassionComponent } from 'src/app/shared/dialog/celebrate/add-edit-journey-achievement-passion/add-edit-journey-achievement-passion.component';
@@ -31,12 +32,12 @@ export class JourneyComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
     public dialog: MatDialog,
     private celebrateService: CelebrateService,
-    public router: Router
+    public router: Router,
+    private notifyService : TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
@@ -160,7 +161,7 @@ export class JourneyComponent implements OnInit {
       if (result) {
         this.celebrateService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
+            this.notifyService.notificationService.success(res?.message);
             this.ngOnInit();
           } 
         })

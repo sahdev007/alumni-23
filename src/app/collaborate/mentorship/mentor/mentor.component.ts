@@ -8,7 +8,6 @@ import { Person } from 'src/app/models/person';
 import { DataService } from 'src/app/services/data.service';
 import { AddMenteeComponent } from 'src/app/shared/dialog/collaborate/add-mentee/add-mentee.component';
 import { EditMenteeComponent } from 'src/app/shared/dialog/collaborate/edit-mentee/edit-mentee.component';
-import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
   selector: 'app-mentor',
@@ -32,8 +31,7 @@ export class MentorComponent implements OnInit {
 
   public dataSource: MatTableDataSource<Person>;
 
-  constructor(
-    private personsService: DataService, 
+  constructor( 
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router
@@ -135,23 +133,10 @@ export class MentorComponent implements OnInit {
   /**
    * Function to add project List
    */
-  add() {
+  add(params: any, action: string) {
     const dialogRef = this.dialog.open(AddMenteeComponent, {
-      width: '650px',
-      data: {}
-    });
-  }
-
-  /**
-   * Function to edit project
-   * @param data 
-   * @param params 
-   */
-  edit(data: Person, params: any) {
-    console.log(params)
-    const dialogRef = this.dialog.open(EditMenteeComponent, {
-      width: '650px',
-      data: {data: params}
+      width: '750px',
+      data: {data: params, action: action}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -161,32 +146,30 @@ export class MentorComponent implements OnInit {
     });
   }
   /**
-   * Function to remove items by id
-   * @param id 
+   * View Mentor Info
+   */
+  view(e: any) {
+    this.router.navigate(["/view-profile"], { queryParams: { id: e?.user_id } });
+  }
+
+  /**
+   * Function to edit project
+   * @param data 
    * @param params 
-  */
-  delete(id: any, params: string) {
-    const dialogRef = this.dialog.open(DeletedialogComponent, {
-      width: '400px',
-      data: { info: params }
+   */
+  edit(data: any, params: any) {
+    console.log(params)
+    const dialogRef = this.dialog.open(EditMenteeComponent, {
+      width: '650px',
+      data: {data: data, action: params}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
+        this.ngOnInit();
       }
     });
   }
-  /**
-   * Function to View user list
-   * @param data 
-   */
-  // viewUserList(data: any) {
-  //   const dialogRef = this.dialog.open(ViewUserListComponent, {
-  //     width: '400px',
-  //     data: { info: data }
-  //   });
-  // }
 
   async onStatusChange(e:any, params: any) {
     console.log(e, params);
@@ -198,10 +181,9 @@ export class MentorComponent implements OnInit {
       console.log(param);
       await this.dataService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
-          // this.notify.notificationService.openSuccessSnackBar(res?.message);
         }
       }, error => {
-        // this.notify.notificationService.openFailureSnackBar(error)
+        console.log(error);
       });
     
   }
@@ -216,11 +198,6 @@ export class MentorComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-    // this.personsService.getAll();
-    // this.serviceSubscribe = this.personsService.persons$.subscribe(res => {
-    //   this.dataSource.data = res;
-    //   console.log(res);
-    // })
   }
 
   /**

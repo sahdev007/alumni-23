@@ -8,11 +8,11 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { MagazineComponent } from './magazine/magazine.component';
 import { NewsAndUpdatesComponent } from './news-and-updates/news-and-updates.component';
 
-import { BirthayAnniversaryComponent } from './birthay-anniversary/birthay-anniversary.component';
-
 import { YoutubeLinksComponent } from './youtube-links/youtube-links.component';
 import { CreateFeaturedAlumniComponent } from './create-featured-alumni/create-featured-alumni.component';
 import { AddEditNewsComponent } from './add-edit-news/add-edit-news.component';
+import { BirthdayComponent } from './birthday/birthday.component';
+import { AnniversaryComponent } from './anniversary/anniversary.component';
 
 const routes: Routes = [
   {
@@ -20,72 +20,51 @@ const routes: Routes = [
     children: [
       {
         path: 'featured-alumni',
-        component: FeaturedAlumniComponent,
-        data: {
-          title: 'featured alumni'
-        }
+        component: FeaturedAlumniComponent
       },
       {
         path: 'create-featured-alumni',
-        component: CreateFeaturedAlumniComponent,
-        data: {
-          title: 'Get Featured'
-        }
+        component: CreateFeaturedAlumniComponent
       },
       {
         path: 'journey',
-        component: JourneyComponent,
-        data: {
-          title: 'Journey'
-        }
+        component: JourneyComponent
       },
       {
         path: 'achievements',
-        component: AchievementsComponent,
-        data: {
-          title: 'Achievements'
-        }
+        component: AchievementsComponent
       },
       {
         path: 'passion',
-        component: PassionComponent,
-        data: {
-          title: 'Passion'
-        }
+        component: PassionComponent
       },
       {
         path: 'gallery',
-        component: GalleryComponent,
-        data: {
-          title: 'Gallery'
-        }
+        component: GalleryComponent
       },
       {
         path: 'youtube-links',
-        component: YoutubeLinksComponent,
-        data: {
-          title: 'Youtube links'
-        }
+        component: YoutubeLinksComponent
       },
       {
         path: 'magazine',
-        component: MagazineComponent,
-        data: {
-          title: 'Magazine'
-        }
+        component: MagazineComponent
       },
       {
         path: 'news-and-updates',
-
-        component: NewsAndUpdatesComponent,
-        data: {
-          title: 'News'
-        }
+        component: NewsAndUpdatesComponent
       },
-    
       {
         path: 'add-news',
         component: AddEditNewsComponent
+      },
+      {
+        path: 'birthday',
+        component: BirthdayComponent
+      },
+      {
+        path: 'anniversary',
+        component: AnniversaryComponent
       }
     ]
   }

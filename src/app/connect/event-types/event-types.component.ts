@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { ConnectService } from 'src/app/services/connect.service';
 import { DataService } from 'src/app/services/data.service';
@@ -29,17 +30,15 @@ export class EventTypesComponent implements OnInit {
    * example : {firstName: {contains : 'person 1'}}
    **/
   public columnsFilters = {};
-
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor( 
     public dialog: MatDialog,
-    private connectService: ConnectService
+    private connectService: ConnectService,
+    private notify : TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
-
 
   private filter() {
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
@@ -169,6 +168,7 @@ export class EventTypesComponent implements OnInit {
       if (result) {
         this.connectService.deleteData(action, data?.id).subscribe((res:any) => {
           if(res?.status == 200) {
+            this.notify.notificationService.success(res?.message);
             this.ngOnInit();
           }
         })
@@ -202,11 +202,6 @@ export class EventTypesComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-    // this.personsService.getAll();
-    // this.serviceSubscribe = this.personsService.persons$.subscribe(res => {
-    //   this.dataSource.data = res;
-    //   console.log(res);
-    // })
   }
 
   async getAllData() {
@@ -216,21 +211,10 @@ export class EventTypesComponent implements OnInit {
         console.log(vid.data)
         if(vid?.status == 200) this.dataSource.data = vid?.data;
         console.log(this.dataSource.data);
-        // if (user?.status == 200) {
-        //   this.rowData = user?.data;
-        //   this.rowData.sort((a: any, b: any) => {
-        //     return a?.order_by - b?.order_by;
-        //   });
-        // }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.error(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 }

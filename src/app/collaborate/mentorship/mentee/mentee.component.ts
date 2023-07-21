@@ -19,9 +19,8 @@ export class MenteeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['user_id', 'first_name', 'email', 'mobile_number', 'mentor_count'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -30,17 +29,14 @@ export class MenteeComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
-    private personsService: DataService, 
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
-
 
   private filter() {
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
@@ -145,17 +141,7 @@ export class MenteeComponent implements OnInit {
    * @param params 
    */
   edit(data: Person, params: any) {
-    console.log(params)
-    // const dialogRef = this.dialog.open(EditYoutubeComponent, {
-    //   width: '650px',
-    //   data: {data: params}
-    // });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.personsService.edit(result);
-    //   }
-    // });
+    console.log(params);
   }
   /**
    * Function to remove items by id
@@ -170,20 +156,9 @@ export class MenteeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.personsService.remove(id);
       }
     });
   }
-  /**
-   * Function to View user list
-   * @param data 
-   */
-  // viewUserList(data: any) {
-  //   const dialogRef = this.dialog.open(ViewUserListComponent, {
-  //     width: '400px',
-  //     data: { info: data }
-  //   });
-  // }
 
   async onStatusChange(e:any, params: any) {
     console.log(e, params);
@@ -213,11 +188,6 @@ export class MenteeComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-    // this.personsService.getAll();
-    // this.serviceSubscribe = this.personsService.persons$.subscribe(res => {
-    //   this.dataSource.data = res;
-    //   console.log(res);
-    // })
   }
 
   /**
@@ -231,22 +201,11 @@ export class MenteeComponent implements OnInit {
         if(res?.status == 200) {
           this.dataSource.data = res?.data;
         }
-      
-        // if (user?.status == 200) {
-        //   this.rowData = user?.data;
-        //   this.rowData.sort((a: any, b: any) => {
-        //     return a?.order_by - b?.order_by;
-        //   });
-        // }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        console.log(error);
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
   }
 
 }

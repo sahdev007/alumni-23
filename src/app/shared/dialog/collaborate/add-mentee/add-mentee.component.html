@@ -1,1 +1,113 @@
-<p>add-mentee works!</p>
+<h4 mat-dialog-title class="my-2 d-flex align-items-center justify-content-between"><span>Add Mentee</span> <mat-icon mat-icon-button color="primary" mat-dialog-close>close</mat-icon></h4>
+
+<form [formGroup]="mentorshipForm">
+    <div mat-dialog-content>
+        <div class="row">
+            <div class="col-md-4 my-3">
+                <div class="text-start">
+                    <label class="col-form-label fw-bold">Institute Name :</label>
+                    <ng-select formControlName="institute_id" dropdownPosition="bottom" [multiple]="false" placeholder="Select Institute Name">
+                        <ng-option value="">Select Institute Name</ng-option>
+                        <ng-option [value]="institute?.id"
+                            *ngFor="let institute of getInstitute; let i=index;">
+                            {{ institute?.institute_name }}
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-md-4 my-3">
+                <div class="text-start">
+                    <label class="col-form-label fw-bold">Batch Year :</label>
+                    <ng-select formControlName="batchYear_id" dropdownPosition="bottom" [multiple]="false" placeholder="Select Batch Year">
+                        <ng-option value="">Select Batch Year</ng-option>
+                        <ng-option [value]="batch?.id"
+                            *ngFor="let batch of getBatch; let i=index;">
+                            {{batch?.batch}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        
+            <div class="col-lg-4 col-md-6 px-0 my-3">
+                <label for="formGroupTitle" class="col-12 col-form-label fw-bold">Skills
+                    :</label>
+                <div class="col-sm-12">
+                    <ng-select formControlName="skill" [items]="skill" bindLabel="skill" bindValue="skill" [multiple]="true"
+                        placeholder="Select Skills">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-md-4 my-3">
+                <div class="text-start">
+                    <label class="col-form-label fw-bold">Primary Industry :</label>
+                    <ng-select formControlName="primary_industry_focus" dropdownPosition="top" [multiple]="false" placeholder="Select Primary Industry">
+                        <ng-option value="">Select Primary Industry</ng-option>
+                        <ng-option [value]="item?.primary_industry_focus"
+                            *ngFor="let item of primaryIndustry; let i=index;">
+                            {{item?.primary_industry_focus}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-md-4 my-3">
+                <div class="text-start">
+                    <label class="col-form-label fw-bold">Secondary Industry :</label>
+                    <ng-select formControlName="secondary_industry_focus" dropdownPosition="top" [multiple]="false" placeholder="Select Secondary Industry">
+                        <ng-option value="">Select Secondary Industry</ng-option>
+                        <ng-option [value]="item?.secondary_industry_focus"
+                            *ngFor="let item of secondaryIndustry; let i=index;">
+                            {{item?.secondary_industry_focus}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-md-4 my-3">
+                <div class="text-start">
+                    <label class="col-form-label fw-bold">Primary Functional Area :</label>
+                    <ng-select formControlName="primary_function_area" dropdownPosition="top" [multiple]="false" placeholder="Select Primary Functional Area">
+                        <ng-option value=""> Select Primary Functional</ng-option>
+                        <ng-option [value]="item?.primary_function_area"
+                            *ngFor="let item of primaryFunc; let i=index;">
+                            {{item?.primary_function_area}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-md-4 my-3">
+                <div class="text-start">
+                    <label class="col-form-label fw-bold">Secondary Functional Area :</label>
+                    <ng-select formControlName="secondary_function_area" dropdownPosition="top">
+                        <ng-option value=""> Select Secondary Functional</ng-option>
+                        <ng-option [value]="item?.secondary_function_area"
+                            *ngFor="let item of secondaryFunc; let i=index;">
+                            {{item?.secondary_function_area}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 my-3">
+                <div class="text-start">
+                    <label class="col-form-label fw-bold">Mentor Name :</label>
+                    <input type="text" [value]="data?.data?.first_name + ' ' + data?.data?.last_name"
+                        class="shadow-none rounded-0 custom-form form-control" readonly>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 px-0 my-3">
+                <label for="formGroupTitle" class="col-12 col-form-label fw-bold">Select Mentee
+                    :</label>
+                <div class="col-sm-12">
+                    <ng-select formControlName="mentee_user_id" dropdownPosition="top" [multiple]="true" [searchable]="true" placeholder="Select Mentee">
+                        <ng-option *ngFor="let item of filterdMentee" [value]="item.id">{{item?.first_name}} {{item?.last_name}}</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="justify-content-center pb-3" mat-dialog-actions align="end">
+        <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        <button mat-raised-button color="primary" (click)="addMentorship()" [mat-dialog-close]="true" cdkFocusInitial>Add</button>
+    </div>
+</form>
+
+

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CollaborateService } from 'src/app/services/collaborate.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class AddEditJobTypeComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddEditJobTypeComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     public fb: FormBuilder,
-    private collaborateService: CollaborateService) { }
+    private collaborateService: CollaborateService, private notifyService: TokenInterceptor) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -40,12 +41,14 @@ export class AddEditJobTypeComponent implements OnInit {
       await this.collaborateService.postData(this.data?.action, this.jobForm?.value).subscribe((res: any) => {
         if(res?.status == 200) {
           this.dialogRef.close();
+          this.notifyService.notificationService.success(res?.message);
         }
       });
     } else {     
       await this.collaborateService.updateData(this.data?.action, this.jobForm.value).subscribe((res: any) => {
         if(res?.status == 200) {
           this.dialogRef.close();
+          this.notifyService.notificationService.success(res?.message);
         }
       });
     }

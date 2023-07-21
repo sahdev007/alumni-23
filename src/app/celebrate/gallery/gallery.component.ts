@@ -3,8 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
+import { SeoService } from 'src/app/services/seo.service';
 import { AddEditGalleryComponent } from 'src/app/shared/dialog/celebrate/add-edit-gallery/add-edit-gallery.component';
 import { ViewGalleryComponent } from 'src/app/shared/dialog/celebrate/view-gallery/view-gallery.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
@@ -30,15 +32,15 @@ export class GalleryComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
     public dialog: MatDialog,
-    private celebrateService: CelebrateService
+    private celebrateService: CelebrateService,
+    private notifyService: TokenInterceptor,
+    private seoService: SeoService
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
-
 
   private filter() {
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
@@ -176,7 +178,7 @@ export class GalleryComponent implements OnInit {
       if (result) {
         this.celebrateService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
+            this.notifyService.notificationService.success(res?.message);
             this.ngOnInit();
           } 
         })
@@ -209,6 +211,12 @@ export class GalleryComponent implements OnInit {
    * initialize data-table by providing persons list to the dataSource.
    */
   ngOnInit(): void {
+    const content = "Alumni 2023 description here";
+    const title = 'Gallery';
+    
+    this.seoService.setMetaDescription(content);
+    this.seoService.setMetaTitle(title);
+
     this.getAllData();
   }
 

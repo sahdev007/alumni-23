@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CommunityService } from 'src/app/services/community.service';
 import { environment } from 'src/environments/environment';
 
@@ -28,6 +29,7 @@ export class AddClubsComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router, 
     public location: Location, private communityService: CommunityService,
+    private notify: TokenInterceptor,
     public arouter: ActivatedRoute) { 
       this.imgPath = environment.imgUrl;
     }
@@ -38,13 +40,12 @@ export class AddClubsComponent implements OnInit {
     this.arouter.queryParams.subscribe((res: any) => {
       this.newClubId = res?.clubId;
       this.updatedClub = res?.action;
-      console.log(this.newClubId, this.updatedClub);
+
       if(this.newClubId){
         setTimeout(async () => {
           await this.communityService.getDataById('single-club', this.newClubId).subscribe((res:any) => {
             if(res?.status == 200) {
               this.updatedClubData = res?.data[0];
-              // this.formInstance.setValue(data);
               this.clubType = this.updatedClubData.clubsType_id;
               this.clubStatus = this.updatedClubData.status;
               this.clubDescription = this.updatedClubData.description;
@@ -53,8 +54,6 @@ export class AddClubsComponent implements OnInit {
           });
         }, 500);
       }
-
-      // this.pageType = res?.type;
     });
   }
 
@@ -102,7 +101,7 @@ export class AddClubsComponent implements OnInit {
     ).subscribe((res: any) => {
       this.clubData = res;
     },error => {
-      // this.notify.notificationService.openFailureSnackBar(error);
+      this.notify.notificationService.error(error);
     })
   }
 
@@ -126,8 +125,11 @@ export class AddClubsComponent implements OnInit {
       
       await this.communityService.postData(action, formData).subscribe((item: any) => {
         if(item?.status == 200) {
+          this.notify.notificationService.success(item?.message);
           this.router.navigate(['/community/clubs']);
         }
+      },error=> {
+          this.notify.notificationService.error(error);
       });
     }
   }

@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Bulona-angular": {
+    "Alumni-23": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -26,7 +26,7 @@
             "allowedCommonJsDependencies": [
               "chart.js"
            ],
-            "outputPath": "dist/bulona-angular",
+            "outputPath": "dist/alumni-23",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,8 +73,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "8mb",
-                  "maximumError": "8mb"
+                  "maximumWarning": "15mb",
+                  "maximumError": "15mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -105,10 +105,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Bulona-angular:build:production"
+              "browserTarget": "Alumni-23:build:production"
             },
             "development": {
-              "browserTarget": "Bulona-angular:build:development"
+              "browserTarget": "Alumni-23:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -116,7 +116,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Bulona-angular:build"
+            "browserTarget": "Alumni-23:build"
           }
         },
         "test": {
@@ -141,5 +141,5 @@
       }
     }
   },
-  "defaultProject": "Bulona-angular"
+  "defaultProject": "Alumni-23"
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 
 @Component({
@@ -31,8 +32,9 @@ export class CreateFeaturedAlumniComponent implements OnInit {
   ];
   constructor(public fb: FormBuilder,
     private celebrateService : CelebrateService,
-    public arouter: ActivatedRoute,
-    private router: Router
+    private arouter: ActivatedRoute,
+    private router: Router,
+    private notifyService: TokenInterceptor
     ) {
 
     // if (localStorage.hasOwnProperty("currentUser")) {
@@ -123,7 +125,7 @@ export class CreateFeaturedAlumniComponent implements OnInit {
       (res: any) => {
         this.getBatch = res?.BatchYear;
       }, error => {
-        // this.notify.notificationService.openFailureSnackBar(error);
+          console.log(error);
       }
     );
   }
@@ -214,10 +216,11 @@ export class CreateFeaturedAlumniComponent implements OnInit {
       
       await this.celebrateService.postData(action, formData).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notifyService.notificationService.success(res?.message);
           this.router.navigate(["/celebrate/featured-alumni"]);
         }
       }, error => {
-        console.log(error);
+          this.notifyService.notificationService.error(error);
       });
     }
   }

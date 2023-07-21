@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 import { AddEditJourneyAchievementPassionComponent } from 'src/app/shared/dialog/celebrate/add-edit-journey-achievement-passion/add-edit-journey-achievement-passion.component';
@@ -36,11 +37,11 @@ export class AchievementsComponent implements OnInit {
   constructor(
     private celebrateService: CelebrateService, 
     public dialog: MatDialog,
-    public router: Router
+    public router: Router,
+    private notifyService: TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
-
 
   private filter() {
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
@@ -156,8 +157,8 @@ export class AchievementsComponent implements OnInit {
       if (result) {
         this.celebrateService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
             this.ngOnInit();
+            this.notifyService.notificationService.success(res?.message);
           } 
         })
       }
@@ -221,7 +222,5 @@ export class AchievementsComponent implements OnInit {
       }
     );
   }
-
-
 
 }

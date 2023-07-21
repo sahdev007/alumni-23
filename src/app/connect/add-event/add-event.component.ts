@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { ConnectService } from 'src/app/services/connect.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class AddEventComponent implements OnInit {
   eventStat = [{id:1, value:'active'}, {id:2, value:'inActive'}]
 
   constructor(public fb: FormBuilder, private connectService: ConnectService,
-    public router: Router, public arouter: ActivatedRoute) {
+    public router: Router, public arouter: ActivatedRoute,
+    private notify: TokenInterceptor) {
     if (localStorage) {
       // this.currentUser = JSON?.parse(
       //   localStorage?.getItem("currentUser") || ""
@@ -44,14 +46,12 @@ export class AddEventComponent implements OnInit {
     this.author = fname + (mname == null ? "" : " " + mname) + " " + lname;
 
     this.arouter.queryParams.subscribe((res: any) => {
-      console.log(res)
       this.newEventId = res?.clubId;
       this.updateAction = res?.action;
-      console.log(this.newEventId, this.updateAction);
       if(this.newEventId){
         setTimeout(async () => {
           await this.connectService.getDataById('single-event', this.newEventId).subscribe((res:any) => {
-            console.log(res)
+
             if(res?.status == 200) {
               this.updatedEventData = res?.data;
               this.addEventForm.patchValue({...this.updatedEventData});
@@ -108,7 +108,7 @@ export class AddEventComponent implements OnInit {
       await this.connectService.getAllData(action).subscribe((res: any) => {
         this.updateEventTypes = res?.data?.filter((x: any) => {return x?.status == "active"});
       },error => {
-        // this.notify.notificationService.openFailureSnackBar(error);
+          this.notify.notificationService.error(error);
       })
     }
 
@@ -138,12 +138,13 @@ export class AddEventComponent implements OnInit {
 
       await this.connectService.postData(action, formData).subscribe((res:any) => {
         if(res?.status == 200){
-          console.log('yes posted');
+          this.notify.notificationService.success(res?.message);
           this.router.navigate(['/connect/admin-events']);
         }
+      },error => {
+        this.notify.notificationService.error(error);
       })
     }
-
 
     clickToBack(){
       this.router.navigate(['/connect/admin-events']);

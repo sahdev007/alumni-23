@@ -1,18 +1,9 @@
 
 import {
   Component,
-  OnInit,
-  ElementRef,
-  QueryList,
-  ViewChild,
-  ViewChildren
+  OnInit
 } from '@angular/core';
-import {
-  IDragBaseEventArgs,
-  IDragMoveEventArgs,
-  IgxDragDirective,
-  IgxDragLocation
-} from 'igniteui-angular';
+
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { DataService } from 'src/app/services/data.service';
 import { environment } from 'src/environments/environment';
@@ -36,7 +27,6 @@ export class ContactsComponent implements OnInit {
   ngOnInit(): void {
     this.teamData();
   }
-
 
   async teamData() {
     let action: string = 'all-team';

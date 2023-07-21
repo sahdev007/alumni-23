@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { ConnectService } from 'src/app/services/connect.service';
 import { DataService } from 'src/app/services/data.service';
@@ -31,13 +32,13 @@ export class AlumniEventComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<any>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router,
-    private connectService: ConnectService
+    private connectService: ConnectService,
+    private notify: TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
@@ -148,6 +149,7 @@ export class AlumniEventComponent implements OnInit {
   edit(id: number, params: any) {
     this.router.navigate(['/connect/add-event'], {queryParams: { clubId: id, action: params }});
   }
+
   /**
    * Function to remove items by id
    * @param id 
@@ -163,7 +165,7 @@ export class AlumniEventComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.connectService.deleteData(action, data?.id).subscribe((res: any) => {
-          if(res?.status == 200) this.ngOnInit();
+          if(res?.status == 200) this.notify.notificationService.success(res?.message); this.ngOnInit();
         })
       }
     });
@@ -217,13 +219,8 @@ export class AlumniEventComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        this.notify.notificationService.error(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 }

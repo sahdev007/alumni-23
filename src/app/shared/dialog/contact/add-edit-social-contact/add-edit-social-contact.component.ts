@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { ContactService } from 'src/app/services/contact.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class AddEditSocialContactComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddEditSocialContactComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public fb: FormBuilder, public contactService: ContactService) { }
+    public fb: FormBuilder, private contactService: ContactService,
+    private notifyService : TokenInterceptor) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -43,20 +45,20 @@ export class AddEditSocialContactComponent implements OnInit {
     if(this.data?.action == "update-contact") {
       await this.contactService.updateData(this.data?.action, this.formInstance?.value).subscribe((item: any) => {
         if(item.status == 200){
-          console.log('event type updated')
           this.dialogRef.close();
+          this.notifyService.notificationService.success(item?.message);
         }
       }, error => {
-          console.log(error);
+          this.notifyService.notificationService.error(error);
       });
     } else {
       await this.contactService.postData(this.data?.action, this.formInstance?.value).subscribe((item: any) => {
         if(item.status == 200){
-          console.log('event type created')
           this.dialogRef.close();
+          this.notifyService.notificationService.success(item?.message);
         }
       }, error => {
-          console.log(error);
+          this.notifyService.notificationService.error(error);
       });
     }
   }

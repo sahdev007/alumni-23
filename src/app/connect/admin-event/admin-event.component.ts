@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { ConnectService } from 'src/app/services/connect.service';
 import { DataService } from 'src/app/services/data.service';
@@ -21,7 +22,6 @@ export class AdminEventComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['author', 'title', 'type', 'cost'];
   public columnsToDisplay: string[] = [...this.displayedColumns,'status', 'actions'];
 
@@ -32,13 +32,13 @@ export class AdminEventComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router,
-    private connectService: ConnectService
+    private connectService: ConnectService,
+    private notify: TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
@@ -149,6 +149,7 @@ export class AdminEventComponent implements OnInit {
   edit(id: number, params: any) {
     this.router.navigate(['/connect/add-event'], {queryParams: { clubId: id, action: params }});
   }
+
   /**
    * Function to remove items by id
    * @param id 
@@ -164,7 +165,7 @@ export class AdminEventComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.connectService.deleteData(action, data?.id).subscribe((res: any) => {
-          if(res?.status == 200) this.ngOnInit();
+          if(res?.status == 200) this.notify.notificationService.success(res?.message); this.ngOnInit();
         })
       }
     });
@@ -196,11 +197,6 @@ export class AdminEventComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-    // this.personsService.getAll();
-    // this.serviceSubscribe = this.personsService.persons$.subscribe(res => {
-    //   this.dataSource.data = res;
-    //   console.log(res);
-    // })
   }
 
   /**
@@ -210,32 +206,18 @@ export class AdminEventComponent implements OnInit {
     let action = "all-eventsGet";
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
-        // console.log(res.data)
         if(res?.status == 200) {
           res?.data?.filter((x: any) => {
             if(x?.category == 'admin') {
               this.getAllAdmin.push(x);
             }
           })
-          // console.log(this.getAllAdmin)
           this.dataSource.data = this.getAllAdmin;
         }
-      
-        // if (user?.status == 200) {
-        //   this.rowData = user?.data;
-        //   this.rowData.sort((a: any, b: any) => {
-        //     return a?.order_by - b?.order_by;
-        //   });
-        // }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.error(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 }

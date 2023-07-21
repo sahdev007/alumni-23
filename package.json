@@ -1,5 +1,5 @@
 {
-    "name": "bulona-angular",
+    "name": "alumni-23",
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
@@ -23,6 +23,7 @@
         "@angular/router": "~13.3.1",
         "@igniteui/material-icons-extended": "^2.10.0",
         "@ng-bootstrap/ng-bootstrap": "^11.0.0-beta.1",
+        "@ng-select/ng-select": "^8.3.0",
         "@popperjs/core": "^2.9.2",
         "@tinymce/tinymce-angular": "^4.2.3",
         "angular-calendar": "^0.28.24",
@@ -45,6 +46,7 @@
         "ngx-star-rating": "^2.1.0",
         "rxjs": "~7.5.0",
         "smartwizard": "^5.1.1",
+        "sweetalert2": "^11.7.18",
         "text-mask-addons": "^3.8.0",
         "tslib": "^2.3.0",
         "zone.js": "~0.11.4"

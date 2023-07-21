@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CommunityService } from 'src/app/services/community.service';
 import { DataService } from 'src/app/services/data.service';
@@ -33,17 +34,15 @@ export class AddClubTypeComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
-    private personsService: DataService, 
     public dialog: MatDialog,
     private communityService: CommunityService,
-    public router: Router
+    public router: Router,
+    private notify: TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
-
 
   private filter() {
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
@@ -196,6 +195,7 @@ export class AddClubTypeComponent implements OnInit {
         this.communityService.deleteData(action, params?.id).subscribe((res:any) => {
           if(res?.status == 200) {
             this.ngOnInit();
+            this.notify.notificationService.success(res?.message);
           }
         })
       }

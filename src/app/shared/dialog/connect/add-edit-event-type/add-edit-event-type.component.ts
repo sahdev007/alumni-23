@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { ConnectService } from 'src/app/services/connect.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class AddEditEventTypeComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddEditEventTypeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public fb: FormBuilder, private connectService: ConnectService) { 
+    public fb: FormBuilder, private connectService: ConnectService, private notifyService: TokenInterceptor) { 
   }
 
   ngOnInit(): void {
@@ -37,9 +38,10 @@ export class AddEditEventTypeComponent implements OnInit {
     await this.connectService.postData(action, this.addEventTypeForm?.value).subscribe((item: any) => {
       if(item?.status == 200){
         this.dialogRef.close();
+        this.notifyService.notificationService.success(item?.message);
       }
     }, error => {
-        console.log(error);
+        this.notifyService.notificationService.error(error);
     });
   }
 

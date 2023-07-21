@@ -8,6 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 import { Router } from '@angular/router';
 import { CommunityService } from 'src/app/services/community.service';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 
 @Component({
   selector: 'app-clubs',
@@ -31,13 +32,13 @@ export class ClubsComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router,
-    private communityService : CommunityService
+    private communityService : CommunityService,
+    private notify: TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
@@ -152,6 +153,7 @@ export class ClubsComponent implements OnInit {
       if (result) {
         await this.communityService.deleteData(action, data?.id).subscribe((item:any) => {
           if(item?.status == 200) {
+            this.notify.notificationService.success(item?.message);
             this.ngOnInit();
           }
         });
@@ -191,16 +193,11 @@ export class ClubsComponent implements OnInit {
     await this.dataService.getAllData(action).subscribe(
       (vid: any) => {
         if(vid?.status == 200) this.dataSource.data = vid?.data;
-        console.log(this.dataSource.data);
       },
       (error) => {
-        console.log(error);
+        this.notify.notificationService.error(error);
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
   }
 
 }

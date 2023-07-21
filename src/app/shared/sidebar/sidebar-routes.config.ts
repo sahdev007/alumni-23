@@ -95,7 +95,8 @@ export const ROUTES: RouteInfo[] = [
             { path: '/celebrate/magazine', title: 'Magazine', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/celebrate/news-and-updates', title: 'News & Updates', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
 
-            { path: '/celebrate/birthay-anniversary', title: 'Birthay Anniversary', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
+            { path: '/celebrate/birthday', title: 'Birthay', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/celebrate/anniversary', title: 'Anniversary', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
 
         ]
     },

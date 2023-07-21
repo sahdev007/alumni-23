@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class AddEditYoutubeLinksComponent implements OnInit {
   image: any;
   submitted: boolean = false;
 
-  constructor(private celebrateService: CelebrateService, public fb: FormBuilder,
+  constructor(private celebrateService: CelebrateService, public fb: FormBuilder, private notifyService: TokenInterceptor,
      @Inject(MAT_DIALOG_DATA) public data: any,
   public dialog: MatDialog, public dialogref: MatDialogRef<AddEditYoutubeLinksComponent>) { }
 
@@ -46,17 +47,19 @@ export class AddEditYoutubeLinksComponent implements OnInit {
         await this.celebrateService.postData(this.data?.action, this.youtubeLinksForm.value).subscribe((res: any) => {
           if (res?.status == 200) {
             this.dialogref.close();
+            this.notifyService.notificationService.success(res?.message);
           }
         }, error => {
-          console.log(error)
+            this.notifyService.notificationService.error(error);
         });
       } else {
         await this.celebrateService.updateData(this.data?.action, this.youtubeLinksForm.value).subscribe((res: any) => {
           if (res?.status == 200) {
             this.dialogref.close();
+            this.notifyService.notificationService.success(res?.message);
           }
         }, error => {
-          console.log(error)
+            this.notifyService.notificationService.error(error);
         });
       }
     }

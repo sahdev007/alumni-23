@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CollaborateService } from 'src/app/services/collaborate.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class EditShareOpportunitiesComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, 
-    private collaborateService: CollaborateService,
+    private collaborateService: CollaborateService, private notifyService: TokenInterceptor,
     public dialog: MatDialog, public dialogref: MatDialogRef<EditShareOpportunitiesComponent>) { }
 
   ngOnInit(): void {
@@ -40,6 +41,7 @@ export class EditShareOpportunitiesComponent implements OnInit {
       if(x?.status == 200) {
         console.log('updated Successfully !');
         this.dialogref.close();
+        this.notifyService.notificationService.success(x?.message);
       }
     });
   }

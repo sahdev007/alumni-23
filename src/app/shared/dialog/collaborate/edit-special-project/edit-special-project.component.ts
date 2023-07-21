@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CollaborateService } from 'src/app/services/collaborate.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class EditSpecialProjectComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     public fb: FormBuilder,
-    private collaborateService : CollaborateService
+    private collaborateService : CollaborateService,
+    private notifyService: TokenInterceptor
   ) { }
 
   ngOnInit(): void {
@@ -52,8 +54,8 @@ export class EditSpecialProjectComponent implements OnInit {
     this.submitted = true;
     await this.collaborateService.updateData(this.data?.action, this.editSpecialForm.value).subscribe((x: any) => {
       if(x?.status == 200) {
-        console.log('updated Successfully !');
         this.dialogref.close();
+        this.notifyService.notificationService.success(x?.message);
       }
     });
   }

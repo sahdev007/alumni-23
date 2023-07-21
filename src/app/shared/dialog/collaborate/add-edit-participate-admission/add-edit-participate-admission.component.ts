@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CollaborateService } from 'src/app/services/collaborate.service';
 
 @Component({
@@ -12,8 +13,9 @@ export class AddEditParticipateAdmissionComponent implements OnInit {
   admissionPanelForm: FormGroup;
   submitted: boolean = false;
 
-  constructor(public fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public collaborateService: CollaborateService,
-  public dialog: MatDialog, public dialogref: MatDialogRef<AddEditParticipateAdmissionComponent>,) { }
+  constructor(public fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private collaborateService: CollaborateService,
+  private notifyService: TokenInterceptor,
+  public dialog: MatDialog, public dialogref: MatDialogRef<AddEditParticipateAdmissionComponent>) { }
 
   ngOnInit(): void {
     console.log(this.data)
@@ -36,8 +38,8 @@ export class AddEditParticipateAdmissionComponent implements OnInit {
     if (this.data?.action === 'create-admission') {
       await this.collaborateService.postData(this.data?.action, this.admissionPanelForm.value).subscribe((res: any) => {
         if(res?.status == 200) {
-          console.log('Admission Created Successfully !');
           this.dialogref.close();
+          this.notifyService.notificationService.success(res?.message);
         }
       });
     } else {
@@ -47,8 +49,8 @@ export class AddEditParticipateAdmissionComponent implements OnInit {
       }
       await this.collaborateService.updateData(this.data?.action, params).subscribe((res: any) => {
         if (res?.status === 200) {
-          console.log('updated Successfully !');
           this.dialogref.close();
+          this.notifyService.notificationService.success(res?.message);  
         }
       });
     }

@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { AboutService } from 'src/app/services/about.service';
-import { DataService } from 'src/app/services/data.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -20,7 +20,8 @@ export class AddEditLeadershipComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddEditLeadershipComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public fb: FormBuilder, private teamService: AboutService) { 
+    public fb: FormBuilder, private teamService: AboutService,
+    private notifyService: TokenInterceptor) { 
       this.imgPath = environment.imgUrl
     }
 
@@ -81,10 +82,11 @@ export class AddEditLeadershipComponent implements OnInit {
         if (res?.status === 200) {
           console.log('team created');
           this.dialogRef.close();
+          this.notifyService.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-        console.log(error);
+        this.notifyService.notificationService.error(error);
       });
     }
   }

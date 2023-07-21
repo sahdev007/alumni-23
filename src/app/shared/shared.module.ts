@@ -59,7 +59,7 @@ import { AddEditMagazineComponent } from './dialog/celebrate/add-edit-magazine/a
 import { ViewMagazineComponent } from './dialog/celebrate/view-magazine/view-magazine.component';
 import { ViewNewsUpdatesComponent } from './dialog/celebrate/view-news-updates/view-news-updates.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReplaceUnderscorePipe } from './pipes/replace-underscore.pipe';
 import { AuthGuard } from '../auth/auth.guard';
 import { AddEditSkillsComponent } from './dialog/organization/add-edit-skills/add-edit-skills.component';
@@ -68,6 +68,8 @@ import { AddEditBatchesComponent } from './dialog/organization/add-edit-batches/
 import { AddEditCoursesComponent } from './dialog/organization/add-edit-courses/add-edit-courses.component';
 import { AddEditIndustryComponent } from './dialog/organization/add-edit-industry/add-edit-industry.component';
 import { AddEditFunctionComponent } from './dialog/organization/add-edit-function/add-edit-function.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 @NgModule({
     exports: [
         CommonModule,
@@ -99,7 +101,9 @@ import { AddEditFunctionComponent } from './dialog/organization/add-edit-functio
         MatSelectModule,
         MatCardModule,
         MatRadioModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+
+        NgSelectModule
     ],
     declarations: [
         FooterComponent,
