@@ -21,7 +21,6 @@ export class BusinessVenturesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['company', 'owner', 'contact', 'email'];
   public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
 
@@ -35,7 +34,6 @@ export class BusinessVenturesComponent implements OnInit {
   // private serviceSubscribe: Subscription;
 
   constructor(
-    private personsService: DataService, 
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router,
@@ -136,8 +134,8 @@ export class BusinessVenturesComponent implements OnInit {
   }
 
   view(data: any){
-    this.router.navigate(['/community/edit-business-ventures'],{
-      queryParams: { userId: data }, skipLocationChange: true
+    this.router.navigate(['/community/view-business-ventures'],{
+      queryParams: { userId: data?.id }, skipLocationChange: true
     });
   }
 

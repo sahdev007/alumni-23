@@ -19,12 +19,19 @@
                 <div style="display: flex; align-items: center;">
                     <span mat-sort-header class="text-capitalize  fs-6">{{column | replaceUnderscore}}</span>
                     <button mat-icon-button>
-              <mat-icon mat-icon-button color="primary" [matMenuTriggerFor]="menu"
-                [matMenuTriggerData]="{columnName: column}">filter_list </mat-icon>
-            </button>
+                        <mat-icon mat-icon-button color="primary" [matMenuTriggerFor]="menu"
+                            [matMenuTriggerData]="{columnName: column}">filter_list </mat-icon>
+                    </button>
                 </div>
             </th>
             <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="'description'">
+            <th class="text-capitalize  fs-6" mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let element">
+                <p class="descriptionText">{{element?.description | showContent }}</p>
+            </td>
         </ng-container>
 
         <ng-container [matColumnDef]="'status'">
@@ -37,9 +44,9 @@
                 </mat-select>
             </mat-form-field> -->
                 <select class="form-select" aria-label="Default select example" (change)="onStatusChange($event, element)" [ngClass]="{ 'isActive': element.is_active === 'active' , 'isInactive': element.is_active === 'inActive' }">
-                <option value="active">Active</option>
-                <option value="inActive">Inactive</option>
-            </select>
+                    <option value="active">Active</option>
+                    <option value="inActive">Inactive</option>
+                </select>
             </td>
         </ng-container>
 

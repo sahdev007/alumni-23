@@ -6,6 +6,7 @@ import { ClubsComponent } from './clubs/clubs.component';
 import { AddClubTypeComponent } from './add-club-type/add-club-type.component';
 import { AddClubsComponent } from './add-clubs/add-clubs.component';
 import { EditBusinessVenturesComponent } from './edit-business-ventures/edit-business-ventures.component';
+import { ViewBusinessVenturesComponent } from './view-business-ventures/view-business-ventures.component';
 
 const routes: Routes = [
   { 
@@ -24,6 +25,10 @@ const routes: Routes = [
         data: {
           title: 'Edit Business Ventures'
         }
+      },
+      {
+        path: 'view-business-ventures',
+        component: ViewBusinessVenturesComponent
       },
       {
         path: 'clubs',

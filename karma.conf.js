@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/alumni-admin'),
+      dir: require('path').join(__dirname, './coverage/bulona-angular'),
       subdir: '.',
       reporters: [
         { type: 'html' },

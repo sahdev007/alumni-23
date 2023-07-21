@@ -24,8 +24,8 @@ export class SpecialProjectsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
-  public displayedColumns: string[] = ['author', 'title', 'description', 'charityName'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'userList','status', 'actions'];
+  public displayedColumns: string[] = ['author', 'title', 'charityName'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'userList', 'description', 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.

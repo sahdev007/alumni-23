@@ -22,8 +22,8 @@ export class PassionComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['first_name', 'type', 'description'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public displayedColumns: string[] = ['first_name', 'type'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'description', 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.

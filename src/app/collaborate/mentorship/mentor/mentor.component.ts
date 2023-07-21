@@ -21,7 +21,6 @@ export class MentorComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['user_id', 'first_name', 'email', 'mobile_number', 'mentee_count'];
   public columnsToDisplay: string[] = [...this.displayedColumns,'addMentee', 'actions'];
 
@@ -32,7 +31,6 @@ export class MentorComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
     private personsService: DataService, 
@@ -156,11 +154,11 @@ export class MentorComponent implements OnInit {
       data: {data: params}
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.personsService.edit(result);
-    //   }
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.ngOnInit();
+      }
+    });
   }
   /**
    * Function to remove items by id
@@ -175,7 +173,7 @@ export class MentorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.personsService.remove(id);
+        
       }
     });
   }
