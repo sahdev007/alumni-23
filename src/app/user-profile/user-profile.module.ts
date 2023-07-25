@@ -13,6 +13,7 @@ import { MentorshipComponent } from './mentorship/mentorship.component';
 import { ExperienceComponent } from './experience/experience.component';
 import { OthersComponent } from './others/others.component';
 import { SharedModule } from '../shared/shared.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     SharedModule,
     UserProfileRoutingModule,
-    NgbModule
+    NgbModule,
+    MatButtonModule
   ]
 })
 export class UserProfileModule { }

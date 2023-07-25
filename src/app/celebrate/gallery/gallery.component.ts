@@ -162,7 +162,7 @@ export class GalleryComponent implements OnInit {
 
   view(data: any) {
     const dialogRef = this.dialog.open(ViewGalleryComponent, {
-      width: '400px',
+      width: '480px',
       data: {data: data}
     })
   }

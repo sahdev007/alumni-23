@@ -15,6 +15,7 @@ export class SeoService {
   public setMetaTitle(title:string) {
     this.titleService.setTitle(title);
   }
+  
   public setMetaDescription(content: string) {
     this.meta.updateTag(
       {

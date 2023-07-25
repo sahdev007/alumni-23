@@ -143,7 +143,7 @@ export class LeadershipComponent implements OnInit {
 
   view(params: any){
     const dialogRef = this.dialog.open(ViewLeadershipComponent, {
-      width: '400px',
+      width: '480px',
       data: { data: params }
     });
   }

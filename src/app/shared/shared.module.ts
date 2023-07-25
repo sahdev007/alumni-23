@@ -69,6 +69,9 @@ import { AddEditCoursesComponent } from './dialog/organization/add-edit-courses/
 import { AddEditIndustryComponent } from './dialog/organization/add-edit-industry/add-edit-industry.component';
 import { AddEditFunctionComponent } from './dialog/organization/add-edit-function/add-edit-function.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ViewClubComponent } from './dialog/community/view-club/view-club.component';
+import { ViewEventComponent } from './dialog/connect/view-event/view-event.component';
+import { ViewFeaturedAlumniComponent } from './dialog/celebrate/view-featured-alumni/view-featured-alumni.component';
 
 @NgModule({
     exports: [
@@ -152,7 +155,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
         AddEditBatchesComponent,
         AddEditCoursesComponent,
         AddEditIndustryComponent,
-        AddEditFunctionComponent
+        AddEditFunctionComponent,
+        ViewClubComponent,
+        ViewEventComponent,
+        ViewFeaturedAlumniComponent
     ],
     providers: [AuthGuard ],
     entryComponents: [ ]

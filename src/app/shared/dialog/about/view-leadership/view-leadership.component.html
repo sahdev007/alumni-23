@@ -1,11 +1,54 @@
-<h4 mat-dialog-title class="my-3">View Leadership Detail</h4>
-<div class="row">
-    <div class="col-xl-3">Title</div>
-    <div class="col-xl-9">fdhfidf</div>
-    <!-- <ng-container *ngIf="data.type == 'socialContact'">
-        <div class="col-xl-3">Link</div>
-        <div class="col-xl-9">fdhfidf</div>
-    </ng-container> -->
-    <div class="col-xl-3">Descriptioniv>
-        <div class="col-xl-9">fdhfidf</div>
+<h5 mat-dialog-title class="mb-4 mt-0 d-flex align-items-center justify-content-between"><span><strong>View Leadership Detail</strong></span> <mat-icon mat-icon-button color="primary" mat-dialog-close>close</mat-icon></h5>
+<hr class="mb-4">
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Name : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.name}}</p>
+        </div>
+    </div>    
+    <div class="row">    
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Designation : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.designation}}</p>
+        </div>
+    </div>    
+    <div class="row">  
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Institute Name : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.institute_name}}</p>
+        </div>
+    </div>    
+    <div class="row">  
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Order : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.order}}</p>
+        </div>
+    </div>    
+    <div class="row">  
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Status : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.status}}</p>
+        </div>
+    </div>    
+    <div class="row">  
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Image : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <img class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2" src="{{imgPath + data?.data?.image}}" alt="...">
+        </div>  
     </div>
+</div>
+
+

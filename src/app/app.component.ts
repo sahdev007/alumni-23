@@ -19,8 +19,8 @@ export class AppComponent {
     const token = JSON.parse(data);
    
     if (token) {
-      console.log('njhgj')
-    this.router.navigate(['/dashboard']);
+    //   console.log('njhgj')
+    // this.router.navigate(['/dashboard']);
     }else {
       this.router.navigate(['/auth/sign-in']);
     }

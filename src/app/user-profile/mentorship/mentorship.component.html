@@ -33,7 +33,7 @@
                     <label class="form-label fw-bold">Add skills <span class="text-danger">*</span></label>
                     <select class="form-select" formControlName="skill_id">
                         <option value="" selected>Select Skill</option>
-                        <option *ngFor="let item of allSkills; let i=index;" [value]="item?.id">{{ item?.skill }}</option>
+                        <option *ngFor="let item of commonData?.Skill; let i=index;" [value]="item?.id">{{ item?.skill }}</option>
                     </select>
                     <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2" *ngIf="(f.skill_id.touched || submitted) && f.skill_id.errors?.required">
                         Please add skills.

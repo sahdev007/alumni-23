@@ -4,6 +4,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
+import { TokenInterceptor } from "src/app/core/token.interceptor";
 import { Person } from "src/app/models/person";
 import { ContactService } from "src/app/services/contact.service";
 import { DataService } from "src/app/services/data.service";
@@ -23,7 +24,6 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ["title", "link"];
   public columnsToDisplay: string[] = [
     ...this.displayedColumns,
@@ -38,13 +38,12 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
     private contactService: ContactService,
     public dialog: MatDialog,
-    private dataService: DataService,
-    public router: Router
+    public router: Router,
+    private notify: TokenInterceptor
   ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
@@ -195,7 +194,7 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
         this.contactService
           .deleteData(action, data?.id)
           .subscribe((res: any) => {
-            if (res?.status == 200) this.ngOnInit();
+            if(res?.status == 200) this.notify.notificationService.success(res?.message); this.ngOnInit();
           });
       }
     });

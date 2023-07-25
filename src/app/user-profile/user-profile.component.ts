@@ -21,12 +21,13 @@ export class UserProfileComponent implements OnInit {
   currentUser: any;
   action: any;
   imgPath = environment.imgUrl;
-  type: any;
   profileData: any;
   userId: any;
   otherProfile: any;
   user: any;
-  pageType: any;
+  type: any;
+  commonData: any;
+
   //Basic Info
   basicInfoForm: FormGroup | any;
   getInstitutes: any;
@@ -77,12 +78,12 @@ export class UserProfileComponent implements OnInit {
     if (localStorage) {
       this.currentUser =
         JSON?.parse(localStorage?.getItem("currentUser") || "");
-       
     }
     this.arouter.queryParams.subscribe((res: any) => {
+      console.log(res)
       this.userId = res?.id;
-      this.pageType = res?.type;
-      console.log(this.userId)
+      this.type = res?.type;
+      if(this.type) this.isFormEditable = true;
     });
 
     this.getAllProfileData();
@@ -92,10 +93,8 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     $.getScript('./assets/js/form-validations.js');
     $.getScript('./assets/js/bs-custom-file-input.min.js');
-    this.getAllSkills();
     this.buildForm();
-  
-    console.log(this.currentUser)
+    this.getCommonData();
 
     setTimeout(() => {
       this.buildBasicInfoForm();
@@ -104,9 +103,9 @@ export class UserProfileComponent implements OnInit {
       this.buildExperienceform();
       this.buildEducationform();
       this.buildOthersForm();
-      this.getCurrentUser();
-      this.getAllInstitutes();
-      this.getAllBatches()
+      if(!this.userId){
+          this.getCurrentUser();
+      }
       this.basicInfoForm.patchValue({
         ...this.user
       });
@@ -272,51 +271,24 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  async getCommonData() {
+    let action = "all-common";
+    await this.dataService.getAllData(action).subscribe(
+      (res: any) => {
+        this.commonData = res;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   /**
    * Function to change country
    * @param event
    */
   public changeCountry(event: any) { }
 
-  /**
-   * Function to get all institutes
-   */
-  async getAllInstitutes() {
-    await this.dataService.getAllInstitutes().subscribe(
-      (res: any) => {
-        this.getInstitutes = res?.Institute;
-      },
-      (error) => {
-      }
-    );
-  }
-
-  /**
-   * Function to get all Batches
-   */
-  async getAllBatches() {
-    await this.dataService.getAllBatches().subscribe(
-      (res: any) => {
-        this.getBatch = res?.BatchYear;
-      },
-      (error) => {
-      }
-    );
-  }
-
-
- 
-
- 
- 
-  async getAllSkills() {
-    let action: string = 'all-skill';
-    await this.dataService.getData(action).subscribe((res: any) => {
-      if (res?.status == 200) {
-        this.allSkills = res?.Skill;
-      }
-    });
-  }
 
   async updateBasicInfo() {
     this.submitted = true;
@@ -456,28 +428,51 @@ export class UserProfileComponent implements OnInit {
       reader.onload = (_event) => {
         this.image = _event.target?.result;
       };
-      this.action = {
-        action: "profile-pic",
-        id: parseInt(this.currentUser?.id)
-      };
 
-      let formData = new FormData();
-      formData.append("profile_pic", this.profilePic ? this.profilePic : "");
-      await this.dataService.updateData(this.action, formData).subscribe(
-        (res: any) => {
-          this.loading = false;
-          if (res?.status === 200) {
-            localStorage.setItem("currentUser", JSON.stringify(res?.data));
-            // this.notify.notificationService.openSuccessSnackBar(res?.message);
-            this.getCurrentUser();
-            location.reload();
+      if (this.userId == this.currentUser?.id) {
+        this.action = {
+          action: "profile-pic",
+          id: parseInt(this.currentUser?.id)
+        };
+  
+        let formData = new FormData();
+        formData.append("profile_pic", this.profilePic ? this.profilePic : "");
+        await this.dataService.updateData(this.action, formData).subscribe(
+          (res: any) => {
+            this.loading = false;
+            if (res?.status == 200) {
+              this.getAllProfileData();
+              localStorage.setItem("currentUser", JSON.stringify(res?.data));
+              location.reload();
+            }
+          },
+          (error) => {
+            this.loading = false;
+            this.notify.notificationService.error(error);
           }
-        },
-        (error) => {
-          this.loading = false;
-          this.notify.notificationService.openFailureSnackBar(error);
-        }
-      );
+        );
+      }
+      else {
+        this.action = {
+          action: "profile-pic",
+          id: parseInt(this.userId)
+        };
+  
+        let formData = new FormData();
+        formData.append("profile_pic", this.profilePic ? this.profilePic : "");
+        await this.dataService.updateData(this.action, formData).subscribe(
+          (res: any) => {
+            if (res?.status == 200) {
+              this.getAllProfileData();
+              this.notify.notificationService.success(res?.message);
+            }
+          },
+          (error) => {
+            this.notify.notificationService.error(error);
+          }
+        );
+      }
+
     }
   }
 
@@ -504,17 +499,15 @@ export class UserProfileComponent implements OnInit {
         this.notify.notificationService.openFailureSnackBar(error);
       });
   }
+
   /** Open editiable form view profile */
   edit() {
     this.isFormEditable = true;
   }
+
   /** update profile */
   save() {
     this.isFormEditable = false;
   }
-  /** Institute data */
-  allInstitueData() {
 
-
-  }
 }

@@ -27,7 +27,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '../shared/shared.module';
 import {MatRadioModule} from '@angular/material/radio';
-import { AuthGuard } from '../auth/auth.guard';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -52,7 +52,8 @@ import { AuthGuard } from '../auth/auth.guard';
     MatInputModule,
     MatSelectModule,
     SharedModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTooltipModule
   ]
 })
 export class DashboardModule { }

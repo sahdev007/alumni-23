@@ -4,10 +4,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { DataService } from 'src/app/services/data.service';
-import { EditUserComponent } from 'src/app/shared/dialog/dashboard/edit-user/edit-user.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
@@ -22,8 +21,8 @@ export class AllUsersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['first_name', 'mobile_number', 'email', 'city', 'current_designation', 'current_company', 'institute_name', 'batch'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'actions'];
+  public displayedColumns: string[] = ['first_name', 'mobile_number', 'email', 'institute_name', 'batch', 'city', 'current_designation'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -32,20 +31,18 @@ export class AllUsersComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  private serviceSubscribe: Subscription;
 
   constructor(
-    private personsService: DataService,
     public dialog: MatDialog,
     private dataService: DataService,
-    private router: Router
+    private router: Router,
+    private notify : TokenInterceptor
   ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
 
 
   private filter() {
-
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
       let find = true;
 
@@ -135,22 +132,16 @@ export class AllUsersComponent implements OnInit {
     }
   }
 
-
-  edit(data: Person, params: any) {
-    console.log(params)
-    const dialogRef = this.dialog.open(EditUserComponent, {
-      width: '650px',
-      data: { data: params }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.personsService.edit(result);
-      }
-    });
+  view(id: any) {
+    this.router.navigate(['user-profile'], { queryParams: { id: id } });
   }
 
-  delete(id: any, params: string) {
+  edit(data: any) {
+    this.router.navigate(['user-profile'], { queryParams: { id: data?.id, type: 'edit' } });
+  }
+
+  delete(data: any, params: string) {
+    let action:string = "delete-user";
     const dialogRef = this.dialog.open(DeletedialogComponent, {
       width: '400px',
       data: { info: params }
@@ -158,19 +149,16 @@ export class AllUsersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.personsService.remove(id);
+        this.dataService.deleteData(action, data?.id).subscribe((res: any) => {
+          if(res?.status == 200) this.notify.notificationService.success(res?.message); this.ngOnInit();
+        })
       }
     });
   }
 
-  view(id: any) {
-    this.router.navigate(['user-profile'], { queryParams: { id: id } });
-  }
-
-
   async onStatusChange(e: any, params: any) {
     console.log(e, params);
-    let action = "update-gallery";
+    let action = "update-user";
     let param = {
       id: params?.id,
       is_active: e?.value
@@ -181,7 +169,7 @@ export class AllUsersComponent implements OnInit {
         // this.notify.notificationService.openSuccessSnackBar(res?.message);
       }
     }, error => {
-      // this.notify.notificationService.openFailureSnackBar(error)
+      this.notify.notificationService.openFailureSnackBar(error);
     });
 
   }
@@ -196,35 +184,17 @@ export class AllUsersComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-    // this.personsService.getAll();
-    // this.serviceSubscribe = this.personsService.persons$.subscribe(res => {
-    //   this.dataSource.data = res;
-    //   console.log(res);
-    // })
   }
 
   async getAllData() {
     let action = "all-users";
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
-        console.log(res.data)
         if (res?.status == 200) this.dataSource.data = res?.data;
-        console.log(this.dataSource.data);
-        // if (user?.status == 200) {
-        //   this.rowData = user?.data;
-        //   this.rowData.sort((a: any, b: any) => {
-        //     return a?.order_by - b?.order_by;
-        //   });
-        // }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.openFailureSnackBar(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 }

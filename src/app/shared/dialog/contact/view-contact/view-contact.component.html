@@ -1,11 +1,60 @@
-<h4 mat-dialog-title class="my-3">View Contact</h4>
-<div class="row">
-    <div class="col-xl-3">Title</div>
-    <div class="col-xl-9">fdhfidf</div>
-    <ng-container *ngIf="data.type == 'socialContact'">
-        <div class="col-xl-3">Link</div>
-        <div class="col-xl-9">fdhfidf</div>
-    </ng-container>
-    <div class="col-xl-3">Descriptioniv>
-        <div class="col-xl-9">fdhfidf</div>
+<h5 mat-dialog-title class="mb-4 mt-0 d-flex align-items-center justify-content-between"><span><strong>View Contact</strong></span> <mat-icon mat-icon-button color="primary" mat-dialog-close>close</mat-icon></h5>
+<hr class="mb-4">
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Title : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.title}}</p>
+        </div>
+    </div>    
+        <ng-container *ngIf="data.type != 'socialContact'">
+            <div class="row">     
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+                    <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Phone : </strong></p>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+                    <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.phone}}</p>
+                </div>
+            </div>    
+            <div class="row"> 
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+                    <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Email : </strong></p>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+                    <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.email}}</p>
+                </div>
+            </div>    
+            <div class="row"> 
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+                    <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Designation : </strong></p>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+                    <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.designation}}</p>
+                </div>
+            </div>    
+        </ng-container>
+      
+        <ng-container *ngIf="data.type == 'socialContact'">
+            <div class="row"> 
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+                    <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Link : </strong></p>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+                    <p class="data-link my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><a href="{{data.data.link}}">{{data.data.link}}</a></p>
+                </div>
+            </div>    
+        </ng-container>
+    <div class="row"> 
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Status : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.is_active}}</p>
+        </div>
     </div>
+</div>
+
+
+

@@ -21,11 +21,7 @@ export class NavbarComponent implements OnInit{
         private authService: AuthService,
         public router: Router,
         @Inject(DOCUMENT) private document: any) {
-            console.log(localStorage)
-            if (localStorage.length > 0) {
-                this.currentUser =
-                  JSON?.parse(localStorage?.getItem("currentUser") || "");
-              }
+            
          }
         
     toggleSidebar() {
@@ -43,15 +39,25 @@ export class NavbarComponent implements OnInit{
     ngOnInit() {
         this.elem = document.documentElement;
         /* Search Bar */
-        $(document).ready(function () {
-            $(".mobile-search-icon").on("click", function () {
-                $(".search-bar").addClass("full-search-bar")
-            }), 
-            $(".search-close").on("click", function () {
-                $(".search-bar").removeClass("full-search-bar")
-            })
-        });
+        // $(document).ready(function () {
+        //     $(".mobile-search-icon").on("click", function () {
+        //         $(".search-bar").addClass("full-search-bar")
+        //     }), 
+        //     $(".search-close").on("click", function () {
+        //         $(".search-bar").removeClass("full-search-bar")
+        //     })
+        // });
+        if (localStorage.length > 0) {
+            this.currentUser =
+              JSON?.parse(localStorage?.getItem("currentUser") || "");
+        }
+    }
 
+    viewProfile() {
+        this.router.navigate(['user-profile'], { queryParams: { id: this.currentUser?.id, type: 'edit' } });
+        setTimeout(() => {
+            location.reload();
+        }, 500);
     }
 
     /** Open Full Screen on Click */
@@ -99,6 +105,5 @@ export class NavbarComponent implements OnInit{
   logout() {
     this.authService.logout();
     location.assign('/auth/sign-in');
-    // this.router.navigate(['/auth/sign-in']);
   }
 }

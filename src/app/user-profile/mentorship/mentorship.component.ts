@@ -14,6 +14,8 @@ import { DataService } from "../../services/data.service";
 export class MentorshipComponent implements OnInit {
   @Input() profileData: any;
   @Input() otherProfile: any;
+  @Input() commonData: any;
+
   mentorForm: FormGroup | any;
   submitted: boolean = false;
   functionArea: any;
@@ -52,7 +54,6 @@ export class MentorshipComponent implements OnInit {
     this.buildform();
     this.loading = true;
     setTimeout(async () => {
-      this.getAllSkills();
       this.mentorData = this.profileData?.Mentorship?.mentor_user_id;
       if (this.currentUser?.id == this.profileData?.Users?.id) {
         this.mentorForm.patchValue({
@@ -147,14 +148,5 @@ export class MentorshipComponent implements OnInit {
         }
       );
     }
-  }
-
-  async getAllSkills() {
-    let action: string = 'all-skill';
-    await this.dataService.getData(action).subscribe((res: any) => {
-      if (res?.status == 200) {
-        this.allSkills = res?.Skill;
-      }
-    });
   }
 }

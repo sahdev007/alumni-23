@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { DataService } from 'src/app/services/data.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
@@ -18,7 +19,7 @@ export class ManageUsersRequestComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['first_name', 'mobile_number','email', 'city', 'current_designation', 'current_company', 'institute_name', 'batch'];
+  public displayedColumns: string[] = ['first_name', 'mobile_number', 'email', 'institute_name', 'batch', 'city', 'current_designation'];
   public columnsToDisplay: string[] = [...this.displayedColumns, 'actions'];
 
   /**
@@ -28,19 +29,17 @@ export class ManageUsersRequestComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
-    private personsService: DataService, 
     public dialog: MatDialog,
-    private dataService: DataService
+    private dataService: DataService,
+    private notify: TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
 
 
   private filter() {
-
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
       let find = true;
 
@@ -131,21 +130,33 @@ export class ManageUsersRequestComponent implements OnInit {
   }
 
 
-  edit(data: Person, params: any) {
-    console.log(params)
-    // const dialogRef = this.dialog.open(EditUserComponent, {
-    //   width: '650px',
-    //   data: {data: params}
-    // });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.personsService.edit(result);
-    //   }
-    // });
+  async approveUser(params: any) {
+    params.status = "active";
+    let action = {
+      action: "updateStatus",
+      id: params?.id
+    };
+    await this.dataService.postData(action, params).subscribe(
+      (res: any) => {
+        if (res) {
+          this.notify.notificationService.success(
+            res?.message
+          );
+          this.ngOnInit();
+        }
+      },
+      (error) => {
+        this.notify.notificationService.error(error);
+      }
+    );
   }
 
-  delete(id: any, params: string) {
+  reject(data: any, params: string ) {
+    data.status = "rejected";
+    let action = {
+      action: "updateStatus",
+      id: data?.id
+    };
     const dialogRef = this.dialog.open(DeletedialogComponent, {
       width: '400px',
       data: { info: params }
@@ -153,27 +164,12 @@ export class ManageUsersRequestComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.personsService.remove(id);
+        this.dataService.postData(action, data).subscribe((res: any) => {
+          this.notify.notificationService.success(res?.message);
+          this.ngOnInit();
+        })
       }
     });
-  }
-
-  async onStatusChange(e:any, params: any) {
-    console.log(e, params);
-    let action = "update-gallery";
-      let param = {
-        id: params?.id,
-        is_active: e?.value
-      }
-      console.log(param);
-      await this.dataService.updateData(action, param).subscribe((res: any) => {
-        if(res?.status == 200) {
-          // this.notify.notificationService.openSuccessSnackBar(res?.message);
-        }
-      }, error => {
-        // this.notify.notificationService.openFailureSnackBar(error)
-      });
-    
   }
 
   ngAfterViewInit(): void {
@@ -192,19 +188,12 @@ export class ManageUsersRequestComponent implements OnInit {
     let action = "manage-request";
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
-        console.log(res.data)
         if(res?.status == 200) this.dataSource.data = res?.data;
-        console.log(this.dataSource.data);
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.openFailureSnackBar(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 
 }

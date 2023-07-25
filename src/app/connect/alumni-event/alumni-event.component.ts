@@ -8,6 +8,7 @@ import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { ConnectService } from 'src/app/services/connect.service';
 import { DataService } from 'src/app/services/data.service';
+import { ViewEventComponent } from 'src/app/shared/dialog/connect/view-event/view-event.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
@@ -140,7 +141,12 @@ export class AlumniEventComponent implements OnInit {
   add() {
     this.router.navigate(['/connect/add-event']);
   }
-
+  view(data:any){
+    const dialogRef = this.dialog.open(ViewEventComponent, {
+      width: '400px',
+      data: { data: data }
+    });
+  }
   /**
    * Function to edit project
    * @param data 

@@ -1,0 +1,39 @@
+<h5 mat-dialog-title class="mb-4 mt-0 d-flex align-items-center justify-content-between"><span><strong>View Featured Alumni</strong></span> <mat-icon mat-icon-button color="primary" mat-dialog-close>close</mat-icon></h5>
+<hr class="mb-4">
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Full Name : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.full_name}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Email : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.email}}</p>
+        </div>
+    </div>    
+    <div class="row"> 
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Batch : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.batch}}</p>
+        </div>
+    </div>
+    <div class="row"> 
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Status : </strong></p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.status}}</p>
+        </div>
+    </div>
+</div>
+
+
+

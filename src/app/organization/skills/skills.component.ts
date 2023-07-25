@@ -15,7 +15,8 @@ import { AddEditSkillsComponent } from 'src/app/shared/dialog/organization/add-e
 })
 export class SkillsComponent implements OnInit {
 
-  public status = 'active';
+  public tabStatus = [{id:1, status:'active'}, {id:2, status:'inActive'}];
+  newStatus = "inActive";
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -188,6 +189,11 @@ export class SkillsComponent implements OnInit {
           console.log(error);
       });
   }
+
+  // trackByMethod(index:number, el:any): number {
+  //   console.log(index, el);
+  //   return el.status;
+  // }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;

@@ -28,7 +28,7 @@
                     <label class=" form-label fw-bold">Institute <span class="text-danger">*</span></label>
                     <select class="form-select" formControlName="institute_id">
                         <option value="" selected>Choose your institute</option>
-                        <option [value]="institute?.id" *ngFor="let institute of getInstitutes; let i=index;">
+                        <option [value]="institute?.id" *ngFor="let institute of commonData?.Institute; let i=index;">
                             {{institute.institute_name}}</option>
                     </select>
                     <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2 m-0" *ngIf="(f.institute_id.touched || submitted) && f.institute_id.errors?.required">
@@ -39,7 +39,7 @@
                     <label class=" form-label fw-bold">Batch year <span class="text-danger">*</span></label>
                     <select class="form-select" formControlName="batchYear_id">
                         <option value="" selected>Choose your batch</option>
-                        <option [value]="batch?.id" *ngFor="let batch of getBatch; let i=index;">{{batch.batch}}
+                        <option [value]="batch?.id" *ngFor="let batch of commonData?.Batch_Year; let i=index;">{{batch.batch}}
                         </option>
                     </select>
                     <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2 m-0" *ngIf="(f.batchYear_id.touched || submitted) && f.batchYear_id.errors?.required">
@@ -290,11 +290,11 @@
                     <input type="text" class="form-control" formControlName="council_member_designation" placeholder="Enter council member Designation">
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-3 my-xl-3 my-lg-3 my-2 text-center">
-                    <button type="button" (click)="edit()" class="btn btn-sm btn-success">Update</button>
-                </div>
+            <div class="my-3" mat-dialog-actions align="center">
+                <!-- <button mat-raised-button color="warn" mat-dialog-close>Cancel</button> -->
+                <button mat-raised-button color="primary" (click)="edit()" >Update</button>
             </div>
+
         </form>
     </div>
 </div>

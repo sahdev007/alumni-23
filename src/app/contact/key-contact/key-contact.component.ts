@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AddEditKeyContactComponent } from 'src/app/shared/dialog/contact/add-edit-key-contact/add-edit-key-contact.component';
 import { ViewContactComponent } from 'src/app/shared/dialog/contact/view-contact/view-contact.component';
 import { ContactService } from 'src/app/services/contact.service';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 
 @Component({
   selector: 'app-key-contact',
@@ -23,7 +24,6 @@ export class KeyContactComponent implements OnInit, OnDestroy, AfterViewInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['title', 'phone', 'email', 'designation'];
   public columnsToDisplay: string[] = [...this.displayedColumns,'is_active', 'actions'];
 
@@ -34,13 +34,12 @@ export class KeyContactComponent implements OnInit, OnDestroy, AfterViewInit{
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
 
   constructor(
-    private personsService: DataService, 
     public dialog: MatDialog,
     private contactService: ContactService,
-    public router: Router
+    public router: Router,
+    private notify : TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
@@ -194,7 +193,7 @@ export class KeyContactComponent implements OnInit, OnDestroy, AfterViewInit{
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.contactService.deleteData(action, data?.id).subscribe((res: any) => {
-          if(res?.status == 200) this.ngOnInit();
+          if(res?.status == 200) this.notify.notificationService.success(res?.message); this.ngOnInit();
         })
       }
     });

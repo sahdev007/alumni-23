@@ -15,7 +15,10 @@ import { DataService } from "../../services/data.service";
 export class BasicInfoComponent implements OnInit {
   @Input() profileData: any;
   @Input() otherProfile: any;
-  basicInfoForm: FormGroup | any;
+  @Input() commonData: any;
+  @Input() type : any
+
+  basicInfoForm: FormGroup;
   getInstitutes: any;
   getBatch: any;
   gender: any;
@@ -44,15 +47,12 @@ export class BasicInfoComponent implements OnInit {
     if (localStorage) {
       this.currentUser = localStorage?.getItem('currentUser') || '';
     }
-    console.log(this.profileData)
   }
 
   async ngOnInit() {
-    this.getAllBatches();
-    this.getAllInstitutes();
     this.buildForm();
     this.loadCountries();
-    this.loading = true;
+
     setTimeout(() => {
       if(this.profileData?.Users?.id){
         this.basicInfoForm.patchValue({
@@ -63,7 +63,7 @@ export class BasicInfoComponent implements OnInit {
           ...this.otherProfile
         });
       }
-      this.loading = false;
+
     }, 2000);
   }
 
@@ -148,49 +148,22 @@ export class BasicInfoComponent implements OnInit {
    */
   public changeCountry(event: any) {}
 
-  /**
-   * Function to get all institutes
-   */
-  async getAllInstitutes() {
-    await this.dataService.getAllInstitutes().subscribe(
-      (res: any) => {
-        this.getInstitutes = res?.Institute;
-      },
-      (error) => {
-      }
-    );
-  }
-
-  /**
-   * Function to get all Batches
-   */
-  async getAllBatches() {
-    await this.dataService.getAllBatches().subscribe(
-      (res: any) => {
-        this.getBatch = res?.BatchYear;
-      },
-      (error) => {
-      }
-    );
-  }
 
   async edit() {
     this.submitted = true;
     if (this.basicInfoForm.invalid) {
       return;
     } else if (this.basicInfoForm.valid) {
-      this.loading = true;
+
       let action: string = "update-user";
       await this.dataService
         .updateData(action, this.basicInfoForm.value)
         .subscribe(
           (res: any) => {
-            this.notify.notificationService.openSuccessSnackBar(res?.message);
-            this.loading = false;
+            this.notify.notificationService.success(res?.message);
           },
           (error) => {
-            this.notify.notificationService.openFailureSnackBar(error);
-            this.loading = false;
+            this.notify.notificationService.error(error);
           }
         );
     }

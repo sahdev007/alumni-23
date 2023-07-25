@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-view-leadership',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-leadership.component.scss']
 })
 export class ViewLeadershipComponent implements OnInit {
+  imgPath: any;
 
-  constructor() { }
+  constructor( 
+    public dialogRef: MatDialogRef<ViewLeadershipComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any ) { 
+      this.imgPath = environment.imgUrl;
+    }
 
   ngOnInit(): void {
+    console.log(this.data);
   }
 
 }

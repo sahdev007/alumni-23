@@ -9,6 +9,7 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
 import { Router } from '@angular/router';
 import { CommunityService } from 'src/app/services/community.service';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
+import { ViewClubComponent } from 'src/app/shared/dialog/community/view-club/view-club.component';
 
 @Component({
   selector: 'app-clubs',
@@ -138,6 +139,13 @@ export class ClubsComponent implements OnInit {
     this.router.navigate(['/community/add-clubs']);
   }
 
+  view(data:any){
+    const dialogRef = this.dialog.open(ViewClubComponent, {
+      width: '380px',
+      data: { data: data }
+    });
+  }
+  
   edit(id: number, params: string) {
     this.router.navigate(['/community/add-clubs'], {queryParams: { clubId: id, action: 'update-club' }, skipLocationChange: true});
   }

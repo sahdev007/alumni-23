@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
+import { ViewFeaturedAlumniComponent } from 'src/app/shared/dialog/celebrate/view-featured-alumni/view-featured-alumni.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
@@ -138,6 +139,12 @@ export class FeaturedAlumniComponent implements OnInit {
  */
   add(data: any, params: any) {
     this.router.navigate(['/celebrate/create-featured-alumni']);
+  }
+  view(data:any){
+    const dialogRef = this.dialog.open(ViewFeaturedAlumniComponent, {
+      width: '380px',
+      data: { data: data }
+    });
   }
 /**
  * Function to Edit Featured Alumni By Id

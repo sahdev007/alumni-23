@@ -159,7 +159,7 @@ export class ShareOpportunitiesComponent implements OnInit {
 
   view(data: any) {
     const dialogRef = this.dialog.open(ViewShareOpportunityComponent, {
-      width: '400px',
+      width: '450px',
       data: {data: data}
     });
   }
@@ -180,7 +180,6 @@ export class ShareOpportunitiesComponent implements OnInit {
       if (result) {
         this.collaborateService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
             this.ngOnInit();
           } 
         })
@@ -227,25 +226,13 @@ export class ShareOpportunitiesComponent implements OnInit {
     let action = "all-opportunity";
     await this.collaborateService.getAllData(action).subscribe(
       (res: any) => {
-        // console.log(res.data)
         if(res?.status == 200) {
           this.dataSource.data = res?.data;
         }
-      
-        // if (user?.status == 200) {
-        //   this.rowData = user?.data;
-        //   this.rowData.sort((a: any, b: any) => {
-        //     return a?.order_by - b?.order_by;
-        //   });
-        // }
       },
       (error) => {
         // this.interceptor.notificationService.openFailureSnackBar(error);
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
   }
 }
