@@ -8,7 +8,6 @@ import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CommunityService } from 'src/app/services/community.service';
 import { Config } from 'src/app/services/config';
-import { DataService } from 'src/app/services/data.service';
 import { AddEditClubTypeComponent } from 'src/app/shared/dialog/community/add-edit-club-type/add-edit-club-type.component';
 import { ViewClubTypeComponent } from 'src/app/shared/dialog/community/view-club-type/view-club-type.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
@@ -174,7 +173,9 @@ export class AddClubTypeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ngOnInit();
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 400);
       }
     });
   }

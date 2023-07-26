@@ -7,7 +7,6 @@ import { TokenInterceptor } from "src/app/core/token.interceptor";
 import { Person } from "src/app/models/person";
 import { Config } from "src/app/services/config";
 import { ConnectService } from "src/app/services/connect.service";
-import { DataService } from "src/app/services/data.service";
 import { AddEditEventTypeComponent } from "src/app/shared/dialog/connect/add-edit-event-type/add-edit-event-type.component";
 import { DeletedialogComponent } from "src/app/shared/dialog/deletedialog/deletedialog.component";
 

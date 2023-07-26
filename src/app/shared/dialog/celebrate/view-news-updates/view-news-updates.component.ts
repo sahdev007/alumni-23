@@ -16,8 +16,7 @@ export class ViewNewsUpdatesComponent implements OnInit {
       this.imgPath = environment.imgUrl;
     }
 
-  ngOnInit(): void { 
-    console.log(this.data);
+  ngOnInit(): void {
   }
 
 }

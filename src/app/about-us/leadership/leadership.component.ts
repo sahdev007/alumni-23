@@ -145,7 +145,7 @@ export class LeadershipComponent implements OnInit {
 
   view(params: any){
     const dialogRef = this.dialog.open(ViewLeadershipComponent, {
-      width: '480px',
+      width: '540px',
       data: { data: params }
     });
   }
@@ -158,7 +158,9 @@ export class LeadershipComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        setTimeout(() => {
           this.ngOnInit();
+        }, 400);
       }
     });
   }

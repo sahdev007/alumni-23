@@ -150,7 +150,9 @@ export class PrimaryFunctionComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ngOnInit();
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 400);
       }
     });
   }
@@ -166,8 +168,8 @@ export class PrimaryFunctionComponent implements OnInit {
       if (result) {
         this.organizationService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            this.ngOnInit();
             this.notify.notificationService.success(res?.message);
+            this.ngOnInit();
           } 
         })
       }
@@ -205,11 +207,11 @@ export class PrimaryFunctionComponent implements OnInit {
         id: params?.id,
         status: e?.target?.value
       }
-      console.log(param);
+
       await this.organizationService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
-          this.ngOnInit();
           this.notify.notificationService.success(res?.message);
+          this.ngOnInit();
         }
       }, error => {
           this.notify.notificationService.error(error);

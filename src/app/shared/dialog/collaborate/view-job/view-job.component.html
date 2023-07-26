@@ -6,7 +6,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Author : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.author}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.author}}</p>
         </div>
     </div>    
     <div class="row"> 
@@ -14,7 +14,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Company Name : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.companyName}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.companyName}}</p>
         </div>
     </div>    
     <div class="row"> 
@@ -22,7 +22,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Title : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.title}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.title}}</p>
         </div>
     </div>    
     <div class="row"> 
@@ -30,7 +30,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Status : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.is_active}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.status == "open" ? 'Open' : 'Closed'}}</p>
         </div>
     </div>
 </div>

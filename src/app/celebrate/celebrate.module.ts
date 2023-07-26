@@ -40,12 +40,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     GalleryComponent,
     MagazineComponent,
     NewsAndUpdatesComponent,
-
     YoutubeLinksComponent,
     CreateFeaturedAlumniComponent,
     AddEditNewsComponent,
-
-
     YoutubeLinksComponent,
     CreateFeaturedAlumniComponent,
     AddEditNewsComponent,

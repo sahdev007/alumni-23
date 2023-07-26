@@ -35,6 +35,7 @@ export class AddEditKeyContactComponent implements OnInit {
       email: ['', Validators.required],
       designation: ['', Validators.required],
       description: ['', Validators.required],
+      status: [''],
       type: ['KeyContact']
     });
   }

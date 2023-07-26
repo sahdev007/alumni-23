@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AboutUsRoutingModule } from './about-us-routing.module';
-import { FounderChancellorComponent } from './founder-chancellor/founder-chancellor.component';
-import { SbupComponent } from './sbup/sbup.component';
 
 import { MatMenuModule } from '@angular/material/menu';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -21,8 +19,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
-    FounderChancellorComponent,
-    SbupComponent,
     LeadershipComponent
   ],
   imports: [

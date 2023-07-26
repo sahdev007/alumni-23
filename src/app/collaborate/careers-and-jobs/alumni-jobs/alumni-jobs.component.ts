@@ -8,7 +8,6 @@ import { TokenInterceptor } from "src/app/core/token.interceptor";
 import { Person } from "src/app/models/person";
 import { CollaborateService } from "src/app/services/collaborate.service";
 import { Config } from "src/app/services/config";
-import { DataService } from "src/app/services/data.service";
 import { ViewJobComponent } from "src/app/shared/dialog/collaborate/view-job/view-job.component";
 import { DeletedialogComponent } from "src/app/shared/dialog/deletedialog/deletedialog.component";
 
@@ -141,7 +140,7 @@ export class AlumniJobsComponent implements OnInit {
 
   view(data: any) {
     const dialogRef = this.dialog.open(ViewJobComponent, {
-      width: "400px",
+      width: "450px",
       data: { data: data },
     });
   }

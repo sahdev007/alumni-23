@@ -48,13 +48,13 @@ export class NotificationService {
   }
 
   success(message: string) {
-    Swal.fire({text: message, icon:'success', timer: 2500});
+    Swal.fire({text: message, icon:'success', timer: 1500});
   }
   warning(message: string) {
-    Swal.fire( {text: message, icon: 'warning', timer: 2500});
+    Swal.fire( {text: message, icon: 'warning', timer: 1500});
   }
   error(message: string) {
-    Swal.fire( {text: message, icon: 'error',  timer: 2500})
+    Swal.fire( {text: message, icon: 'error',  timer: 1500})
   }
 
 

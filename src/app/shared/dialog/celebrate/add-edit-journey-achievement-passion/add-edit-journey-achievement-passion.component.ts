@@ -26,7 +26,7 @@ export class AddEditJourneyAchievementPassionComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     this.getAllInstitutes();
-    this.updatedStatus = this.data?.data?.is_active;
+    this.updatedStatus = this.data?.data?.status;
     this.celebrateForm.patchValue({
       ...this.data?.data
     })
@@ -40,7 +40,7 @@ export class AddEditJourneyAchievementPassionComponent implements OnInit {
       institute_id: ['', Validators.required],
       type: [this.data?.type],
       description: ['', Validators.required],
-      is_active:[""],
+      status:[""],
       photo: [""]
     })
   }
@@ -62,7 +62,7 @@ export class AddEditJourneyAchievementPassionComponent implements OnInit {
       formData.append('type', this.celebrateForm?.value?.type);
       formData.append('institute_id', this.celebrateForm?.value?.institute_id);
       formData.append('description', this.celebrateForm?.value?.description);
-      formData.append('is_active', this.celebrateForm?.value?.is_active);
+      formData.append('status', this.celebrateForm?.value?.status);
   
       await this.celebrateService.postData(action, formData).subscribe((res: any) => {
         if (res?.status === 200) {

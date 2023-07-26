@@ -1,1 +1,64 @@
-{{ventureData | json}}
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12">
+            <h3 class="my-2 mb-4">View Business Ventures Detail</h3>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-5">Company Name :</label>
+            <p class="m-0 fs-5">{{ventureData?.company}}</p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-5">Author Name :</label><br/>
+            <p class="m-0 fs-5">{{ventureData?.owner}}</p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-5">Contact No. :</label>
+            <p class="m-0 fs-5"><a href="tel:{{ventureData?.contact}}">{{ventureData?.contact}}</a></p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-5">Email ID :</label><br/>
+            <p class="m-0 fs-5"><a href="mailto:{{ventureData?.email}}">{{ventureData?.email}}</a></p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-5">Address. :</label>
+            <p class="m-0 fs-5">{{ventureData?.address}}</p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-5">City :</label><br/>
+            <p class="m-0 fs-5">{{ventureData?.city}}</p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-5">State :</label>
+            <p class="m-0 fs-5">{{ventureData?.state}}</p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-5">Country. :</label>
+            <p class="m-0 fs-5">{{ventureData?.country}}</p>
+        </div>
+        <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.course">
+            <label class="form-label mb-1 fw-bold fs-5">Course :</label><br/>
+            <p class="m-0 fs-5">{{ventureData?.course}}</p>
+        </div>
+        <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.industry">
+            <label class="form-label mb-1 fw-bold fs-5">Industry. :</label>
+            <p class="m-0 fs-5">{{ventureData?.industry}}</p>
+        </div>
+
+        <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.facebook">
+            <label class="form-label mb-1 fw-bold fs-5">Facebook ID :</label><br/>
+            <p class="m-0 fs-5"><a href="{{ventureData?.facebook}}">{{ventureData?.facebook}}</a></p>
+        </div>
+        <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.linkedin">
+            <label class="form-label mb-1 fw-bold fs-5">Linkedin ID :</label><br/>
+            <p class="m-0 fs-5"><a href="{{ventureData?.linkedin}}">{{ventureData?.linkedin}}</a></p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-5">Status. :</label>
+            <p class="m-0 fs-5">{{ventureData?.status == "active" ? 'Active' : 'Inactive'}}</p>
+        </div>
+        <div class="col-12 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-5">Description. :</label>
+            <div [innerHtml]="ventureData?.description"></div>
+        </div>
+    </div>  
+</div>

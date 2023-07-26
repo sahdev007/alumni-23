@@ -137,11 +137,11 @@
       </div>
       <div class="col-md-6 my-1">
         <label for="formGroupExampleInput" class="col-form-label fw-bold">Job Status <span class="text-danger">*</span></label>
-        <select class="form-select form-control" aria-label="Default select example" formControlName="is_active">
+        <select class="form-select form-control" aria-label="Default select example" formControlName="status">
           <option value="" selected>Select Job Status</option>
           <option *ngFor="let item of jobStat; index as i;" [value]="item?.value">{{item?.value}}</option>
         </select>
-        <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.is_active.touched || submitted) && f.is_active.errors?.required">
+        <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.status.touched || submitted) && f.status.errors?.required">
           Job Type is required.
         </div> -->
       </div>

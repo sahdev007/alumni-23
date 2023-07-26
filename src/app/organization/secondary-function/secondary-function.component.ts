@@ -151,7 +151,9 @@ export class SecondaryFunctionComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ngOnInit();
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 400);
       }
     });
   }
@@ -167,7 +169,7 @@ export class SecondaryFunctionComponent implements OnInit {
       if (result) {
         this.organizationService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
+            this.notify.notificationService.success(res?.message);
             this.ngOnInit();
           } 
         })

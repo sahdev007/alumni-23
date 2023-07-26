@@ -40,11 +40,11 @@
     <div>
         <mat-form-field class="fullWidth w-100" appearance="fill">
           <mat-label>Status </mat-label>
-          <mat-select name="is_active" formControlName="is_active">
+          <mat-select name="is_active" formControlName="status">
             <mat-option value="active">Active</mat-option>
             <mat-option value="inActive">Inactive</mat-option>
           </mat-select>
-          <mat-error *ngIf="galleryForm.controls['is_active']?.errors?.required">This field is required</mat-error>
+          <mat-error *ngIf="galleryForm.controls['status']?.errors?.required">This field is required</mat-error>
         </mat-form-field>
     </div>
     <div class="form-group row mb-3">

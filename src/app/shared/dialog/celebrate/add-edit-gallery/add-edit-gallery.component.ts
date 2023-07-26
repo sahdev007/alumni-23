@@ -37,7 +37,7 @@ export class AddEditGalleryComponent implements OnInit {
       category: ['gallery'],
       order_by: [''],
       file: ['', Validators.required],
-      is_active: ['']
+      status: ['']
     });
   }
 
@@ -55,7 +55,7 @@ export class AddEditGalleryComponent implements OnInit {
       formData.append('type', this.galleryForm.value.type);
       formData.append('order_by', this.galleryForm.value.order_by);
       formData.append('category', this.galleryForm.value.category);
-      formData.append('is_active', this.galleryForm.value.is_active);
+      formData.append('status', this.galleryForm.value.status);
 
       await this.celebrateService.postData(action, formData).subscribe((res: any) => {
         if (res?.status == 200) {

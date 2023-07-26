@@ -152,7 +152,9 @@ export class UnderGraduateComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ngOnInit();
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 500);
       }
     });
   }

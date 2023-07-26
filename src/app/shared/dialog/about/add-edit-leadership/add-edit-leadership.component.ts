@@ -39,6 +39,7 @@ export class AddEditLeadershipComponent implements OnInit {
       designation: ['', Validators.required],
       order: ['', Validators.required],
       institute_name: ['', Validators.required],
+      status: ['', Validators.required],
       image: ['', Validators.required]
     });
   }
@@ -77,10 +78,10 @@ export class AddEditLeadershipComponent implements OnInit {
       formData.append('designation', this.leadershipForm?.value?.designation);
       formData.append('order', this.leadershipForm?.value?.order);
       formData.append('institute_name', this.leadershipForm?.value?.institute_name);
+      formData.append('status', this.leadershipForm?.value?.status);
 
       await this.teamService.postData(action, formData).subscribe((res: any) => {
         if (res?.status === 200) {
-          console.log('team created');
           this.dialogRef.close();
           this.notifyService.notificationService.success(res?.message);
           this.ngOnInit();

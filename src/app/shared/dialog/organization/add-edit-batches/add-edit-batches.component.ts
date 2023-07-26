@@ -31,7 +31,8 @@ export class AddEditBatchesComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       id: [''],
-      batch: ['', Validators.required]
+      batch: ['', Validators.required],
+      status: []
     });
   }
 

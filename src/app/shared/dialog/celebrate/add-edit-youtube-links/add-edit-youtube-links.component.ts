@@ -33,7 +33,7 @@ export class AddEditYoutubeLinksComponent implements OnInit {
       title: ['', Validators.required],
       link: ['', Validators.required],
       category: ['youtube'],
-      is_active: 'active'
+      status: ['']
     });
   }
 

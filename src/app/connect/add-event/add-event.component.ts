@@ -78,7 +78,7 @@ export class AddEventComponent implements OnInit {
       eventAttend: [""],
       cost: ["", Validators.required],
       eventPageLink: [""],
-      is_active: [""],
+      status: [""],
       contactNumber: [""],
       eventImage: [""],
     });
@@ -126,7 +126,7 @@ export class AddEventComponent implements OnInit {
       formData.append("date", this.addEventForm?.value?.date);
       formData.append("venue", this.addEventForm?.value?.venue);
       formData.append("cost", this.addEventForm?.value?.cost);
-      formData.append("is_active", this.addEventForm?.value?.is_active);
+      formData.append("status", this.addEventForm?.value?.status);
       formData.append("type", this.addEventForm?.value?.type);
       formData.append("time", this.addEventForm?.value?.time);
       formData.append("contactNumber", this.addEventForm?.value?.contactNumber);

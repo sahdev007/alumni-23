@@ -39,7 +39,7 @@ export class AddEditNewsComponent implements OnInit {
           .getDataById("single-news", this.newsId)
           .subscribe((res: any) => {
             this.newsData = res?.data;
-            this.newsStatus = res?.data?.is_active;
+            this.newsStatus = res?.data?.status;
             this.updatedFile = res?.data?.newsImage;
             this.newsForm.patchValue({
               ...this.newsData,
@@ -51,6 +51,7 @@ export class AddEditNewsComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    console.log(this.type)
     this.buildForm();
     $.getScript('./assets/js/form-validations.js');
     $.getScript('./assets/js/bs-custom-file-input.min.js');
@@ -63,7 +64,7 @@ export class AddEditNewsComponent implements OnInit {
       author: [""],
       title: ["", [Validators.required]],
       description: ["", Validators.required],
-      is_active: [""],
+      status: [""],
       expiryDate: [""],
       newsImage: [""],
     });
@@ -83,7 +84,7 @@ export class AddEditNewsComponent implements OnInit {
       formData.append("author", this.author);
       formData.append("title", this.newsForm.value.title);
       formData.append("description", this.newsForm.value.description);
-      formData.append("is_active", this.newsForm.value.is_active);
+      formData.append("status", this.newsForm.value.status);
       formData.append("expiryDate", this.newsForm.value.expiryDate);
 
       await this.celebrateService.postData(this.action, formData).subscribe(

@@ -32,7 +32,8 @@ export class AddEditInstitutesComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       id: [''],
-      institute_name: ['', Validators.required]
+      institute_name: ['', Validators.required],
+      status: ['']
     });
   }
 

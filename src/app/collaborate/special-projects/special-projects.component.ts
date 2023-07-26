@@ -161,7 +161,7 @@ export class SpecialProjectsComponent implements OnInit {
   edit(data: any, params: any) {
     console.log(params)
     const dialogRef = this.dialog.open(EditSpecialProjectComponent, {
-      width: '650px',
+      width: '580px',
       data: {data: data, action: params}
     });
 

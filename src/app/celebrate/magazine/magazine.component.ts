@@ -132,7 +132,7 @@ export class MagazineComponent implements OnInit {
 
   add(params: any, action?: string) {
     const dialogRef = this.dialog.open(AddEditMagazineComponent, {
-      width: '400px',
+      width: '450px',
       data: { data: params, action: action }
     });
 
@@ -145,14 +145,14 @@ export class MagazineComponent implements OnInit {
 
   view(data: any) {
     const dialogRef = this.dialog.open(ViewMagazineComponent, {
-      width: '480px',
+      width: '550px',
       data: { data: data }
     });
   }
 
   edit(data: any, params: any) {
     const dialogRef = this.dialog.open(AddEditMagazineComponent, {
-      width: '400px',
+      width: '480px',
       data: {data: data, action: params}
     });
 

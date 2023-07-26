@@ -137,7 +137,7 @@ export class AchievementsComponent implements OnInit {
 
   edit(data: any, params: any) {
     const dialogRef = this.dialog.open(AddEditJourneyAchievementPassionComponent, {
-      width: '400px',
+      width: '450px',
       data: {data: data, type: params, action: 'update-journey'}
     });
 

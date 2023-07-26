@@ -89,13 +89,13 @@
             </div>
             <div class="fullWidth d-flex flex-row mb-1  justify-content-around">
                 <button [disabled]="!searchValue.value" mat-raised-button color="primary" class="flex-row flex-align-center btn-filter-action" (click)="applyFilter(dataColumnName, selectedOperationFilter.value,  searchValue.value)">
-          <mat-icon>check</mat-icon>
-          <label>filter</label>
-        </button>
+                <mat-icon>check</mat-icon>
+                <label>filter</label>
+                </button>
                 <button mat-raised-button class="flex-row flex-align-center btn-filter-action" color="warn" (click)="clearFilter(dataColumnName)">
-          <mat-icon>clear</mat-icon>
-          <label>reset</label>
-        </button>
+                <mat-icon>clear</mat-icon>
+                <label>reset</label>
+                </button>
             </div>
         </div>
     </ng-template>

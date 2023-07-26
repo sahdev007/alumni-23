@@ -1,17 +1,31 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Celebrate</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{pageType == 'update-getFeatured' ? 'Update' : 'Create'}} Featrued Alumni</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
 <div class="get-featured px-4 pb-5">
     <div class="container">
-        <div class="d-sm-flex align-items-center justify-content-between my-4">
-            <h3 class="mb-0 text-gray-800 text-center">{{pageType == 'update-getFeatured' ? 'Update' : 'Add'}} Featured Alumni</h3>
-          </div>
-        <div class="row my-3">
-            <div class="col-12 text-center">
+        <div class="align-items-center justify-content-between my-2">
+            <h6 class="mb-0 text-gray-800 text-center text-uppercase">{{pageType == 'update-getFeatured' ? 'Update' : 'Add'}} Featured Alumni</h6>
+        </div>
+        <div class="row my-3 p-3 bg-white alumni-body card border-top border-0 border-4 border-primary">
+            <div class="col-12 text-center p-3 border" >
                 <form [formGroup]="featuredForm">
                     <div class="row">
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Email <span class="text-danger fs-6">*</span></label>
                                 <input type="email" formControlName="email"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter email here">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -23,11 +37,11 @@
                                 Email format is incorrect.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Your Full Name <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="full_name"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your name here">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -35,10 +49,10 @@
                                 Full Name is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Your Institute <span class="text-danger fs-6">*</span></label>
-                                <select formControlName="institute_id" class="form-select shadow-none rounded-0">
+                                <select formControlName="institute_id" class="form-select rounded-0.25">
                                     <option value="" selected>Choose your Institute</option>
                                     <option [value]="institute?.id"
                                         *ngFor="let institute of getInstitutes; let i=index;">
@@ -51,10 +65,10 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Batch Year <span class="text-danger fs-6">*</span></label>
-                                <select formControlName="batchYear_id" class="form-select shadow-none rounded-0">
+                                <select formControlName="batchYear_id" class="form-select rounded-0.25">
                                     <option value="" selected>Choose your batch</option>
                                     <option [value]="batch?.id" *ngFor="let batch of getBatch; let i=index;">
                                         {{ batch?.batch }}
@@ -66,19 +80,19 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Personal Email 2 (optional)</label>
                                 <input type="email" formControlName="personal_email"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your personal email here">
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Office Email <span class="text-danger fs-6">*</span></label>
                                 <input type="email" formControlName="office_email"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter office email here">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -90,11 +104,11 @@
                                 Office Email format is incorrect.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Mobile number <span class="text-danger fs-6">*</span></label>
                                 <input type="text" appNumbersOnly formControlName="mobile_number"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your number here">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -110,10 +124,10 @@
                                 Maximum 16 number are allowed.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Gender <span class="text-danger fs-6">*</span></label>
-                                <select formControlName="gender" class="form-select shadow-none rounded-0">
+                                <select formControlName="gender" class="form-select rounded-0.25">
                                     <option value="" selected>Choose gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
@@ -124,12 +138,12 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Employed / Entrepreneur <span
                                         class="text-danger fs-6">*</span></label>
                                 <select formControlName="employed_entrepreneur"
-                                    class="form-select shadow-none rounded-0">
+                                    class="form-select rounded-0.25">
                                     <option value="" selected>Choose Employed / Entrepreneur</option>
                                     <option value="employed">Employed</option>
                                     <option value="entrepreneur">Entrepreneur</option>
@@ -141,12 +155,12 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Current company name <span
                                         class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="current_company"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your current company">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -154,12 +168,12 @@
                                 Company is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Current designation <span
                                         class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="current_designation"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter current designation">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -167,12 +181,12 @@
                                 Current designation is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Current Location <span
                                         class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="current_location"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter current designation">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -180,12 +194,12 @@
                                 Current location is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">If not in your current profession, I
                                     would be a <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="alternate_profession"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter current designation">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -193,12 +207,12 @@
                                 Current profession is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Native City, State or Your City, State
                                     before joining Institute <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="native_city"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter native city / state">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -206,13 +220,13 @@
                                 Native city is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Your first job / gig / business even as
                                     a young kid prior to joining Institute <span
                                         class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="first_job"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter first job / gig / business">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -220,12 +234,12 @@
                                 First job / gig / business is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Your first salary in Rs. per month even
                                     prior to Institute <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="first_salary"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your first salary">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -233,12 +247,12 @@
                                 First salary is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
-                                <label class="form-label">Favourite Book and Author Name <span
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
+                                <label class="fotext-startrm-label">Favourite Book and Author Name <span
                                         class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="favourite_book_author"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter favourite book author">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -246,12 +260,12 @@
                                 Favourite book author is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Your Personal Hero in Life and/or
                                     Profession <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="personal_hero"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your personal hero">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -259,11 +273,11 @@
                                 Personal hero is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">How did you first hear about the Institute <span
                                         class="text-danger fs-6">*</span></label>
-                                <select formControlName="first_hear" class="form-select shadow-none rounded-0">
+                                <select formControlName="first_hear" class="form-select rounded-0.25">
                                     <option value="" selected>Choose an option</option>
                                     <option value="friends">Friends</option>
                                     <option value="family_Relatives">Family / Relatives</option>
@@ -277,10 +291,10 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Marital Status <span class="text-danger fs-6">*</span></label>
-                                <select formControlName="marital_status" [(ngModel)]="updatedMartialStatus" class="form-select shadow-none rounded-0">
+                                <select formControlName="marital_status" [(ngModel)]="updatedMartialStatus" class="form-select rounded-0.25">
                                     <option value="" selected>Choose your Option</option>
                                     <option [value]="item?.status" *ngFor="let item of marStatus; let i=index;">
                                         {{ item?.status }}
@@ -292,11 +306,11 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Where you placed from Campus <span
                                         class="text-danger fs-6">*</span></label>
-                                <select formControlName="campus_placement" class="form-select shadow-none rounded-0">
+                                <select formControlName="campus_placement" class="form-select rounded-0.25">
                                     <option value="" selected>Choose an option</option>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
@@ -308,12 +322,12 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">If you were placed from Campus, please
                                     share company name and location <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="placement_location"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Share campus or company location">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -321,19 +335,19 @@
                                 Shared your campus or company location is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Enter Current Industry</label>
                                 <input type="text" formControlName="current_industry"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter current industry">
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">If married, Spouse from SBUP <span
                                         class="text-danger fs-6">*</span></label>
-                                <select formControlName="if_married_sbup" class="form-select shadow-none rounded-0">
+                                <select formControlName="if_married_sbup" class="form-select rounded-0.25">
                                     <option value="" selected>Choose an option</option>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
@@ -345,12 +359,12 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Life long lessons you learnt from the
                                     Institute <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="life_lessons"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter life long lessons you learnt">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -358,13 +372,13 @@
                                 Life long lessons you learnt is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">If Spouse is from SBUP, Please specify
                                     Full name, SBUP Institute and Batch Year. If not, please mention not applicable
                                     <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="spouse_details"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter spouse detail">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -373,13 +387,13 @@
                             </div> -->
                         </div>
 
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Please share your memories about The
                                     Honorable Founder Chancellor, Prof. Col. A. Balasubramaian / Bala Sir
                                     <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="share_memories"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Please share your memories">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -387,13 +401,13 @@
                                 Share memory is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Please share your message with current
                                     students. Tips for success
                                     <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="share_current_students"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Share your message with current student">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -401,30 +415,30 @@
                                 Share message is required.
                             </div> -->
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Please share your message with future
                                     MBA candidates, applicants applying at Institute</label>
                                 <input type="text" formControlName="share_future_students"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Share your message with future alumni">
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Please share your message with your
                                     batchmates and SBUP Alumni community</label>
                                 <input type="text" formControlName="share_message_alumni"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your message with your batchmates">
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Would be willing to be a mentor to junior students and
                                     alumni <span class="text-danger fs-6">*</span></label>
                                 <select formControlName="willing_to_provide_mentorship"
-                                    class="form-select shadow-none rounded-0">
+                                    class="form-select rounded-0.25">
                                     <option value="" selected>Choose an option</option>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
@@ -435,13 +449,13 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-6 my-2">
-                            <div class="text-start">
+                        <div class="col-md-4 my-2">
+                            <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label">Please share your message with current
                                     students. Tips for success
                                     <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="share_hidden_talents"
-                                    class="shadow-none rounded-0 custom-form form-control"
+                                    class="rounded-0.25 custom-form form-control"
                                     placeholder="Share your hide talent">
                             </div>
                             <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
@@ -456,16 +470,16 @@
                                     posts where we will feature your profile
                                     <span class="text-danger fs-6">*</span></label>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                            <span class="input-group-text" id="fb"><i class="bi bi-facebook text-primary"></i>
-                                            </span>
+                                                <span class="input-group-text" id="fb"><i class="bi bi-facebook text-primary"></i>
+                                                </span>
                                             </div>
                                             <input type="text" class="form-control" formControlName="facebook_id" placeholder="Enter Facebook id" aria-label="facebook" aria-describedby="fb">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                             <span class="input-group-text" id="insta"><i class="bi bi-instagram text-danger"></i></span>
@@ -473,7 +487,7 @@
                                             <input type="text" class="form-control" formControlName="instagram_id" placeholder="Enter Instagram id" aria-label="instagram" aria-describedby="insta">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                             <span class="input-group-text" id="twitter"><i class="bi bi-twitter text-primary"></i></span>
@@ -481,7 +495,7 @@
                                             <input type="text" class="form-control" formControlName="twitter_id" placeholder="Enter Twitter id" aria-label="twitter" aria-describedby="twitter">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                             <span class="input-group-text" id="linkedin"><i class="bi bi-linkedin text-info"></i></span>
@@ -496,7 +510,7 @@
                             <div class="text-start">
                                 <label class="form-label">Please upload your picture
                                     <span class="text-danger fs-6">*</span></label>
-                                    <input type="file" class="shadow-none rounded-0 custom-form form-control" (change)="onUploadImage($event)" accept="image/*" />
+                                    <input type="file" class="rounded-0.25 custom-form form-control" (change)="onUploadImage($event)" accept="image/*" />
                             </div>
                         </div>
                         <div
@@ -529,8 +543,8 @@
                         <div class="my-3" mat-dialog-actions align="center">
                             <button mat-raised-button color="warn" mat-dialog-close class="me-2" [routerLink]="['/celebrate/featured-alumni']">Cancel</button>
                             <button [mat-dialog-close]="true" cdkFocusInitial mat-raised-button color="primary" (click)="save()" 
-                              >{{pageType == 'update-getFeatured' ? 'Update' : 'Add'}}</button>
-                          </div>
+                            >{{pageType == 'update-getFeatured' ? 'Update' : 'Add'}}</button>
+                        </div>
                     </div>
                 </form>
             </div>

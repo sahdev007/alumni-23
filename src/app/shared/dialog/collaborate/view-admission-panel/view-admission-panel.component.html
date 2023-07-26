@@ -6,7 +6,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>City : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.city}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.city}}</p>
         </div>
     </div>    
     <div class="row"> 
@@ -14,7 +14,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Location : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.location}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.location}}</p>
         </div>
     </div>    
     <div class="row"> 
@@ -22,7 +22,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Date Time : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.date_time}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.date_time}}</p>
         </div>
     </div>    
     <div class="row"> 
@@ -30,7 +30,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Status : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.is_active}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.status == "active" ? 'Active' : 'Inactive'}}</p>
         </div>
     </div>
 </div>

@@ -12,6 +12,7 @@ import { ContactService } from 'src/app/services/contact.service';
 export class AddEditSocialContactComponent implements OnInit {
   formInstance: FormGroup;
   submitted: boolean = false;
+  updatedStatus: any;
 
   constructor(public dialogRef: MatDialogRef<AddEditSocialContactComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -30,9 +31,9 @@ export class AddEditSocialContactComponent implements OnInit {
       id: this.data.action == "create-contact" ? '' : this.data?.data?.id,  
       title: ['', Validators.required],
       link: ['', Validators.required],
-      type: ['SbupChannel'],
-      is_active: ['inactive'],
-      description: ['', Validators.required]
+      status: [''],
+      description: ['', Validators.required],
+      type: ['SbupChannel']
     });
   }
 

@@ -26,7 +26,6 @@ import { EditFeaturedAlumniComponent } from './dialog/celebrate/edit-featured-al
 import { EditUserComponent } from './dialog/dashboard/edit-user/edit-user.component';
 import { AddEditClubTypeComponent } from './dialog/community/add-edit-club-type/add-edit-club-type.component';
 import { AddEditJobTypeComponent } from './dialog/collaborate/add-edit-job-type/add-edit-job-type.component';
-import { ViewUserListComponent } from './dialog/collaborate/view-user-list/view-user-list.component';
 import { AddMentorComponent } from './dialog/collaborate/add-mentor/add-mentor.component';
 import { EditMentorComponent } from './dialog/collaborate/edit-mentor/edit-mentor.component';
 import { AddMenteeComponent } from './dialog/collaborate/add-mentee/add-mentee.component';
@@ -72,6 +71,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ViewClubComponent } from './dialog/community/view-club/view-club.component';
 import { ViewEventComponent } from './dialog/connect/view-event/view-event.component';
 import { ViewFeaturedAlumniComponent } from './dialog/celebrate/view-featured-alumni/view-featured-alumni.component';
+import { ViewUserListComponent } from './dialog/collaborate/view-user-list/view-user-list.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
     exports: [
@@ -82,7 +83,8 @@ import { ViewFeaturedAlumniComponent } from './dialog/celebrate/view-featured-al
         ColorSwitcherComponent,
         NgbModule,
         ShowContentPipe,
-        ReplaceUnderscorePipe
+        ReplaceUnderscorePipe,
+        LoaderComponent
     ],
     imports: [
         RouterModule,
@@ -119,7 +121,6 @@ import { ViewFeaturedAlumniComponent } from './dialog/celebrate/view-featured-al
         EditUserComponent,
         AddEditClubTypeComponent,
         AddEditJobTypeComponent,
-        ViewUserListComponent,
         AddMentorComponent,
         EditMentorComponent,
         AddMenteeComponent,
@@ -158,7 +159,9 @@ import { ViewFeaturedAlumniComponent } from './dialog/celebrate/view-featured-al
         AddEditFunctionComponent,
         ViewClubComponent,
         ViewEventComponent,
-        ViewFeaturedAlumniComponent
+        ViewFeaturedAlumniComponent,
+        ViewUserListComponent,
+        LoaderComponent
     ],
     providers: [AuthGuard ],
     entryComponents: [ ]

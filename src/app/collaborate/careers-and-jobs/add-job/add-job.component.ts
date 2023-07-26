@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CollaborateService } from 'src/app/services/collaborate.service';
 
 @Component({
@@ -31,7 +32,8 @@ export class AddJobComponent implements OnInit {
     public collaborateService: CollaborateService,
     public router: Router,
     public arouter: ActivatedRoute,
-    private _location : Location
+    private _location : Location,
+    private notify : TokenInterceptor
   ) { 
     if (localStorage) {
       this.currentUser = JSON?.parse(localStorage?.getItem('currentUser') || '');
@@ -39,9 +41,6 @@ export class AddJobComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // setTimeout(() => {
-    //   this.jobType = this.internshipData.filter((x: any) => { return x?.status == "active"});
-    // }, 2000);
     this.buildForm();
    this.getAllJobTypes();
     let fname = this.currentUser?.first_name;
@@ -93,7 +92,7 @@ export class AddJobComponent implements OnInit {
       email: ['', [Validators.required,  Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$")]],
       website: ['', Validators.required],
       description: ['', Validators.required],
-      is_active: [''],
+      status: [''],
       type: 'admin'
     })
   }
@@ -130,7 +129,7 @@ export class AddJobComponent implements OnInit {
         });
       }
     },error => {
-      // this.interceptor.notificationService.openFailureSnackBar(error);
+      this.notify.notificationService.openFailureSnackBar(error);
     })
   }
 

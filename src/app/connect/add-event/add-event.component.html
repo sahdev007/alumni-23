@@ -86,7 +86,7 @@
         <div class="mb-3 row">
             <div class="col-sm-10 col-md-6">
                 <label for="formGroupExampleInput" class="col-form-label fw-bold ">Status</label>
-                <select class="form-select" aria-label="Default select example" formControlName="is_active">
+                <select class="form-select" aria-label="Default select example" formControlName="status">
                     <option value="" selected>Select Status</option>
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
@@ -243,9 +243,9 @@
                 <div class="mb-3 row justify-content-center">
                     <label for="formGroupExampleInput" class="col-md-2 col-form-label fw-bold">Event Status <span class="text-danger">*</span></label>
                     <div class="col-sm-10 col-md-5">
-                        <select class="form-select form-control" aria-label="Default select example" formControlName="is_active">
+                        <select class="form-select form-control text-capitalize" aria-label="Default select example" formControlName="status">
                             <option value="" selected>Select Status</option>
-                            <option *ngFor="let item of eventStat; index as i;" [value]="item?.value">{{item?.value}}</option>
+                            <option class="text-capitalize" *ngFor="let item of eventStat; index as i;" [value]="item?.value">{{item?.value}}</option>
                         </select>
                     </div>
                 </div>           

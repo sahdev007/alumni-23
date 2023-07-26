@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CelebrateService } from 'src/app/services/celebrate.service';
+import { Config } from 'src/app/services/config';
 
 @Component({
   selector: 'app-create-featured-alumni',
@@ -17,43 +18,39 @@ export class CreateFeaturedAlumniComponent implements OnInit {
   getBatch: any;
   profilePic: any;
   image: any;
-  loading: boolean | undefined;
+  loading: boolean = true;
   pageType: any;
   alumniId: any;
   currentUser: any;
   updatedMartialStatus: any;
   updatedFile: any;
-  marStatus = [
-    { id: 1, status: "Single" },
-    { id: 2, status: "Engaged" },
-    { id: 3, status: "Married" },
-    { id: 4, status: "Divorced" },
-    { id: 5, status: "Undisclosed" }
-  ];
+  marStatus: any;
   constructor(public fb: FormBuilder,
     private celebrateService : CelebrateService,
     private arouter: ActivatedRoute,
     private router: Router,
-    private notifyService: TokenInterceptor
+    private notifyService: TokenInterceptor,
+    private config: Config
     ) {
 
-    // if (localStorage.hasOwnProperty("currentUser")) {
-    //   this.currentUser = JSON.parse(
-    //     localStorage.getItem("currentUser") || "{}"
-    //   );
-    // }
-    this.arouter.queryParams.subscribe((res: any) => {
-
-      this.pageType = res?.action;
-      this.alumniId = res?.alumniId;
-      if(this.pageType == 'update-getFeatured') this.getAlumniById(this.alumniId);
-    });
+    if (localStorage.hasOwnProperty("currentUser")) {
+      this.currentUser = JSON.parse(
+        localStorage.getItem("currentUser") || "{}"
+      );
+    }
+   
+    this.marStatus = this.config?.maritalStatus;
   }
 
   ngOnInit() {
     this.buildForm();
     this.getAllInstitutes();
     this.getAllBatches();
+    this.arouter.queryParams.subscribe((res: any) => {
+      this.pageType = res?.action;
+      this.alumniId = res?.alumniId;
+      if(this.pageType == 'update-getFeatured') this.getAlumniById(this.alumniId);
+    });
   }
   
   /**
@@ -114,7 +111,7 @@ export class CreateFeaturedAlumniComponent implements OnInit {
       (res: any) => {
         this.getInstitutes = res?.Institute;
       }, error => {
-        // this.notify.notificationService.openFailureSnackBar(error);
+        this.notifyService.notificationService.openFailureSnackBar(error);
       }
     );
   }
@@ -141,7 +138,7 @@ export class CreateFeaturedAlumniComponent implements OnInit {
       this.featuredForm.patchValue({
         ...this.updatedFile,
         ...res?.data
-      })
+      });
     })
   }
   /**

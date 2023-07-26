@@ -141,7 +141,7 @@ export class AdminJobsComponent implements OnInit {
 
   view(data: any) {
     const dialogRef = this.dialog.open(ViewJobComponent, {
-      width: '400px',
+      width: '450px',
       data: { data: data }
     });
   }

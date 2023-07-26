@@ -152,7 +152,7 @@ export class SecondaryIndustryComponent implements OnInit {
       if (result) {
         setTimeout(() => {
           this.ngOnInit();
-        }, 100);
+        }, 400);
       }
     });
   }
@@ -168,7 +168,7 @@ export class SecondaryIndustryComponent implements OnInit {
       if (result) {
         this.organizationService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
+            this.notify.notificationService.success(res?.message);
             this.ngOnInit();
           } 
         })
@@ -207,7 +207,7 @@ export class SecondaryIndustryComponent implements OnInit {
         id: params?.id,
         status: e?.target?.value
       }
-      console.log(param);
+
       await this.organizationService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
           this.notify.notificationService.success(res?.message);

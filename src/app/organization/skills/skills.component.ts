@@ -16,8 +16,6 @@ import { TokenInterceptor } from 'src/app/core/token.interceptor';
   styleUrls: ['./skills.component.scss']
 })
 export class SkillsComponent implements OnInit {
-
-  public tabStatus = [{id:1, status:'active'}, {id:2, status:'inActive'}];
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -37,7 +35,7 @@ export class SkillsComponent implements OnInit {
     public notify: TokenInterceptor
     ) {
       this.status = this.config?.status;
-    this.dataSource = new MatTableDataSource<Person>();
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -153,7 +151,9 @@ export class SkillsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ngOnInit();
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 400);
       }
     });
   }
@@ -169,7 +169,7 @@ export class SkillsComponent implements OnInit {
       if (result) {
         this.organizationService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
+            this.notify.notificationService.success(res?.message);
             this.ngOnInit();
           } 
         })
@@ -178,27 +178,21 @@ export class SkillsComponent implements OnInit {
   }
 
   async onStatusChange(e:any, params: any) {
-    console.log(e, params)
     let action = "update-skill";
       let param = {
         id: params?.id,
-        is_active: e?.target?.value
+        status: e?.target?.value
       }
-      console.log(param);
+
       await this.organizationService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
-          this.ngOnInit();
           this.notify.notificationService.success(res?.message);
+          this.ngOnInit();
         }
       }, error => {
           this.notify.notificationService.error(error);
       });
   }
-
-  // trackByMethod(index:number, el:any): number {
-  //   console.log(index, el);
-  //   return el.status;
-  // }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -219,13 +213,8 @@ export class SkillsComponent implements OnInit {
         if(skill?.status == 200) this.dataSource.data = skill?.Skill;
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.error(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 }

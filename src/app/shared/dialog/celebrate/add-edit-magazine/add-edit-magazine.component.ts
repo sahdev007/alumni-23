@@ -42,7 +42,7 @@ export class AddEditMagazineComponent implements OnInit {
     link: ['', Validators.required],
     file: [''],
     subscribe_user: [''],
-    is_active: ['active'] 
+    status: [''] 
    });
  }
 
@@ -61,7 +61,7 @@ export class AddEditMagazineComponent implements OnInit {
     formData.append('magazine_name', this.magazineForm?.value?.magazine_name);
     formData.append('link', this.magazineForm?.value?.link);
     formData.append('subscribe_user', this.magazineForm?.value?.subscribe_user);
-    formData.append('is_active', this.magazineForm?.value?.is_active);
+    formData.append('status', this.magazineForm?.value?.status);
 
     await this.celebrateService.postData(action, formData).subscribe((res: any) => {
       if (res?.status === 200) {
