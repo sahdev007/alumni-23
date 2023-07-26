@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CommunityService } from 'src/app/services/community.service';
+import { Config } from 'src/app/services/config';
 import { DataService } from 'src/app/services/data.service';
 import { AddEditClubTypeComponent } from 'src/app/shared/dialog/community/add-edit-club-type/add-edit-club-type.component';
 import { ViewClubTypeComponent } from 'src/app/shared/dialog/community/view-club-type/view-club-type.component';
@@ -18,8 +19,6 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./add-club-type.component.scss']
 })
 export class AddClubTypeComponent implements OnInit {
-
-  public status = 'active';
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -34,14 +33,16 @@ export class AddClubTypeComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-
+  status: any;
   constructor(
     public dialog: MatDialog,
     private communityService: CommunityService,
     public router: Router,
-    private notify: TokenInterceptor
+    private notify: TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
   private filter() {
@@ -208,13 +209,14 @@ export class AddClubTypeComponent implements OnInit {
       id: params?.id,
       status: e?.target?.value
     }
-    console.log(param);
+
     await this.communityService.updateData(action, param).subscribe((res: any) => {
       if(res?.status == 200) {
+        this.notify.notificationService.success(res?.message);
         this.ngOnInit();
       }
     }, error => {
-        console.log(error);
+        this.notify.notificationService.error(error);
     });
   }
 
@@ -228,11 +230,6 @@ export class AddClubTypeComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-    // this.personsService.getAll();
-    // this.serviceSubscribe = this.personsService.persons$.subscribe(res => {
-    //   this.dataSource.data = res;
-    //   console.log(res);
-    // })
   }
 
   async getAllData() {
@@ -241,22 +238,10 @@ export class AddClubTypeComponent implements OnInit {
       (vid: any) => {
         console.log(vid.data)
         if(vid?.status == 200) this.dataSource.data = vid?.data;
-        console.log(this.dataSource.data);
-        // if (user?.status == 200) {
-        //   this.rowData = user?.data;
-        //   this.rowData.sort((a: any, b: any) => {
-        //     return a?.order_by - b?.order_by;
-        //   });
-        // }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.error(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 }

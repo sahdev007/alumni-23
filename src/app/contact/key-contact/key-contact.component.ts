@@ -4,28 +4,27 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Person } from 'src/app/models/person';
-import { DataService } from 'src/app/services/data.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 import { Router } from '@angular/router';
 import { AddEditKeyContactComponent } from 'src/app/shared/dialog/contact/add-edit-key-contact/add-edit-key-contact.component';
 import { ViewContactComponent } from 'src/app/shared/dialog/contact/view-contact/view-contact.component';
 import { ContactService } from 'src/app/services/contact.service';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
+import { Config } from 'src/app/services/config';
 
 @Component({
   selector: 'app-key-contact',
   templateUrl: './key-contact.component.html',
   styleUrls: ['./key-contact.component.scss']
 })
-export class KeyContactComponent implements OnInit, OnDestroy, AfterViewInit{
-  public status = 'active';
+export class KeyContactComponent implements OnInit, AfterViewInit{
   getAllContact: Array<any> = [];
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['title', 'phone', 'email', 'designation'];
-  public columnsToDisplay: string[] = [...this.displayedColumns,'is_active', 'actions'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -34,14 +33,17 @@ export class KeyContactComponent implements OnInit, OnDestroy, AfterViewInit{
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
+  status: any;
 
   constructor(
     public dialog: MatDialog,
     private contactService: ContactService,
     public router: Router,
-    private notify : TokenInterceptor
+    private notify : TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -106,7 +108,7 @@ export class KeyContactComponent implements OnInit, OnDestroy, AfterViewInit{
       }
 
       return find;
-    };
+      };
 
     this.dataSource.filter = null;
     this.dataSource.filter = 'activate';
@@ -203,15 +205,16 @@ export class KeyContactComponent implements OnInit, OnDestroy, AfterViewInit{
     let action = "update-contact";
       let param = {
         id: params?.id,
-        is_active: e?.target?.value
+        status: e?.target?.value
       }
-      console.log(param);
+
       await this.contactService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notify.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notify.notificationService.error(error);
       });
   }
 
@@ -234,25 +237,19 @@ export class KeyContactComponent implements OnInit, OnDestroy, AfterViewInit{
     let action = "all-contact";
     await this.contactService.getAllData(action).subscribe(
       (res: any) => {
-        // console.log(res.data)
         if(res?.status == 200) {
           res?.data?.filter((x: any) => {
             if(x?.type == 'KeyContact') {
               this.getAllContact.push(x);
             }
           })
-          console.log(this.getAllContact)
           this.dataSource.data = this.getAllContact;
         }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+          this.notify.notificationService.error(error);
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
   }
 
 }

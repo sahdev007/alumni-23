@@ -1,29 +1,31 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { TokenInterceptor } from 'src/app/core/token.interceptor';
-import { Person } from 'src/app/models/person';
-import { ConnectService } from 'src/app/services/connect.service';
-import { DataService } from 'src/app/services/data.service';
-import { AddEditEventTypeComponent } from 'src/app/shared/dialog/connect/add-edit-event-type/add-edit-event-type.component';
-import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { TokenInterceptor } from "src/app/core/token.interceptor";
+import { Person } from "src/app/models/person";
+import { Config } from "src/app/services/config";
+import { ConnectService } from "src/app/services/connect.service";
+import { DataService } from "src/app/services/data.service";
+import { AddEditEventTypeComponent } from "src/app/shared/dialog/connect/add-edit-event-type/add-edit-event-type.component";
+import { DeletedialogComponent } from "src/app/shared/dialog/deletedialog/deletedialog.component";
 
 @Component({
-  selector: 'app-event-types',
-  templateUrl: './event-types.component.html',
-  styleUrls: ['./event-types.component.scss']
+  selector: "app-event-types",
+  templateUrl: "./event-types.component.html",
+  styleUrls: ["./event-types.component.scss"],
 })
 export class EventTypesComponent implements OnInit {
-
-  public status = 'active';
- 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['type'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public displayedColumns: string[] = ["type"];
+  public columnsToDisplay: string[] = [
+    ...this.displayedColumns,
+    "status",
+    "actions",
+  ];
 
   /**
    * it holds a list of active filter for each column.
@@ -31,12 +33,15 @@ export class EventTypesComponent implements OnInit {
    **/
   public columnsFilters = {};
   public dataSource: MatTableDataSource<Person>;
+  status: any;
 
-  constructor( 
+  constructor(
     public dialog: MatDialog,
     private connectService: ConnectService,
-    private notify : TokenInterceptor
-    ) {
+    private notify: TokenInterceptor,
+    private config: Config
+  ) {
+    this.status = this.config?.status;
     this.dataSource = new MatTableDataSource<Person>();
   }
 
@@ -45,14 +50,12 @@ export class EventTypesComponent implements OnInit {
       let find = true;
 
       for (var columnName in this.columnsFilters) {
-
         let currentData = "" + data[columnName];
 
         //if there is no filter, jump to next loop, otherwise do the filter.
         if (!this.columnsFilters[columnName]) {
           // return;
         }
-
 
         let searchValue = this.columnsFilters[columnName]["contains"];
 
@@ -97,14 +100,13 @@ export class EventTypesComponent implements OnInit {
           //exit loop
           // return;
         }
-
       }
 
       return find;
     };
 
     this.dataSource.filter = null;
-    this.dataSource.filter = 'activate';
+    this.dataSource.filter = "activate";
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -132,11 +134,11 @@ export class EventTypesComponent implements OnInit {
 
   add(data: any, params?: string) {
     const dialogRef = this.dialog.open(AddEditEventTypeComponent, {
-      width: '400px',
-      data: { data: data, action: params }
+      width: "400px",
+      data: { data: data, action: params },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.ngOnInit();
       }
@@ -145,12 +147,12 @@ export class EventTypesComponent implements OnInit {
 
   edit(data: any, params: any) {
     const dialogRef = this.dialog.open(AddEditEventTypeComponent, {
-      width: '400px',
-      data: {data: data, action: params}
+      width: "400px",
+      data: { data: data, action: params },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result, 'Resutl');
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result, "Resutl");
       if (result) {
         this.ngOnInit();
       }
@@ -160,36 +162,42 @@ export class EventTypesComponent implements OnInit {
   delete(data: any, params: string) {
     let action: string = "delete-eventType";
     const dialogRef = this.dialog.open(DeletedialogComponent, {
-      width: '400px',
-      data: { info: params }
+      width: "400px",
+      data: { info: params },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.connectService.deleteData(action, data?.id).subscribe((res:any) => {
-          if(res?.status == 200) {
-            this.notify.notificationService.success(res?.message);
-            this.ngOnInit();
-          }
-        })
+        this.connectService
+          .deleteData(action, data?.id)
+          .subscribe((res: any) => {
+            if (res?.status == 200) {
+              this.notify.notificationService.success(res?.message);
+              this.ngOnInit();
+            }
+          });
       }
     });
   }
 
-  async onStatusChange(e:any, params: any) {
+  async onStatusChange(e: any, params: any) {
     let action = "update-eventType";
-      let param = {
-        id: params?.id,
-        status: e?.target?.value
-      }
-      console.log(param);
-      await this.connectService.updateData(action, param).subscribe((res: any) => {
-        if(res?.status == 200) {
+    let param = {
+      id: params?.id,
+      status: e?.target?.value,
+    };
+
+    await this.connectService.updateData(action, param).subscribe(
+      (res: any) => {
+        if (res?.status == 200) {
+          this.notify.notificationService.success(res?.message);
           this.ngOnInit();
         }
-      }, error => {
-          console.log(error);
-      });
+      },
+      (error) => {
+          this.notify.notificationService.error(error);
+      }
+    );
   }
 
   ngAfterViewInit(): void {
@@ -208,9 +216,8 @@ export class EventTypesComponent implements OnInit {
     let action = "all-eventType";
     await this.connectService.getAllData(action).subscribe(
       (vid: any) => {
-        console.log(vid.data)
-        if(vid?.status == 200) this.dataSource.data = vid?.data;
-        console.log(this.dataSource.data);
+        console.log(vid.data);
+        if (vid?.status == 200) this.dataSource.data = vid?.data;
       },
       (error) => {
         this.notify.notificationService.error(error);

@@ -37,6 +37,25 @@ export class Config {
   ];
 
   /**
+   * Status as Active/Inactive
+   */
+  status = [
+    {id:1, status:'active'}, 
+    {id:2, status:'inActive'}
+  ];
+  
+  isOpen = [
+    {id:1, status:'open'}, 
+    {id:2, status:'closed'}
+  ]
+
+  userStat = [
+    {id:1, status:'active'}, 
+    {id:2, status:'inActive'},
+    {id:3, status:'rejected'}
+  ]
+
+  /**
    * Function to allow only Value
    */
   onlyNumber(event: any) {

@@ -7,6 +7,8 @@ import { Person } from 'src/app/models/person';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 import { AddEditSkillsComponent } from 'src/app/shared/dialog/organization/add-edit-skills/add-edit-skills.component';
+import { Config } from 'src/app/services/config';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 
 @Component({
   selector: 'app-skills',
@@ -16,7 +18,6 @@ import { AddEditSkillsComponent } from 'src/app/shared/dialog/organization/add-e
 export class SkillsComponent implements OnInit {
 
   public tabStatus = [{id:1, status:'active'}, {id:2, status:'inActive'}];
-  newStatus = "inActive";
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -27,12 +28,15 @@ export class SkillsComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status: any;
 
   constructor(
     private organizationService: OrganizationService, 
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private config: Config,
+    public notify: TokenInterceptor
     ) {
+      this.status = this.config?.status;
     this.dataSource = new MatTableDataSource<Person>();
   }
 
@@ -174,6 +178,7 @@ export class SkillsComponent implements OnInit {
   }
 
   async onStatusChange(e:any, params: any) {
+    console.log(e, params)
     let action = "update-skill";
       let param = {
         id: params?.id,
@@ -182,11 +187,11 @@ export class SkillsComponent implements OnInit {
       console.log(param);
       await this.organizationService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
-          alert(res)
           this.ngOnInit();
+          this.notify.notificationService.success(res?.message);
         }
       }, error => {
-          console.log(error);
+          this.notify.notificationService.error(error);
       });
   }
 

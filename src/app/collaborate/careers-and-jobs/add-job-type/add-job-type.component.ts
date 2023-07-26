@@ -4,8 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CollaborateService } from 'src/app/services/collaborate.service';
+import { Config } from 'src/app/services/config';
 import { AddEditJobTypeComponent } from 'src/app/shared/dialog/collaborate/add-edit-job-type/add-edit-job-type.component';
 import { ViewJobTypeComponent } from 'src/app/shared/dialog/collaborate/view-job-type/view-job-type.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
@@ -15,13 +17,9 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   templateUrl: './add-job-type.component.html',
   styleUrls: ['./add-job-type.component.scss']
 })
-export class AddJobTypeComponent implements OnInit {
-  public status = 'active';
- 
+export class AddJobTypeComponent implements OnInit { 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['type'];
   public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
 
@@ -32,19 +30,22 @@ export class AddJobTypeComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status : any;
 
   constructor(
     public dialog: MatDialog,
     private collaborateService: CollaborateService,
-    public router: Router
+    public router: Router,
+    private notify: TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
   private filter() {
-    this.dataSource.filterPredicate = (data: Person, filter: string) => {
+      this.dataSource.filterPredicate = (data: Person, filter: string) => {
       let find = true;
 
       for (var columnName in this.columnsFilters) {
@@ -103,8 +104,8 @@ export class AddJobTypeComponent implements OnInit {
 
       }
 
-      return find;
-    };
+        return find;
+  };
 
     this.dataSource.filter = null;
     this.dataSource.filter = 'activate';
@@ -177,7 +178,7 @@ export class AddJobTypeComponent implements OnInit {
       if (result) {
         this.collaborateService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
+            this.notify.notificationService?.success(res?.message);
             this.ngOnInit();
           } 
         })
@@ -194,10 +195,11 @@ export class AddJobTypeComponent implements OnInit {
       
       await this.collaborateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notify?.notificationService?.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notify?.notificationService?.error(error);
       });
   }
 
@@ -222,13 +224,8 @@ export class AddJobTypeComponent implements OnInit {
         } 
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+          this.notify?.notificationService?.error(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 }

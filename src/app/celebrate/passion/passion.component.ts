@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
+import { Config } from 'src/app/services/config';
 import { AddEditJourneyAchievementPassionComponent } from 'src/app/shared/dialog/celebrate/add-edit-journey-achievement-passion/add-edit-journey-achievement-passion.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
@@ -17,7 +18,6 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
 })
 export class PassionComponent implements OnInit {
 
-  public status = 'active';
   getAllJourney: Array<any> = [];
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,14 +33,17 @@ export class PassionComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
+  status: any;
 
   constructor(
     private celebrateService: CelebrateService, 
     public dialog: MatDialog,
     public router: Router,
-    private notifyService: TokenInterceptor
+    private notifyService: TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -176,15 +179,16 @@ export class PassionComponent implements OnInit {
     let action = "update-journey";
       let param = {
         id: params?.id,
-        is_active: e?.target?.value
+        status: e?.target?.value
       }
-      console.log(param);
+
       await this.celebrateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notifyService.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notifyService.notificationService.error(error);
       });
   }
 
@@ -198,18 +202,13 @@ export class PassionComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-    // this.personsService.getAll();
-    // this.serviceSubscribe = this.personsService.persons$.subscribe(res => {
-    //   this.dataSource.data = res;
-    //   console.log(res);
-    // })
   }
 
   async getAllData() {
     let action = "all-journey";
     await this.celebrateService.getAllData(action).subscribe(
       (res: any) => {
-        console.log(res.data)
+
         if(res?.status == 200) {
           res?.data?.filter((x:any) => {
             if(x?.type == 'passion') {
@@ -220,8 +219,7 @@ export class PassionComponent implements OnInit {
         this.dataSource.data = this.getAllJourney;
       },
       (error) => {
-        console.log(error)
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notifyService.notificationService.error(error);
       }
     );
   }

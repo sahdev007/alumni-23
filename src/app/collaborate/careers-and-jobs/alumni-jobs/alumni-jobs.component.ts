@@ -1,30 +1,32 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { Person } from 'src/app/models/person';
-import { CollaborateService } from 'src/app/services/collaborate.service';
-import { DataService } from 'src/app/services/data.service';
-import { ViewJobComponent } from 'src/app/shared/dialog/collaborate/view-job/view-job.component';
-import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { Router } from "@angular/router";
+import { TokenInterceptor } from "src/app/core/token.interceptor";
+import { Person } from "src/app/models/person";
+import { CollaborateService } from "src/app/services/collaborate.service";
+import { Config } from "src/app/services/config";
+import { DataService } from "src/app/services/data.service";
+import { ViewJobComponent } from "src/app/shared/dialog/collaborate/view-job/view-job.component";
+import { DeletedialogComponent } from "src/app/shared/dialog/deletedialog/deletedialog.component";
 
 @Component({
-  selector: 'app-alumni-jobs',
-  templateUrl: './alumni-jobs.component.html',
-  styleUrls: ['./alumni-jobs.component.scss']
+  selector: "app-alumni-jobs",
+  templateUrl: "./alumni-jobs.component.html",
+  styleUrls: ["./alumni-jobs.component.scss"],
 })
 export class AlumniJobsComponent implements OnInit {
-
-  public status = 'active';
- 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
-  public displayedColumns: string[] = ['author', 'companyName', 'title'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public displayedColumns: string[] = ["author", "companyName", "title"];
+  public columnsToDisplay: string[] = [
+    ...this.displayedColumns,
+    "status",
+    "actions",
+  ];
 
   /**
    * it holds a list of active filter for each column.
@@ -33,30 +35,30 @@ export class AlumniJobsComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status: any;
 
   constructor(
-    private collaborateService: CollaborateService, 
+    private collaborateService: CollaborateService,
     public dialog: MatDialog,
-    public router: Router
-    ) {
+    public router: Router,
+    private notify: TokenInterceptor,
+    private config: Config
+  ) {
+    this.status = this.config?.isOpen;
     this.dataSource = new MatTableDataSource<Person>();
   }
-
 
   private filter() {
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
       let find = true;
 
       for (var columnName in this.columnsFilters) {
-
         let currentData = "" + data[columnName];
 
         //if there is no filter, jump to next loop, otherwise do the filter.
         if (!this.columnsFilters[columnName]) {
           // return;
         }
-
 
         let searchValue = this.columnsFilters[columnName]["contains"];
 
@@ -101,14 +103,13 @@ export class AlumniJobsComponent implements OnInit {
           //exit loop
           // return;
         }
-
       }
 
       return find;
     };
 
     this.dataSource.filter = null;
-    this.dataSource.filter = 'activate';
+    this.dataSource.filter = "activate";
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -135,55 +136,62 @@ export class AlumniJobsComponent implements OnInit {
   }
 
   add() {
-    this.router.navigate(['/collaborate/add-job']);
+    this.router.navigate(["/collaborate/add-job"]);
   }
 
   view(data: any) {
     const dialogRef = this.dialog.open(ViewJobComponent, {
-      width: '400px',
-      data: { data: data }
+      width: "400px",
+      data: { data: data },
     });
   }
 
   edit(data: Person, params: string) {
-    console.log(data, params);
-    this.router.navigate(['/collaborate/add-job'], {queryParams: { jobId: data, action: params }, skipLocationChange: true});
+    this.router.navigate(["/collaborate/add-job"], {
+      queryParams: { jobId: data, action: params },
+      skipLocationChange: true,
+    });
   }
 
   delete(data: any, params: string) {
     let action: string = "delete-jobs";
     const dialogRef = this.dialog.open(DeletedialogComponent, {
-      width: '400px',
-      data: { data: params, info: params }
+      width: "400px",
+      data: { data: params, info: params },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.collaborateService.deleteData(action, data?.id).subscribe((res: any) => {
-          if(res?.status == 200) {
-            console.log('Deleted Successfully !')
-            this.ngOnInit();
-          } 
-        })
+        this.collaborateService
+          .deleteData(action, data?.id)
+          .subscribe((res: any) => {
+            if (res?.status == 200) {
+              this.notify.notificationService.success(res?.message);
+              this.ngOnInit();
+            }
+          });
       }
     });
   }
 
-  async onStatusChange(e:any, params: any) {
+  async onStatusChange(e: any, params: any) {
     let action = "update-jobs";
-      let param = {
-        id: params?.id,
-        is_active: e?.target?.value
-      }
-      await this.collaborateService.updateData(action, param).subscribe((res: any) => {
-        if(res?.status == 200) {
+    let param = {
+      id: params?.id,
+      status: e?.target?.value,
+    };
+    await this.collaborateService.updateData(action, param).subscribe(
+      (res: any) => {
+        if (res?.status == 200) {
+          this.notify.notificationService.success(res?.message);
           this.ngOnInit();
         }
-      }, error => {
-          console.log(error);
-      });
+      },
+      (error) => {
+        this.notify.notificationService.error(error);
+      }
+    );
   }
-
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -201,21 +209,15 @@ export class AlumniJobsComponent implements OnInit {
     let action = "all-jobs";
     await this.collaborateService.getAllData(action).subscribe(
       (res: any) => {
-        if(res?.status == 200) {
-          this.dataSource.data = res?.data.filter((x:any) => {
+        if (res?.status == 200) {
+          this.dataSource.data = res?.data.filter((x: any) => {
             return x?.type == "alumni";
           });
-
         }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+          this.notify.notificationService.error(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 }

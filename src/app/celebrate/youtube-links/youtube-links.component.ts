@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
+import { Config } from 'src/app/services/config';
 import { AddEditYoutubeLinksComponent } from 'src/app/shared/dialog/celebrate/add-edit-youtube-links/add-edit-youtube-links.component';
 import { ViewYoutubeComponent } from 'src/app/shared/dialog/celebrate/view-youtube/view-youtube.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
@@ -17,8 +18,6 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
 })
 export class YoutubeLinksComponent implements OnInit {
 
-  public status = 'active';
- 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -32,14 +31,16 @@ export class YoutubeLinksComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status: any;
 
   constructor(
     private celebrateService: CelebrateService, 
     public dialog: MatDialog,
-    private notifyService : TokenInterceptor
+    private notifyService : TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -189,15 +190,16 @@ export class YoutubeLinksComponent implements OnInit {
     let action = "update-youtube";
       let param = {
         id: params?.id,
-        is_active: e?.target?.value
+        status: e?.target?.value
       }
-      console.log(param);
+
       await this.celebrateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notifyService.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notifyService.notificationService.error(error);
       });
   }
 
@@ -218,11 +220,10 @@ export class YoutubeLinksComponent implements OnInit {
     let action = "all-youtube";
     await this.celebrateService.getAllData(action).subscribe(
       (vid: any) => {
-        console.log(vid.data)
         if(vid?.status == 200) this.dataSource.data = vid?.data;
       },
       (error) => {
-        console.log(error);
+        this.notifyService.notificationService.error(error);
       }
     );
   }

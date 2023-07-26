@@ -17,7 +17,6 @@ export class ViewLeadershipComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    console.log(this.data);
   }
 
 }

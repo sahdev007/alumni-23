@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
+import { Config } from 'src/app/services/config';
 import { ViewFeaturedAlumniComponent } from 'src/app/shared/dialog/celebrate/view-featured-alumni/view-featured-alumni.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
@@ -16,8 +17,6 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./featured-alumni.component.scss']
 })
 export class FeaturedAlumniComponent implements OnInit {
-  public status = '';
-  stat = [{id:1, value:'active'}, {id:2, value:'inActive'}]
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -32,14 +31,17 @@ export class FeaturedAlumniComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
+  status: any;
 
   constructor(
     public dialog: MatDialog,
     private celebrateService: CelebrateService,
     public router: Router,
-    private notifyService: TokenInterceptor
+    private notifyService: TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -171,8 +173,8 @@ export class FeaturedAlumniComponent implements OnInit {
       if (result) {
         this.celebrateService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            this.ngOnInit();
             this.notifyService.notificationService.success(res?.message);
+            this.ngOnInit();
           } 
         })
       }
@@ -188,10 +190,11 @@ export class FeaturedAlumniComponent implements OnInit {
 
       await this.celebrateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notifyService.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notifyService.notificationService.error(error);
       });
   }
 
@@ -211,16 +214,11 @@ export class FeaturedAlumniComponent implements OnInit {
     let action = "all-getFeatured";
     await this.celebrateService.getAllData(action).subscribe(
       (res: any) => {
-        console.log(res.data)
         if(res?.status == 200) this.dataSource.data = res?.data;
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notifyService.notificationService.error(error);
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
   }
 }

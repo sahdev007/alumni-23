@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
+import { Config } from 'src/app/services/config';
 import { DataService } from 'src/app/services/data.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
@@ -15,8 +16,6 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./all-users.component.scss']
 })
 export class AllUsersComponent implements OnInit {
-
-  public status = 'active';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -31,13 +30,15 @@ export class AllUsersComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-
+  status: any;
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
     private router: Router,
-    private notify : TokenInterceptor
+    public notify : TokenInterceptor,
+    private config: Config
   ) {
+    this.status = this.config?.userStat;
     this.dataSource = new MatTableDataSource<Person>();
   }
 
@@ -157,19 +158,20 @@ export class AllUsersComponent implements OnInit {
   }
 
   async onStatusChange(e: any, params: any) {
-    console.log(e, params);
     let action = "update-user";
+
     let param = {
       id: params?.id,
-      is_active: e?.value
+      status: e?.target?.value
     }
-    console.log(param);
+ 
     await this.dataService.updateData(action, param).subscribe((res: any) => {
       if (res?.status == 200) {
-        // this.notify.notificationService.openSuccessSnackBar(res?.message);
+        this.notify.notificationService.success(res?.message);
+        this.ngOnInit();
       }
     }, error => {
-      this.notify.notificationService.openFailureSnackBar(error);
+      this.notify.notificationService.error(error);
     });
 
   }

@@ -4,8 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CollaborateService } from 'src/app/services/collaborate.service';
+import { Config } from 'src/app/services/config';
 import { AddEditParticipateAdmissionComponent } from 'src/app/shared/dialog/collaborate/add-edit-participate-admission/add-edit-participate-admission.component';
 import { ViewAdmissionPanelComponent } from 'src/app/shared/dialog/collaborate/view-admission-panel/view-admission-panel.component';
 import { ViewUserListComponent } from 'src/app/shared/dialog/collaborate/view-user-list/view-user-list.component';
@@ -17,12 +19,10 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./participate-in-admission-panel.component.scss']
 })
 export class ParticipateInAdmissionPanelComponent implements OnInit {
-  public status = 'active';
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['city', 'location', 'date_time'];
   public columnsToDisplay: string[] = [...this.displayedColumns, 'userList','is_active', 'actions'];
 
@@ -33,14 +33,17 @@ export class ParticipateInAdmissionPanelComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status: any;
 
   constructor(
     private collaborateService: CollaborateService, 
     public dialog: MatDialog,
-    public router: Router
+    public router: Router,
+    private notify: TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -203,7 +206,7 @@ export class ParticipateInAdmissionPanelComponent implements OnInit {
       if (result) {
         this.collaborateService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
+            this.notify.notificationService.success(res?.message);
             this.ngOnInit();
           } 
         })
@@ -215,15 +218,16 @@ export class ParticipateInAdmissionPanelComponent implements OnInit {
     let action = "update-admission";
       let param = {
         id: params?.id,
-        is_active: e?.target?.value
+        status: e?.target?.value
       }
-      console.log(param);
+
       await this.collaborateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notify.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notify.notificationService.error(error);
       });
   }
 
@@ -251,14 +255,9 @@ export class ParticipateInAdmissionPanelComponent implements OnInit {
         }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.error(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 
 }

@@ -4,9 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CollaborateService } from 'src/app/services/collaborate.service';
-import { DataService } from 'src/app/services/data.service';
+import { Config } from 'src/app/services/config';
 import { ViewJobComponent } from 'src/app/shared/dialog/collaborate/view-job/view-job.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
@@ -16,13 +17,10 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./admin-jobs.component.scss']
 })
 export class AdminJobsComponent implements OnInit {
-
-  public status = 'active';
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // public displayedColumns: string[] = ['autho', 'title', 'description', 'type', 'price', 'attendHost'];
   public displayedColumns: string[] = ['author', 'companyName', 'title'];
   public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
 
@@ -33,14 +31,17 @@ export class AdminJobsComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status: any;
 
   constructor(
     private collaborateService: CollaborateService, 
     public dialog: MatDialog,
-    public router: Router
+    public router: Router,
+    private notify: TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.isOpen;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -161,7 +162,7 @@ export class AdminJobsComponent implements OnInit {
       if (result) {
         this.collaborateService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !')
+            this.notify.notificationService?.success(res?.message);
             this.ngOnInit();
           } 
         })
@@ -173,14 +174,15 @@ export class AdminJobsComponent implements OnInit {
     let action = "update-jobs";
       let param = {
         id: params?.id,
-        is_active: e?.target?.value
+        status: e?.target?.value
       }
       await this.collaborateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notify.notificationService?.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notify.notificationService?.error(error);
       });
   }
 
@@ -194,40 +196,22 @@ export class AdminJobsComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getAllData();
-    // this.personsService.getAll();
-    // this.serviceSubscribe = this.personsService.persons$.subscribe(res => {
-    //   this.dataSource.data = res;
-    //   console.log(res);
-    // })
   }
 
   async getAllData() {
     let action = "all-jobs";
     await this.collaborateService.getAllData(action).subscribe(
       (res: any) => {
-        // console.log(res.data)
         if(res?.status == 200) {
-          // this.dataSource.data = res?.data;
           this.dataSource.data = res?.data.filter((x:any) => {
             return x?.type == "admin";
           });
         }
-      
-        // if (user?.status == 200) {
-        //   this.rowData = user?.data;
-        //   this.rowData.sort((a: any, b: any) => {
-        //     return a?.order_by - b?.order_by;
-        //   });
-        // }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+          this.notify.notificationService?.error(error);
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
   }
 
 }

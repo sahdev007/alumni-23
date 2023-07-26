@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
+import { Config } from 'src/app/services/config';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { AddEditLeadershipComponent } from 'src/app/shared/dialog/about/add-edit-leadership/add-edit-leadership.component';
 import { ViewLeadershipComponent } from 'src/app/shared/dialog/about/view-leadership/view-leadership.component';
@@ -16,7 +17,6 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./leadership.component.scss']
 })
 export class LeadershipComponent implements OnInit {
-  public status = '';
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -27,14 +27,16 @@ export class LeadershipComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status: any;
 
   constructor(
     private organizationService: OrganizationService, 
     public dialog: MatDialog,
-    private notifyService : TokenInterceptor
+    private notifyService : TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -200,7 +202,7 @@ export class LeadershipComponent implements OnInit {
         if(prim?.status == 200) this.dataSource.data = prim?.data;
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notifyService.notificationService.error(error);
       }
     );
   }
@@ -215,14 +217,10 @@ export class LeadershipComponent implements OnInit {
       await this.organizationService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
           this.ngOnInit();
+          this.notifyService.notificationService.success(res?.message);
         }
       }, error => {
-          console.log(error);
+        this.notifyService.notificationService.error(error);
       });
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 }

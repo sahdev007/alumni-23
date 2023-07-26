@@ -4,8 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CollaborateService } from 'src/app/services/collaborate.service';
+import { Config } from 'src/app/services/config';
 import { EditShareOpportunitiesComponent } from 'src/app/shared/dialog/collaborate/edit-share-opportunities/edit-share-opportunities.component';
 import { ViewShareOpportunityComponent } from 'src/app/shared/dialog/collaborate/view-share-opportunity/view-share-opportunity.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
@@ -16,8 +18,7 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./share-opportunities.component.scss']
 })
 export class ShareOpportunitiesComponent implements OnInit {
-  public status = 'active';
- 
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -31,13 +32,17 @@ export class ShareOpportunitiesComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
+  status: any;
 
   constructor(
     public dialog: MatDialog,
     private collaborateService: CollaborateService,
-    public router: Router
+    public router: Router,
+    private notify: TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -180,6 +185,7 @@ export class ShareOpportunitiesComponent implements OnInit {
       if (result) {
         this.collaborateService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
+            this.notify.notificationService.success(res?.message);
             this.ngOnInit();
           } 
         })
@@ -200,10 +206,11 @@ export class ShareOpportunitiesComponent implements OnInit {
         }
         await this.collaborateService.updateData(action, param).subscribe((res: any) => {
           if(res?.status == 200) {
+            this.notify.notificationService.success(res?.message);
             this.ngOnInit();
           }
         }, error => {
-            console.log(error);
+          this.notify.notificationService.error(error);
         });
     }
 
@@ -231,7 +238,7 @@ export class ShareOpportunitiesComponent implements OnInit {
         }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.error(error);
       }
     );
   }

@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
+import { Config } from 'src/app/services/config';
 import { ConnectService } from 'src/app/services/connect.service';
 import { DataService } from 'src/app/services/data.service';
 import { ViewEventComponent } from 'src/app/shared/dialog/connect/view-event/view-event.component';
@@ -17,7 +18,6 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./alumni-event.component.scss']
 })
 export class AlumniEventComponent implements OnInit {
-  public status = 'active';
   getAllAlumni: Array<any> = [];
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,15 +33,18 @@ export class AlumniEventComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<any>;
+  status: any;
 
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router,
     private connectService: ConnectService,
-    private notify: TokenInterceptor
+    private notify: TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -141,6 +144,10 @@ export class AlumniEventComponent implements OnInit {
   add() {
     this.router.navigate(['/connect/add-event']);
   }
+  /**
+   * Function to view detail by Id
+   * @param data 
+   */
   view(data:any){
     const dialogRef = this.dialog.open(ViewEventComponent, {
       width: '400px',
@@ -189,10 +196,11 @@ export class AlumniEventComponent implements OnInit {
       }
       await this.connectService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notify.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notify.notificationService.error(error);
       });
   }
 

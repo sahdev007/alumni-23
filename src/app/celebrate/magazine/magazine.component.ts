@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
+import { Config } from 'src/app/services/config';
 import { AddEditMagazineComponent } from 'src/app/shared/dialog/celebrate/add-edit-magazine/add-edit-magazine.component';
 import { ViewMagazineComponent } from 'src/app/shared/dialog/celebrate/view-magazine/view-magazine.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
@@ -16,25 +17,26 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./magazine.component.scss']
 })
 export class MagazineComponent implements OnInit {
-  public status = 'active';
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['magazine_name', 'link'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'is_active', 'actions'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
 
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status: any;
 
   constructor(
     private celebrateService: CelebrateService, 
     public dialog: MatDialog,
-    private notifyService :TokenInterceptor
+    private notifyService :TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -186,14 +188,15 @@ export class MagazineComponent implements OnInit {
     let action = "update-magazine";
       let param = {
         id: params?.id,
-        is_active: e?.target?.value
+        status: e?.target?.value
       }
       await this.celebrateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notifyService.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notifyService.notificationService.error(error);
       });
   }
 

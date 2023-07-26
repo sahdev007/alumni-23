@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
+import { Config } from 'src/app/services/config';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 import { AddEditIndustryComponent } from 'src/app/shared/dialog/organization/add-edit-industry/add-edit-industry.component';
@@ -15,8 +17,6 @@ import { AddEditIndustryComponent } from 'src/app/shared/dialog/organization/add
 })
 export class PrimaryIndustryComponent implements OnInit {
 
-  public status = 'active';
- 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -26,18 +26,20 @@ export class PrimaryIndustryComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status:any;
 
   constructor(
     private organizationService: OrganizationService, 
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private config: Config,
+    private notify: TokenInterceptor
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
   private filter() {
-
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
       let find = true;
 
@@ -167,14 +169,13 @@ export class PrimaryIndustryComponent implements OnInit {
       if (result) {
         this.organizationService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
             this.ngOnInit();
+            this.notify.notificationService.success(res?.message);
           } 
         })
       }
     });
   }
-
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -195,7 +196,7 @@ export class PrimaryIndustryComponent implements OnInit {
         if(prim?.status == 200) this.dataSource.data = prim?.data;
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.error(error);
       }
     );
   }
@@ -210,13 +211,10 @@ export class PrimaryIndustryComponent implements OnInit {
       await this.organizationService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
           this.ngOnInit();
+          this.notify.notificationService.success(res?.message);
         }
       }, error => {
-          console.log(error);
+          this.notify.notificationService.error(error);
       });
-  }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
   }
 }

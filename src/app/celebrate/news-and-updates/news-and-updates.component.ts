@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
+import { Config } from 'src/app/services/config';
 import { DataService } from 'src/app/services/data.service';
 import { ViewNewsUpdatesComponent } from 'src/app/shared/dialog/celebrate/view-news-updates/view-news-updates.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
@@ -18,8 +19,6 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
 })
 export class NewsAndUpdatesComponent implements OnInit {
 
-  public status = 'active';
- 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -33,16 +32,18 @@ export class NewsAndUpdatesComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status: any;
 
   constructor( 
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router,
     private celebrateService : CelebrateService,
-    private notifyService: TokenInterceptor
+    private notifyService: TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -194,15 +195,16 @@ async onStatusChange(e:any, params: any) {
   let action = "update-news";
     let param = {
       id: params?.id,
-      is_active: e?.target?.value
+      status: e?.target?.value
     }
-    console.log(param);
+
     await this.celebrateService.updateData(action, param).subscribe((res: any) => {
       if(res?.status == 200) {
+        this.notifyService.notificationService.success(res?.message);
         this.ngOnInit();
       }
     }, error => {
-        console.log(error);
+        this.notifyService.notificationService.error(error);
     });
 }
 
@@ -228,7 +230,7 @@ async onStatusChange(e:any, params: any) {
         if(res?.status == 200) this.dataSource.data = res?.data;
       },
       (error) => {
-        console.log(error);
+        this.notifyService.notificationService.error(error);
       }
     );
   }

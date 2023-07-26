@@ -4,8 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CommunityService } from 'src/app/services/community.service';
+import { Config } from 'src/app/services/config';
 import { DataService } from 'src/app/services/data.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
@@ -16,8 +18,6 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
 })
 export class BusinessVenturesComponent implements OnInit {
 
-  public status = 'active';
- 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -31,15 +31,18 @@ export class BusinessVenturesComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status : any;
 
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
     public router: Router,
-    private communityService : CommunityService
+    private communityService : CommunityService,
+    private config: Config,
+    private notify: TokenInterceptor
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -165,6 +168,7 @@ export class BusinessVenturesComponent implements OnInit {
       if (result) {
         this.communityService.deleteData(action, data?.id).subscribe((res:any) => {
           if(res?.status == 200) {
+            this.notify.notificationService.success(res?.message);
             this.ngOnInit();
           }
         })
@@ -181,10 +185,11 @@ export class BusinessVenturesComponent implements OnInit {
       console.log(param);
       await this.communityService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notify.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notify.notificationService.error(error);
       });
   }
 
@@ -208,14 +213,9 @@ export class BusinessVenturesComponent implements OnInit {
         if(vid?.status == 200) this.dataSource.data = vid?.data;
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.error(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 
 }

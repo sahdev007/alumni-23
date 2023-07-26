@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SpecialProjectsComponent } from './special-projects/special-projects.component';
-import { EngageWithSbupComponent } from './engage-with-sbup/engage-with-sbup.component';
 import { AdminJobsComponent } from './careers-and-jobs/admin-jobs/admin-jobs.component';
 import { AlumniJobsComponent } from './careers-and-jobs/alumni-jobs/alumni-jobs.component';
 import { AddJobTypeComponent } from './careers-and-jobs/add-job-type/add-job-type.component';
@@ -55,11 +54,7 @@ const routes: Routes = [
       {
         path: 'share-opportunities',
         component: ShareOpportunitiesComponent,
-      },
-      {
-        path: 'engage-with-SBUP',
-        component: EngageWithSbupComponent,
-      },
+      }
     ]
   }
 ];

@@ -4,8 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CollaborateService } from 'src/app/services/collaborate.service';
+import { Config } from 'src/app/services/config';
 import { ViewExpertiseComponent } from 'src/app/shared/dialog/collaborate/view-expertise/view-expertise.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
@@ -15,8 +17,7 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./offer-expertise.component.scss']
 })
 export class OfferExpertiseComponent implements OnInit {
-  public status = 'active';
- 
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -30,14 +31,17 @@ export class OfferExpertiseComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status: any;
 
   constructor(
     public dialog: MatDialog,
     private collaborateService: CollaborateService,
-    public router: Router
+    public router: Router,
+    private notify: TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -178,10 +182,11 @@ export class OfferExpertiseComponent implements OnInit {
       }
       await this.collaborateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notify?.notificationService?.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notify?.notificationService?.error(error);
       });
   }
 
@@ -204,19 +209,13 @@ export class OfferExpertiseComponent implements OnInit {
     let action = "all-expertise";
     await this.collaborateService.getAllData(action).subscribe(
       (res: any) => {
-        // console.log(res.data)
         if(res?.status == 200) {
           this.dataSource.data = res?.data;
         }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify?.notificationService?.error(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 }

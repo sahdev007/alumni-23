@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
+import { Config } from 'src/app/services/config';
 import { SeoService } from 'src/app/services/seo.service';
 import { AddEditGalleryComponent } from 'src/app/shared/dialog/celebrate/add-edit-gallery/add-edit-gallery.component';
 import { ViewGalleryComponent } from 'src/app/shared/dialog/celebrate/view-gallery/view-gallery.component';
@@ -16,14 +17,12 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit {
-  public status = 'active';
- 
+export class GalleryComponent implements OnInit { 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['title', 'link', 'type', 'order_by'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'is_active', 'actions'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -32,14 +31,17 @@ export class GalleryComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
+  status: any;
 
   constructor(
     public dialog: MatDialog,
     private celebrateService: CelebrateService,
     private notifyService: TokenInterceptor,
-    private seoService: SeoService
+    private seoService: SeoService,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
   private filter() {
@@ -103,7 +105,7 @@ export class GalleryComponent implements OnInit {
       }
 
       return find;
-    };
+      };
 
     this.dataSource.filter = null;
     this.dataSource.filter = 'activate';
@@ -147,7 +149,6 @@ export class GalleryComponent implements OnInit {
   }
 
   edit(data: any, params: any) {
-    console.log(params)
     const dialogRef = this.dialog.open(AddEditGalleryComponent, {
       width: '450px',
       data: {data: data, action: params}
@@ -190,15 +191,15 @@ export class GalleryComponent implements OnInit {
     let action = "update-gallery";
       let param = {
         id: params?.id,
-        is_active: e?.target?.value
+        status: e?.target?.value
       }
-      console.log(param);
       await this.celebrateService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notifyService.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notifyService.notificationService.error(error);
       });
   }
 
@@ -227,12 +228,8 @@ export class GalleryComponent implements OnInit {
         if(gal?.status == 200) this.dataSource.data = gal?.data;
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notifyService.notificationService.error(error);
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
   }
 }

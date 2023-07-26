@@ -16,14 +16,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '../shared/shared.module';
 import { EditBusinessVenturesComponent } from './edit-business-ventures/edit-business-ventures.component';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ViewBusinessVenturesComponent } from './view-business-ventures/view-business-ventures.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -48,9 +49,11 @@ import { ViewBusinessVenturesComponent } from './view-business-ventures/view-bus
     MatButtonModule,
     MatDialogModule,
     ReactiveFormsModule,
+    FormsModule,
     MatInputModule,
     MatSelectModule,
     MatStepperModule,
+    MatFormFieldModule,
 
     EditorModule,
     SharedModule,

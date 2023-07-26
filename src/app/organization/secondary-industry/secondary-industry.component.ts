@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
+import { Config } from 'src/app/services/config';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 import { AddEditIndustryComponent } from 'src/app/shared/dialog/organization/add-edit-industry/add-edit-industry.component';
@@ -13,10 +15,7 @@ import { AddEditIndustryComponent } from 'src/app/shared/dialog/organization/add
   templateUrl: './secondary-industry.component.html',
   styleUrls: ['./secondary-industry.component.scss']
 })
-export class SecondaryIndustryComponent implements OnInit {
-
-  public status = 'active';
- 
+export class SecondaryIndustryComponent implements OnInit { 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -26,13 +25,16 @@ export class SecondaryIndustryComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
+  status: any;
 
   constructor(
     private organizationService: OrganizationService, 
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private config: Config,
+    private notify: TokenInterceptor
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -194,7 +196,7 @@ export class SecondaryIndustryComponent implements OnInit {
         if(prim?.status == 200) this.dataSource.data = prim?.data;
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+          this.notify.notificationService.error(error);
       }
     );
   }
@@ -208,14 +210,12 @@ export class SecondaryIndustryComponent implements OnInit {
       console.log(param);
       await this.organizationService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notify.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notify.notificationService.error(error);
       });
   }
 
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
 }

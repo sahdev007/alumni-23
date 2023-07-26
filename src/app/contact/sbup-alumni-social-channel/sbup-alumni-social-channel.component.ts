@@ -6,8 +6,8 @@ import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
 import { TokenInterceptor } from "src/app/core/token.interceptor";
 import { Person } from "src/app/models/person";
+import { Config } from "src/app/services/config";
 import { ContactService } from "src/app/services/contact.service";
-import { DataService } from "src/app/services/data.service";
 import { AddEditSocialContactComponent } from "src/app/shared/dialog/contact/add-edit-social-contact/add-edit-social-contact.component";
 import { ViewContactComponent } from "src/app/shared/dialog/contact/view-contact/view-contact.component";
 import { DeletedialogComponent } from "src/app/shared/dialog/deletedialog/deletedialog.component";
@@ -18,7 +18,6 @@ import { DeletedialogComponent } from "src/app/shared/dialog/deletedialog/delete
   styleUrls: ["./sbup-alumni-social-channel.component.scss"],
 })
 export class SbupAlumniSocialChannelComponent implements OnInit {
-  public status = "active";
   getAllSocialContact: Array<any> = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -27,7 +26,7 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
   public displayedColumns: string[] = ["title", "link"];
   public columnsToDisplay: string[] = [
     ...this.displayedColumns,
-    "is_active",
+    "status",
     "actions",
   ];
 
@@ -38,14 +37,17 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
+  status :any;
 
   constructor(
     private contactService: ContactService,
     public dialog: MatDialog,
     public router: Router,
-    private notify: TokenInterceptor
+    private notify: TokenInterceptor,
+    private config: Config
   ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
   private filter() {
@@ -204,17 +206,18 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
     let action = "update-contact";
     let param = {
       id: params?.id,
-      is_active: e?.target?.value,
+      status: e?.target?.value,
     };
-    console.log(param);
+
     await this.contactService.updateData(action, param).subscribe(
       (res: any) => {
         if (res?.status == 200) {
+          this.notify.notificationService.success(res?.message);
           this.ngOnInit();
         }
       },
       (error) => {
-        console.log(error);
+        this.notify.notificationService.error(error);
       }
     );
   }
@@ -238,24 +241,18 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
     let action = "all-contact";
     await this.contactService.getAllData(action).subscribe(
       (res: any) => {
-        // console.log(res.data)
         if (res?.status == 200) {
           res?.data?.filter((x: any) => {
             if (x?.type == "SbupChannel") {
               this.getAllSocialContact.push(x);
             }
           });
-          console.log(this.getAllSocialContact);
           this.dataSource.data = this.getAllSocialContact;
         }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.error(error);
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
   }
 }

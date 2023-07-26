@@ -18,11 +18,7 @@ export const ROUTES: RouteInfo[] = [
     {
         path: '', title: 'About Us', icon: 'bx bx-home-circle', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
         submenu: [
-            // { path: '/about-us/founder-chancellor', title: 'Founder Chancellor', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            // { path: '/about-us/sbup', title: 'SBUP', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            { path: '/about-us/leadership-team', title: 'Leadership Team', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            // { path: '/dashboard/all-users', title: 'All-User', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            // { path: '/dashboard/manage-request', title: 'Manage Request', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
+            { path: '/about-us/leadership-team', title: 'Leadership Team', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
         ]
     },
     {
@@ -40,26 +36,20 @@ export const ROUTES: RouteInfo[] = [
         submenu: [
             { path: '/community/clubs', title: 'Clubs', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
             { path: '/community/add-club-type', title: 'Club Types', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
-            // { path: '/community/industry-clubs', title: 'Industry Clubs', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
-            { path: '/community/business-ventures', title: 'Business Ventures', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            // { path: '/community/invite-batchmates', title: 'Invite Batchmates', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
+            { path: '/community/business-ventures', title: 'Business Ventures', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
         ]
     },
     {
         path: '', title: 'Connect', icon: 'lni lni-network', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
         submenu: [
-            // { path: '/connect/event-at-glance', title: 'Event at Glance', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/connect/admin-events', title: 'Admin Events', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/connect/alumni-events', title: 'Alumni Events', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            { path: '/connect/add-event-types', title: 'Event Types', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            // { path: '/community/business-ventures', title: 'Business Ventures', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            // { path: '/community/invite-batchmates', title: 'Invite Batchmates', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
+            { path: '/connect/add-event-types', title: 'Event Types', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
         ]
     },
     {
         path: '', title: 'Collaborate', icon: 'bx bx-cookie', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
         submenu: [
-            // { path: '/collaborate/mentorship', title: 'Mentorship', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             {
                 path: '', title: 'Mentorship', icon: 'bx bx-cookie', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
                     { path: '/collaborate/mentor', title: 'Mentor', icon: 'ms-2 bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
@@ -70,23 +60,18 @@ export const ROUTES: RouteInfo[] = [
                 path: '', title: 'Careers & Jobs', icon: 'bx bx-cookie', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
                     { path: '/collaborate/admin-jobs', title: 'Admin Jobs', icon: 'ms-2 bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
                     { path: '/collaborate/alumni-jobs', title: 'Alumni Jobs', icon: 'ms-2 bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-                    // { path: '/collaborate/add-job', title: 'Add Job', icon: 'ms-2 bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
                     { path: '/collaborate/add-job-type', title: 'Job Types', icon: 'ms-2 bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
                 ]
             },
             { path: '/collaborate/special-projects', title: 'Special Projects', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/collaborate/participate-in-admission-panel', title: 'Participate In Admission Panel', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/collaborate/offer-expertise', title: 'Offer Expertise', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            { path: '/collaborate/share-opportunities', title: 'Share Opportunities', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            // { path: '/collaborate/engage-with-SBUP', title: 'Engage With SBUP', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            // { path: '/community/invite-batchmates', title: 'Invite Batchmates', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
+            { path: '/collaborate/share-opportunities', title: 'Share Opportunities', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
         ]
     },
-    { path: '', title: 'Celebrate', icon: 'bx bx-party', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, 
+    { path: '', title: 'Celebrate', icon: 'bx bxs-star', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, 
         submenu: [
             { path: '/celebrate/featured-alumni', title: 'Featured Alumni', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            // { path: '/celebrate/get-featured', title: 'Get Featured', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
-            // { path: '/celebrate/create-featured-alumni', title: 'Add Featured Alumni', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
             { path: '/celebrate/journey', title: 'Journey', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/celebrate/achievements', title: 'Achievements', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/celebrate/passion', title: 'Passion', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
@@ -94,7 +79,6 @@ export const ROUTES: RouteInfo[] = [
             { path: '/celebrate/youtube-links', title: 'Youtube links', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/celebrate/magazine', title: 'Magazine', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/celebrate/news-and-updates', title: 'News & Updates', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-
             { path: '/celebrate/birthday', title: 'Birthay', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/celebrate/anniversary', title: 'Anniversary', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
 
@@ -106,9 +90,7 @@ export const ROUTES: RouteInfo[] = [
             { path: '/communication/email-app', title: 'Email', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/communication/chat-box', title: 'Chat Box', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/communication/file-manager', title: 'File Manager', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            // { path: '/communication/contatcs', title: 'Contatcs', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            // { path: '/communication/invoice', title: 'Invoice', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            { path: '/communication/calendar', title: 'Calendar', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/communication/calendar', title: 'Calendar', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
         ]
     },
 

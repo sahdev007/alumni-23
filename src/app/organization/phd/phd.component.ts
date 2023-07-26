@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
+import { Config } from 'src/app/services/config';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 import { AddEditCoursesComponent } from 'src/app/shared/dialog/organization/add-edit-courses/add-edit-courses.component';
@@ -14,9 +16,7 @@ import { AddEditCoursesComponent } from 'src/app/shared/dialog/organization/add-
   styleUrls: ['./phd.component.scss']
 })
 export class PhdComponent implements OnInit {
- 
-  public status = 'active';
- 
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -26,18 +26,19 @@ export class PhdComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
-  // private serviceSubscribe: Subscription;
-
+  status: any;
   constructor(
     private organizationService: OrganizationService, 
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private config: Config,
+    private notify: TokenInterceptor
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status;
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
   private filter() {
-
     this.dataSource.filterPredicate = (data: Person, filter: string) => {
       let find = true;
 
@@ -140,7 +141,6 @@ export class PhdComponent implements OnInit {
     });
   }
 
-
   edit(data: any, params: any, type: string) {
     const dialogRef = this.dialog.open(AddEditCoursesComponent, {
       width: '400px',
@@ -165,14 +165,13 @@ export class PhdComponent implements OnInit {
       if (result) {
         this.organizationService.deleteData(action, data?.id).subscribe((res: any) => {
           if(res?.status == 200) {
-            console.log('Deleted Successfully !');
             this.ngOnInit();
+            this.notify.notificationService.success(res?.message);
           } 
         })
       }
     });
   }
-
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -197,29 +196,25 @@ export class PhdComponent implements OnInit {
         }
       },
       (error) => {
-        // this.interceptor.notificationService.openFailureSnackBar(error);
+          this.notify.notificationService.error(error);
       }
     );
   }
-
 
   async onStatusChange(e:any, params: any) {
     let action = "update-course";
       let param = {
         id: params?.id,
-        is_active: e?.target?.value
+        status: e?.target?.value
       }
       console.log(param);
       await this.organizationService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
           this.ngOnInit();
+          this.notify.notificationService.success(res?.message);
         }
       }, error => {
-          console.log(error);
+          this.notify.notificationService.error(error);
       });
-  }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
   }
 }

@@ -6,7 +6,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Name : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.name}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.name}}</p>
         </div>
     </div>    
     <div class="row">    
@@ -14,7 +14,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Designation : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.designation}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.designation}}</p>
         </div>
     </div>    
     <div class="row">  
@@ -22,7 +22,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Institute Name : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.institute_name}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.institute_name}}</p>
         </div>
     </div>    
     <div class="row">  
@@ -30,7 +30,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Order : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.order}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.order}}</p>
         </div>
     </div>    
     <div class="row">  
@@ -38,7 +38,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Status : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data.data.status}}</p>
+            <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2">{{data?.data?.status == "active" ? 'Active' : 'Inactive'}}</p>
         </div>
     </div>    
     <div class="row">  
@@ -46,7 +46,7 @@
             <p class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2"><strong>Image : </strong></p>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-7">
-            <img class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2" src="{{imgPath + data?.data?.image}}" alt="...">
+            <img class="my-xl-2 my-lg-2 my-md-2 my-sm-2 my-2" src="{{imgPath + data?.data?.image}}" alt="{{data?.data?.name}} Img">
         </div>  
     </div>
 </div>

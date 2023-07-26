@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { CommunityService } from 'src/app/services/community.service';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { ViewClubComponent } from 'src/app/shared/dialog/community/view-club/view-club.component';
+import { Config } from 'src/app/services/config';
 
 @Component({
   selector: 'app-clubs',
@@ -18,7 +19,7 @@ import { ViewClubComponent } from 'src/app/shared/dialog/community/view-club/vie
 })
 export class ClubsComponent implements OnInit {
 
-  public status = 'active';
+  status: any;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -39,9 +40,11 @@ export class ClubsComponent implements OnInit {
     private dataService: DataService,
     public router: Router,
     private communityService : CommunityService,
-    private notify: TokenInterceptor
+    private notify: TokenInterceptor,
+    private config: Config
     ) {
-    this.dataSource = new MatTableDataSource<Person>();
+      this.status = this.config?.status
+      this.dataSource = new MatTableDataSource<Person>();
   }
 
 
@@ -177,10 +180,11 @@ export class ClubsComponent implements OnInit {
       }
       await this.communityService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
+          this.notify.notificationService.success(res?.message);
           this.ngOnInit();
         }
       }, error => {
-          console.log(error);
+          this.notify.notificationService.error(error);
       });
   }
 
