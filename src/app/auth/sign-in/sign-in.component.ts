@@ -18,6 +18,7 @@ export class SignInComponent implements OnInit {
   validLogin: any;
   submitted: boolean = false;
   loading:boolean = false;
+  showPassword: any;
 
   constructor(
     private authService: AuthService,
@@ -86,11 +87,15 @@ export class SignInComponent implements OnInit {
             localStorage.setItem("currentUser", JSON.stringify(res?.user));
             localStorage.setItem("token", JSON.stringify(res?.access_token));
             this.loading=false;
-            location.assign('/dashboard')
-            // this.router.navigate(["/dashboard"]);
-          } else {
+            this.interceptor.notificationService.success(
+              res?.message
+            );
+            setTimeout(() => {
+              location.assign('/dashboard')
+            }, 1000);
+          } else if(res?.status == 401) {
             this.loading=false;
-            this.interceptor.notificationService.openFailureSnackBar(
+            this.interceptor.notificationService.warning(
               res?.message
             );
           }
@@ -101,5 +106,11 @@ export class SignInComponent implements OnInit {
         }
       );
     }
+  }
+
+  togglePassword(){
+    this.showPassword = document.getElementById("userPassword") as HTMLElement;
+    if(this.showPassword.type == "password") this.showPassword.type = "text"; 
+    else this.showPassword.type = "password";
   }
 }

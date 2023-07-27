@@ -13,6 +13,7 @@ import { CreateFeaturedAlumniComponent } from './create-featured-alumni/create-f
 import { AddEditNewsComponent } from './add-edit-news/add-edit-news.component';
 import { BirthdayComponent } from './birthday/birthday.component';
 import { AnniversaryComponent } from './anniversary/anniversary.component';
+import { ViewFeaturedAlumniComponent } from './view-featured-alumni/view-featured-alumni.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'create-featured-alumni',
         component: CreateFeaturedAlumniComponent
+      },
+      {
+        path: 'view-featured-alumni',
+        component: ViewFeaturedAlumniComponent
       },
       {
         path: 'journey',

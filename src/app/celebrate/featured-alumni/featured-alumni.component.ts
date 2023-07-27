@@ -8,7 +8,6 @@ import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 import { Config } from 'src/app/services/config';
-import { ViewFeaturedAlumniComponent } from 'src/app/shared/dialog/celebrate/view-featured-alumni/view-featured-alumni.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
@@ -134,20 +133,16 @@ export class FeaturedAlumniComponent implements OnInit {
       this.filter();
     }
   }
-/**
- * Function to Add Featured Alumni
- * @param data 
- * @param params 
- */
-  add(data: any, params: any) {
-    this.router.navigate(['/celebrate/create-featured-alumni']);
-  }
-  view(data:any){
-    const dialogRef = this.dialog.open(ViewFeaturedAlumniComponent, {
-      width: '380px',
-      data: { data: data }
-    });
-  }
+add(ev, string){
+  
+}
+view(data: any){
+  console.log(data);
+  this.router.navigate(['/celebrate/view-featured-alumni'],{
+    queryParams: { userId: data?.id }
+  });
+}
+
 /**
  * Function to Edit Featured Alumni By Id
  * @param data 

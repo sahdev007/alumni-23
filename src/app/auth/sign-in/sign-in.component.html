@@ -3,7 +3,7 @@
     <div class="wrapper">
         <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
             <div class="container-fluid">
-                <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+                <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4">
                     <div class="col mx-auto">
                         <div class="mb-4 text-center">
                             <!-- <h3>Admin Login</h3> -->
@@ -22,11 +22,11 @@
 
                                             <div class="col-12">
                                                 <label for="validationPassword" class="form-label">Password</label>
-                                                <div class="input-group has-validation"> <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                    <input type="text" class="form-control" id="validationPassword" aria-describedby="inputGroupPrepend" formControlName="password" placeholder="Password" required>
+                                                <div class="input-group has-validation">
+                                                    <input type="password" class="form-control" id="userPassword" aria-describedby="inputGroupPrepend" formControlName="password" placeholder="Password" required>
+                                                    <span class="input-group-text" id="inputGroupPrepend" (click)="togglePassword()"><a><i [ngClass]="this.showPassword?.type == 'text' ? 'fa fa-eye' : 'fa fa-eye-slash'" aria-hidden="true"></i></a></span>
                                                     <div class="invalid-feedback">Please enter password.</div>
                                                 </div>
-
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-check form-switch">
@@ -36,10 +36,8 @@
                                             </div>
                                             <div class="col-md-6 text-end"> <a href="JavaScript:;" (click)="onForgotpassword()">Forgot Password ?</a>
                                             </div>
-                                            <div class="col-12">
-                                                <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary" (click)="login()"><i class="bx bxs-lock-open"></i>Sign in</button>
-                                                </div>
+                                            <div class="col-12 text-center">
+                                                <button type="submit" class="btn btn-primary" (click)="login()"><i class="bx bxs-lock-open"></i>Sign in</button>
                                             </div>
                                             <div class="spinner-border text-primary justify-content-center" role="status" *ngIf="loading"> <span class="visually-hidden">Loading...</span>
                                             </div>

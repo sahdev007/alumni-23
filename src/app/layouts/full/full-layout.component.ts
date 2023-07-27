@@ -12,7 +12,7 @@ export class FullLayoutComponent implements OnInit {
     currentUser;
     constructor(public sidebarservice: SidebarService,
                 private router: Router) { 
-                    if (localStorage.length > 0) {
+                    if (localStorage.hasOwnProperty("currentUser")) {
                         this.currentUser =
                           JSON?.parse(localStorage?.getItem("currentUser") || "");
                       }

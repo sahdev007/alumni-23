@@ -73,6 +73,7 @@ import { ViewEventComponent } from './dialog/connect/view-event/view-event.compo
 import { ViewFeaturedAlumniComponent } from './dialog/celebrate/view-featured-alumni/view-featured-alumni.component';
 import { ViewUserListComponent } from './dialog/collaborate/view-user-list/view-user-list.component';
 import { LoaderComponent } from './loader/loader.component';
+import { EditCostComponent } from './dialog/connect/edit-cost/edit-cost.component';
 
 @NgModule({
     exports: [
@@ -161,7 +162,8 @@ import { LoaderComponent } from './loader/loader.component';
         ViewEventComponent,
         ViewFeaturedAlumniComponent,
         ViewUserListComponent,
-        LoaderComponent
+        LoaderComponent,
+        EditCostComponent
     ],
     providers: [AuthGuard ],
     entryComponents: [ ]

@@ -30,6 +30,7 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
 import { BirthdayComponent } from './birthday/birthday.component';
 import { AnniversaryComponent } from './anniversary/anniversary.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ViewFeaturedAlumniComponent } from './view-featured-alumni/view-featured-alumni.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CreateFeaturedAlumniComponent,
     AddEditNewsComponent,
     BirthdayComponent,
-    AnniversaryComponent
+    AnniversaryComponent,
+    ViewFeaturedAlumniComponent
   ],
   imports: [
     CommonModule,

@@ -157,6 +157,11 @@ public updateData(action?: any, data?: any) {
         action
       );
     }
+    else if(action?.action === "update-color") {
+      return this.http.post<any>(
+        `${this.url}/${action?.action}` + "/" + action?.id, data
+      );
+    }
     return this.http.post<any>(`${this.url}/${action}`, data);
   }
   

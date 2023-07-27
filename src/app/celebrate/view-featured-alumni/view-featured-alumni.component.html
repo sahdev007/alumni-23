@@ -1,0 +1,223 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Celebrate</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item"><a routerLink="/celebrate/featured-alumni">Featured Alumni</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">View Featured Alumni Detail</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+<div class="container pt-4">
+    <h6  class="mb-0 text-uppercase">View Featured Alumni Detail</h6>
+  <div class="card border-top border-0 border-4 border-primary my-3 mb-5">
+    <div class="card-body px-5 py-3">
+        <div class="row">
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Full Name :</label>
+            <p class="m-0 fs-6 text-capitalize">{{ alumniData?.full_name }}</p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Email :</label><br />
+            <p class="m-0 fs-6"><a href="mailto:{{ alumniData?.email }}">{{ alumniData?.email }}</a></p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Institute Name :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.institute_name }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Batch Year :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.batch }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2" *ngIf="alumniData?.personal_email">
+            <label class="form-label mb-1 fw-bold fs-6">Personal Email 2:</label><br />
+            <p class="m-0 fs-6">
+           <a href="mailto:{{ alumniData?.personal_email }}">{{ alumniData?.personal_email }}</a>
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Office Email  :</label><br />
+            <p class="m-0 fs-6">
+           <a href="mailto:{{ alumniData?.office_email }}">{{ alumniData?.office_email }}</a>
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Mobile Number  :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           <a href="tel:{{ alumniData?.mobile_number }}">{{ alumniData?.mobile_number }}</a>
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Gender :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.gender }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Employed / Entrepreneur :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.employed_entrepreneur }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Current Company Name :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.current_company }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Current Designation :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.current_designation }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Current Location :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.current_location }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">If not in your current profession, I would be a :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.alternate_profession }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Native City, State or Your City, State before joining Institute :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.native_city }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Your first job / gig / business even as a young kid prior to joining Institute :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.first_job }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Your first salary in Rs. per month even prior to Institute :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.first_salary }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Favourite Book and Author Name :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.favourite_book_author }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Your Personal Hero in Life and/or Profession :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.personal_hero }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">How did you first hear about the Institute :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.first_hear }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Marital Status :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.marital_status }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Where you placed from Campus :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.campus_placement }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">If you were placed from Campus, please share company name and location :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.placement_location }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2" *ngIf="alumniData?.current_industry">
+            <label class="form-label mb-1 fw-bold fs-6">Enter Current Industry :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.current_industry }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">If married, Spouse from SBUP :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.if_married_sbup }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Life long lessons you learnt from the Institute :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.life_lessons }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">If Spouse is from SBUP, Please specify Full name, SBUP Institute and Batch Year. If not, please mention not applicable :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.spouse_details }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Please share your memories about The Honorable Founder Chancellor, Prof. Col. A. Balasubramaian / Bala Sir :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.share_memories }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Please share your message with current students. Tips for success :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.share_current_students }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2" *ngIf="alumniData?.share_future_students">
+            <label class="form-label mb-1 fw-bold fs-6">Please share your message with future MBA candidates, applicants applying at Institute :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.share_future_students }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2" *ngIf="alumniData?.share_message_alumni">
+            <label class="form-label mb-1 fw-bold fs-6">Please share your message with your batchmates and SBUP Alumni community :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.share_message_alumni }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Would be willing to be a mentor to junior students and alumni :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.willing_to_provide_mentorship }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Please share your message with current students. Tips for success :</label><br />
+            <p class="m-0 fs-6 text-capitalize">
+           {{ alumniData?.share_hidden_talents }}
+            </p>
+        </div>
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Status. :</label>
+            <p class="m-0 fs-6 text-capitalize">
+            {{ alumniData?.status == "active" ? "Active" : "Inactive" }}
+            </p>
+        </div>
+        <div class="col-12 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Description. :</label>
+            <div [innerHTML]="alumniData?.description"></div>
+        </div>
+        </div>
+    </div>
+  </div>
+</div>

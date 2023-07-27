@@ -5,6 +5,7 @@ import { TokenInterceptor } from '../core/token.interceptor';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { CountryService } from '../services/country.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
@@ -74,7 +75,8 @@ export class UserProfileComponent implements OnInit {
     public fb: FormBuilder,
     private notify: TokenInterceptor,
     public countryService: CountryService,
-    private arouter: ActivatedRoute,) {
+    private arouter: ActivatedRoute,
+    private _location: Location) {
     if (localStorage) {
       this.currentUser =
         JSON?.parse(localStorage?.getItem("currentUser") || "");
@@ -509,5 +511,7 @@ export class UserProfileComponent implements OnInit {
   save() {
     this.isFormEditable = false;
   }
-
+  backButton(){
+   this._location.back();
+  }
 }

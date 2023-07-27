@@ -1,64 +1,94 @@
-<div class="container">
-    <div class="row">
-        <div class="col-xl-12">
-            <h3 class="my-2 mb-4">View Business Ventures Detail</h3>
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Community</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item"><a routerLink="/community/business-ventures">Business Ventures</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">View Business Ventures Detail</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+<div class="container pt-4">
+    <h6  class="mb-0 text-uppercase">View Business Ventures Detail</h6>
+  <div class="card border-top border-0 border-4 border-primary my-3 mb-5">
+    <div class="card-body px-5 py-3">
+        <div class="row">
+        <div class="col-xl-6 my-xl-2">
+            <label class="form-label mb-1 fw-bold fs-6">Company Name :</label>
+            <p class="m-0 fs-6">{{ ventureData?.company }}</p>
         </div>
         <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-5">Company Name :</label>
-            <p class="m-0 fs-5">{{ventureData?.company}}</p>
+            <label class="form-label mb-1 fw-bold fs-6">Author Name :</label><br />
+            <p class="m-0 fs-6">{{ ventureData?.owner }}</p>
         </div>
         <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-5">Author Name :</label><br/>
-            <p class="m-0 fs-5">{{ventureData?.owner}}</p>
+            <label class="form-label mb-1 fw-bold fs-6">Contact No. :</label>
+            <p class="m-0 fs-6">
+            <a href="tel:{{ ventureData?.contact }}">{{
+                ventureData?.contact
+            }}</a>
+            </p>
         </div>
         <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-5">Contact No. :</label>
-            <p class="m-0 fs-5"><a href="tel:{{ventureData?.contact}}">{{ventureData?.contact}}</a></p>
+            <label class="form-label mb-1 fw-bold fs-6">Email ID :</label><br />
+            <p class="m-0 fs-6">
+            <a href="mailto:{{ ventureData?.email }}">{{ ventureData?.email }}</a>
+            </p>
         </div>
         <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-5">Email ID :</label><br/>
-            <p class="m-0 fs-5"><a href="mailto:{{ventureData?.email}}">{{ventureData?.email}}</a></p>
+            <label class="form-label mb-1 fw-bold fs-6">Address. :</label>
+            <p class="m-0 fs-6">{{ ventureData?.address }}</p>
         </div>
         <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-5">Address. :</label>
-            <p class="m-0 fs-5">{{ventureData?.address}}</p>
+            <label class="form-label mb-1 fw-bold fs-6">City :</label><br />
+            <p class="m-0 fs-6">{{ ventureData?.city }}</p>
         </div>
         <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-5">City :</label><br/>
-            <p class="m-0 fs-5">{{ventureData?.city}}</p>
+            <label class="form-label mb-1 fw-bold fs-6">State :</label>
+            <p class="m-0 fs-6">{{ ventureData?.state }}</p>
         </div>
         <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-5">State :</label>
-            <p class="m-0 fs-5">{{ventureData?.state}}</p>
-        </div>
-        <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-5">Country. :</label>
-            <p class="m-0 fs-5">{{ventureData?.country}}</p>
+            <label class="form-label mb-1 fw-bold fs-6">Country. :</label>
+            <p class="m-0 fs-6">{{ ventureData?.country }}</p>
         </div>
         <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.course">
-            <label class="form-label mb-1 fw-bold fs-5">Course :</label><br/>
-            <p class="m-0 fs-5">{{ventureData?.course}}</p>
+            <label class="form-label mb-1 fw-bold fs-6">Course :</label><br />
+            <p class="m-0 fs-6">{{ ventureData?.course }}</p>
         </div>
         <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.industry">
-            <label class="form-label mb-1 fw-bold fs-5">Industry. :</label>
-            <p class="m-0 fs-5">{{ventureData?.industry}}</p>
+            <label class="form-label mb-1 fw-bold fs-6">Industry. :</label>
+            <p class="m-0 fs-6">{{ ventureData?.industry }}</p>
         </div>
 
         <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.facebook">
-            <label class="form-label mb-1 fw-bold fs-5">Facebook ID :</label><br/>
-            <p class="m-0 fs-5"><a href="{{ventureData?.facebook}}">{{ventureData?.facebook}}</a></p>
+            <label class="form-label mb-1 fw-bold fs-6">Facebook ID :</label><br />
+            <p class="m-0 fs-6">
+            <a href="{{ ventureData?.facebook }}" target="_blank">{{ ventureData?.facebook }}</a>
+            </p>
         </div>
         <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.linkedin">
-            <label class="form-label mb-1 fw-bold fs-5">Linkedin ID :</label><br/>
-            <p class="m-0 fs-5"><a href="{{ventureData?.linkedin}}">{{ventureData?.linkedin}}</a></p>
+            <label class="form-label mb-1 fw-bold fs-6">Linkedin ID :</label><br />
+            <p class="m-0 fs-6">
+            <a href="{{ ventureData?.linkedin }}" target="_blank">{{ ventureData?.linkedin }}</a>
+            </p>
         </div>
         <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-5">Status. :</label>
-            <p class="m-0 fs-5">{{ventureData?.status == "active" ? 'Active' : 'Inactive'}}</p>
+            <label class="form-label mb-1 fw-bold fs-6">Status. :</label>
+            <p class="m-0 fs-6">
+            {{ ventureData?.status == "active" ? "Active" : "Inactive" }}
+            </p>
         </div>
         <div class="col-12 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-5">Description. :</label>
-            <div [innerHtml]="ventureData?.description"></div>
+            <label class="form-label mb-1 fw-bold fs-6">Description. :</label>
+            <div [innerHTML]="ventureData?.description"></div>
         </div>
-    </div>  
+        </div>
+    </div>
+  </div>
 </div>

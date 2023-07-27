@@ -79,6 +79,11 @@
             .isInactive:focus {
                 box-shadow: none;
             }
+
+            .mat-sort-header,
+            .mat-header-cell{
+                font-size: 15px !important;
+            }
             
             .mat-table thead {
                 background: #F8F9FA;

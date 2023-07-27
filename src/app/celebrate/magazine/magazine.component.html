@@ -12,13 +12,13 @@
     </div>
 </div>
 <!--end breadcrumb-->
-<div class="mat-elevation-z8 ">
+<div class="mat-elevation-z4 ">
     <div class="d-flex justify-content-end">
         <button mat-fab color="primary" (click)="add($event, 'create-magazine')" class="m-2" aria-label="Example icon button with a delete icon">
         <mat-icon>add</mat-icon>
       </button>
     </div>
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z4 w-100">
         <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
             <th mat-header-cell *matHeaderCellDef>
                 <div style="display: flex; align-items: center;">
@@ -36,7 +36,7 @@
             <th class="text-capitalize  fs-6" mat-header-cell *matHeaderCellDef> Status </th>
             <td mat-cell *matCellDef="let element">
                 <select class="form-select" aria-label="Default select" [(ngModel)]="element.status" (change)="onStatusChange($event, element)" [ngClass]="{ 'isActive': element.status === 'active' , 'isInactive': element.status === 'inActive' }">
-                    <option [value]="item.status" *ngFor="let item of status; index as i" class="text-capitalize">{{item?.status}}</option>
+                    <option [value]="item.status" *ngFor="let item of status; index as i" class="text-capitalize">{{item?.status == "active" ? 'Active' : 'Inactive'}}</option>
                 </select>
             </td>
         </ng-container>

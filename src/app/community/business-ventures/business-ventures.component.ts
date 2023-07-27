@@ -138,7 +138,7 @@ export class BusinessVenturesComponent implements OnInit {
 
   view(data: any){
     this.router.navigate(['/community/view-business-ventures'],{
-      queryParams: { userId: data?.id }, skipLocationChange: true
+      queryParams: { userId: data?.id }
     });
   }
 

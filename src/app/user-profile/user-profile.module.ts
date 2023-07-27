@@ -14,6 +14,7 @@ import { ExperienceComponent } from './experience/experience.component';
 import { OthersComponent } from './others/others.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatButtonModule } from '@angular/material/button';
     SharedModule,
     UserProfileRoutingModule,
     NgbModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule
   ]
 })
 export class UserProfileModule { }

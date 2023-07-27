@@ -21,6 +21,7 @@ import { AdminEventComponent } from './admin-event/admin-event.component';
 import { AlumniEventComponent } from './alumni-event/alumni-event.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTooltipModule
   ]
 })
 export class ConnectModule { }
