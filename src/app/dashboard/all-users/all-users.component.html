@@ -12,6 +12,78 @@
     </div>
 </div>
 <!--end breadcrumb-->
+<div class="search-filter my-4">
+    <form class="" [formGroup]="searchForm">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="inputEmail4">Search By Name:</label>
+          <input type="name" class="form-control" formControlName="first_name" id="inputName"
+            placeholder="Search by name" />
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputemail">Search By Email:</label>
+          <input type="email" class="form-control" formControlName="email" id="inputEmail"
+            placeholder="Search by email" />
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputAddress2">Search By Mobile Number:</label>
+          <input type="text" appNumbersOnly class="form-control" formControlName="mobile_number" id="inputMobileNumber"
+            placeholder="Search by mobile number" />
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="inputAddress">Search Institute Name:</label>
+          <select class="form-select" placeholder="Select institute name" formControlName="institute_name">
+            <option value="" selected>Choose your institute</option>
+            <option [value]="institute.institute_name" *ngFor="let institute of getInstitutes">
+              {{ institute.institute_name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputemail">Search By Passout Year:</label>
+          <select placeholder="Select Year" class="form-select" formControlName="batch">
+            <option value="" selected>Choose your batch</option>
+            <option [value]="batch.batch" *ngFor="let batch of getBatch">
+              {{ batch.batch }}
+            </option>
+          </select>
+        </div>
+          <ng-container *ngIf="pageType == 'users'">
+            <div class="form-group col-md-4">
+              <label for="inputAddress2">Search By Status:</label>
+              <select class="form-select form-control" placeholder="Select institute name" formControlName="status">
+                <option value="" selected>All</option>
+                <option value="active">Active</option>
+                <option value="inActive">Inactive</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+          </ng-container>
+          <div class="form-group col-md-4">
+            <label for="inputAddress">Search By Company Name:</label>
+            <input type="text" class="form-control" id="inputCompanyName" formControlName="current_company"
+              placeholder="Search by company name" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputemail">Search By Registered Date From:</label>
+            <input type="date" class="form-control" id="inputRegisteredDate" formControlName="reg_date_from"
+              placeholder="Search by registered date from" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress2">Search By Registered Date To:</label>
+            <input type="date" class="form-control" id="inputStatus" formControlName="reg_date_to"
+              placeholder="Search by registered date to" />
+          </div>
+      </div>
+      <div class="row justify-content-center my-2">
+        <div class="col-sm-6 text-center">
+          <!-- <button class="btn btn-sm btn-primary me-2" id="userSearch" (click)="searchData()">Search</button>
+          <button class="btn btn-sm btn-primary" (click)="resetForm()">Reset</button> -->
+        </div>
+      </div>
+    </form>
+  </div>
 <div class=" mb-4 mat-elevation-z4">
     <table mat-table [dataSource]="dataSource" matSort class=" w-100">
         <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">

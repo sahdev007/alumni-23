@@ -1,0 +1,39 @@
+.search-filter {
+    .section-heading {
+        height: 45px;
+        background-color: #000360;
+        padding: 10px;
+        color: #fff;
+        .text-left-listing {
+            float: left;
+        }
+        .text-right-download {
+            float: right;
+            cursor: pointer;
+        }
+    }
+    form {
+        .form-group{
+            label {
+                font-weight: 500;
+            }
+        }
+    }
+    .btn-report{
+        background: #000360;
+        color: #fff;
+    }
+}
+
+::-webkit-input-placeholder, select  { /* Chrome/Opera/Safari */
+    font-size: 13px;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    font-size: 13px
+  }
+  :-ms-input-placeholder{ /* IE 10+ */
+    font-size: 13px
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    font-size: 13px
+  }

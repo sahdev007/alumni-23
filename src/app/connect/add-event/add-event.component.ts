@@ -117,33 +117,37 @@ export class AddEventComponent implements OnInit {
         action: this.updateAction == 'update-event' ? 'update-event' : 'create-event',
         id: this.updateAction == 'update-event' ? parseInt(this.newEventId) : ''
       }
-      let formData = new FormData();
-      formData.append('id', action?.action === 'create-event' ? '' : this.newEventId );
-      formData.append("eventImage", (this.eventPic) ? this.eventPic : '' );
-      formData.append("author", this.addEventForm?.value?.author);
-      formData.append("title", this.addEventForm?.value?.title);
-      formData.append("description", this.addEventForm?.value?.description);
-      formData.append("date", this.addEventForm?.value?.date);
-      formData.append("venue", this.addEventForm?.value?.venue);
-      formData.append("cost", this.addEventForm?.value?.cost);
-      formData.append("status", this.addEventForm?.value?.status);
-      formData.append("type", this.addEventForm?.value?.type);
-      formData.append("time", this.addEventForm?.value?.time);
-      formData.append("contactNumber", this.addEventForm?.value?.contactNumber);
-      formData.append("eventPageLink", this.addEventForm?.value?.eventPageLink);
-      formData.append("eventHost", this.addEventForm?.value?.eventHost);
-      formData.append("category", this.addEventForm?.value?.category);
-      formData.append("eventsType_id", this.addEventForm?.value?.eventsType_id);
-    
+      if(this.addEventForm.invalid){
+        return;
+      } else {
+        let formData = new FormData();
+        formData.append('id', action?.action === 'create-event' ? '' : this.newEventId );
+        formData.append("eventImage", (this.eventPic) ? this.eventPic : '' );
+        formData.append("author", this.addEventForm?.value?.author);
+        formData.append("title", this.addEventForm?.value?.title);
+        formData.append("description", this.addEventForm?.value?.description);
+        formData.append("date", this.addEventForm?.value?.date);
+        formData.append("venue", this.addEventForm?.value?.venue);
+        formData.append("cost", this.addEventForm?.value?.cost);
+        formData.append("status", this.addEventForm?.value?.status);
+        formData.append("type", this.addEventForm?.value?.type);
+        formData.append("time", this.addEventForm?.value?.time);
+        formData.append("contactNumber", this.addEventForm?.value?.contactNumber);
+        formData.append("eventPageLink", this.addEventForm?.value?.eventPageLink);
+        formData.append("eventHost", this.addEventForm?.value?.eventHost);
+        formData.append("category", this.addEventForm?.value?.category);
+        formData.append("eventsType_id", this.addEventForm?.value?.eventsType_id);
+      
 
-      await this.connectService.postData(action, formData).subscribe((res:any) => {
-        if(res?.status == 200){
-          this.notify.notificationService.success(res?.message);
-          this.router.navigate(['/connect/admin-events']);
-        }
-      },error => {
-        this.notify.notificationService.error(error);
-      })
+        await this.connectService.postData(action, formData).subscribe((res:any) => {
+          if(res?.status == 200){
+            this.notify.notificationService.success(res?.message);
+            this.router.navigate(['/connect/admin-events']);
+          }
+        },error => {
+          this.notify.notificationService.error(error);
+        });
+      }
     }
 
     clickToBack(){

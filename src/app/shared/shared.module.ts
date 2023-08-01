@@ -75,6 +75,7 @@ import { ViewUserListComponent } from './dialog/collaborate/view-user-list/view-
 import { LoaderComponent } from './loader/loader.component';
 import { EditCostComponent } from './dialog/connect/edit-cost/edit-cost.component';
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
+import { SearchFilterComponent } from './search-filter/search-filter.component';
 
 @NgModule({
     imports: [
@@ -155,6 +156,7 @@ import { NumbersOnlyDirective } from './directives/numbers-only.directive';
         LoaderComponent,
         EditCostComponent,
         NumbersOnlyDirective,
+        SearchFilterComponent
     ],
     exports: [
         CommonModule,
@@ -166,7 +168,8 @@ import { NumbersOnlyDirective } from './directives/numbers-only.directive';
         ShowContentPipe,
         ReplaceUnderscorePipe,
         LoaderComponent,
-        NumbersOnlyDirective
+        NumbersOnlyDirective,
+        SearchFilterComponent
     ],
     providers: [AuthGuard ],
     entryComponents: [ ]

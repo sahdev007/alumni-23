@@ -9,6 +9,7 @@ import { Person } from 'src/app/models/person';
 import { Config } from 'src/app/services/config';
 import { ConnectService } from 'src/app/services/connect.service';
 import { DataService } from 'src/app/services/data.service';
+import { EditCostComponent } from 'src/app/shared/dialog/connect/edit-cost/edit-cost.component';
 import { ViewEventComponent } from 'src/app/shared/dialog/connect/view-event/view-event.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
@@ -23,8 +24,8 @@ export class AlumniEventComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['author', 'title', 'type', 'cost'];
-  public columnsToDisplay: string[] = [...this.displayedColumns,'status', 'actions'];
+  public displayedColumns: string[] = ['author', 'title', 'type'];
+  public columnsToDisplay: string[] = [...this.displayedColumns,'cost', 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -162,6 +163,27 @@ export class AlumniEventComponent implements OnInit {
   edit(id: number, params: any) {
     this.router.navigate(['/connect/add-event'], {queryParams: { clubId: id, action: params }});
   }
+
+    /**
+   * Function to edit cost of event
+   * @param e 
+   */
+    editCost(e: any){
+      const dialogRef = this.dialog.open(EditCostComponent, {
+        width: '400px',
+        data: { data: e }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          setTimeout(() => {
+            this.ngOnInit();
+          }, 500);
+  
+        }
+      });
+  
+    }
 
   /**
    * Function to remove items by id

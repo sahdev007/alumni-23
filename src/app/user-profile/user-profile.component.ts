@@ -82,7 +82,6 @@ export class UserProfileComponent implements OnInit {
         JSON?.parse(localStorage?.getItem("currentUser") || "");
     }
     this.arouter.queryParams.subscribe((res: any) => {
-      console.log(res)
       this.userId = res?.id;
       this.type = res?.type;
       if(this.type) this.isFormEditable = true;
@@ -100,24 +99,6 @@ export class UserProfileComponent implements OnInit {
       if(!this.userId){
           this.getCurrentUser();
       }
-      this.basicInfoForm.patchValue({
-        ...this.user
-      });
-      this.empBuisnessForm.patchValue({
-        ...this.user
-      });
-      this.mentorForm.patchValue({
-        ...this.user
-      });
-      this.experienceForm.patchValue({
-        ...this.user
-      });
-      this.educationForm.patchValue({
-        ...this.user
-      });
-      this.othersForm.patchValue({
-        ...this.user
-      });
     }, 2000);
     this.loading = false;
   }

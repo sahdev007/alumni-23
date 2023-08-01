@@ -160,7 +160,7 @@ export class UnderGraduateComponent implements OnInit {
   }
 
   delete(data: any, params: string) {
-    let action: string = "delete-batch";
+    let action: string = "delete-course";
     const dialogRef = this.dialog.open(DeletedialogComponent, {
       width: '400px',
       data: { data: data, info: params }
@@ -214,8 +214,8 @@ export class UnderGraduateComponent implements OnInit {
       }
       await this.organizationService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
-          this.ngOnInit();
           this.notify.notificationService.success(res?.message);
+          this.ngOnInit();
         }
       }, error => {
         this.notify.notificationService.error(error);

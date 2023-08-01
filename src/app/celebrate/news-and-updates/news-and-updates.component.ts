@@ -22,8 +22,8 @@ export class NewsAndUpdatesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['author', 'title'];
-  public columnsToDisplay: string[] = [...this.displayedColumns,'description', 'status', 'actions'];
+  public displayedColumns: string[] = ['author'];
+  public columnsToDisplay: string[] = [...this.displayedColumns,'title', 'description', 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
