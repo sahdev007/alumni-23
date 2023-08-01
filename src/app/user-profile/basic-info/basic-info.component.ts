@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import * as moment from "moment";
 import { TokenInterceptor } from "../../core/token.interceptor";
 import { Config } from "../../services/config";
 import { CountryService } from "../../services/country.service";
@@ -54,15 +53,12 @@ export class BasicInfoComponent implements OnInit {
     this.loadCountries();
 
     setTimeout(() => {
-      if(this.profileData?.Users?.id){
         this.basicInfoForm.patchValue({
           ...this.profileData?.Users
         });
-      } else {
         this.basicInfoForm.patchValue({
           ...this.otherProfile
         });
-      }
     }, 2000);
   }
 
@@ -150,13 +146,11 @@ export class BasicInfoComponent implements OnInit {
 
   async edit() {
     this.submitted = true;
-    this.loading = true;
     if (this.basicInfoForm.invalid) {
       return;
-    } else if (this.basicInfoForm.valid) {
+    } else {
       this.loading = true;
       let action: string = "update-user";
-      this.basicInfoForm.get('id').setValue(this.profileData?.Users?.user_id);
       await this.dataService
         .updateData(action, this.basicInfoForm.value)
         .subscribe(

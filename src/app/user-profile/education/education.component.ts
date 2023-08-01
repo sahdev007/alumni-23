@@ -16,7 +16,7 @@ export class EducationComponent implements OnInit {
   @Input() commonData: any;
   educationForm: FormGroup;
   specialization: any;
-  submitted: boolean | undefined;
+  submitted: boolean = false;
   currentUser: any;
   loading: boolean = false;
   eduId: any;
@@ -96,10 +96,9 @@ export class EducationComponent implements OnInit {
 
   async edit() {
     this.submitted = true;
-    this.loading = true;
     if (this.educationForm.invalid) {
       return;
-    } else if (this.educationForm.valid) {
+    } else {
       this.loading = true;
       let action: string = "update-education";
       this.educationForm.get('id').setValue(this.profileData?.Education?.user_id);

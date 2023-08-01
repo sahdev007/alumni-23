@@ -176,7 +176,9 @@ export class KeyContactComponent implements OnInit, AfterViewInit{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ngOnInit();
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 500);
       }
     });
   }
@@ -235,6 +237,7 @@ export class KeyContactComponent implements OnInit, AfterViewInit{
    */
   async getAllData() {
     let action = "all-contact";
+    this.getAllContact = [];
     await this.contactService.getAllData(action).subscribe(
       (res: any) => {
         if(res?.status == 200) {

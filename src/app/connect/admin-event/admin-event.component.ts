@@ -237,6 +237,7 @@ export class AdminEventComponent implements OnInit {
    */
   async getAllData() {
     let action = "all-eventsGet";
+    this.getAllAdmin = [];
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
         if(res?.status == 200) {

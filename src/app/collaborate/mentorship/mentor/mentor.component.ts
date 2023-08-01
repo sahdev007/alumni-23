@@ -158,7 +158,6 @@ export class MentorComponent implements OnInit {
    * @param params 
    */
   edit(data: any, params: any) {
-    console.log(params)
     const dialogRef = this.dialog.open(EditMenteeComponent, {
       width: '650px',
       data: {data: data, action: params}
@@ -172,11 +171,10 @@ export class MentorComponent implements OnInit {
   }
 
   async onStatusChange(e:any, params: any) {
-    console.log(e, params);
     let action = "update-gallery";
       let param = {
         id: params?.id,
-        is_active: e?.value
+        status: e?.value
       }
       console.log(param);
       await this.dataService.updateData(action, param).subscribe((res: any) => {
@@ -207,26 +205,13 @@ export class MentorComponent implements OnInit {
     let action = "willProvide-mentorship";
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
-        // console.log(res.data)
         if(res?.status == 200) {
           this.dataSource.data = res?.data;
         }
-      
-        // if (user?.status == 200) {
-        //   this.rowData = user?.data;
-        //   this.rowData.sort((a: any, b: any) => {
-        //     return a?.order_by - b?.order_by;
-        //   });
-        // }
       },
       (error) => {
         // this.interceptor.notificationService.openFailureSnackBar(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
-  }
-
 }

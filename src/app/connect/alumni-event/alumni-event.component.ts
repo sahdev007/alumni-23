@@ -221,6 +221,7 @@ export class AlumniEventComponent implements OnInit {
    */
   async getAllData() {
     let action = "all-eventsGet";
+    this.getAllAlumni = [];
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
         if(res?.status == 200) {

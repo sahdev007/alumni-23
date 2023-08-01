@@ -122,10 +122,9 @@ export class MentorshipComponent implements OnInit {
 
   async edit() {
     this.submitted = true;
-    this.loading = true;
     if (this.mentorForm.invalid) {
       return;
-    } else if (this.mentorForm.valid) {
+    } else {
       this.loading = true;
       let action: string = "update-mentorship";
       this.mentorForm.get('id').setValue(this.profileData?.Mentorship?.user_id);
