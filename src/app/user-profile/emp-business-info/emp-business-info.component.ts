@@ -36,22 +36,18 @@ export class EmpBusinessInfoComponent implements OnInit {
     this.professionalTitle = this.config?.professionalTitle;
     this.professionCategory = this.config?.professionCategory;
     this.loading = true;
-    // setTimeout(() => {
-    if (this.currentUser?.id == this.profileData?.Users?.id) {
+    setTimeout(() => {
 
       this.empBuisnessForm.patchValue({
         ...this.profileData?.Employment
       });
-    } else {
+
       this.empBuisnessForm.patchValue({
         ...this.otherProfile
       });
-    }
-    if (this.profileData?.Employment != null) {
-      this.empBuisnessForm.get('id').setValue(JSON.parse(this.profileData?.Employment?.user_id));
-    }
+      
     this.loading = false;
-    // }, 2000);
+    }, 2000);
   }
 
   /**
@@ -59,7 +55,7 @@ export class EmpBusinessInfoComponent implements OnInit {
    */
   buildForm() {
     this.empBuisnessForm = this.fb.group({
-      id: [this.empId?.id],
+      id: [""],
       professional_title: [""],
       other_professional_title: [""],
       professional_category: [""],
@@ -73,12 +69,13 @@ export class EmpBusinessInfoComponent implements OnInit {
   async edit() {
     this.loading = true;
     let action: string = "update-employment";
+    this.empBuisnessForm.get('id').setValue(this.profileData?.Employment?.user_id);
     await this.dataService.updateData(action, this.empBuisnessForm.value).subscribe((res: any) => {
-      this.notify.notificationService.openSuccessSnackBar(res?.message);
+      this.notify.notificationService.success(res?.message);
       this.loading = false;
     },
       error => {
-        this.notify.notificationService.openFailureSnackBar(error);
+        this.notify.notificationService.error(error);
         this.loading = false;
       })
   }

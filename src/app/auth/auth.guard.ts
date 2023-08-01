@@ -25,7 +25,6 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     let data: any = localStorage.getItem("token");
     const token = JSON.parse(data);
-    console.log(token)
     if (token) {
       return true;
     } else {

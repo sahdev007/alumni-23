@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Alumni-23": {
+    "Alumni-portal": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -26,7 +26,7 @@
             "allowedCommonJsDependencies": [
               "chart.js"
            ],
-            "outputPath": "dist/alumni-23",
+            "outputPath": "dist/alumni-portal",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -105,10 +105,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Alumni-23:build:production"
+              "browserTarget": "Alumni-portal:build:production"
             },
             "development": {
-              "browserTarget": "Alumni-23:build:development"
+              "browserTarget": "Alumni-portal:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -116,7 +116,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Alumni-23:build"
+            "browserTarget": "Alumni-portal:build"
           }
         },
         "test": {
@@ -141,5 +141,5 @@
       }
     }
   },
-  "defaultProject": "Alumni-23"
+  "defaultProject": "Alumni-portal"
 }

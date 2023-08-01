@@ -4,6 +4,9 @@ import { SettingsRoutingModule } from './settings-routing.module';
 import { GeneralComponent } from './general/general.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [GeneralComponent],
@@ -12,6 +15,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SettingsRoutingModule,
     EditorModule,
     NgbModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SharedModule
   ]
 })
 export class SettingsModule { }

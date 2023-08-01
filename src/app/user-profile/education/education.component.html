@@ -11,9 +11,18 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
-                    <label class="form-label fw-bold">Name of institute <span class="text-danger">*</span></label>
+                    <!-- <label class="form-label fw-bold">Name of institute <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" formControlName="institute_name" placeholder="Enter institute name">
                     <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2" *ngIf="(f.institute_name.touched || submitted) && f.institute_name.errors?.required">
+                        Institute name is required.
+                    </div> -->
+                    <label class=" form-label fw-bold">Institute <span class="text-danger">*</span></label>
+                    <select class="form-select" formControlName="institute_name">
+                        <option value="" selected>Choose your institute</option>
+                        <option [value]="institute?.institute_name" *ngFor="let institute of commonData?.Institute; let i=index;">
+                            {{institute.institute_name}}</option>
+                    </select>
+                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2 m-0" *ngIf="(f.institute_name.touched || submitted) && f.institute_name.errors?.required">
                         Institute name is required.
                     </div>
                 </div>
@@ -96,7 +105,7 @@
                     </div>
                 </div>
             </ng-container>
-            <div class="row justify-content-center">
+            <!-- <div class="row justify-content-center">
                 <div class="col-lg-4 text-center">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                         <ng-container *ngIf="type !== 'view-profile'">
@@ -109,6 +118,10 @@
                         </ng-container>
                     </div>
                 </div>
+            </div> -->
+            <div class="my-3" mat-dialog-actions align="center">
+                <button class="me-2" mat-raised-button color="warn" (click)="addQuantity()">Add Items</button>
+                <button mat-raised-button color="primary" (click)="edit()" >Update</button>
             </div>
         </form>
     </div>

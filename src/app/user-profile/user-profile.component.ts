@@ -95,6 +95,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     $.getScript('./assets/js/form-validations.js');
     $.getScript('./assets/js/bs-custom-file-input.min.js');
+    this.loading = true;
     this.buildForm();
     this.getCommonData();
 
@@ -127,6 +128,7 @@ export class UserProfileComponent implements OnInit {
         ...this.user
       });
     }, 2000);
+    this.loading = false;
   }
 
   /**

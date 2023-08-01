@@ -89,6 +89,13 @@ public updateData(action?: any, data?: any) {
       data
     );
   }
+  else if (action == "update-mentorship") {
+    alert('fdjifdj');
+    return this.http.post<any>(
+      `${this.url}/${action}` + "/" + data?.id,
+      data
+    );
+  }
   return this.http.put(`${this.url}/${action}/${data?.id}`, data);
 }
   public listenEvent(): Observable<any> {
@@ -123,7 +130,6 @@ public updateData(action?: any, data?: any) {
       action?.action === "update-team" ||
       action?.action === "update-gallery" ||
       action?.action === "update-event" ||
-      action?.action == "update-setting" ||
       action?.action === "updateStatus" ||
       action?.action == "update-journey"
     ) {
@@ -157,9 +163,9 @@ public updateData(action?: any, data?: any) {
         action
       );
     }
-    else if(action?.action === "update-color") {
+    else if(action?.action == "update-setting") {
       return this.http.post<any>(
-        `${this.url}/${action?.action}` + "/" + action?.id, data
+        `${this.url}/${action?.action}`, data
       );
     }
     return this.http.post<any>(`${this.url}/${action}`, data);

@@ -55,15 +55,11 @@ export class MentorshipComponent implements OnInit {
     this.loading = true;
     setTimeout(async () => {
       this.mentorData = this.profileData?.Mentorship?.mentor_user_id;
-      if (this.currentUser?.id == this.profileData?.Users?.id) {
+
         this.mentorForm.patchValue({
           ...this.profileData?.Mentorship
         });
-      } else {
-        // this.mentorForm.patchValue({
-        //   ...this.otherProfile
-        // });
-      }
+
       if (this.profileData?.Mentorship != null) {
         this.mentorForm.get('id').setValue(JSON.parse(this.profileData?.Mentorship?.user_id));
       }
@@ -98,7 +94,7 @@ export class MentorshipComponent implements OnInit {
    */
   buildform() {
     this.mentorForm = this.fb.group({
-      id: [this.currentUser?.id],
+      id: [""],
       user_id: [this.currentUser?.id],
       willing_to_provide_mentorship: ["", Validators.required],
       willing_to_be_mentee: ["", Validators.required],
@@ -126,24 +122,29 @@ export class MentorshipComponent implements OnInit {
 
   async edit() {
     this.submitted = true;
+    this.loading = true;
     if (this.mentorForm.invalid) {
       return;
     } else if (this.mentorForm.valid) {
       this.loading = true;
       let action: string = "update-mentorship";
+      this.mentorForm.get('id').setValue(this.profileData?.Mentorship?.user_id);
       let params = {
         ...this.mentorForm?.value,
         willing_to_provide_mentorship: JSON.parse(
           this.mentorForm?.value?.willing_to_provide_mentorship
         ),
+        willing_to_be_mentee: JSON.parse(
+          this.mentorForm?.value?.willing_to_be_mentee
+        ),
       };
-      await this.dataService.updateData(action, params).subscribe(
+      await this.dataService.postData(action, params).subscribe(
         (res: any) => {
-          this.notify.notificationService.openSuccessSnackBar(res?.message);
+          this.notify.notificationService.success(res?.message);
           this.loading = false;
         },
         (error) => {
-          this.notify.notificationService.openFailureSnackBar(error);
+          this.notify.notificationService.error(error);
           this.loading = false;
         }
       );

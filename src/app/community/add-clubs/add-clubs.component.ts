@@ -38,6 +38,7 @@ export class AddClubsComponent implements OnInit {
     this.buildForm();
     this.getAllClubTypes();
     this.arouter.queryParams.subscribe((res: any) => {
+      console.log(res);
       this.newClubId = res?.clubId;
       this.updatedClub = res?.action;
 

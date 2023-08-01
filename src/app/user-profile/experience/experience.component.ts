@@ -29,15 +29,17 @@ export class ExperienceComponent implements OnInit {
     this.buildform();
     this.loading = true;
     setTimeout(() => {
-      if(this.currentUser?.id == this.profileData?.Users?.id){
+
         this.experienceForm.patchValue({
           ...this.profileData?.WorkExperience
         });
-      } else {
+
         this.experienceForm.patchValue({
           ...this.otherProfile
         });
-      }
+        if (this.profileData?.Mentorship != null) {
+          this.experienceForm.get('id').setValue(JSON.parse(this.profileData?.WorkExperience?.user_id));
+        }
       this.loading = false;
     }, 2000);
   }
@@ -47,7 +49,7 @@ export class ExperienceComponent implements OnInit {
    */
   buildform() {
     this.experienceForm = this.fb.group({
-      id: [this.experienceId?.id],
+      id: [""],
       company_name: [""],
       job_title: [""],
       start_date: [""],
@@ -63,7 +65,7 @@ export class ExperienceComponent implements OnInit {
 
   newItems(): FormGroup {
     return this.fb.group({
-      id: [this.experienceId?.id],
+      id: [""],
       company_name: [""],
       job_title: [""],
       start_date: [""],
@@ -84,12 +86,13 @@ export class ExperienceComponent implements OnInit {
   async edit() {
     this.loading = true;
     let action: string = "update-experience";
+    this.experienceForm.get('id').setValue(this.profileData?.WorkExperience?.user_id);
     await this.dataService.updateData(action, this.experienceForm.value).subscribe((res: any) => {
-      this.notify.notificationService.openSuccessSnackBar(res?.message);
+      this.notify.notificationService.success(res?.message);
       this.loading = false;
     },
     error => {
-      this.notify.notificationService.openFailureSnackBar(error);
+      this.notify.notificationService.error(error);
       this.loading = false;
     })
   }

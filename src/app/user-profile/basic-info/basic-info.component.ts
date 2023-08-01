@@ -63,7 +63,6 @@ export class BasicInfoComponent implements OnInit {
           ...this.otherProfile
         });
       }
-
     }, 2000);
   }
 
@@ -72,7 +71,7 @@ export class BasicInfoComponent implements OnInit {
    */
   buildForm() {
     this.basicInfoForm = this.fb.group({
-      id: [this.currentUser?.id],
+      id: [""],
       first_name: ["", Validators.required],
       middle_name: [""],
       last_name: ["", Validators.required],
@@ -151,19 +150,23 @@ export class BasicInfoComponent implements OnInit {
 
   async edit() {
     this.submitted = true;
+    this.loading = true;
     if (this.basicInfoForm.invalid) {
       return;
     } else if (this.basicInfoForm.valid) {
-
+      this.loading = true;
       let action: string = "update-user";
+      this.basicInfoForm.get('id').setValue(this.profileData?.Users?.user_id);
       await this.dataService
         .updateData(action, this.basicInfoForm.value)
         .subscribe(
           (res: any) => {
             this.notify.notificationService.success(res?.message);
+            this.loading = false;
           },
           (error) => {
             this.notify.notificationService.error(error);
+            this.loading = false;
           }
         );
     }

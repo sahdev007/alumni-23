@@ -37,7 +37,7 @@
                     <div class="card d-flex align-items-right flex-row me-3">
                         <div class="col">
                             <button type="button" class="btn btn-primary px-3" (click)="edit()" *ngIf="!isFormEditable">Edit Profile <i class='lni lni-pencil-alt'></i></button>
-                            <button type="button" class="btn btn-primary px-3" (click)="save()" *ngIf="isFormEditable">Save</button>
+                            <!-- <button type="button" class="btn btn-primary px-3" (click)="save()" *ngIf="isFormEditable">Save</button> -->
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,8 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="tab-content" id="pills-tabContent">
+                    <app-loader *ngIf="loading"></app-loader>
+                    <div class="tab-content" id="pills-tabContent" *ngIf="!loading">
                         <div class="tab-pane fade show active" id="basic-information" role="tabpanel">
                             <app-basic-info [profileData]="profileData" [otherProfile]="otherProfile" [commonData]="commonData"></app-basic-info>
                         </div>
@@ -110,7 +111,7 @@
                             <app-experience [profileData]="profileData" [otherProfile]="otherProfile"></app-experience>
                         </div>
                         <div class="tab-pane fade" id="education" role="tabpanel">
-                            <app-education [profileData]="profileData" [otherProfile]="otherProfile"></app-education>
+                            <app-education [profileData]="profileData" [otherProfile]="otherProfile" [commonData]="commonData"></app-education>
                         </div>
                         <div class="tab-pane fade" id="other" role="tabpanel">
                             <app-others [profileData]="profileData" [otherProfile]="otherProfile"></app-others>

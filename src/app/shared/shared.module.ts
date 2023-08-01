@@ -74,19 +74,9 @@ import { ViewFeaturedAlumniComponent } from './dialog/celebrate/view-featured-al
 import { ViewUserListComponent } from './dialog/collaborate/view-user-list/view-user-list.component';
 import { LoaderComponent } from './loader/loader.component';
 import { EditCostComponent } from './dialog/connect/edit-cost/edit-cost.component';
+import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 
 @NgModule({
-    exports: [
-        CommonModule,
-        FooterComponent,
-        NavbarComponent,
-        SidebarComponent,
-        ColorSwitcherComponent,
-        NgbModule,
-        ShowContentPipe,
-        ReplaceUnderscorePipe,
-        LoaderComponent
-    ],
     imports: [
         RouterModule,
         CommonModule,
@@ -163,7 +153,20 @@ import { EditCostComponent } from './dialog/connect/edit-cost/edit-cost.componen
         ViewFeaturedAlumniComponent,
         ViewUserListComponent,
         LoaderComponent,
-        EditCostComponent
+        EditCostComponent,
+        NumbersOnlyDirective,
+    ],
+    exports: [
+        CommonModule,
+        FooterComponent,
+        NavbarComponent,
+        SidebarComponent,
+        ColorSwitcherComponent,
+        NgbModule,
+        ShowContentPipe,
+        ReplaceUnderscorePipe,
+        LoaderComponent,
+        NumbersOnlyDirective
     ],
     providers: [AuthGuard ],
     entryComponents: [ ]

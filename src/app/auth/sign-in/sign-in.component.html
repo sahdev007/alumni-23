@@ -24,7 +24,7 @@
                                                 <label for="validationPassword" class="form-label">Password</label>
                                                 <div class="input-group has-validation">
                                                     <input type="password" class="form-control" id="userPassword" aria-describedby="inputGroupPrepend" formControlName="password" placeholder="Password" required>
-                                                    <span class="input-group-text" id="inputGroupPrepend" (click)="togglePassword()"><a><i [ngClass]="this.showPassword?.type == 'text' ? 'fa fa-eye' : 'fa fa-eye-slash'" aria-hidden="true"></i></a></span>
+                                                    <span class="input-group-text" id="inputGroupPrepend" style="cursor:pointer;" (click)="togglePassword()"><a><i [ngClass]="this.showPassword?.type == 'text' ? 'fa fa-eye' : 'fa fa-eye-slash'" aria-hidden="true"></i></a></span>
                                                     <div class="invalid-feedback">Please enter password.</div>
                                                 </div>
                                             </div>

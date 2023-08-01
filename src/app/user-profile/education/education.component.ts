@@ -13,7 +13,8 @@ export class EducationComponent implements OnInit {
   @Input() type: any;
   @Input() profileData: any;
   @Input() otherProfile: any;
-  educationForm: FormGroup | any;
+  @Input() commonData: any;
+  educationForm: FormGroup;
   specialization: any;
   submitted: boolean | undefined;
   currentUser: any;
@@ -37,18 +38,15 @@ export class EducationComponent implements OnInit {
   async ngOnInit() {
     this.buildform();
     this.loading = true;
-    this.dataService.listenDataEvent().subscribe((x) => {
-    });
+
     setTimeout(() => {
-      if (this.currentUser?.id == this.profileData?.Users?.id) {
         this.educationForm.patchValue({
-          ...this.profileData?.Education,
+          ...this.profileData?.Education
         });
-      } else {
+
         this.educationForm.patchValue({
-          ...this.otherProfile,
+          ...this.otherProfile
         });
-      }
 
       this.loading = false;
     }, 2000);
@@ -59,7 +57,7 @@ export class EducationComponent implements OnInit {
    */
   buildform() {
     this.educationForm = this.fb.group({
-      id: [this.eduId?.id],
+      id: [""],
       degree_name: ["", Validators.required],
       institute_name: ["", Validators.required],
       passing_year: ["", Validators.required],
@@ -98,20 +96,22 @@ export class EducationComponent implements OnInit {
 
   async edit() {
     this.submitted = true;
+    this.loading = true;
     if (this.educationForm.invalid) {
       return;
     } else if (this.educationForm.valid) {
       this.loading = true;
       let action: string = "update-education";
+      this.educationForm.get('id').setValue(this.profileData?.Education?.user_id);
       await this.dataService
         .updateData(action, this.educationForm.value)
         .subscribe(
           (res: any) => {
-            this.notify.notificationService.openSuccessSnackBar(res?.message);
+            this.notify.notificationService.success(res?.message);
             this.loading = false;
           },
           (error) => {
-            this.notify.notificationService.openFailureSnackBar(error);
+            this.notify.notificationService.error(error);
             this.loading = false;
           }
         );

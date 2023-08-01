@@ -20,10 +20,9 @@ export class ColorSwitcherComponent implements OnInit {
    }
 
   async ngOnInit() {
-    let action: string = "update-color";
+    let action: string = "update-setting";
     let params = {
-      action: action,
-      id: this.token
+      action: action
     }
     this.dataService.postData(params).subscribe((x:any) => {
       console.log(x);

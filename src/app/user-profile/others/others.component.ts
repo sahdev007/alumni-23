@@ -12,7 +12,7 @@ import { TokenInterceptor } from '../../core/token.interceptor';
 export class OthersComponent implements OnInit {
   @Input() profileData: any;
   @Input() otherProfile: any;
-  othersForm: FormGroup | any;
+  othersForm: FormGroup;
   submitted: boolean = false;
   familyRelative: any;
   hobbies: any;
@@ -48,7 +48,7 @@ export class OthersComponent implements OnInit {
    */
   buildForm() {
     this.othersForm = this.fb.group({
-      id: [this.otherId?.id],
+      id: [""],
       family_and_relatives: [""],
       add_languages: ["", Validators.required],
       hobbies_and_passion: [""],
@@ -71,13 +71,14 @@ export class OthersComponent implements OnInit {
     } else if (this.othersForm.valid) {
       this.loading = true;
       let action: string = "update-other";
+      this.othersForm.get('id').setValue(JSON.parse(this.profileData?.Other?.user_id));
       await this.dataService.updateData(action, this.othersForm.value).subscribe(
         (res: any) => {
-          this.notify.notificationService.openSuccessSnackBar(res?.message);
+          this.notify.notificationService.success(res?.message);
           this.loading = false;
         },
         (error) => {
-          this.notify.notificationService.openFailureSnackBar(error);
+          this.notify.notificationService.error(error);
           this.loading = false;
         }
       );
