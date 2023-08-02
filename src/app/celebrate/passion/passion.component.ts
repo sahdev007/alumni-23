@@ -206,6 +206,7 @@ export class PassionComponent implements OnInit {
 
   async getAllData() {
     let action = "all-journey";
+    this.getAllJourney = [];
     await this.celebrateService.getAllData(action).subscribe(
       (res: any) => {
 

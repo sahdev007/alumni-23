@@ -1,0 +1,216 @@
+<ng-container *ngIf="pageType !== 'entrepreneurship' && pageType !== 'mentor' && pageType !== 'mentee'">
+    <div class="search-filter my-4">
+      <form class="" [formGroup]="searchForm">
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="inputEmail4">Search By Name:</label>
+            <input type="name" class="form-control" formControlName="first_name" id="inputName"
+              placeholder="Search by name" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputemail">Search By Email:</label>
+            <input type="email" class="form-control" formControlName="email" id="inputEmail"
+              placeholder="Search by email" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress2">Search By Mobile Number:</label>
+            <input type="text" appNumbersOnly class="form-control" formControlName="mobile_number" id="inputMobileNumber"
+              placeholder="Search by mobile number" />
+          </div>
+  
+          <div class="form-group col-md-4">
+            <label for="inputAddress">Search Institute Name:</label>
+            <select class="form-select" placeholder="Select institute name" formControlName="institute_name">
+              <option value="" selected>Choose your institute</option>
+              <option [value]="institute.institute_name" *ngFor="let institute of getInstitutes">
+                {{ institute.institute_name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputemail">Search By Passout Year:</label>
+            <select placeholder="Select Year" class="form-select" formControlName="batch">
+              <option value="" selected>Choose your batch</option>
+              <option [value]="batch.batch" *ngFor="let batch of getBatch">
+                {{ batch.batch }}
+              </option>
+            </select>
+          </div>
+            <ng-container *ngIf="pageType == 'users'">
+              <div class="form-group col-md-4">
+                <label for="inputAddress2">Search By Status:</label>
+                <select class="form-select form-control" placeholder="Select institute name" formControlName="status">
+                  <option value="" selected>All</option>
+                  <option value="active">Active</option>
+                  <option value="inActive">Inactive</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+            </ng-container>
+            <div class="form-group col-md-4">
+              <label for="inputAddress">Search By Company Name:</label>
+              <input type="text" class="form-control" id="inputCompanyName" formControlName="current_company"
+                placeholder="Search by company name" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputemail">Search By Registered Date From:</label>
+              <input type="date" class="form-control" id="inputRegisteredDate" formControlName="reg_date_from"
+                placeholder="Search by registered date from" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputAddress2">Search By Registered Date To:</label>
+              <input type="date" class="form-control" id="inputStatus" formControlName="reg_date_to"
+                placeholder="Search by registered date to" />
+            </div>
+        </div>
+        <div class="row justify-content-center my-2">
+          <div class="col-sm-6 text-center">
+            <button class="btn btn-sm btn-primary me-2" id="userSearch" (click)="searchData()">Search</button>
+            <button class="btn btn-sm btn-primary" *ngIf="formReset" (click)="resetForm()">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="pageType == 'entrepreneurship'">
+    <div class="search-filter">
+      <form class="" [formGroup]="entrepreneurSearchForm">
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="inputEmail4">Search By Name:</label>
+            <input type="name" class="form-control" formControlName="name" id="inputName" placeholder="Search by name" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress2">Search By Contact No.:</label>
+            <input type="text" appNumbersOnly class="form-control" formControlName="contact" id="inputMobileNumber"
+              placeholder="Search by contact number" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputemail">Search By Email:</label>
+            <input type="email" class="form-control" formControlName="email" id="inputEmail"
+              placeholder="Search by email" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress">Search By Company Name:</label>
+            <input type="text" class="form-control" id="inputCompanyName" formControlName="company"
+              placeholder="Search by company name" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress">Search By Founder:</label>
+            <input type="text" class="form-control" id="inputCompanyName" formControlName="owner"
+              placeholder="Search by founder" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress2">Search By Status:</label>
+            <select class="form-select form-control" placeholder="Select institute name" formControlName="status">
+              <option value="" selected>All</option>
+              <option value="active">Active</option>
+              <option value="inActive">Inactive</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
+        <div class="row justify-content-center my-2">
+          <div class="col-sm-6 text-center">
+            <button class="btn btn-sm btn-primary me-2" (click)="searchEntreprenurData()">Search</button>
+            <button class="btn btn-sm btn-primary" *ngIf="formReset" (click)="resetForm()">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="(pageType == 'mentor' || pageType == 'mentee') && pageType != 'entrepreneurship'">
+    <div class="search-filter">
+      <form class="" [formGroup]="mentorSearchForm">
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="inputEmail4">Search By Name:</label>
+            <input type="name" class="form-control" formControlName="first_name" id="inputName"
+              placeholder="Search by name" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputemail">Search By Email:</label>
+            <input type="email" class="form-control" formControlName="email" id="inputEmail"
+              placeholder="Search by email" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress2">Search By Mobile Number:</label>
+            <input type="text" appNumbersOnly class="form-control" formControlName="mobile_number" id="inputMobileNumber"
+              placeholder="Search by mobile number" />
+          </div>
+  
+          <div class="form-group col-md-4">
+            <label for="inputAddress">Search Institute Name:</label>
+            <select class="form-select" placeholder="Select institute name" formControlName="institute_id">
+              <option value="" selected>Select your institute</option>
+              <option [value]="institute?.id" *ngFor="let institute of getInstitutes">
+                {{ institute?.institute_name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputemail">Search By Passout Year:</label>
+            <select placeholder="Select Year" class="form-select" formControlName="batchYear_id">
+              <option value="" selected>Select your batch</option>
+              <option [value]="batch?.id" *ngFor="let batch of getBatch">
+                {{ batch?.batch }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress2">Skills:</label>
+            <select class="form-select" placeholder="Select institute name" formControlName="skill">
+              <option value="" selected>Select Skill</option>
+              <option [value]="item?.skill" *ngFor="let item of skill">
+                {{ item?.skill }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress2">Primary Industry area:</label>
+            <select class="form-select" placeholder="Select institute name" formControlName="primary_industry_focus">
+              <option value="" selected>Select Primary industry</option>
+              <option [value]="item?.primary_industry_focus" *ngFor="let item of primaryInd">
+                {{ item?.primary_industry_focus }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress2">Secondary Industry area:</label>
+            <select class="form-select" placeholder="Select institute name" formControlName="secondary_industry_focus">
+              <option value="" selected>Select Secondary industry</option>
+              <option [value]="item?.secondary_industry_focus" *ngFor="let item of secondaryInd">
+                {{ item?.secondary_industry_focus }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress2">Primary Functional area:</label>
+            <select class="form-select" placeholder="Select institute name" formControlName="primary_function_area">
+              <option value="" selected>Select Primary function</option>
+              <option [value]="item?.primary_function_area" *ngFor="let item of primaryFunc">
+                {{ item?.primary_function_area }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAddress2">Secondary Functional area:</label>
+            <select class="form-select" placeholder="Select institute name" formControlName="secondary_function_area">
+              <option value="" selected>Select Secondary function</option>
+              <option [value]="item?.secondary_function_area" *ngFor="let item of secondaryFunc">
+                {{ item?.secondary_function_area }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row justify-content-center my-2">
+          <div class="col-sm-6 text-center">
+            <button class="btn btn-sm btn-primary me-2" (click)="searchMentorshipData()">Search</button>
+            <button class="btn btn-sm btn-primary" *ngIf="formReset" (click)="resetForm()">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-container>

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -8,6 +9,7 @@ import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { Config } from 'src/app/services/config';
 import { DataService } from 'src/app/services/data.service';
+import { UsersService } from 'src/app/services/users.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
@@ -16,6 +18,10 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./all-users.component.scss']
 })
 export class AllUsersComponent implements OnInit {
+
+  pageType = "users";
+  getAllUser: Array<any> = [];
+  searchForm: FormGroup;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -31,12 +37,23 @@ export class AllUsersComponent implements OnInit {
 
   public dataSource: MatTableDataSource<Person>;
   status: any;
+  skill: any;
+  getInstitutes: any;
+  getBatch: any;
+  primaryInd: any;
+  secondaryInd: any;
+  primaryFunc: any;
+  secondaryFunc: any;
+  formReset: boolean;
+
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
     private router: Router,
     public notify : TokenInterceptor,
-    private config: Config
+    private config: Config,
+    private userService: UsersService,
+    private fb: FormBuilder
   ) {
     this.status = this.config?.userStat;
     this.dataSource = new MatTableDataSource<Person>();
@@ -132,15 +149,25 @@ export class AllUsersComponent implements OnInit {
       this.filter();
     }
   }
-
+/**
+ * Function to View user by Id
+ * @param id 
+ */
   view(id: any) {
     this.router.navigate(['user-profile'], { queryParams: { id: id } });
   }
-
+/**
+ * Function to navigate user profile by id
+ * @param data 
+ */
   edit(data: any) {
     this.router.navigate(['user-profile'], { queryParams: { id: data?.id, type: 'edit' } });
   }
-
+/**
+ * Function to delete user by Id
+ * @param data 
+ * @param params 
+ */
   delete(data: any, params: string) {
     let action:string = "delete-user";
     const dialogRef = this.dialog.open(DeletedialogComponent, {
@@ -156,7 +183,11 @@ export class AllUsersComponent implements OnInit {
       }
     });
   }
-
+/**
+ * Function to Change User Status by Id
+ * @param e 
+ * @param params 
+ */
   async onStatusChange(e: any, params: any) {
     let action = "update-user";
 
@@ -185,18 +216,103 @@ export class AllUsersComponent implements OnInit {
    * initialize data-table by providing persons list to the dataSource.
    */
   ngOnInit(): void {
+    this.buildForm();
+    this.getCommonApi();
     this.getAllData();
   }
 
+/**
+ * Build search filter form
+ */
+  buildForm() {
+    this.searchForm = this.fb.group({
+      first_name: [""],
+      fullName: [""],
+      email: [""],
+      mobile_number: [""],
+      contact: [""],
+      institute_name: [""],
+      batch: [""],
+      status: [""],
+      current_company: [""],
+      company:[''],
+      owner: [""],
+      reg_date_from: [""],
+      reg_date_to: [""],
+      type: ['']
+    });
+  }
+/**
+ * Function to get All user data
+ */
   async getAllData() {
     let action = "all-users";
+    this.getAllUser = [];
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
-        if (res?.status == 200) this.dataSource.data = res?.data;
+        if (res?.status == 200) {
+          this.getAllUser = res?.data;
+          this.dataSource.data = this.getAllUser;
+        }
       },
       (error) => {
         this.notify.notificationService.openFailureSnackBar(error);
       }
     );
+  }
+/**
+ * Function to get All common api
+ */
+  async getCommonApi() {
+    let action = "all-common";
+    await this.dataService.getData(action).subscribe(
+      (res: any) => {
+        this.skill = res?.Skill;
+        this.getInstitutes = res?.Institute;
+        this.getBatch = res?.Batch_Year;
+        this.primaryInd = res?.Primary_Industry;
+        this.secondaryInd = res?.Secondary_Industry;
+        this.primaryFunc = res?.Primary_Function;
+        this.secondaryFunc = res?.Secondary_Function;
+      },
+      (error) => {
+        this.notify.notificationService.openFailureSnackBar(error);
+      }
+    );
+  }
+
+/**
+ * Function to Filter Data
+ */
+  async searchData(){
+    let isValue = Object.keys(this.searchForm.value).some(
+      (value) => !!this.searchForm.value[value]
+    );
+
+    if (!isValue) {
+      this.formReset = false;
+      this.notify.notificationService.warning(
+        "At least one field should be selected "
+      );
+    } else {
+      this.formReset = true;
+      this.getAllUser = [];
+      this.searchForm.get("type").setValue(this.pageType);
+      await this.userService
+        .filterUsers(this.searchForm?.value)
+        .subscribe((res: any) => {
+          this.getAllUser = res?.data;
+          this.dataSource.data = this.getAllUser;
+        });
+    }
+  }
+
+  /**
+   * Function to Reset Search Form filter
+   */
+  resetForm() {
+    this.getAllData();
+    this.searchForm.reset(this.buildForm());
+    this.formReset = false;
   }
 }

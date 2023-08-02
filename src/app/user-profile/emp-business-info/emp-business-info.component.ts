@@ -26,27 +26,27 @@ export class EmpBusinessInfoComponent implements OnInit {
     public notify: TokenInterceptor
   ) {
     if (localStorage) {
-      this.currentUser = JSON?.parse(
-        localStorage?.getItem("currentUser") || ""
-      );
+      this.currentUser = JSON?.parse(localStorage?.getItem('currentUser') || '');
     }
   }
 
   async ngOnInit() {
-    // console.log(this.profileData);
-
+    console.log(this.profileData);
     this.buildForm();
     this.professionalTitle = this.config?.professionalTitle;
     this.professionCategory = this.config?.professionCategory;
+    this.loading = true;
     setTimeout(() => {
+
       this.empBuisnessForm.patchValue({
-        ...this.profileData?.Employment,
+        ...this.profileData?.Employment
       });
-      if (this.profileData?.Employment != null) {
-        this.empBuisnessForm
-          .get("id")
-          .setValue(JSON.parse(this.profileData?.Employment?.user_id));
-      }
+
+      this.empBuisnessForm.patchValue({
+        ...this.otherProfile
+      });
+      
+    this.loading = false;
     }, 2000);
   }
 
@@ -69,17 +69,14 @@ export class EmpBusinessInfoComponent implements OnInit {
   async edit() {
     this.loading = true;
     let action: string = "update-employment";
-    await this.dataService
-      .updateData(action, this.empBuisnessForm.value)
-      .subscribe(
-        (res: any) => {
-          this.notify.notificationService.success(res?.message);
-          this.loading = false;
-        },
-        (error) => {
-          this.notify.notificationService.error(error);
-          this.loading = false;
-        }
-      );
+    this.empBuisnessForm.get('id').setValue(this.profileData?.Employment?.user_id);
+    await this.dataService.updateData(action, this.empBuisnessForm.value).subscribe((res: any) => {
+      this.notify.notificationService.success(res?.message);
+      this.loading = false;
+    },
+      error => {
+        this.notify.notificationService.error(error);
+        this.loading = false;
+      })
   }
 }

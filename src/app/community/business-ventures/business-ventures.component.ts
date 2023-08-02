@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -9,6 +10,7 @@ import { Person } from 'src/app/models/person';
 import { CommunityService } from 'src/app/services/community.service';
 import { Config } from 'src/app/services/config';
 import { DataService } from 'src/app/services/data.service';
+import { UsersService } from 'src/app/services/users.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
@@ -17,6 +19,8 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./business-ventures.component.scss']
 })
 export class BusinessVenturesComponent implements OnInit {
+  searchForm : FormGroup;
+  pageType = "entrepreneurship";
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -32,6 +36,15 @@ export class BusinessVenturesComponent implements OnInit {
 
   public dataSource: MatTableDataSource<Person>;
   status : any;
+  formReset: boolean;
+  businessData: Array<any> = [];
+  skill: any;
+  getInstitutes: any;
+  getBatch: any;
+  primaryInd: any;
+  secondaryFunc: any;
+  primaryFunc: any;
+  secondaryInd: any;
 
   constructor(
     public dialog: MatDialog,
@@ -39,7 +52,9 @@ export class BusinessVenturesComponent implements OnInit {
     public router: Router,
     private communityService : CommunityService,
     private config: Config,
-    private notify: TokenInterceptor
+    private notify: TokenInterceptor,
+    private fb: FormBuilder,
+    private userService: UsersService
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
@@ -202,15 +217,32 @@ export class BusinessVenturesComponent implements OnInit {
    * initialize data-table by providing persons list to the dataSource.
    */
   ngOnInit(): void {
+    this.buildForm();
     this.getAllData();
+    this.getCommonApi();
+  }
+
+  buildForm() {
+    this.searchForm = this.fb.group({
+      name: [""],
+      contact: [""],
+      email: [""],
+      company:[''],
+      owner: [""],
+      status: [""],
+      type: ['']
+    });
   }
 
   async getAllData() {
     let action = "all-entrepreneur";
+    this.businessData = [];
     await this.dataService.getAllData(action).subscribe(
-      (vid: any) => {
-        console.log(vid.data)
-        if(vid?.status == 200) this.dataSource.data = vid?.data;
+      (entre: any) => {
+        if(entre?.status == 200){
+            this.businessData = entre?.data;
+            this.dataSource.data = this.businessData;
+        }
       },
       (error) => {
         this.notify.notificationService.error(error);
@@ -218,4 +250,58 @@ export class BusinessVenturesComponent implements OnInit {
     );
   }
 
+    /**
+ * Function to get All common api
+ */
+    async getCommonApi() {
+      let action = "all-common";
+      await this.dataService.getData(action).subscribe(
+        (res: any) => {
+          this.skill = res?.Skill;
+          this.getInstitutes = res?.Institute;
+          this.getBatch = res?.Batch_Year;
+          this.primaryInd = res?.Primary_Industry;
+          this.secondaryInd = res?.Secondary_Industry;
+          this.primaryFunc = res?.Primary_Function;
+          this.secondaryFunc = res?.Secondary_Function;
+        },
+        (error) => {
+          this.notify.notificationService.openFailureSnackBar(error);
+        }
+      );
+    }
+
+    /**
+   * Function to filter entrepreneurship table records
+   */
+    async searchData() {
+      let isValue = Object.keys(this.searchForm.value).some(
+        (value) => !!this.searchForm.value[value]
+      );
+      if (!isValue) {
+        this.formReset = false;
+        this.notify.notificationService.warning(
+          "At least one field should be selected"
+        );
+      } else {
+        this.businessData = [];
+        this.formReset = true;
+        this.searchForm.get("type").setValue(this.pageType);
+        await this.userService
+          .filterEntrepreneur(this.searchForm?.value)
+          .subscribe((res: any) => {
+              this.businessData = res?.data;
+              this.dataSource.data = this.businessData;
+          });
+      }
+    }
+
+    /**
+   * Function to Reset Search Form filter
+   */
+  resetForm() {
+    this.getAllData();
+    this.searchForm.reset(this.buildForm());
+    this.formReset = false;
+  }
 }

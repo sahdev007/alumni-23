@@ -86,7 +86,7 @@ export class AddClubsComponent implements OnInit {
   }
 
   cancel(){
-    this.location.back();
+    this.router.navigate(['/community/clubs']);
   }
 
   async getAllClubTypes() {

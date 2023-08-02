@@ -30,18 +30,16 @@ export class ExperienceComponent implements OnInit {
     this.loading = true;
     setTimeout(() => {
 
-      this.experienceForm.patchValue({
-        ...this.profileData?.WorkExperience
-      });
+        this.experienceForm.patchValue({
+          ...this.profileData?.WorkExperience
+        });
 
-      this.experienceForm.patchValue({
-        ...this.otherProfile
-      });
-      if (this.profileData?.WorkExperience != null) {
-        this.experienceForm
-          .get("id")
-          .setValue(JSON.parse(this.profileData?.WorkExperience?.user_id));
-      }
+        this.experienceForm.patchValue({
+          ...this.otherProfile
+        });
+        if (this.profileData?.Mentorship != null) {
+          this.experienceForm.get('id').setValue(JSON.parse(this.profileData?.WorkExperience?.user_id));
+        }
       this.loading = false;
     }, 2000);
   }
@@ -88,6 +86,7 @@ export class ExperienceComponent implements OnInit {
   async edit() {
     this.loading = true;
     let action: string = "update-experience";
+    this.experienceForm.get('id').setValue(this.profileData?.WorkExperience?.user_id);
     await this.dataService.updateData(action, this.experienceForm.value).subscribe((res: any) => {
       this.notify.notificationService.success(res?.message);
       this.loading = false;

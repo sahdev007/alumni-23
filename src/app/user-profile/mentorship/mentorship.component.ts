@@ -55,10 +55,10 @@ export class MentorshipComponent implements OnInit {
     this.loading = true;
     setTimeout(async () => {
       this.mentorData = this.profileData?.Mentorship?.mentor_user_id;
-  
-      this.mentorForm.patchValue({
-        ...this.profileData?.Mentorship
-      });
+
+        this.mentorForm.patchValue({
+          ...this.profileData?.Mentorship
+        });
 
       if (this.profileData?.Mentorship != null) {
         this.mentorForm.get('id').setValue(JSON.parse(this.profileData?.Mentorship?.user_id));
@@ -95,15 +95,15 @@ export class MentorshipComponent implements OnInit {
   buildform() {
     this.mentorForm = this.fb.group({
       id: [""],
-      user_id: [""],
+      user_id: [this.currentUser?.id],
       willing_to_provide_mentorship: ["", Validators.required],
       willing_to_be_mentee: ["", Validators.required],
       skill_id: ["", Validators.required],
-      primary_function_area: [""],
-      secondary_function_area: [""],
+      primary_function_area_id: [""],
+      secondary_function_area_id: [""],
       other_function_area: [""],
-      primary_industry_focus: [""],
-      secondary_industry_focus: [""],
+      primary_industry_focus_id: [""],
+      secondary_industry_focus_id: [""],
       other_industry_focus: [""],
     });
   }
@@ -117,29 +117,45 @@ export class MentorshipComponent implements OnInit {
 
   viewProfile(e: any) {
     this.router.navigate(["/view-profile"], { queryParams: { id: e?.id } });
-    // this.dataService.broadcastEvent(true);
+    this.dataService.broadcastEvent(true);
   }
 
   async edit() {
     this.submitted = true;
     if (this.mentorForm.invalid) {
       return;
-    } else if (this.mentorForm.valid) {
+    } else {
       this.loading = true;
       let action: string = "update-mentorship";
+      this.mentorForm.get('id').setValue(this.profileData?.Mentorship?.user_id);
       let params = {
         ...this.mentorForm?.value,
         willing_to_provide_mentorship: JSON.parse(
           this.mentorForm?.value?.willing_to_provide_mentorship
         ),
+        willing_to_be_mentee: JSON.parse(
+          this.mentorForm?.value?.willing_to_be_mentee
+        ),
+        primary_function_area_id: JSON.parse(
+          this.mentorForm?.value?.primary_function_area_id
+        ),
+        secondary_function_area_id: JSON.parse(
+          this.mentorForm?.value?.secondary_function_area_id
+        ),
+        primary_industry_focus_id: JSON.parse(
+          this.mentorForm?.value?.primary_industry_focus_id
+        ),
+        secondary_industry_focus_id: JSON.parse(
+          this.mentorForm?.value?.secondary_industry_focus_id
+        ),
       };
-      await this.dataService.updateData(action, params).subscribe(
+      await this.dataService.postData(action, params).subscribe(
         (res: any) => {
-          this.notify.notificationService.openSuccessSnackBar(res?.message);
+          this.notify.notificationService.success(res?.message);
           this.loading = false;
         },
         (error) => {
-          this.notify.notificationService.openFailureSnackBar(error);
+          this.notify.notificationService.error(error);
           this.loading = false;
         }
       );

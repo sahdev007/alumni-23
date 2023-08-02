@@ -175,7 +175,9 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.ngOnInit();
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 500);
       }
     });
   }
@@ -239,6 +241,7 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
    */
   async getAllData() {
     let action = "all-contact";
+    this.getAllSocialContact = [];
     await this.contactService.getAllData(action).subscribe(
       (res: any) => {
         if (res?.status == 200) {

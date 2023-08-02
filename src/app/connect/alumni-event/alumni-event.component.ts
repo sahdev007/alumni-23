@@ -25,7 +25,7 @@ export class AlumniEventComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['author', 'title', 'type'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'cost', 'status', 'actions'];
+  public columnsToDisplay: string[] = [...this.displayedColumns,'cost', 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -182,6 +182,7 @@ export class AlumniEventComponent implements OnInit {
   
         }
       });
+  
     }
 
   /**
@@ -242,6 +243,7 @@ export class AlumniEventComponent implements OnInit {
    */
   async getAllData() {
     let action = "all-eventsGet";
+    this.getAllAlumni = [];
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
         if(res?.status == 200) {

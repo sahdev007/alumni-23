@@ -12,81 +12,37 @@ export class ColorSwitcherComponent implements OnInit {
   allColor: any;
   themeColor: any;
   token: any;
-  defaultTheme: any;
-  themeStandard: any;
-  mainColor: any;
-  htmlId: any;
-  sidbarData = [
-    {id:1, value:"sidebarcolor1"},
-    {id:2, value:"sidebarcolor2"},
-    {id:3, value:"sidebarcolor3"},
-    {id:4, value:"sidebarcolor4"},
-    {id:5, value:"sidebarcolor5"},
-    {id:6, value:"sidebarcolor6"},
-    {id:7, value:"sidebarcolor7"},
-    {id:8, value:"sidebarcolor8"}
-  ];
-  themeData = [
-    {id:1, name:"Light", value: "light-theme"},
-    {id:2, name:"Dark", value: "dark-theme"},
-    {id:3, name:"Semi Dark", value: "semi-theme"}
-  ];
-  headerData = [
-    {id:1, value:"headercolor1"},
-    {id:2, value:"headercolor2"},
-    {id:3, value:"headercolor3"},
-    {id:4, value:"headercolor4"},
-    {id:5, value:"headercolor5"},
-    {id:6, value:"headercolor6"},
-    {id:7, value:"headercolor7"},
-    {id:8, value:"headercolor8"}
-  ]
   constructor(private dataService: DataService) {
     if (localStorage.hasOwnProperty("token")) {
       this.token =
         JSON?.parse(localStorage?.getItem("token") || "");
     }
-
-    this.htmlId = document.getElementById('htmlId');
-    console.log(this.htmlId);
    }
 
   async ngOnInit() {
     let action: string = "update-setting";
     let params = {
       action: action
-    };
-
+    }
     this.dataService.postData(params).subscribe((x:any) => {
       console.log(x);
-      this.sidebarColor = x?.data[0].sidebarColor;
-      this.headerColor = x?.data[0].headerColor;
-      this.themeColor = x?.data[0].themeColor;
-      this.mainColor = `${this.themeColor} ${this.sidebarColor} ${this.headerColor}`;
-      console.log(this.mainColor, '----------->>>>>>>>>', this.themeColor);
-      if(this.themeColor != undefined) {
-        this.htmlId.classList.add(this.themeColor);
-      } else {
-        this.htmlId.classList.add(this.headerColor, this.sidebarColor);
-      }
-    });
-
-  
+    })
 
     $(document).ready( function () {
-      // this.sidebarColor = localStorage.getItem('sidebar');
-      // this.headerColor = localStorage.getItem('themeHeaderColor');      
+      this.sidebarColor = localStorage.getItem('sidebar');
+      this.headerColor = localStorage.getItem('themeHeaderColor');      
 
-      // this.themeColor = localStorage.getItem('themeColor');
+      this.themeColor = localStorage.getItem('themeColor');
+      console.log(this.themeColor);
 
-      // if(this.themeColor != undefined) {
-      //   $( "html" ).addClass(this.themeColor);
-      // } else {
-      //   if (this.sidebarColor != undefined || this.headerColor != undefined) {
-      //     this.defaultColor = this.sidebarColor.concat(" ", this.headerColor);
-      //     $( "html" ).addClass(this.defaultColor);
-      //   }
-      // }
+      if(this.themeColor != undefined) {
+        $( "html" ).addClass(this.themeColor);
+      } else {
+        if (this.sidebarColor != undefined || this.headerColor != undefined) {
+          this.defaultColor = this.sidebarColor.concat(" ", this.headerColor);
+          $( "html" ).addClass(this.defaultColor);
+        }
+      }
     });
 
     $(".switcher-btn").on("click", function() {
@@ -94,35 +50,137 @@ export class ColorSwitcherComponent implements OnInit {
     }), 
     $(".close-switcher").on("click", function() {
       $(".switcher-wrapper").removeClass("switcher-toggled")
-    })
-  }
+    }), 
 
-  /**
-   * On Sidebar color updates
-   * @param value 
-   */
-  onChange(value:any, standard: string) {
-    let action: string = "update-setting";
-    let params = {
-      action: action
-    };
-    if(standard == 'sidebar') {
-      this.themeStandard = {
-        sidebarColor: value?.value
-      };
-    } else if (standard == 'theme') {
-      this.themeStandard = {
-        themeColor: value?.value
-      };
-    } else if(standard == 'header') {
-      this.themeStandard = {
-        headerColor: value?.value,
-        themeColor: ''
-      };
+    //Theme Color
+    $("#lightmode").on("click", function() {
+      $("html").attr("class", "light-theme"),
+      localStorage.setItem('themeColor', 'light-theme');
+      localStorage.removeItem('themeHeaderColor');
+      localStorage.removeItem('sidebar');
+    }), 
+    $("#darkmode").on("click", function() {
+      $("html").attr("class", "dark-theme"),
+      localStorage.setItem('themeColor', 'dark-theme');
+      localStorage.removeItem('themeHeaderColor');
+      localStorage.removeItem('sidebar');
+    }), 
+    $("#semidark").on("click", function() {
+      $("html").attr("class", "semi-dark"),
+      localStorage.setItem('themeColor', 'semi-theme');
+      localStorage.removeItem('themeHeaderColor');
+      localStorage.removeItem('sidebar');
+    }), 
+    $("#minimaltheme").on("click", function() {
+      $("html").attr("class", "minimal-theme"),
+      localStorage.setItem('themeColor', 'minimal-theme');
+      localStorage.removeItem('themeHeaderColor');
+      localStorage.removeItem('sidebar');
+    }), 
+
+    // Header color
+    $("#headercolor1").on("click", function() {
+      $("html").addClass("color-header headercolor1"), 
+      $("html").removeClass("headercolor2 headercolor3 headercolor4 headercolor5 headercolor6 headercolor7 headercolor8"),
+      localStorage.setItem('themeHeaderColor', 'color-header headercolor1');
+      localStorage.removeItem('themeColor');
+    }), 
+    $("#headercolor2").on("click", function() {
+      $("html").addClass("color-header headercolor2"), 
+      $("html").removeClass("headercolor1 headercolor3 headercolor4 headercolor5 headercolor6 headercolor7 headercolor8"),
+      localStorage.setItem('themeHeaderColor', 'color-header headercolor2');
+      localStorage.removeItem('themeColor');
+    }), 
+    $("#headercolor3").on("click", function() {
+      $("html").addClass("color-header headercolor3"), 
+      $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor6 headercolor7 headercolor8"),
+      localStorage.setItem('themeHeaderColor', 'color-header headercolor3');
+      localStorage.removeItem('themeColor');
+    }), 
+    $("#headercolor4").on("click", function() {
+      $("html").addClass("color-header headercolor4"), 
+      $("html").removeClass("headercolor1 headercolor2 headercolor3 headercolor5 headercolor6 headercolor7 headercolor8"),
+      localStorage.setItem('themeHeaderColor', 'color-header headercolor4');
+      localStorage.removeItem('themeColor');
+    }), 
+    $("#headercolor5").on("click", function() {
+      $("html").addClass("color-header headercolor5"), 
+      $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor3 headercolor6 headercolor7 headercolor8"),
+      localStorage.setItem('themeHeaderColor', 'color-header headercolor5');
+      localStorage.removeItem('themeColor');
+    }), 
+    $("#headercolor6").on("click", function() {
+      $("html").addClass("color-header headercolor6"), 
+      $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor3 headercolor7 headercolor8"),
+      localStorage.setItem('themeHeaderColor', 'color-header headercolor6');
+      localStorage.removeItem('themeColor');
+    }), 
+    $("#headercolor7").on("click", function() {
+      $("html").addClass("color-header headercolor7"), 
+      $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor6 headercolor3 headercolor8"),
+      localStorage.setItem('themeHeaderColor', 'color-header headercolor7');
+      localStorage.removeItem('themeColor');
+    }), 
+    $("#headercolor8").on("click", function() {
+      $("html").addClass("color-header headercolor8"), 
+      $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor6 headercolor7 headercolor3"),
+      localStorage.setItem('themeHeaderColor', 'color-header headercolor8');
+      localStorage.removeItem('themeColor');
+    })
+    
+    // sidebar colors 
+
+
+    $('#sidebarcolor1').click(theme1);
+    $('#sidebarcolor2').click(theme2);
+    $('#sidebarcolor3').click(theme3);
+    $('#sidebarcolor4').click(theme4);
+    $('#sidebarcolor5').click(theme5);
+    $('#sidebarcolor6').click(theme6);
+    $('#sidebarcolor7').click(theme7);
+    $('#sidebarcolor8').click(theme8);
+
+    function theme1() {
+      $('html').attr('class', 'color-sidebar sidebarcolor1');
+      localStorage.setItem('sidebar', 'color-sidebar sidebarcolor1');
     }
-    this.dataService.postData(params, this.themeStandard).subscribe((x:any) => {
-      console.log(x);
-    });
+
+    function theme2() {
+      $('html').attr('class', 'color-sidebar sidebarcolor2');
+      localStorage.setItem('sidebar', 'color-sidebar sidebarcolor2');
+    }
+
+    function theme3() {
+      $('html').attr('class', 'color-sidebar sidebarcolor3');
+      localStorage.setItem('sidebar', 'color-sidebar sidebarcolor3');
+    }
+
+    function theme4() {
+      $('html').attr('class', 'color-sidebar sidebarcolor4');
+      localStorage.setItem('sidebar', 'color-sidebar sidebarcolor4');
+    }
+	
+	function theme5() {
+      $('html').attr('class', 'color-sidebar sidebarcolor5');
+      localStorage.setItem('sidebar', 'color-sidebar sidebarcolor5');
+    }
+	
+	function theme6() {
+      $('html').attr('class', 'color-sidebar sidebarcolor6');
+      localStorage.setItem('sidebar', 'color-sidebar sidebarcolor6');
+    }
+
+    function theme7() {
+      $('html').attr('class', 'color-sidebar sidebarcolor7');
+      localStorage.setItem('sidebar', 'color-sidebar sidebarcolor7');
+    }
+
+    function theme8() {
+      $('html').attr('class', 'color-sidebar sidebarcolor8');
+      localStorage.setItem('sidebar', 'color-sidebar sidebarcolor8');
+    }
+	
+	
   }
 
 }

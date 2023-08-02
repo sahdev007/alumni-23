@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { DataService } from 'src/app/services/data.service';
+import { UsersService } from 'src/app/services/users.service';
 import { AddMenteeComponent } from 'src/app/shared/dialog/collaborate/add-mentee/add-mentee.component';
 import { EditMenteeComponent } from 'src/app/shared/dialog/collaborate/edit-mentee/edit-mentee.component';
 
@@ -16,6 +19,10 @@ import { EditMenteeComponent } from 'src/app/shared/dialog/collaborate/edit-ment
 })
 export class MentorComponent implements OnInit {
   public status = 'active';
+  pageType: string = "mentor";
+  getMentor: Array<any> = [];
+  searchForm: FormGroup;
+  formReset: boolean;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -30,11 +37,21 @@ export class MentorComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
+  skill: any;
+  getInstitutes: any;
+  getBatch: any;
+  secondaryInd: any;
+  primaryInd: any;
+  primaryFunc: any;
+  secondaryFunc: any;
 
   constructor( 
     public dialog: MatDialog,
     private dataService: DataService,
-    public router: Router
+    public router: Router,
+    private fb: FormBuilder,
+    private notify: TokenInterceptor,
+    private userService: UsersService
     ) {
     this.dataSource = new MatTableDataSource<Person>();
   }
@@ -158,7 +175,6 @@ export class MentorComponent implements OnInit {
    * @param params 
    */
   edit(data: any, params: any) {
-    console.log(params)
     const dialogRef = this.dialog.open(EditMenteeComponent, {
       width: '650px',
       data: {data: data, action: params}
@@ -172,13 +188,11 @@ export class MentorComponent implements OnInit {
   }
 
   async onStatusChange(e:any, params: any) {
-    console.log(e, params);
     let action = "update-gallery";
       let param = {
         id: params?.id,
-        is_active: e?.value
+        status: e?.value
       }
-      console.log(param);
       await this.dataService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
         }
@@ -197,6 +211,8 @@ export class MentorComponent implements OnInit {
    * initialize data-table by providing persons list to the dataSource.
    */
   ngOnInit(): void {
+    this.buildForm();
+    this.getCommonApi();
     this.getAllData();
   }
 
@@ -205,19 +221,13 @@ export class MentorComponent implements OnInit {
    */
   async getAllData() {
     let action = "willProvide-mentorship";
+    this.getMentor = [];
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
-        // console.log(res.data)
         if(res?.status == 200) {
-          this.dataSource.data = res?.data;
+          this.getMentor = res?.data;
+          this.dataSource.data = this.getMentor;
         }
-      
-        // if (user?.status == 200) {
-        //   this.rowData = user?.data;
-        //   this.rowData.sort((a: any, b: any) => {
-        //     return a?.order_by - b?.order_by;
-        //   });
-        // }
       },
       (error) => {
         // this.interceptor.notificationService.openFailureSnackBar(error);
@@ -225,8 +235,72 @@ export class MentorComponent implements OnInit {
     );
   }
 
-  ngOnDestroy(): void {
-    // this.serviceSubscribe.unsubscribe();
+  buildForm() {
+    this.searchForm = this.fb.group({
+      first_name: [""],
+      email: [""],
+      mobile_number: [""],
+      institute_id: [""],
+      batchYear_id: [""],
+      primary_industry_focus: [""],
+      secondary_industry_focus: [""],
+      primary_function_area: [""],
+      secondary_function_area: [""],
+      skill: [""],
+      type: ['']
+    })
   }
 
+  async getCommonApi() {
+    let action = "all-common";
+    await this.dataService.getData(action).subscribe(
+      (res: any) => {
+        this.skill = res?.Skill;
+        this.getInstitutes = res?.Institute;
+        this.getBatch = res?.Batch_Year;
+        this.primaryInd = res?.Primary_Industry;
+        this.secondaryInd = res?.Secondary_Industry;
+        this.primaryFunc = res?.Primary_Function;
+        this.secondaryFunc = res?.Secondary_Function;
+      },
+      (error) => {
+        this.notify.notificationService.openFailureSnackBar(error);
+      }
+    );
+  }
+  
+  /**
+ * Function to Filter Data
+ */
+  async searchData(){
+    let isValue = Object.keys(this.searchForm.value).some(
+      (value) => !!this.searchForm.value[value]
+    );
+
+    if (!isValue) {
+      this.formReset = false;
+      this.notify.notificationService.warning(
+        "At least one field should be selected "
+      );
+    } else {
+      this.formReset = true;
+      this.getMentor = [];
+      this.searchForm.get("type").setValue(this.pageType);
+      await this.userService
+        .filterMentorship(this.searchForm?.value)
+        .subscribe((res: any) => {
+          this.getMentor = res?.data;
+          this.dataSource.data = this.getMentor;
+        });
+    }
+  }
+
+  /**
+   * Function to Reset Search Form filter
+   */
+  resetForm() {
+    this.getAllData();
+    this.searchForm.reset(this.buildForm());
+    this.formReset = false;
+  }
 }

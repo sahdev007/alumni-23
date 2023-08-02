@@ -89,14 +89,15 @@ public updateData(action?: any, data?: any) {
       data
     );
   }
-  else if (action == "update-user" || action == "update-experience" || action == "update-employment"
-  || action == "update-education" || action == "update-other") {
-    return this.http.put<any>(
-      `${this.url}/${action}`, data);
+  else if (action == "update-mentorship") {
+    alert('fdjifdj');
+    return this.http.post<any>(
+      `${this.url}/${action}` + "/" + data?.id,
+      data
+    );
   }
   return this.http.put(`${this.url}/${action}/${data?.id}`, data);
 }
-
   public listenEvent(): Observable<any> {
     return this._eventsSubject.asObservable();
   }
@@ -109,11 +110,9 @@ public updateData(action?: any, data?: any) {
       .get(`${this.url}/${action}`)
       .pipe(shareReplay(), debounceTime(300));
   }
-
   deleteData(action?: string, id?: any): Observable<any> {
     return this.http.delete(`${this.url}/${action}/${id}`);
   }
-
   public getDataById(action?: string, id?: any) {
     return this.http.get(`${this.url}/${action}/${id}`);
   }

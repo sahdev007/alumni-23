@@ -133,8 +133,8 @@ export class FeaturedAlumniComponent implements OnInit {
       this.filter();
     }
   }
-add(ev, string){
-  
+add(data:any, params:string){
+  this.router.navigate(['/celebrate/create-featured-alumni']);
 }
 view(data: any){
   console.log(data);

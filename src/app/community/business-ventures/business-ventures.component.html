@@ -12,6 +12,53 @@
     </div>
 </div>
 <!--end breadcrumb-->
+    <div class="">
+        <div class="row my-3 p-3 bg-white alumni-body card border-top border-0 border-4 border-primary m-0">
+            <div class="search-filter mt-3">
+                <form class="" [formGroup]="searchForm">
+                    <div class="row g-3">
+                        <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <label class="fw-bold" for="inputEmail4">Search By Name:</label>
+                        <input type="name" class="form-control" formControlName="name" id="inputName" placeholder="Search by name" />
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <label class="fw-bold" for="inputAddress2">Search By Contact No.:</label>
+                        <input type="text" appNumbersOnly class="form-control" formControlName="contact" id="inputMobileNumber"
+                            placeholder="Search by contact number" />
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <label class="fw-bold" for="inputemail">Search By Email:</label>
+                        <input type="email" class="form-control" formControlName="email" id="inputEmail"
+                            placeholder="Search by email" />
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <label class="fw-bold" for="inputAddress">Search By Company Name:</label>
+                        <input type="text" class="form-control" id="inputCompanyName" formControlName="company"
+                            placeholder="Search by company name" />
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <label class="fw-bold" for="inputAddress">Search By Founder:</label>
+                        <input type="text" class="form-control" id="inputCompanyName" formControlName="owner"
+                            placeholder="Search by founder" />
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <label class="fw-bold" for="inputAddress2">Search By Status:</label>
+                        <select class="form-select form-control" placeholder="Select status name" formControlName="status">
+                            <option value="" selected>All</option>
+                            <option value="active">Active</option>
+                            <option value="inActive">Inactive</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="my-3" mat-dialog-actions align="center">
+                        <button class="me-2" mat-raised-button color="warn" *ngIf="formReset" (click)="resetForm()">Reset</button>
+                        <button mat-raised-button color="primary" (click)="searchData()">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class=" mb-4">
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z4 w-100">
             <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">

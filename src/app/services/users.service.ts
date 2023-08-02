@@ -80,7 +80,7 @@ export class UsersService {
    * @returns 
    */
   public resetPassword(data: any) {
-    return this.http.put(`${this.url}/updatePassword/${data.id}`, data );
+    return this.http.put(`${this.url}/updatePassword/${data?.id}`, data );
   }
 
   /**
@@ -89,14 +89,14 @@ export class UsersService {
    * @returns 
    */
   public onChangeStatus(status:any) {
-    return this.http.post(`${this.url}/updateStatus/${status.id}`, status);
+    return this.http.post(`${this.url}/updateStatus/${status?.id}`, status);
   }
 
   /**
    * Send data to parent page
    */
   public sendFilteredData() {
-    this.filteredData.next('');
+    this.filteredData.next("");
   }
 
   public sendActiveUserData() {

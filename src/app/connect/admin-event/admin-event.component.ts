@@ -172,14 +172,14 @@ export class AdminEventComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       if (result) {
         setTimeout(() => {
           this.ngOnInit();
-        }, 2000);
+        }, 500);
 
       }
     });
+
   }
 
   /**
@@ -237,6 +237,7 @@ export class AdminEventComponent implements OnInit {
    */
   async getAllData() {
     let action = "all-eventsGet";
+    this.getAllAdmin = [];
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
         if(res?.status == 200) {
