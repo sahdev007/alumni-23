@@ -31,6 +31,7 @@ import { BirthdayComponent } from './birthday/birthday.component';
 import { AnniversaryComponent } from './anniversary/anniversary.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ViewFeaturedAlumniComponent } from './view-featured-alumni/view-featured-alumni.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { ViewFeaturedAlumniComponent } from './view-featured-alumni/view-feature
     MatInputModule,
     MatSelectModule,
     SharedModule,
+    MatTooltipModule,
     MatFormFieldModule
   ]
 })

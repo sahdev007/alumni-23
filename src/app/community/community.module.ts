@@ -25,6 +25,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ViewBusinessVenturesComponent } from './view-business-ventures/view-business-ventures.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatInputModule,
     MatSelectModule,
     MatStepperModule,
+    MatTooltipModule,
     MatFormFieldModule,
 
     EditorModule,

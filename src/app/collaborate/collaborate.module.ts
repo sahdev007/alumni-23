@@ -26,6 +26,7 @@ import { OfferExpertiseComponent } from './offer-expertise/offer-expertise.compo
 import { ShareOpportunitiesComponent } from './share-opportunities/share-opportunities.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatTooltipModule,
     SharedModule
   ]
 })

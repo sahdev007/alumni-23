@@ -25,6 +25,7 @@ import { SecondaryIndustryComponent } from './secondary-industry/secondary-indus
 import { PrimaryFunctionComponent } from './primary-function/primary-function.component';
 import { SecondaryFunctionComponent } from './secondary-function/secondary-function.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatTooltipModule,
     SharedModule
   ]
 })

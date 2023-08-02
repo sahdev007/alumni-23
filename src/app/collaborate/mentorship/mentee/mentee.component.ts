@@ -157,42 +157,8 @@ export class MenteeComponent implements OnInit {
    * @param data 
    * @param params 
    */
-  edit(data: Person, params: any) {
-    console.log(params);
-  }
-  /**
-   * Function to remove items by id
-   * @param id 
-   * @param params 
-  */
-  delete(id: any, params: string) {
-    const dialogRef = this.dialog.open(DeletedialogComponent, {
-      width: '400px',
-      data: { info: params }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-      }
-    });
-  }
-
-  async onStatusChange(e:any, params: any) {
-    console.log(e, params);
-    let action = "update-gallery";
-      let param = {
-        id: params?.id,
-        is_active: e?.value
-      }
-      console.log(param);
-      await this.dataService.updateData(action, param).subscribe((res: any) => {
-        if(res?.status == 200) {
-          // this.notify.notificationService.openSuccessSnackBar(res?.message);
-        }
-      }, error => {
-        // this.notify.notificationService.openFailureSnackBar(error)
-      });
-    
+  view(e: any) {
+    this.router.navigate(["/user-profile"], { queryParams: { id: e?.user_id } });
   }
 
   ngAfterViewInit(): void {

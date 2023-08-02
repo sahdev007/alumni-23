@@ -66,9 +66,10 @@ export class MentorshipComponent implements OnInit {
       this.loading = false;
 
       this.dataService
-        .getDataById("find-user", this.currentUser?.id)
+        .getDataById("find-user", this.profileData?.Mentorship?.user_id)
         .subscribe((res: any) => {
           if (res) {
+            console.log(res);
             this.user = res?.data[0];
             //Get mentee
             res?.data?.mentee?.forEach((element: any) => {
