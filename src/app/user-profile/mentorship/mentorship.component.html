@@ -43,23 +43,37 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
+                    <div class="col-lg-3 col-md-4 my-xl-3 my-lg-3 my-2">
                         <label class="form-label fw-bold">Primary function area </label>
                         <select class="form-select" formControlName="primary_function_area_id">
                             <option value="" selected>Select primary area</option>
-                            <option *ngFor="let item of functionArea; let i=index;" [value]="item?.id">{{ item?.label }}</option>
+                            <option *ngFor="let item of commonData?.Primary_Function; let i=index;" [value]="item?.id">{{ item?.primary_function_area }}</option>
                         </select>
                     </div>
-                    <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
+                    <div class="col-lg-3 col-md-4 my-xl-3 my-lg-3 my-2">
                         <label class="form-label fw-bold">Secondary function area </label>
                         <select class="form-select" formControlName="secondary_function_area_id">
                             <option value="" selected>Select secondary area</option>
-                            <option *ngFor="let item of functionArea; let i=index;" [value]="item?.id">{{ item?.label }}</option>
+                            <option *ngFor="let item of commonData?.Secondary_Function; let i=index;" [value]="item?.id">{{ item?.secondary_function_area }}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-4 my-xl-3 my-lg-3 my-2">
+                        <label class="form-label fw-bold">Primary industry focus </label>
+                        <select class="form-select" formControlName="primary_industry_focus_id">
+                            <option value=" " selected>Select primary industry focus</option>
+                            <option *ngFor="let item of commonData?.Primary_Industry; let i=index;" [value]="item?.id">{{ item?.primary_industry_focus }}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-4 my-xl-3 my-lg-3 my-2">
+                        <label class="form-label fw-bold">Secondary industry focus </label>
+                        <select class="form-select" formControlName="secondary_industry_focus_id">
+                            <option value="" selected>Select secondary industry focus</option>
+                            <option *ngFor="let item of commonData?.Secondary_Industry; let i=index;" [value]="item?.id">{{ item?.secondary_industry_focus }}</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
                         <label class="form-label fw-bold">Other function area </label>
                         <input type="text" class="form-control" formControlName="other_function_area" placeholder="Enter Other Function area">
@@ -68,24 +82,24 @@
                         <label class="form-label fw-bold">Primary industry focus </label>
                         <select class="form-select" formControlName="primary_industry_focus_id">
                             <option value=" " selected>Select primary industry focus</option>
-                            <option *ngFor="let item of industryFocus; let i=index;" [value]="item?.id">{{ item?.label }}</option>
+                            <option *ngFor="let item of commonData?.Primary_Industry; let i=index;" [value]="item?.id">{{ item?.primary_industry_focus }}</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
                         <label class="form-label fw-bold">Secondary industry focus </label>
                         <select class="form-select" formControlName="secondary_industry_focus_id">
                             <option value="" selected>Select secondary industry focus</option>
-                            <option *ngFor="let item of industryFocus; let i=index;" [value]="item?.id">{{ item?.label }}</option>
+                            <option *ngFor="let item of commonData?.Secondary_Industry; let i=index;" [value]="item?.id">{{ item?.secondary_industry_focus }}</option>
                         </select>
                     </div>
                     <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
                         <label class="form-label fw-bold">Other industry focus </label>
                         <input type="text" class="form-control" formControlName="other_industry_focus" placeholder="Enter Other Industry focus">
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
                         <ul class="list-group">
@@ -106,7 +120,7 @@
                                 </li>
                             </ng-container>
                             <ng-container *ngIf="mentee.length == 0">
-                                <p class="p-3">No Mentee Found</p>
+                                <p class="p-3 mt-1">No Mentee Found</p>
                             </ng-container>
                         </ul>
                     </div>
@@ -129,7 +143,7 @@
                                 </li>
                             </ng-container>
                             <ng-container *ngIf="mentor.length == 0">
-                                <p class="p-3">No Mentor Found</p>
+                                <p class="p-3 mt-1">No Mentor Found</p>
                             </ng-container>
                         </ul>
                     </div>

@@ -166,7 +166,7 @@ export class MentorComponent implements OnInit {
    * View Mentor Info
    */
   view(e: any) {
-    this.router.navigate(["/view-profile"], { queryParams: { id: e?.user_id } });
+    this.router.navigate(["/user-profile"], { queryParams: { id: e?.user_id } });
   }
 
   /**
