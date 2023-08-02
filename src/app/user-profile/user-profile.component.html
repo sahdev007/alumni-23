@@ -96,8 +96,7 @@
                             </a>
                         </li>
                     </ul>
-                    <app-loader *ngIf="loading"></app-loader>
-                    <div class="tab-content" id="pills-tabContent" *ngIf="!loading">
+                    <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="basic-information" role="tabpanel">
                             <app-basic-info [profileData]="profileData" [otherProfile]="otherProfile" [commonData]="commonData"></app-basic-info>
                         </div>

@@ -203,8 +203,8 @@ export class ClubsComponent implements OnInit {
   async getAllData() {
     let action = "all-clubsGet";
     await this.dataService.getAllData(action).subscribe(
-      (club: any) => {
-        if(club?.status == 200) this.dataSource.data = club?.data;
+      (vid: any) => {
+        if(vid?.status == 200) this.dataSource.data = vid?.data;
       },
       (error) => {
         this.notify.notificationService.error(error);

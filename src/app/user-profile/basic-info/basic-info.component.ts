@@ -53,12 +53,16 @@ export class BasicInfoComponent implements OnInit {
     this.loadCountries();
 
     setTimeout(() => {
+      if(this.profileData?.Users?.id){
         this.basicInfoForm.patchValue({
           ...this.profileData?.Users
         });
+      } else {
         this.basicInfoForm.patchValue({
           ...this.otherProfile
         });
+      }
+
     }, 2000);
   }
 
@@ -67,7 +71,7 @@ export class BasicInfoComponent implements OnInit {
    */
   buildForm() {
     this.basicInfoForm = this.fb.group({
-      id: [""],
+      id: [this.currentUser?.id],
       first_name: ["", Validators.required],
       middle_name: [""],
       last_name: ["", Validators.required],
@@ -148,19 +152,17 @@ export class BasicInfoComponent implements OnInit {
     this.submitted = true;
     if (this.basicInfoForm.invalid) {
       return;
-    } else {
-      this.loading = true;
+    } else if (this.basicInfoForm.valid) {
+
       let action: string = "update-user";
       await this.dataService
         .updateData(action, this.basicInfoForm.value)
         .subscribe(
           (res: any) => {
             this.notify.notificationService.success(res?.message);
-            this.loading = false;
           },
           (error) => {
             this.notify.notificationService.error(error);
-            this.loading = false;
           }
         );
     }

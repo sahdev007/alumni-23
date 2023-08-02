@@ -21,8 +21,8 @@ export class GalleryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['title', 'type', 'order_by'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'link', 'status', 'actions'];
+  public displayedColumns: string[] = ['title', 'link', 'type', 'order_by'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.

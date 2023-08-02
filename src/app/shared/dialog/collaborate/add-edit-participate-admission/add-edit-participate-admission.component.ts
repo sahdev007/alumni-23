@@ -29,7 +29,7 @@ export class AddEditParticipateAdmissionComponent implements OnInit {
       city: ['', Validators.required],
       location: ['', Validators.required],
       dateTime: ['', Validators.required],
-      status: ["", Validators.required]
+      is_active: ["", Validators.required]
     });
   }
 

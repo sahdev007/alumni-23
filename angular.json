@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Alumni-portal": {
+    "Bulona-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -26,7 +26,7 @@
             "allowedCommonJsDependencies": [
               "chart.js"
            ],
-            "outputPath": "dist/alumni-portal",
+            "outputPath": "dist/bulona-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -105,10 +105,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Alumni-portal:build:production"
+              "browserTarget": "Bulona-angular:build:production"
             },
             "development": {
-              "browserTarget": "Alumni-portal:build:development"
+              "browserTarget": "Bulona-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -116,7 +116,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Alumni-portal:build"
+            "browserTarget": "Bulona-angular:build"
           }
         },
         "test": {
@@ -141,5 +141,5 @@
       }
     }
   },
-  "defaultProject": "Alumni-portal"
+  "defaultProject": "Bulona-angular"
 }

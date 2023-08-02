@@ -14,9 +14,10 @@ export class EducationComponent implements OnInit {
   @Input() profileData: any;
   @Input() otherProfile: any;
   @Input() commonData: any;
+
   educationForm: FormGroup;
   specialization: any;
-  submitted: boolean = false;
+  submitted: boolean | undefined;
   currentUser: any;
   loading: boolean = false;
   eduId: any;
@@ -38,8 +39,8 @@ export class EducationComponent implements OnInit {
   async ngOnInit() {
     this.buildform();
     this.loading = true;
-
     setTimeout(() => {
+
         this.educationForm.patchValue({
           ...this.profileData?.Education
         });
@@ -48,6 +49,11 @@ export class EducationComponent implements OnInit {
           ...this.otherProfile
         });
 
+      if (this.profileData?.educationForm != null) {
+        this.educationForm
+          .get("id")
+          .setValue(JSON.parse(this.profileData?.educationForm?.user_id));
+      }
       this.loading = false;
     }, 2000);
   }
@@ -98,10 +104,9 @@ export class EducationComponent implements OnInit {
     this.submitted = true;
     if (this.educationForm.invalid) {
       return;
-    } else {
+    } else if (this.educationForm.valid) {
       this.loading = true;
       let action: string = "update-education";
-      this.educationForm.get('id').setValue(this.profileData?.Education?.user_id);
       await this.dataService
         .updateData(action, this.educationForm.value)
         .subscribe(

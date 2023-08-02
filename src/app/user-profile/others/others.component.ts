@@ -12,13 +12,12 @@ import { TokenInterceptor } from '../../core/token.interceptor';
 export class OthersComponent implements OnInit {
   @Input() profileData: any;
   @Input() otherProfile: any;
-  othersForm: FormGroup;
+  othersForm: FormGroup | any;
   submitted: boolean = false;
   familyRelative: any;
   hobbies: any;
   currentUser: any;
   loading: boolean = false;
-  otherId: any;
 
   constructor(public fb: FormBuilder,
     public config: Config,
@@ -37,7 +36,7 @@ export class OthersComponent implements OnInit {
     this.loading = true;
     setTimeout(() => {
       this.othersForm.patchValue({
-        ...this.profileData?.Other,
+        ...this.profileData?.Other
       });
       this.loading = false;
     }, 2000);
@@ -71,7 +70,6 @@ export class OthersComponent implements OnInit {
     } else if (this.othersForm.valid) {
       this.loading = true;
       let action: string = "update-other";
-      this.othersForm.get('id').setValue(JSON.parse(this.profileData?.Other?.user_id));
       await this.dataService.updateData(action, this.othersForm.value).subscribe(
         (res: any) => {
           this.notify.notificationService.success(res?.message);

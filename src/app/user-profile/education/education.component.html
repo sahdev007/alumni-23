@@ -1,29 +1,72 @@
 <div class="row">
     <div class="col-lg-12">
         <app-loader *ngIf="loading"></app-loader>
-        <ng-container *ngIf="!loading">
-            <form [formGroup]="educationForm" (ngSubmit)="edit()">
+        <form [formGroup]="educationForm" *ngIf="!loading" [ngClass]="type == 'view-profile' ? 'no-pointer' : 'pointer'">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
+                    <label class="form-label fw-bold">Name of degree <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" formControlName="degree_name" placeholder="Enter degree name">
+                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2" *ngIf="(f.degree_name.touched || submitted) && f.degree_name.errors?.required">
+                        Degree name is required.
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
+                    <!-- <label class="form-label fw-bold">Name of institute <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" formControlName="institute_name" placeholder="Enter institute name">
+                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2" *ngIf="(f.institute_name.touched || submitted) && f.institute_name.errors?.required">
+                        Institute name is required.
+                    </div> -->
+                    <label class=" form-label fw-bold">Institute <span class="text-danger">*</span></label>
+                    <select class="form-select" formControlName="institute_name">
+                        <option value="" selected>Choose your institute</option>
+                        <option [value]="institute?.institute_name" *ngFor="let institute of commonData?.Institute; let i=index;">
+                            {{institute.institute_name}}</option>
+                    </select>
+                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2 m-0" *ngIf="(f.institute_name.touched || submitted) && f.institute_name.errors?.required">
+                        Institute name is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
+                    <label class="form-label fw-bold">Year of passing <span class="text-danger">*</span></label>
+                    <!-- <input type="text" placeholder="dd/mm/yyyy" formControlName="passing_year" class="form-control"
+                        bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"> -->
+                    <input type="date" placeholder="DD/MM/YYYY" formControlName="passing_year" class="form-control">
+                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2" *ngIf="(f.passing_year.touched || submitted) && f.passing_year.errors?.required">
+                        Year of passing is required.
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
+                    <label class="form-label fw-bold">Specialisation <span class="text-danger">*</span> </label>
+                    <select class="form-select" formControlName="specialization">
+                        <option value="" selected>Select specialization</option>
+                        <option *ngFor="let item of specialization; let i=index;" [value]="item?.label">{{ item?.label
+                            }}</option>
+                    </select>
+                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2" *ngIf="(f.specialization.touched || submitted) && f.specialization.errors?.required">
+                        Specialization is required.
+                    </div>
+                </div>
+                <div class="col-lg-4 my-xl-3 my-lg-3 my-2">
+                    <label class="form-label fw-bold">Other specialization </label>
+                    <input type="text" class="form-control" formControlName="other_specialization" placeholder="Enter other specialization">
+                </div>
+            </div>
+            <ng-container *ngFor="let items of addItems().controls; let i=index" [formGroupName]="i">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
                         <label class="form-label fw-bold">Name of degree <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" formControlName="degree_name" placeholder="Enter degree name">
-                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || educationForm.controls['degree_name'].touched) && educationForm.controls['degree_name'].errors?.required">
+                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2" *ngIf="(f.degree_name.touched || submitted) && f.degree_name.errors?.required">
                             Degree name is required.
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
-                        <!-- <label class="form-label fw-bold">Name of institute <span class="text-danger">*</span></label>
+                        <label class="form-label fw-bold">Name of institute <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" formControlName="institute_name" placeholder="Enter institute name">
                         <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2" *ngIf="(f.institute_name.touched || submitted) && f.institute_name.errors?.required">
-                            Institute name is required.
-                        </div> -->
-                        <label class=" form-label fw-bold">Institute <span class="text-danger">*</span></label>
-                        <select class="form-select" formControlName="institute_name">
-                            <option value="" selected>Choose your institute</option>
-                            <option [value]="institute?.institute_name" *ngFor="let institute of commonData?.Institute; let i=index;">
-                                {{institute.institute_name}}</option>
-                        </select>
-                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || educationForm.controls['institute_name'].touched) && educationForm.controls['institute_name'].errors?.required">
                             Institute name is required.
                         </div>
                     </div>
@@ -32,101 +75,54 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
                         <label class="form-label fw-bold">Year of passing <span class="text-danger">*</span></label>
-                        <!-- <input type="text" placeholder="dd/mm/yyyy" formControlName="passing_year" class="form-control"
-                            bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"> -->
-                        <input type="date" placeholder="DD/MM/YYYY" formControlName="passing_year" class="form-control">
-                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || educationForm.controls['passing_year'].touched) && educationForm.controls['passing_year'].errors?.required">
+                        <input type="text" placeholder="dd/mm/yyyy" formControlName="passing_year" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
+                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2" *ngIf="(f.passing_year.touched || submitted) && f.passing_year.errors?.required">
                             Year of passing is required.
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
-                        <label class="form-label fw-bold">Specialisation <span class="text-danger">*</span> </label>
+                        <label class="form-label fw-bold">Specialisation <span class="text-danger">*</span>
+                        </label>
                         <select class="form-select" formControlName="specialization">
                             <option value="" selected>Select specialization</option>
-                            <option *ngFor="let item of specialization; let i=index;" [value]="item?.label">{{ item?.label
-                                }}</option>
+                            <option *ngFor="let item of specialization; let i=index;" [value]="item.label">{{
+                                item.label }}</option>
                         </select>
-                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || educationForm.controls['specialization'].touched) && educationForm.controls['specialization'].errors?.required">
+                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2" *ngIf="(f.specialization.touched || submitted) && f.specialization.errors?.required">
                             Specialization is required.
                         </div>
                     </div>
-                    <div class="col-lg-4 my-xl-3 my-lg-3 my-2">
+                    <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
                         <label class="form-label fw-bold">Other specialization </label>
                         <input type="text" class="form-control" formControlName="other_specialization" placeholder="Enter other specialization">
                     </div>
                 </div>
-                <ng-container *ngFor="let items of addItems().controls; let i=index" [formGroupName]="i">
-                    <div class="border border-info p-3 my-2">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
-                                <label class="form-label fw-bold">Name of degree <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" formControlName="degree_name" placeholder="Enter degree name">
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || educationForm.controls['degree_name'].touched) && educationForm.controls['degree_name'].errors?.required">
-                                    Degree name is required.
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
-                                <label class="form-label fw-bold">Name of institute <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" formControlName="institute_name" placeholder="Enter institute name">
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || educationForm.controls['institute_name'].touched) && educationForm.controls['institute_name'].errors?.required">
-                                    Institute name is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
-                                <label class="form-label fw-bold">Year of passing <span class="text-danger">*</span></label>
-                                <input type="text" placeholder="dd/mm/yyyy" formControlName="passing_year" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || educationForm.controls['passing_year'].touched) && educationForm.controls['passing_year'].errors?.required">
-                                    Year of passing is required.
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
-                                <label class="form-label fw-bold">Specialisation <span class="text-danger">*</span>
-                                </label>
-                                <select class="form-select" formControlName="specialization">
-                                    <option value="" selected>Select specialization</option>
-                                    <option *ngFor="let item of specialization; let i=index;" [value]="item.label">{{
-                                        item.label }}</option>
-                                </select>
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || educationForm.controls['specialization'].touched) && educationForm.controls['specialization'].errors?.required">
-                                    Specialization is required.
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 my-xl-3 my-lg-3 my-2">
-                                <label class="form-label fw-bold">Other specialization </label>
-                                <input type="text" class="form-control" formControlName="other_specialization" placeholder="Enter other specialization">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col text-end">
-                                <button type="button" (click)="removeItems(i)" class="bg-transparent border-0 closeBtn" aria-label="Close">
-                                    <i class="fa fa-times" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col text-end">
+                        <button type="button" (click)="removeItems(i)" class="bg-transparent border-0 closeBtn" aria-label="Close">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
                     </div>
-                </ng-container>
-                <!-- <div class="row justify-content-center">
-                    <div class="col-lg-4 text-center">
-                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                            <ng-container *ngIf="type !== 'view-profile'">
-                                <button type="button" (click)="addQuantity()" class="btn btn-sm btn-success rounded me-2">Add
-                                    Items</button>
-                                <button type="button" (click)="edit()" [disabled]="!educationForm.valid" class="btn btn-sm btn-success rounded">Update</button>
-                            </ng-container>
-                            <ng-container *ngIf="type == 'view-profile'">
-                                <button type="button" routerLink="/edit-profile" class="btn btn-sm btn-success">Edit</button>
-                            </ng-container>
-                        </div>
-                    </div>
-                </div> -->
-                <div class="my-3" mat-dialog-actions align="center">
-                    <button class="me-2" mat-raised-button color="warn" (click)="addQuantity()">Add Items</button>
-                    <button mat-raised-button color="primary" type="submit">Update</button>
                 </div>
-            </form>
-        </ng-container>
+            </ng-container>
+            <!-- <div class="row justify-content-center">
+                <div class="col-lg-4 text-center">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <ng-container *ngIf="type !== 'view-profile'">
+                            <button type="button" (click)="addQuantity()" class="btn btn-sm btn-success rounded me-2">Add
+                                Items</button>
+                            <button type="button" (click)="edit()" [disabled]="!educationForm.valid" class="btn btn-sm btn-success rounded">Update</button>
+                        </ng-container>
+                        <ng-container *ngIf="type == 'view-profile'">
+                            <button type="button" routerLink="/edit-profile" class="btn btn-sm btn-success">Edit</button>
+                        </ng-container>
+                    </div>
+                </div>
+            </div> -->
+            <div class="my-3" mat-dialog-actions align="center">
+                <button class="me-2" mat-raised-button color="warn" (click)="addQuantity()">Add Items</button>
+                <button mat-raised-button color="primary" (click)="edit()" [disabled]="!educationForm.valid">Update</button>
+            </div>
+        </form>
     </div>
 </div>

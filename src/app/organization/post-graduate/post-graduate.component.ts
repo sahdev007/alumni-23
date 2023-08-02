@@ -158,7 +158,7 @@ export class PostGraduateComponent implements OnInit {
   }
 
   delete(data: any, params: string) {
-    let action: string = "delete-course";
+    let action: string = "delete-batch";
     const dialogRef = this.dialog.open(DeletedialogComponent, {
       width: '400px',
       data: { data: data, info: params }

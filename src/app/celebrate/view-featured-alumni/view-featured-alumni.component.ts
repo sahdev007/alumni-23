@@ -15,6 +15,7 @@ export class ViewFeaturedAlumniComponent implements OnInit {
   constructor(public aroute: ActivatedRoute, private celebrateService: CelebrateService) { 
         // Get Id by queryparams
         this.aroute.queryParams.subscribe((params: any) => {
+          console.log(params);
           this.alumniId = params?.userId;
         })
   }
@@ -22,7 +23,11 @@ export class ViewFeaturedAlumniComponent implements OnInit {
   async ngOnInit() {
     let action  = 'single-getFeatured';
       await this.celebrateService.getDataById(action, this.alumniId).subscribe((res:any) => {
+                
+        console.log(res);
+        console.log(res);
         this.alumniData = res?.data;
+        console.log(this.alumniData)
       });  
   }
 

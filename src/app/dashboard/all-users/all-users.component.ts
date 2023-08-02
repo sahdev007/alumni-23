@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -9,7 +8,6 @@ import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { Config } from 'src/app/services/config';
 import { DataService } from 'src/app/services/data.service';
-import { UsersService } from 'src/app/services/users.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
@@ -18,11 +16,6 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./all-users.component.scss']
 })
 export class AllUsersComponent implements OnInit {
-
-  pageType = "users";
-  getUser: Array<any> = [];
-  _userData: any;
-  searchForm: FormGroup;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -38,21 +31,12 @@ export class AllUsersComponent implements OnInit {
 
   public dataSource: MatTableDataSource<Person>;
   status: any;
-  skill: any;
-  getInstitutes: any;
-  getBatch: any;
-  primaryInd: any;
-  secondaryInd: any;
-  primaryFunc: any;
-  secondaryFunc: any;
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
     private router: Router,
     public notify : TokenInterceptor,
-    private config: Config,
-    private userService: UsersService,
-    private fb: FormBuilder
+    private config: Config
   ) {
     this.status = this.config?.userStat;
     this.dataSource = new MatTableDataSource<Person>();
@@ -201,74 +185,14 @@ export class AllUsersComponent implements OnInit {
    * initialize data-table by providing persons list to the dataSource.
    */
   ngOnInit(): void {
-    this.buildForm();
     this.getAllData();
-  }
-
-
-  buildForm() {
-    this.searchForm = this.fb.group({
-      first_name: [""],
-      fullName: [""],
-      email: [""],
-      mobile_number: [""],
-      contact: [""],
-      institute_name: [""],
-      batch: [""],
-      status: [""],
-      current_company: [""],
-      company:[''],
-      owner: [""],
-      reg_date_from: [""],
-      reg_date_to: [""],
-      type: ['']
-    });
   }
 
   async getAllData() {
     let action = "all-users";
-    this.getUser = [];
     await this.dataService.getAllData(action).subscribe(
       (res: any) => {
-        if (res?.status == 200) {
-          this.getUser = res?.data;
-          this.dataSource.data = this.getUser;
-        }
-      },
-      (error) => {
-        this.notify.notificationService.openFailureSnackBar(error);
-      }
-    );
-  }
-
-  async getCommonApi() {
-    let action = "all-common";
-    await this.dataService.getData(action).subscribe(
-      (res: any) => {
-        this.skill = res?.Skill;
-        this.getInstitutes = res?.Institute;
-        this.getBatch = res?.Batch_Year;
-        this.primaryInd = res?.Primary_Industry;
-        this.secondaryInd = res?.Secondary_Industry;
-        this.primaryFunc = res?.Primary_Function;
-        this.secondaryFunc = res?.Secondary_Function;
-      },
-      (error) => {
-        this.notify.notificationService.openFailureSnackBar(error);
-      }
-    );
-  }
-
-  getFilterData() {
-    this.userService.filteredData.subscribe(
-      (res) => {
-        console.log(res);
-        this.getUser = [];
-        if (res?.status == 200) {
-          setTimeout(() => {
-            // this. = res?.data;
-          }, 500);
-        }
+        if (res?.status == 200) this.dataSource.data = res?.data;
       },
       (error) => {
         this.notify.notificationService.openFailureSnackBar(error);

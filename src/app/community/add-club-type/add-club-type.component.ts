@@ -237,6 +237,7 @@ export class AddClubTypeComponent implements OnInit {
     let action = "all-clubType";
     await this.communityService.getAllData(action).subscribe(
       (vid: any) => {
+        console.log(vid.data)
         if(vid?.status == 200) this.dataSource.data = vid?.data;
       },
       (error) => {

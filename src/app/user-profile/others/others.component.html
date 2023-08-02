@@ -1,66 +1,65 @@
 <div class="row">
     <div class="col-lg-12">
         <app-loader *ngIf="loading"></app-loader>
-        <ng-container *ngIf="!loading">
-            <form [formGroup]="othersForm" (ngSubmit)="edit()">
-                <div class="row">
-                    <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
-                        <label class="form-label fw-bold">Family/Relatives associated with SBS </label>
-                        <select class="form-select" formControlName="family_and_relatives">
-                            <option value="" selected>Select family/relative</option>
-                            <option *ngFor="let item of familyRelative; let i=index;" [value]="item?.label">{{ item?.label
-                                }}</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
-                        <label class="form-label fw-bold"> Add languages <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" formControlName="add_languages"
-                            placeholder="Enter Language">
-                            <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || othersForm.controls['add_languages'].touched) && othersForm.controls['add_languages'].errors?.required">
-                                Language is required.
-                            </div>
-                    </div>
+        <form [formGroup]="othersForm" *ngIf="!loading">
+            <div class="row">
+                <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
+                    <label class="form-label fw-bold">Family/Relatives associated with SBS </label>
+                    <select class="form-select" formControlName="family_and_relatives">
+                        <option value="" selected>Select family/relative</option>
+                        <option *ngFor="let item of familyRelative; let i=index;" [value]="item?.label">{{ item?.label
+                            }}</option>
+                    </select>
                 </div>
+                <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
+                    <label class="form-label fw-bold"> Add languages <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" formControlName="add_languages"
+                        placeholder="Enter Language">
+                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger p-2" *ngIf="(f.add_languages.touched || submitted) && f.add_languages.errors?.required">
+                            Language is required.
+                        </div>
+                </div>
+            </div>
 
-                <div class="row">
-                    <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
-                        <label class="form-label fw-bold">Hobbies/Passion </label>
-                        <select class="form-select" formControlName="hobbies_and_passion">
-                            <option value="" selected>Select family/relative</option>
-                            <option *ngFor="let item of hobbies; let i=index;" [value]="item?.label">{{ item?.label
-                                }}</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
-                        <label class="form-label fw-bold">Other passion/hobbies </label>
-                        <input type="text" class="form-control" formControlName="other_hobbies_and_passion"
-                            placeholder="Enter Passion/Hobbies">
-                    </div>
+            <div class="row">
+                <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
+                    <label class="form-label fw-bold">Hobbies/Passion </label>
+                    <select class="form-select" formControlName="hobbies_and_passion">
+                        <option value="" selected>Select family/relative</option>
+                        <option *ngFor="let item of hobbies; let i=index;" [value]="item?.label">{{ item?.label
+                            }}</option>
+                    </select>
                 </div>
+                <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
+                    <label class="form-label fw-bold">Other passion/hobbies </label>
+                    <input type="text" class="form-control" formControlName="other_hobbies_and_passion"
+                        placeholder="Enter Passion/Hobbies">
+                </div>
+            </div>
 
-                <div class="row">
-                    <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
-                        <label class="form-label fw-bold">Security quesitons </label>
-                        <select class="form-select" formControlName="securityQuestions_id">
-                            <option value="" selected>Choose professional title</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
-                        <label class="form-label fw-bold">Security answer </label>
-                        <input type="text" class="form-control" formControlName="security_answer"
-                            placeholder="Enter Security Answer">
-                    </div>
+            <div class="row">
+                <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
+                    <label class="form-label fw-bold">Security quesitons </label>
+                    <select class="form-select" formControlName="securityQuestions_id">
+                        <option value="" selected>Choose professional title</option>
+                    </select>
                 </div>
+                <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
+                    <label class="form-label fw-bold">Security answer </label>
+                    <input type="text" class="form-control" formControlName="security_answer"
+                        placeholder="Enter Security Answer">
+                </div>
+            </div>
 
-                <!-- <div class="row justify-content-center">
-                    <div class="col-lg-3 my-xl-3 my-lg-3 my-2 text-center">
-                        <button type="button" (click)="edit()" class="btn btn-success">Update</button>
-                    </div>
-                </div> -->
-                <div class="my-3" mat-dialog-actions align="center">
-                    <button mat-raised-button color="primary" type="submit" >Update</button>
+            <!-- <div class="row justify-content-center">
+                <div class="col-lg-3 my-xl-3 my-lg-3 my-2 text-center">
+                    <button type="button" (click)="edit()" class="btn btn-success">Update</button>
                 </div>
-            </form>
-        </ng-container>
+            </div> -->
+            <div class="my-3" mat-dialog-actions align="center">
+                <!-- <button class="me-2" mat-raised-button color="warn" (click)="addQuantity()">Add Items</button> -->
+                <button mat-raised-button color="primary" (click)="edit()">Update</button>
+            </div>
+        </form>
     </div>
 </div>
