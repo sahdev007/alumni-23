@@ -40,7 +40,8 @@ export class OrganizationService {
       return this.http.post(`${this.url}/${action}/${data?.id}`, data);
     }
     else if(action == "update-skill" || action == "update-institute" || action == "update-batch" || action =="update-course"
-    || action =="update-primaryIndustry"|| action =="update-secondaryIndustry" || action == "update-primaryFunction" || action == "update-secondaryFunction" 
+    || action =="update-primaryIndustry"|| action =="update-secondaryIndustry" || action == "update-primaryFunction" 
+    || action == "update-secondaryFunction" || action == "update-questions"
     ) {
       return this.http.put(`${this.url}/${action}/${data?.id}`, data);
     }

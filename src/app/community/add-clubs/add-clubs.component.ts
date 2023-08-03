@@ -65,11 +65,11 @@ export class AddClubsComponent implements OnInit {
       description: ['', Validators.required],
       clubsType_id: ['', Validators.required],
       clubImage: [''],
-      status: ['']
+      status: ['', Validators.required]
     });
   }
   
-  get formControls() {
+  get f() {
     return this.addClubForm.controls;
   }
 
@@ -107,7 +107,6 @@ export class AddClubsComponent implements OnInit {
   }
 
   async save() {
-    console.log(this.addClubForm.value);
     this.submitted = true;
     if(this.addClubForm.invalid) {
       return;

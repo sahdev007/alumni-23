@@ -27,39 +27,39 @@
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">Job Title <span class="text-danger">*</span></label>
               <input type="text" formControlName="title" class="form-control" placeholder="Enter Title here">
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.title.touched || submitted) && f.title.errors?.required">
-                Title is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['title'].touched) && jobForm.controls['title']?.errors?.required">Job Title is required
+              </div>
             </div>
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">Company Name <span class="text-danger">*</span></label>
               <input type="text" formControlName="companyName" class="form-control" placeholder="Enter company name here">
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.companyName.touched || submitted) && f.companyName.errors?.required">
-                Company name is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['companyName'].touched) && jobForm.controls['companyName']?.errors?.required">Company name is required
+              </div>
             </div>
 
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">Location <span class="text-danger">*</span></label>
               <input type="text" formControlName="location" class="form-control" placeholder="Enter location here">
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.location.touched || submitted) && f.location.errors?.required">
-                  Location is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['location'].touched) && jobForm.controls['location']?.errors?.required">Location is required
+              </div>
             </div>
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">City <span class="text-danger">*</span></label>
               <input type="text" formControlName="city" class="form-control" placeholder="Enter City here">
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.city.touched || submitted) && f.city.errors?.required">
-                  City is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['city'].touched) && jobForm.controls['city']?.errors?.required">City is required
+              </div>
             </div>
 
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">Salary <span class="text-danger">*</span></label>
               <input type="text" formControlName="salary" class="form-control" placeholder="Enter Salary here">
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.salary.touched || submitted) && f.salary.errors?.required">
-                Salary is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['salary'].touched) && jobForm.controls['salary']?.errors?.required">Salary is required
+              </div>
             </div>
             <div class="col-md-4  my-1align-self-center my-2">
               <div class="row mr-0">
@@ -85,73 +85,71 @@
                 <option value="" selected>Select Job Type</option>
                 <option *ngFor="let item of internshipData; index as i;" [value]="item?.id">{{item?.type}}</option>
               </select>
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.jobsType_id.touched || submitted) && f.jobsType_id.errors?.required">
-                Job Type is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['jobsType_id'].touched) && jobForm.controls['jobsType_id']?.errors?.required">Job type is required
+              </div>
             </div>
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">Work Experience <span class="text-danger">*</span></label>
               <input type="text" formControlName="workExperience" class="form-control" placeholder="Enter work experience here">
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.workExperience.touched || submitted) && f.workExperience.errors?.required">
-                Work Experience is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['workExperience'].touched) && jobForm.controls['workExperience']?.errors?.required">Work Experience is required
+              </div>
             </div>
 
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">Skills Required <span class="text-danger">*</span></label>
               <input type="text" formControlName="skillsRequired" class="form-control" placeholder="Enter your skill">
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.skillsRequired.touched || submitted) && f.skillsRequired.errors?.required">
-                Skill is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['skillsRequired'].touched) && jobForm.controls['skillsRequired']?.errors?.required">Skill is required
+              </div>
             </div>
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">Basic education qualification <span class="text-danger">*</span></label>
               <input type="text" formControlName="qualification" class="form-control" placeholder="Enter your qualification">
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.qualification.touched || submitted) && f.qualification.errors?.required">
-                Qualification is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['qualification'].touched) && jobForm.controls['qualification']?.errors?.required">Basic Education is required
+              </div>
             </div>
 
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">Name of contact person <span class="text-danger">*</span></label>
               <input type="text" formControlName="contactPerson" class="form-control" placeholder="Enter Contact Person here">
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.contactPerson.touched || submitted) && f.contactPerson.errors?.required">
-                Contact person is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['contactPerson'].touched) && jobForm.controls['contactPerson']?.errors?.required">Name of contact person is required
+              </div>
             </div>
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">Contact mobile number <span class="text-danger">*</span></label>
               <input type="text" appNumbersOnly formControlName="contactNumber" class="form-control" placeholder="Enter Contact Person here">
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.contactNumber.touched || submitted) && f.contactNumber.errors?.required">
-                Contact number is required.
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['contactNumber'].touched) && jobForm.controls['contactNumber']?.errors?.required">Contact number is required.
               </div>
-              <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                  *ngIf="(f.contactNumber.touched || submitted) && f.contactNumber.errors?.minlength">
-                  Minimum 10 number are allowed.
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['contactNumber'].touched) && jobForm.controls['contactNumber']?.errors?.minlength">Minimum 10 number are allowed.
               </div>
-              <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                  *ngIf="(f.contactNumber.touched || submitted) && f.contactNumber.errors?.maxlength">
-                  Maximum 16 number are allowed.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['contactNumber'].touched) && jobForm.controls['contactNumber']?.errors?.maxlength">Maximum 16 number are allowed.
+              </div>
             </div>
 
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">Email of contact person <span class="text-danger">*</span></label>
               <input type="text" formControlName="email" class="form-control" placeholder="Enter your email">
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.email.touched || submitted) && f.email.errors?.required">
-                  Email is required.
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['email'].touched) && jobForm.controls['email']?.errors?.required">Email is required.
               </div>
-              <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="f.email.dirty && f.email.errors?.pattern">
-                  Email format is incorrect.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['email'].touched) && jobForm.controls['email']?.errors?.pattern">Email format is incorrect.
+              </div>
             </div>
             <div class="col-md-4 my-2">
               <label for="staticEmail" class="col-form-label ">Website <span class="text-danger">*</span></label>
               <input type="text" formControlName="website" class="form-control" placeholder="Enter website link here" aria-describedby="websiteHelp">
               <div id="websiteHelp" class="form-text">Add website url without https / http.</div>
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.website.touched || submitted) && f.website.errors?.required">
-                Website is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['website'].touched) && jobForm.controls['website']?.errors?.required">Website is required.
+              </div>
             </div>
             <div class="col-md-4 my-2">
               <label for="formGroupExampleInput" class="col-form-label ">Job Status <span class="text-danger">*</span></label>
@@ -159,9 +157,9 @@
                 <option value="" selected>Select Job Status</option>
                 <option *ngFor="let item of jobStat; index as i;" [value]="item?.value">{{item?.value}}</option>
               </select>
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.status.touched || submitted) && f.status.errors?.required">
-                Job Type is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['status'].touched) && jobForm.controls['status']?.errors?.required">Status is required.
+              </div>
             </div>
 
             <div class="col-md-12 my-1">
@@ -181,11 +179,9 @@
                   bullist numlist outdent indent | removeformat | help'
               }"
               ></editor>
-              <!-- <label for="staticEmail" class="col-form-label ">Brief description of job profile <span class="text-danger">*</span></label>
-              <textarea class="form-control" formControlName="description" rows="5"></textarea> -->
-              <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.description.touched || submitted) && f.description.errors?.required">
-                Description is required.
-              </div> -->
+              <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                  *ngIf="(submitted || jobForm.controls['description'].touched) && jobForm.controls['description']?.errors?.required">Description is required.
+              </div>
             </div>
           </div>
 

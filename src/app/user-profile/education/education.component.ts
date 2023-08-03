@@ -77,7 +77,7 @@ export class EducationComponent implements OnInit {
 
   newItems(): FormGroup {
     return this.fb.group({
-      id: [this.eduId?.id],
+      id: [""],
       degree_name: ["", Validators.required],
       institute_name: ["", Validators.required],
       passing_year: ["", Validators.required],

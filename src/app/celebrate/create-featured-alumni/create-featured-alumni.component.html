@@ -23,35 +23,32 @@
                     <div class="row">
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Email <span class="text-danger fs-6">*</span></label>
+                                <label class="form-label fw-bold">Email <span class="text-danger fs-6">*</span></label>
                                 <input type="email" formControlName="email"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter email here">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.email.touched || submitted) && f.email?.errors?.required">
-                                Email is required.
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['email'].touched) && featuredForm.controls['email']?.errors?.required">Email is required.
                             </div>
-                            <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="f.email.dirty && f.email.errors?.pattern">
-                                Email format is incorrect.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['email'].touched) && featuredForm.controls['email']?.errors?.pattern">Email format is incorrect.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Your Full Name <span class="text-danger fs-6">*</span></label>
+                                <label class="form-label fw-bold">Your Full Name <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="full_name"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your name here">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.full_name.touched || submitted) && f.full_name.errors?.required">
-                                Full Name is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['full_name'].touched) && featuredForm.controls['full_name']?.errors?.required">Name is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Your Institute <span class="text-danger fs-6">*</span></label>
+                                <label class="form-label fw-bold">Your Institute <span class="text-danger fs-6">*</span></label>
                                 <select formControlName="institute_id" class="form-select rounded-0.25">
                                     <option value="" selected>Choose your Institute</option>
                                     <option [value]="institute?.id"
@@ -59,30 +56,28 @@
                                         {{ institute?.institute_name }}
                                     </option>
                                 </select>
-                                <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                    *ngIf="(f.institute_id.touched || submitted) && f.institute_id.errors?.required">
-                                    Institute is required.
-                                </div> -->
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || featuredForm.controls['institute_id'].touched) && featuredForm.controls['institute_id']?.errors?.required">Institute is required.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Batch Year <span class="text-danger fs-6">*</span></label>
+                                <label class="form-label fw-bold">Batch Year <span class="text-danger fs-6">*</span></label>
                                 <select formControlName="batchYear_id" class="form-select rounded-0.25">
                                     <option value="" selected>Choose your batch</option>
                                     <option [value]="batch?.id" *ngFor="let batch of getBatch; let i=index;">
                                         {{ batch?.batch }}
                                     </option>
                                 </select>
-                                <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                    *ngIf="(f.batchYear_id.touched || submitted) && f.batchYear_id.errors?.required">
-                                    Batch is required.
-                                </div> -->
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || featuredForm.controls['batchYear_id'].touched) && featuredForm.controls['batchYear_id']?.errors?.required">Batch is required.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Personal Email 2 (optional)</label>
+                                <label class="form-label fw-bold">Personal Email 2 (optional)</label>
                                 <input type="email" formControlName="personal_email"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your personal email here">
@@ -90,57 +85,51 @@
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Office Email <span class="text-danger fs-6">*</span></label>
+                                <label class="form-label fw-bold">Office Email <span class="text-danger fs-6">*</span></label>
                                 <input type="email" formControlName="office_email"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter office email here">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.office_email.touched || submitted) && f.office_email.errors?.required">
-                                Office Email is required.
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['office_email'].touched) && featuredForm.controls['office_email']?.errors?.required">Office email is required.
                             </div>
-                            <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="f.office_email.dirty && f.office_email.errors?.pattern">
-                                Office Email format is incorrect.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['office_email'].touched) && featuredForm.controls['office_email']?.errors?.pattern">Email format is incorrect.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Mobile number <span class="text-danger fs-6">*</span></label>
+                                <label class="form-label fw-bold">Mobile number <span class="text-danger fs-6">*</span></label>
                                 <input type="text" appNumbersOnly formControlName="mobile_number"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your number here">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.mobile_number.touched || submitted) && f.mobile_number.errors?.required">
-                                Mobile number is required.
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['mobile_number'].touched) && featuredForm.controls['mobile_number']?.errors?.required">Mobile is required.
                             </div>
-                            <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.mobile_number.touched || submitted) && f.mobile_number.errors?.minlength">
-                                Minimum 10 number are allowed.
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['mobile_number'].touched) && featuredForm.controls['mobile_number']?.errors?.minlength">Minimum 10 number are allowed.
                             </div>
-                            <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.mobile_number.touched || submitted) && f.mobile_number.errors?.maxlength">
-                                Maximum 16 number are allowed.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['mobile_number'].touched) && featuredForm.controls['mobile_number']?.errors?.maxlength">Maximum 16 number are allowed.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Gender <span class="text-danger fs-6">*</span></label>
+                                <label class="form-label fw-bold">Gender <span class="text-danger fs-6">*</span></label>
                                 <select formControlName="gender" class="form-select rounded-0.25">
                                     <option value="" selected>Choose gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                 </select>
-                                <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                    *ngIf="(f.gender.touched || submitted) && f.gender.errors?.required">
-                                    Gender is required.
-                                </div> -->
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || featuredForm.controls['gender'].touched) && featuredForm.controls['gender']?.errors?.required">Gender is required.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Employed / Entrepreneur <span
+                                <label class="form-label fw-bold">Employed / Entrepreneur <span
                                         class="text-danger fs-6">*</span></label>
                                 <select formControlName="employed_entrepreneur"
                                     class="form-select rounded-0.25">
@@ -149,103 +138,95 @@
                                     <option value="entrepreneur">Entrepreneur</option>
                                     <option value="other">Other</option>
                                 </select>
-                                <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                    *ngIf="(f.employed_entrepreneur.touched || submitted) && f.employed_entrepreneur.errors?.required">
-                                    Employed / Entrepreneur is required.
-                                </div> -->
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || featuredForm.controls['employed_entrepreneur'].touched) && featuredForm.controls['employed_entrepreneur']?.errors?.required">Employed / Entrepreneur is required.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Current company name <span
+                                <label class="form-label fw-bold">Current company name <span
                                         class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="current_company"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your current company">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.current_company.touched || submitted) && f.current_company.errors?.required">
-                                Company is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['current_company'].touched) && featuredForm.controls['current_company']?.errors?.required">Current company is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Current designation <span
+                                <label class="form-label fw-bold">Current designation <span
                                         class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="current_designation"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter current designation">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.current_designation.touched || submitted) && f.current_designation.errors?.required">
-                                Current designation is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['current_designation'].touched) && featuredForm.controls['current_designation']?.errors?.required">Current designation is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Current Location <span
+                                <label class="form-label fw-bold">Current Location <span
                                         class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="current_location"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter current designation">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.current_location.touched || submitted) && f.current_location.errors?.required">
-                                Current location is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['current_location'].touched) && featuredForm.controls['current_location']?.errors?.required">Current location is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">If not in your current profession, I
+                                <label class="form-label fw-bold">If not in your current profession, I
                                     would be a <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="alternate_profession"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter current designation">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.alternate_profession.touched || submitted) && f.alternate_profession.errors?.required">
-                                Current profession is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['alternate_profession'].touched) && featuredForm.controls['alternate_profession']?.errors?.required">Alternate profession is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Native City, State or Your City, State
+                                <label class="form-label fw-bold">Native City, State or Your City, State
                                     before joining Institute <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="native_city"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter native city / state">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.native_city.touched || submitted) && f.native_city.errors?.required">
-                                Native city is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['native_city'].touched) && featuredForm.controls['native_city']?.errors?.required">Native city / state is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Your first job / gig / business even as
+                                <label class="form-label fw-bold">Your first job / gig / business even as
                                     a young kid prior to joining Institute <span
                                         class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="first_job"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter first job / gig / business">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.first_job.touched || submitted) && f.first_job.errors?.required">
-                                First job / gig / business is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['first_job'].touched) && featuredForm.controls['first_job']?.errors?.required">First job/gig/business is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Your first salary in Rs. per month even
+                                <label class="form-label fw-bold">Your first salary in Rs. per month even
                                     prior to Institute <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="first_salary"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your first salary">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.first_salary.touched || submitted) && f.first_salary.errors?.required">
-                                First salary is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['first_salary'].touched) && featuredForm.controls['first_salary']?.errors?.required">First salary is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
@@ -255,27 +236,25 @@
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter favourite book author">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.favourite_book_author.touched || submitted) && f.favourite_book_author.errors?.required">
-                                Favourite book author is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['favourite_book_author'].touched) && featuredForm.controls['favourite_book_author']?.errors?.required">Favourite book and author name is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Your Personal Hero in Life and/or
+                                <label class="form-label fw-bold">Your Personal Hero in Life and/or
                                     Profession <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="personal_hero"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter your personal hero">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.personal_hero.touched || submitted) && f.personal_hero.errors?.required">
-                                Personal hero is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['personal_hero'].touched) && featuredForm.controls['personal_hero']?.errors?.required">Personal life hero is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">How did you first hear about the Institute <span
+                                <label class="form-label fw-bold">How did you first hear about the Institute <span
                                         class="text-danger fs-6">*</span></label>
                                 <select formControlName="first_hear" class="form-select rounded-0.25">
                                     <option value="" selected>Choose an option</option>
@@ -285,30 +264,28 @@
                                     <option value="digital">Digital Ad</option>
                                     <option value="other">Other</option>
                                 </select>
-                                <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                    *ngIf="(f.first_hear.touched || submitted) && f.first_hear.errors?.required">
-                                    First hear about institute is required.
-                                </div> -->
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || featuredForm.controls['first_hear'].touched) && featuredForm.controls['first_hear']?.errors?.required">First hear is required.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Marital Status <span class="text-danger fs-6">*</span></label>
+                                <label class="form-label fw-bold">Marital Status <span class="text-danger fs-6">*</span></label>
                                 <select formControlName="marital_status" [(ngModel)]="updatedMartialStatus" class="form-select rounded-0.25">
                                     <option value="" selected>Choose your Option</option>
                                     <option [value]="item?.status" *ngFor="let item of marStatus; let i=index;">
                                         {{ item?.status }}
                                     </option>
                                 </select>
-                                <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                    *ngIf="(f.marital_status.touched || submitted) && f.marital_status.errors?.required">
-                                    Marital status is required.
-                                </div> -->
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || featuredForm.controls['marital_status'].touched) && featuredForm.controls['marital_status']?.errors?.required">Marital status is required.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Where you placed from Campus <span
+                                <label class="form-label fw-bold">Where you placed from Campus <span
                                         class="text-danger fs-6">*</span></label>
                                 <select formControlName="campus_placement" class="form-select rounded-0.25">
                                     <option value="" selected>Choose an option</option>
@@ -316,28 +293,26 @@
                                     <option value="no">No</option>
                                     <option value="other">Other</option>
                                 </select>
-                                <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                    *ngIf="(f.campus_placement.touched || submitted) && f.campus_placement.errors?.required">
-                                    Campus placed is required.
-                                </div> -->
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || featuredForm.controls['campus_placement'].touched) && featuredForm.controls['campus_placement']?.errors?.required">Campus placement is required.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">If you were placed from Campus, please
+                                <label class="form-label fw-bold">If you were placed from Campus, please
                                     share company name and location <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="placement_location"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Share campus or company location">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.placement_location.touched || submitted) && f.placement_location.errors?.required">
-                                Shared your campus or company location is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['placement_location'].touched) && featuredForm.controls['placement_location']?.errors?.required">Placement location is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Enter Current Industry</label>
+                                <label class="form-label fw-bold">Enter Current Industry</label>
                                 <input type="text" formControlName="current_industry"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter current industry">
@@ -345,7 +320,7 @@
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">If married, Spouse from SBUP <span
+                                <label class="form-label fw-bold">If married, Spouse from SBUP <span
                                         class="text-danger fs-6">*</span></label>
                                 <select formControlName="if_married_sbup" class="form-select rounded-0.25">
                                     <option value="" selected>Choose an option</option>
@@ -353,71 +328,66 @@
                                     <option value="no">No</option>
                                     <option value="other">Other</option>
                                 </select>
-                                <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                    *ngIf="(f.if_married_sbup.touched || submitted) && f.if_married_sbup.errors?.required">
-                                    If married, spouse from sbup is required.
-                                </div> -->
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || featuredForm.controls['if_married_sbup'].touched) && featuredForm.controls['if_married_sbup']?.errors?.required">If married, Spouse from SBUP is required.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Life long lessons you learnt from the
+                                <label class="form-label fw-bold">Life long lessons you learnt from the
                                     Institute <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="life_lessons"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter life long lessons you learnt">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.life_lessons.touched || submitted) && f.life_lessons.errors?.required">
-                                Life long lessons you learnt is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['life_lessons'].touched) && featuredForm.controls['life_lessons']?.errors?.required">Life long lessons you learnt is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">If Spouse is from SBUP, Please specify
+                                <label class="form-label fw-bold">If Spouse is from SBUP, Please specify
                                     Full name, SBUP Institute and Batch Year. If not, please mention not applicable
                                     <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="spouse_details"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Enter spouse detail">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.spouse_details.touched || submitted) && f.spouse_details.errors?.required">
-                                Spouse detail is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['spouse_details'].touched) && featuredForm.controls['spouse_details']?.errors?.required">Spouse_details is required.
+                            </div>
                         </div>
 
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Please share your memories about The
+                                <label class="form-label fw-bold">Please share your memories about The
                                     Honorable Founder Chancellor, Prof. Col. A. Balasubramaian / Bala Sir
                                     <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="share_memories"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Please share your memories">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.share_memories.touched || submitted) && f.share_memories.errors?.required">
-                                Share memory is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['share_memories'].touched) && featuredForm.controls['share_memories']?.errors?.required">About memory is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Please share your message with current
+                                <label class="form-label fw-bold">Please share your message with current
                                     students. Tips for success
                                     <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="share_current_students"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Share your message with current student">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.share_current_students.dirty || submitted) && f.share_current_students.errors?.required">
-                                Share message is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['share_current_students'].touched) && featuredForm.controls['share_current_students']?.errors?.required">Share current students is required.
+                            </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Please share your message with future
+                                <label class="form-label fw-bold">Please share your message with future
                                     MBA candidates, applicants applying at Institute</label>
                                 <input type="text" formControlName="share_future_students"
                                     class="rounded-0.25 custom-form form-control"
@@ -426,7 +396,7 @@
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Please share your message with your
+                                <label class="form-label fw-bold">Please share your message with your
                                     batchmates and SBUP Alumni community</label>
                                 <input type="text" formControlName="share_message_alumni"
                                     class="rounded-0.25 custom-form form-control"
@@ -435,7 +405,7 @@
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Would be willing to be a mentor to junior students and
+                                <label class="form-label fw-bold">Would be willing to be a mentor to junior students and
                                     alumni <span class="text-danger fs-6">*</span></label>
                                 <select formControlName="willing_to_provide_mentorship"
                                     class="form-select rounded-0.25">
@@ -443,29 +413,27 @@
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
-                                <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                    *ngIf="(f.willing_to_provide_mentorship.dirty || submitted) && f.willing_to_provide_mentorship.errors?.required">
-                                    Willing to provide mentorship is required.
-                                </div> -->
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || featuredForm.controls['willing_to_provide_mentorship'].touched) && featuredForm.controls['willing_to_provide_mentorship']?.errors?.required">Willing to provide mentorship is required.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4 my-2">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="form-label">Please share your message with current
+                                <label class="form-label fw-bold">Please share your message with current
                                     students. Tips for success
                                     <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="share_hidden_talents"
                                     class="rounded-0.25 custom-form form-control"
                                     placeholder="Share your hide talent">
                             </div>
-                            <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2"
-                                *ngIf="(f.share_hidden_talents.dirty || submitted) && f.share_hidden_talents.errors?.required">
-                                Share your hide talent is required.
-                            </div> -->
+                            <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['share_hidden_talents'].touched) && featuredForm.controls['share_hidden_talents']?.errors?.required">Share hidden talents is required.
+                            </div>
                         </div>
                         <div class="col-md-12 my-2">
                             <div class="text-start">
-                                <label class="form-label">Please share you social media (LinkedIn,
+                                <label class="form-label fw-bold">Please share you social media (LinkedIn,
                                     Facebook, Instagram, Twitter) handles so you can be tagged on Institute's official
                                     posts where we will feature your profile
                                     <span class="text-danger fs-6">*</span></label>
@@ -508,7 +476,7 @@
                         </div>
                         <div class="col-md-6 my-2">
                             <div class="text-start">
-                                <label class="form-label">Please upload your picture
+                                <label class="form-label fw-bold">Please upload your picture
                                     <span class="text-danger fs-6">*</span></label>
                                     <input type="file" class="rounded-0.25 custom-form form-control" (change)="onUploadImage($event)" accept="image/*" />
                             </div>
@@ -518,7 +486,7 @@
                             <ngx-star-rating formControlName="overall_rating" [id]="'rating'"></ngx-star-rating>
                         </div>
                         <div class="col-md-12 my-2 text-start ">
-                            <label class="form-label">Description
+                            <label class="form-label fw-bold">Description
                                 <span class="text-danger fs-6">*</span></label>
                                 <!-- <textarea class="form-control" formControlName="description" name="" id="" cols="30" rows="3"></textarea> -->
                                 <editor formControlName="description"
@@ -536,9 +504,9 @@
                                     bullist numlist outdent indent | removeformat | help'
                                 }"
                                 ></editor>
-                                <!-- <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.description.dirty || submitted) && f.description.errors?.required">
-                                    Description is required.
-                                </div> -->
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || featuredForm.controls['description'].touched) && featuredForm.controls['description']?.errors?.required">Description is required.
+                                </div>
                         </div>
                         <div class="my-3" mat-dialog-actions align="center">
                             <button mat-raised-button color="warn" mat-dialog-close class="me-2" [routerLink]="['/celebrate/featured-alumni']">Cancel</button>

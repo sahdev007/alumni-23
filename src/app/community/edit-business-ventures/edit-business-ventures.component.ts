@@ -161,6 +161,7 @@ export class EditBusinessVenturesComponent implements OnInit {
         }
       },
       error => {
+        console.log(error);
       });
     }
   }

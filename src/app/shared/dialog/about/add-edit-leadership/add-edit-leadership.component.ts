@@ -59,8 +59,6 @@ export class AddEditLeadershipComponent implements OnInit {
       }
     }
   }
-
-  
   
   async save() {
     this.submitted = true;

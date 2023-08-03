@@ -197,7 +197,6 @@ export class BusinessVenturesComponent implements OnInit {
         id: params?.id,
         status: e?.target?.value
       }
-      console.log(param);
       await this.communityService.updateData(action, param).subscribe((res: any) => {
         if(res?.status == 200) {
           this.notify.notificationService.success(res?.message);

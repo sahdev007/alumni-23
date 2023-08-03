@@ -24,7 +24,7 @@ export class AdminEventComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['author', 'title', 'type'];
+  public displayedColumns: string[] = ['author', 'title', 'type', 'date'];
   public columnsToDisplay: string[] = [...this.displayedColumns, 'cost', 'status', 'actions'];
 
   /**

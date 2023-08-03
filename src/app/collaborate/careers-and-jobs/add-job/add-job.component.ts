@@ -57,11 +57,6 @@ export class AddJobComponent implements OnInit {
           await this.collaborateService.getDataById('single-jobs', this.newJobId).subscribe((res:any) => {
             if(res?.status == 200) {
               this.jobForm.patchValue({...res?.data});
-              // this.updatedClubData = res?.data[0];
-              // this.clubType = this.updatedClubData.clubsType_id;
-              // this.clubStatus = this.updatedClubData.status;
-              // this.clubDescription = this.updatedClubData.description;
-              // this.addClubForm.patchValue(this.updatedClubData);
             }
           });
         }, 200);
@@ -105,18 +100,22 @@ export class AddJobComponent implements OnInit {
   async addJob() {
     this.submitted = true;
     this.jobForm.value.author = this.author;
-    if(this.updatedJob != "update-jobs") {
-      await this.collaborateService.postData('create-jobs', this.jobForm?.value).subscribe((res: any) => {
-        if (res?.status == 200) {
-          this.router.navigate(['/collaborate/admin-jobs']);
-        }
-      });
+    if(this.jobForm.invalid) {
+      return;
     } else {
-      await this.collaborateService.updateData('update-jobs', this.jobForm?.value).subscribe((res: any) => {
-        if (res?.status == 200) {
-          this.router.navigate(['/collaborate/admin-jobs']);
-        }
-      });
+      if(this.updatedJob != "update-jobs") {
+        await this.collaborateService.postData('create-jobs', this.jobForm?.value).subscribe((res: any) => {
+          if (res?.status == 200) {
+            this.router.navigate(['/collaborate/admin-jobs']);
+          }
+        });
+      } else {
+        await this.collaborateService.updateData('update-jobs', this.jobForm?.value).subscribe((res: any) => {
+          if (res?.status == 200) {
+            this.router.navigate(['/collaborate/admin-jobs']);
+          }
+        });
+      }
     }
   }
 

@@ -110,6 +110,7 @@ export const ROUTES: RouteInfo[] = [
                 ]
             },
             { path: '/organization/skills', title: 'Skills', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/organization/security-questions', title: 'Security Questions', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
         ]
     },
     // { path: '/sitemap', title: 'Sitemap', icon: 'fa fa-sitemap', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},

@@ -14,27 +14,28 @@
 <!--end breadcrumb-->
 <div class="">
     <div class="row my-3 p-3 bg-white alumni-body card border-top border-0 border-4 border-primary m-0">
+      <div class="col-12 p-3 border" >
         <div class="search-filter mt-3">
             <form class="" [formGroup]="searchForm">
               <div class="row g-3">
-                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-5">
-                  <label class="fw-bold" for="inputEmail4">Search By Name:</label>
+                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
+                  <label class="form-label" for="inputEmail4">Search By Name:</label>
                   <input type="name" class="form-control" formControlName="first_name" id="inputName"
                     placeholder="Search by name" />
                 </div>
-                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-5">
-                  <label class="fw-bold" for="inputemail">Search By Email:</label>
+                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
+                  <label class="form-label" for="inputemail">Search By Email:</label>
                   <input type="email" class="form-control" formControlName="email" id="inputEmail"
                     placeholder="Search by email" />
                 </div>
-                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-5">
-                  <label class="fw-bold" for="inputAddress2">Search By Mobile Number:</label>
+                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
+                  <label class="form-label" for="inputAddress2">Search By Mobile Number:</label>
                   <input type="text" appNumbersOnly class="form-control" formControlName="mobile_number" id="inputMobileNumber"
                     placeholder="Search by mobile number" />
                 </div>
         
-                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-5">
-                  <label class="fw-bold" for="inputAddress">Search Institute Name:</label>
+                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
+                  <label class="form-label" for="inputAddress">Search Institute Name:</label>
                   <select class="form-select" placeholder="Select institute name" formControlName="institute_id">
                     <option value="" selected>Select your institute</option>
                     <option [value]="institute?.id" *ngFor="let institute of getInstitutes">
@@ -42,8 +43,8 @@
                     </option>
                   </select>
                 </div>
-                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-5">
-                  <label class="fw-bold" for="inputemail">Search By Passout Year:</label>
+                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
+                  <label class="form-label" for="inputemail">Search By Passout Year:</label>
                   <select placeholder="Select Year" class="form-select" formControlName="batchYear_id">
                     <option value="" selected>Select your batch</option>
                     <option [value]="batch?.id" *ngFor="let batch of getBatch">
@@ -51,8 +52,8 @@
                     </option>
                   </select>
                 </div>
-                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-5">
-                  <label class="fw-bold" for="inputAddress2">Skills:</label>
+                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
+                  <label class="form-label" for="inputAddress2">Skills:</label>
                   <select class="form-select" placeholder="Select institute name" formControlName="skill">
                     <option value="" selected>Select Skill</option>
                     <option [value]="item?.skill" *ngFor="let item of skill">
@@ -60,8 +61,8 @@
                     </option>
                   </select>
                 </div>
-                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-5">
-                  <label class="fw-bold" for="inputAddress2">Primary Industry area:</label>
+                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
+                  <label class="form-label" for="inputAddress2">Primary Industry area:</label>
                   <select class="form-select" placeholder="Select institute name" formControlName="primary_industry_focus">
                     <option value="" selected>Select Primary industry</option>
                     <option [value]="item?.primary_industry_focus" *ngFor="let item of primaryInd">
@@ -69,8 +70,8 @@
                     </option>
                   </select>
                 </div>
-                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-5">
-                  <label class="fw-bold" for="inputAddress2">Secondary Industry area:</label>
+                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
+                  <label class="form-label" for="inputAddress2">Secondary Industry area:</label>
                   <select class="form-select" placeholder="Select institute name" formControlName="secondary_industry_focus">
                     <option value="" selected>Select Secondary industry</option>
                     <option [value]="item?.secondary_industry_focus" *ngFor="let item of secondaryInd">
@@ -78,8 +79,8 @@
                     </option>
                   </select>
                 </div>
-                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-5">
-                  <label class="fw-bold" for="inputAddress2">Primary Functional area:</label>
+                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
+                  <label class="form-label" for="inputAddress2">Primary Functional area:</label>
                   <select class="form-select" placeholder="Select institute name" formControlName="primary_function_area">
                     <option value="" selected>Select Primary function</option>
                     <option [value]="item?.primary_function_area" *ngFor="let item of primaryFunc">
@@ -87,8 +88,8 @@
                     </option>
                   </select>
                 </div>
-                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-5">
-                  <label class="fw-bold" for="inputAddress2">Secondary Functional area:</label>
+                <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
+                  <label class="form-label" for="inputAddress2">Secondary Functional area:</label>
                   <select class="form-select" placeholder="Select institute name" formControlName="secondary_function_area">
                     <option value="" selected>Select Secondary function</option>
                     <option [value]="item?.secondary_function_area" *ngFor="let item of secondaryFunc">
@@ -109,6 +110,7 @@
             </div>
             </form>
         </div>
+      </div>  
     </div>
 </div>
 

@@ -26,6 +26,7 @@ import { PrimaryFunctionComponent } from './primary-function/primary-function.co
 import { SecondaryFunctionComponent } from './secondary-function/secondary-function.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SecurityQuestionsComponent } from './security-questions/security-questions.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PrimaryIndustryComponent,
     SecondaryIndustryComponent,
     PrimaryFunctionComponent,
-    SecondaryFunctionComponent
+    SecondaryFunctionComponent,
+    SecurityQuestionsComponent
   ],
   imports: [
     CommonModule,

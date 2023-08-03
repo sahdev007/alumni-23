@@ -13,7 +13,6 @@
 </div>
 <!--end breadcrumb-->
 <ng-container *ngIf="updateAction !== 'update-event'">
-
     <div class="row">
         <div class="col-xl-9 mx-auto">
             <h5 class="mb-0 text-center fw-bold">{{ updateAction !== 'update-event' ? 'Add' : 'Update' }} Event</h5>
@@ -26,16 +25,16 @@
                                 <label for="staticEmail" class="col-form-label fw-bold">Event
                           Name <span class="text-danger">*</span></label>
                                 <input type="text" formControlName="title" class="form-control" placeholder="Enter Title here">
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.title.touched || submitted) && f.title.errors?.required">
-                                    Event name is required.
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['title'].touched) && addEventForm.controls['title']?.errors?.required">Event name is required.
                                 </div>
                             </div>
                             <div class="col-sm-10 col-md-6">
                                 <label for="staticEmail" class="col-form-label fw-bold">Event
                           Venue <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" formControlName="venue" id="formGroupExampleInput" placeholder="Enter event venue" />
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.venue.touched || submitted) && f.venue.errors?.required">
-                                    Venue is required.
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['venue'].touched) && addEventForm.controls['venue']?.errors?.required">Venue is required.
                                 </div>
                             </div>
                         </div>
@@ -47,8 +46,8 @@
                                     <option value="" selected>Select event type</option>
                                     <option *ngFor="let item of updateEventTypes; index as i;" [value]="item?.id">{{item?.type}}</option>
                                 </select>
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.eventsType_id.touched || submitted) && f.eventsType_id.errors?.required">
-                                    Event Type is required.
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['eventsType_id'].touched) && addEventForm.controls['eventsType_id']?.errors?.required">Event type is required.
                                 </div>
                             </div>
                             <div class="col-sm-10 col-md-6">
@@ -63,8 +62,8 @@
                                 <label for="formGroupExampleInput" class="col-form-label fw-bold">Event
                           Date <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" formControlName="date" id="formGroupExampleInput" placeholder="Enter date" />
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.date.touched || submitted) && f.date.errors?.required">
-                                    Date is required.
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['date'].touched) && addEventForm.controls['date']?.errors?.required">Event date is required.
                                 </div>
                             </div>
                             <div class="col-sm-10 col-md-6">
@@ -77,8 +76,8 @@
                             <div class="col-sm-10 col-md-6">
                                 <label for="formGroupExampleInput" class="col-form-label fw-bold">Cost per person <span class="text-danger">*</span></label>
                                 <input type="number" class="form-control" formControlName="cost" id="formGroupExampleInput" placeholder="Enter cost per person" />
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.cost.touched || submitted) && f.cost.errors?.required">
-                                    Cost is required.
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['cost'].touched) && addEventForm.controls['cost']?.errors?.required">Cost is required.
                                 </div>
                             </div>
                             <div class="col-sm-10 col-md-6">
@@ -98,7 +97,13 @@
                             <div class="col-sm-10 col-md-6">
                                 <label for="formGroupExampleInput" class="col-form-label fw-bold">Contact
                           person number</label>
-                                <input type="number" class="form-control" formControlName="contactNumber" id="formGroupExampleInput" placeholder="Enter contact person number" />
+                                <input appNumbersOnly type="text" class="form-control" formControlName="contactNumber" id="formGroupExampleInput" placeholder="Enter contact person number" />
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['contactNumber'].touched) && addEventForm.controls['contactNumber']?.errors?.minlength">Minimum 10 number are allowed.
+                                </div>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['contactNumber'].touched) && addEventForm.controls['contactNumber']?.errors?.maxlength">Maximum 16 number are allowed.
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -119,6 +124,9 @@
                                     bullist numlist outdent indent | removeformat | help'
                                 }"
                                 ></editor>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['description'].touched) && addEventForm.controls['description']?.errors?.required">Description is required.
+                                </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="formGroupExampleInput" class="col-form-label fw-bold">Event
@@ -128,7 +136,7 @@
                                     Event image is required.
                                 </div>
                                 <ng-container *ngIf="image !== undefined">
-                                    <img [src]="image" class="img-fluid h-md-75 my-3" alt="picture">
+                                    <img [src]="image" style="height: 150px;" class="img-fluid my-3" alt="picture">
                                 </ng-container>
                             </div>
                         </div> 
@@ -166,8 +174,8 @@
                     Title  <span class="text-danger">*</span></label>
                             <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
                                 <input type="text" formControlName="title" class="form-control" placeholder="Enter Title here">
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.title.touched || submitted) && f.title.errors?.required">
-                                    Title is required.
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['title'].touched) && addEventForm.controls['title']?.errors?.required">Event name is required.
                                 </div>
                             </div>
                         </div>
@@ -179,8 +187,8 @@
                                     <option value="" selected>Select event type</option>
                                     <option *ngFor="let item of updateEventTypes; index as i;" [value]="item?.id">{{item?.type}}</option>
                                 </select>
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.eventsType_id.touched || submitted) && f.eventsType_id.errors?.required">
-                                    Event Type is required.
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['eventsType_id'].touched) && addEventForm.controls['eventsType_id']?.errors?.required">Event type is required.
                                 </div>
                             </div>
                         </div>
@@ -197,8 +205,8 @@
                             <label for="staticEmail" class="col-sm-2 col-xl-3 col-lg-3 col-form-label fw-bold">Venue <span class="text-danger">*</span></label>
                             <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
                                 <input type="text" class="form-control" formControlName="venue" id="formGroupExampleInput" placeholder="Enter event venue" />
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.venue.touched || submitted) && f.venue.errors?.required">
-                                    Venue is required.
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['venue'].touched) && addEventForm.controls['venue']?.errors?.required">Venue is required.
                                 </div>
                             </div>
                         </div>
@@ -208,6 +216,9 @@
                                 <input type="text" class="form-control" appNumbersOnly formControlName="cost" id="formGroupExampleInput" placeholder="Enter price" />
                                 <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.cost.touched || submitted) && f.cost.errors?.required">
                                     Cost is required.
+                                </div>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['cost'].touched) && addEventForm.controls['cost']?.errors?.required">Cost is required.
                                 </div>
                             </div>
                         </div>
@@ -246,8 +257,8 @@
                             <label for="formGroupExampleInput" class="col-md-2 col-xl-3 col-lg-3 col-form-label fw-bold">Expiry Date & Time <span class="text-danger">*</span></label>
                             <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
                                 <input type="date" class="form-control" formControlName="date" id="formGroupExampleInput" placeholder="Enter date" />
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.date.touched || submitted) && f.date.errors?.required">
-                                    Expiry Date & Time is required.
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['date'].touched) && addEventForm.controls['date']?.errors?.required">Date & Time is required.
                                 </div>
                             </div>
                         </div>
@@ -278,11 +289,9 @@
                                     bullist numlist outdent indent | removeformat | help'
                                 }"
                                 ></editor>
-                                <!-- <label for="formGroupExampleInput" class="col-form-label fw-bold">Description <span class="text-danger">*</span></label>
-                                <textarea class="form-control" rows="5" formControlName="description"></textarea>
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-2" *ngIf="(f.description.touched || submitted) && f.description.errors?.required">
-                                    Description is required.
-                                </div> -->
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || addEventForm.controls['description'].touched) && addEventForm.controls['description']?.errors?.required">Description is required.
+                                </div>
                             </div>
                         </div> 
                         <div class="row justify-content-center mb-3">

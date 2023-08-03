@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CelebrateService } from 'src/app/services/celebrate.service';
 import { CommonService } from 'src/app/services/common.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-default',
@@ -8,14 +10,20 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class DefaultComponent implements OnInit {
   totalAnalyticsCount = [];
+  newsData: any;
+  imgPath:any;
 
   constructor(
-    private commonService: CommonService
-  ) { }
+    private commonService: CommonService,
+    private celebrateService: CelebrateService
+  ) { 
+    this.imgPath = environment?.imgUrl;
+  }
 
   ngOnInit(): void {
     $.getScript("./assets/js/deafult-dashboard.js");
     this.getAnalyticsNumbers();
+    this.getAllNewsData();
   }
   /**
     * Get count of all registerd users
@@ -55,5 +63,13 @@ export class DefaultComponent implements OnInit {
       });
 
     });
+  }
+/**
+ * Function to Get all latest news
+ */
+  getAllNewsData(){
+   this.celebrateService.getAllData('all-news').subscribe((x:any)=> {
+    this.newsData = x.data.sort().reverse();;
+   })
   }
 }

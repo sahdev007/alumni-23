@@ -1,65 +1,58 @@
 <!--breadcrumb-->
-<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-2">
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
     <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a routerLink="/connect/admin-events">Connect</a>
+                <li class="breadcrumb-item"><a routerLink="/organization/institutes">Organization</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Admin Event</li>
+                <li class="breadcrumb-item active" aria-current="page">Security Questions</li>
             </ol>
         </nav>
     </div>
-</div>
+  </div>
 <!--end breadcrumb-->
-<div class=" mb-4">
+<div class="mat-elevation-z4 ">
     <div class="d-flex justify-content-end">
-        <button mat-fab color="primary" matTooltip="Add Event" (click)="add()" class="m-2" aria-label="Example icon button with a delete icon">
-            <mat-icon>add</mat-icon>
-        </button>
+        <button mat-fab color="primary" matTooltip="Add Questions" (click)="add($event, 'create-questions')" class="m-2" aria-label="Example icon button with a delete icon">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z4 w-100">
         <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
             <th mat-header-cell *matHeaderCellDef>
                 <div style="display: flex; align-items: center;">
-                    <span mat-sort-header class="text-capitalize fs-6">{{column | replaceUnderscore}}</span>
+                    <span mat-sort-header class="text-capitalize  fs-6">{{column | replaceUnderscore}}</span>
                     <button mat-icon-button>
-                        <mat-icon mat-icon-button color="primary" [matMenuTriggerFor]="menu"
-                        [matMenuTriggerData]="{columnName: column}">filter_list </mat-icon>
-                    </button>
+              <mat-icon mat-icon-button color="primary" [matMenuTriggerFor]="menu"
+                [matMenuTriggerData]="{columnName: column}">filter_list </mat-icon>
+            </button>
                 </div>
             </th>
             <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-        </ng-container>
-
-        <ng-container [matColumnDef]="'cost'">
-            <th class="text-capitalize  fs-6" mat-header-cell *matHeaderCellDef> Cost </th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-icon-button  matTooltip="Edit Cost" (click)="editCost(element)">{{element?.cost}}</button>
-            </td>
         </ng-container>
 
         <ng-container [matColumnDef]="'status'">
             <th class="text-capitalize fs-6 text-center" mat-header-cell *matHeaderCellDef> Status </th>
             <td class="text-center ps-4" mat-cell *matCellDef="let element">
                 <select class="form-select m-auto" aria-label="Default select" [(ngModel)]="element.status" (change)="onStatusChange($event, element)" [ngClass]="{ 'isActive': element.status === 'active' , 'isInactive': element.status === 'inActive' }">
-                    <option [value]="item.status" *ngFor="let item of status; index as i" class="text-capitalize">{{item?.status == "active" ? 'Active' : 'Inactive'}}</option>
+                    <option [value]="item.status" *ngFor="let item of status; index as i">{{item?.status == "active" ? 'Active' : 'Inactive'}}</option>
                 </select>
             </td>
         </ng-container>
 
         <ng-container [matColumnDef]="'actions'">
-            <th class="text-capitalize fs-6 text-center" mat-header-cell *matHeaderCellDef> Actions </th>
+            <th class="text-capitalize  fs-6 text-center" mat-header-cell *matHeaderCellDef> Actions </th>
             <td class="text-center" mat-cell *matCellDef="let element">
-                <button mat-icon-button (click)="view(element)">
-                    <mat-icon mat-icon-button matTooltip="View Event" color="accent">visibility</mat-icon>
-                </button>
-                <button mat-icon-button (click)="edit(element['id'], 'update-event')">
-                    <mat-icon mat-icon-button matTooltip="Edit Event" color='primary'>edit</mat-icon>
-                </button>
-                <button mat-icon-button (click)="delete(element, 'Event')">
-                    <mat-icon mat-icon-button matTooltip="Delete Event" color="warn">delete</mat-icon>
-                </button>
+                <!-- <button mat-icon-button (click)="view(element)">
+                    <mat-icon mat-icon-button color="accent">visibility</mat-icon>
+                </button> -->
+                <button mat-icon-button (click)="edit(element, 'update-questions')">
+            <mat-icon mat-icon-button matTooltip="Edit Question" color='primary'>edit</mat-icon>
+          </button>
+                <button mat-icon-button (click)="delete(element, 'Question')">
+            <mat-icon mat-icon-button matTooltip="Delete Questions" color="warn">delete</mat-icon>
+          </button>
             </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
@@ -95,13 +88,13 @@
             </div>
             <div class="fullWidth d-flex flex-row mb-1  justify-content-around">
                 <button [disabled]="!searchValue.value" mat-raised-button color="primary" class="flex-row flex-align-center btn-filter-action" (click)="applyFilter(dataColumnName, selectedOperationFilter.value,  searchValue.value)">
-          <mat-icon>check</mat-icon>
-          <label>filter</label>
-        </button>
+            <mat-icon>check</mat-icon>
+            <label>filter</label>
+          </button>
                 <button mat-raised-button class="flex-row flex-align-center btn-filter-action" color="warn" (click)="clearFilter(dataColumnName)">
-          <mat-icon>clear</mat-icon>
-          <label>reset</label>
-        </button>
+            <mat-icon>clear</mat-icon>
+            <label>reset</label>
+          </button>
             </div>
         </div>
     </ng-template>

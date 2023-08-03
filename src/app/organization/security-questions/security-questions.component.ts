@@ -3,46 +3,35 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { Config } from 'src/app/services/config';
-import { ConnectService } from 'src/app/services/connect.service';
-import { DataService } from 'src/app/services/data.service';
-import { EditCostComponent } from 'src/app/shared/dialog/connect/edit-cost/edit-cost.component';
-import { ViewEventComponent } from 'src/app/shared/dialog/connect/view-event/view-event.component';
+import { OrganizationService } from 'src/app/services/organization.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { AddEditQuestionsComponent } from 'src/app/shared/dialog/organization/add-edit-questions/add-edit-questions.component';
 
 @Component({
-  selector: 'app-alumni-event',
-  templateUrl: './alumni-event.component.html',
-  styleUrls: ['./alumni-event.component.scss']
+  selector: 'app-security-questions',
+  templateUrl: './security-questions.component.html',
+  styleUrls: ['./security-questions.component.scss']
 })
-export class AlumniEventComponent implements OnInit {
-  getAllAlumni: Array<any> = [];
- 
+export class SecurityQuestionsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['author', 'title', 'type', 'date'];
-  public columnsToDisplay: string[] = [...this.displayedColumns,'cost', 'status', 'actions'];
+  public displayedColumns: string[] = ['question'];
+  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
 
-  /**
-   * it holds a list of active filter for each column.
-   * example : {firstName: {contains : 'person 1'}}
-   **/
   public columnsFilters = {};
 
-  public dataSource: MatTableDataSource<any>;
+  public dataSource: MatTableDataSource<Person>;
   status: any;
 
   constructor(
+    private organizationService: OrganizationService, 
     public dialog: MatDialog,
-    private dataService: DataService,
-    public router: Router,
-    private connectService: ConnectService,
-    private notify: TokenInterceptor,
-    private config: Config
+    private config: Config,
+    private notify: TokenInterceptor
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
@@ -139,92 +128,56 @@ export class AlumniEventComponent implements OnInit {
     }
   }
 
-  /**
-   * Function to add project List
-   */
-  add() {
-    this.router.navigate(['/connect/add-event']);
-  }
-  /**
-   * Function to view detail by Id
-   * @param data 
-   */
-  view(data:any){
-    const dialogRef = this.dialog.open(ViewEventComponent, {
+  add(params: any, action?: string, type?: string) {
+    const dialogRef = this.dialog.open(AddEditQuestionsComponent, {
       width: '400px',
-      data: { data: data }
-    });
-  }
-  /**
-   * Function to edit project
-   * @param data 
-   * @param params 
-   */
-  edit(id: number, params: any) {
-    this.router.navigate(['/connect/add-event'], {queryParams: { clubId: id, action: params }});
-  }
-
-    /**
-   * Function to edit cost of event
-   * @param e 
-   */
-    editCost(e: any){
-      const dialogRef = this.dialog.open(EditCostComponent, {
-        width: '400px',
-        data: { data: e }
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          setTimeout(() => {
-            this.ngOnInit();
-          }, 500);
-  
-        }
-      });
-  
-    }
-
-  /**
-   * Function to remove items by id
-   * @param id 
-   * @param params 
-  */
-  delete(data: any, params: string) {
-    let action: string = "delete-event";
-    const dialogRef = this.dialog.open(DeletedialogComponent, {
-      width: '400px',
-      data: { info: params }
+      data: { data: params, action: action, type: type }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.connectService.deleteData(action, data?.id).subscribe((res: any) => {
-          if(res?.status == 200) this.notify.notificationService.success(res?.message); this.ngOnInit();
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 400);
+      }
+    });
+  }
+
+
+  edit(data: any, params: any) {
+    const dialogRef = this.dialog.open(AddEditQuestionsComponent, {
+      width: '400px',
+      data: {data: data, action: params}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 400);
+      }
+    });
+  }
+
+  delete(data: any, params: string) {
+    let action: string = "delete-questions";
+    const dialogRef = this.dialog.open(DeletedialogComponent, {
+      width: '400px',
+      data: { data: data, info: params }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.organizationService.deleteData(action, data?.id).subscribe((res: any) => {
+          if(res?.status == 200) {
+            this.notify.notificationService.success(res?.message);
+            this.ngOnInit();
+          } 
         })
       }
     });
   }
-  /**
-   * Function to Change status of event
-   * @param e 
-   * @param params 
-   */
-  async onStatusChange(e:any, params: any) {
-    let action = "update-event";
-      let param = {
-        id: params?.id,
-        status: e?.target?.value
-      }
-      await this.connectService.updateData(action, param).subscribe((res: any) => {
-        if(res?.status == 200) {
-          this.notify.notificationService.success(res?.message);
-          this.ngOnInit();
-        }
-      }, error => {
-          this.notify.notificationService.error(error);
-      });
-  }
+
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -238,26 +191,32 @@ export class AlumniEventComponent implements OnInit {
     this.getAllData();
   }
 
-  /**
-   * Function to Get All project data
-   */
   async getAllData() {
-    let action = "all-eventsGet";
-    this.getAllAlumni = [];
-    await this.dataService.getAllData(action).subscribe(
-      (res: any) => {
-        if(res?.status == 200) {
-          res?.data?.filter((x: any) => {
-            if(x?.category == 'alumni') {
-              this.getAllAlumni.push(x);
-            }
-          })
-          this.dataSource.data = this.getAllAlumni;
-        }
+    let action = "all-questions";
+    await this.organizationService.getAllData(action).subscribe(
+      (ques: any) => {
+        if(ques?.status == 200) this.dataSource.data = ques?.data;
       },
       (error) => {
-        this.notify.notificationService.error(error);
+          this.notify.notificationService.error(error);
       }
     );
+  }
+
+  async onStatusChange(e:any, params: any) {
+    let action = "update-questions";
+      let param = {
+        id: params?.id,
+        status: e?.target?.value
+      }
+
+      await this.organizationService.updateData(action, param).subscribe((res: any) => {
+        if(res?.status == 200) {
+          this.notify.notificationService.success(res?.message);
+          this.ngOnInit();
+        }
+      }, error => {
+          this.notify.notificationService.error(error);
+      });
   }
 }

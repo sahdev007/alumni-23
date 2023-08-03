@@ -5,7 +5,7 @@
             <mat-form-field class="fullWidth w-100" appearance="fill">
                 <mat-label>Name </mat-label>
                 <input matInput type="text" name="name" formControlName="name">
-                <mat-error *ngIf="leadershipForm.controls['name']?.errors?.required">This field is required</mat-error>
+                <mat-error *ngIf="(submitted || leadershipForm.controls['name'].touched) && leadershipForm.controls['name']?.errors?.required">This field is required</mat-error>
             </mat-form-field>
         </div>
         <div>

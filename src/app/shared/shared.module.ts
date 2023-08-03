@@ -76,6 +76,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { EditCostComponent } from './dialog/connect/edit-cost/edit-cost.component';
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
+import { AddEditQuestionsComponent } from './dialog/organization/add-edit-questions/add-edit-questions.component';
 
 @NgModule({
     imports: [
@@ -156,7 +157,8 @@ import { SearchFilterComponent } from './search-filter/search-filter.component';
         LoaderComponent,
         EditCostComponent,
         NumbersOnlyDirective,
-        SearchFilterComponent
+        SearchFilterComponent,
+        AddEditQuestionsComponent
     ],
     exports: [
         CommonModule,

@@ -21,14 +21,15 @@ export class AddEditNewsComponent implements OnInit {
   newsData: any;
   newsStatus: any;
   updatedFile: any;
-  author: string = "sunny";
+  author: any;
+  submitted:boolean;
 
   constructor(public fb: FormBuilder, private celebrateService : CelebrateService,
     public aroute: ActivatedRoute, public router: Router,
     private notify: TokenInterceptor) {
-    // if (localStorage) {
-    //   this.currentUser = JSON.parse(localStorage.getItem("currentUser") || "");
-    // }
+    if (localStorage) {
+      this.currentUser = JSON.parse(localStorage.getItem("currentUser") || "");
+    }
     // Get Id by queryparams
     this.aroute.queryParams.subscribe(async (params: any) => {
       this.type = params?.action;
@@ -51,7 +52,10 @@ export class AddEditNewsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this.type)
+    let fname = this.currentUser?.first_name;
+    let lname = this.currentUser?.last_name;
+    let mname = this.currentUser?.middle_name;
+    this.author = fname + (mname == null ? "" : " " + mname) + " " + lname;
     this.buildForm();
     $.getScript('./assets/js/form-validations.js');
     $.getScript('./assets/js/bs-custom-file-input.min.js');
@@ -64,13 +68,14 @@ export class AddEditNewsComponent implements OnInit {
       author: [""],
       title: ["", [Validators.required]],
       description: ["", Validators.required],
-      status: [""],
+      status: ["", Validators.required],
       expiryDate: [""],
       newsImage: [""],
     });
   }
 
   async save() {
+    this.submitted = true;
     if (this.newsForm.invalid) {
       return;
     } else {

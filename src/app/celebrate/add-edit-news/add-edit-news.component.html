@@ -25,6 +25,9 @@
                             <label for="inputEnterYourName" class="col-sm-3 col-form-label fw-bold">Title :</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="inputEnterYourName" formControlName="title" placeholder="Enter Title" required>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || newsForm.controls['title'].touched) && newsForm.controls['title']?.errors?.required">Title is required.
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -34,12 +37,18 @@
                                     <option value="active">Active</option>
                                     <option value="inActive">Inactive</option>
                                 </select>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || newsForm.controls['status'].touched) && newsForm.controls['status']?.errors?.required">Status is required.
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="inputConfirmPassword2" class="col-sm-3 col-form-label fw-bold">Expiry Date & Time :</label>
                             <div class="col-sm-9">
                                 <input type="date" class="form-control" id="inputConfirmPassword2" formControlName="expiryDate" placeholder="Enter date" required>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || newsForm.controls['expiryDate'].touched) && newsForm.controls['expiryDate']?.errors?.required">Expiry date is required.
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -60,7 +69,9 @@
                                     bullist numlist outdent indent | removeformat | help'
                                 }"
                                 ></editor>
-                                <!-- <textarea class="form-control" id="inputAddress4" rows="3" formControlName="description" placeholder="Enter description" required></textarea> -->
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || newsForm.controls['description'].touched) && newsForm.controls['description']?.errors?.required">Description is required.
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">

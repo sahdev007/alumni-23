@@ -10,6 +10,7 @@ import { PrimaryIndustryComponent } from './primary-industry/primary-industry.co
 import { SecondaryIndustryComponent } from './secondary-industry/secondary-industry.component';
 import { PrimaryFunctionComponent } from './primary-function/primary-function.component';
 import { SecondaryFunctionComponent } from './secondary-function/secondary-function.component';
+import { SecurityQuestionsComponent } from './security-questions/security-questions.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,10 @@ const routes: Routes = [
         path: 'secondary-function',
         component: SecondaryFunctionComponent
       },
+      {
+        path: 'security-questions',
+        component: SecurityQuestionsComponent
+      }
     ]
   }
 ];

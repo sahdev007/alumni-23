@@ -28,9 +28,9 @@ export class AddEventComponent implements OnInit {
     public router: Router, public arouter: ActivatedRoute,
     private notify: TokenInterceptor) {
     if (localStorage) {
-      // this.currentUser = JSON?.parse(
-      //   localStorage?.getItem("currentUser") || ""
-      // );
+      this.currentUser = JSON?.parse(
+        localStorage?.getItem("currentUser") || ""
+      );
     }
    }
 
@@ -66,10 +66,10 @@ export class AddEventComponent implements OnInit {
   buildForm() {
     this.addEventForm = this.fb.group({
       id: [''],
-      author: ["test"],
+      author: [this.author],
       title: ["", Validators.required],
       venue: ["", Validators.required],
-      category: ["alumni"],
+      category: ["admin"],
       description: ["", Validators.required],
       date: ["", Validators.required],
       time: [""],
@@ -79,7 +79,7 @@ export class AddEventComponent implements OnInit {
       cost: ["", Validators.required],
       eventPageLink: [""],
       status: [""],
-      contactNumber: [""],
+      contactNumber: ["", [Validators.minLength(10), Validators.maxLength(16)]],
       eventImage: [""],
     });
   }
@@ -113,6 +113,7 @@ export class AddEventComponent implements OnInit {
     }
 
     async addEvent() {
+      this.submitted = true;
       let action = {
         action: this.updateAction == 'update-event' ? 'update-event' : 'create-event',
         id: this.updateAction == 'update-event' ? parseInt(this.newEventId) : ''

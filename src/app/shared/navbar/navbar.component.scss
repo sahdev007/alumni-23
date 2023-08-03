@@ -10,3 +10,19 @@
 .dropdown-item{
     cursor: pointer;
 }
+.topbar{
+    .navbar{
+        .user-box{
+            &:hover{
+                ul{
+                    display: block;
+                    top: 100%;
+                    right: 0; 
+                }
+            }
+            ul{
+                display: none;
+            }
+        }
+    }
+}
