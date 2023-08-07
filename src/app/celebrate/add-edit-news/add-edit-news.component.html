@@ -78,7 +78,11 @@
                             <label for="inputAddress4" class="col-sm-3 col-form-label fw-bold">Image :</label>
                             <div class="col-sm-6">
                                 <input type="file" class="form-control mb-2" [(ngModel)]="updatedFile" formControlName="newsImage" id="formGroupLink" accept="image/*" (change)="onUploadImage($event)" placeholder="Upload Image" />
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                            *ngIf="(submitted || newsForm.controls['newsImage'].touched) && newsForm.controls['newsImage']?.errors?.required">Image is required.
                             </div>
+                            
+                        </div>
                         </div>
                         
                         <div class="mt-3" mat-dialog-actions align="center">

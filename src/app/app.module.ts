@@ -52,7 +52,7 @@ import { ApplicationModule } from './application/application.module';
   declarations: [
     AppComponent,
     FullLayoutComponent,
-    ContentLayoutComponent
+    ContentLayoutComponent,
   ],
   imports: [
     CommonModule,

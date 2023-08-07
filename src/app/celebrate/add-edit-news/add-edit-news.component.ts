@@ -70,7 +70,7 @@ export class AddEditNewsComponent implements OnInit {
       description: ["", Validators.required],
       status: ["", Validators.required],
       expiryDate: [""],
-      newsImage: [""],
+      newsImage: ["", Validators.required],
     });
   }
 

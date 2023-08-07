@@ -3,10 +3,10 @@ import { RouteInfo } from './sidebar.metadata';
 //Sidebar menu Routes and data
 export const ROUTES: RouteInfo[] = [
 
+    { path: '/dashboard', title: 'Dashboard', icon: 'fa fa-dashboard', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
     {
-        path: '', title: 'Dashboard', icon: 'fa fa-dashboard', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        path: '', title: 'Manage User', icon: 'bx bx-user', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
         submenu: [
-            { path: '/dashboard', title: 'Dashboard', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/dashboard/all-users', title: 'All-User', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             { path: '/dashboard/manage-request', title: 'Manage Request', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
         ]
@@ -120,6 +120,12 @@ export const ROUTES: RouteInfo[] = [
         submenu: [
             { path: '/log-viewer/log-viewer-dashboard', title: 'Log Viewer Dashboard', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
             // { path: '/log-viewer/logs-by-date', title: 'Logs by Days', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    {
+        path: '', title: 'Donations', icon: 'bx bx-donate-blood', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/donations/donations-list', title: 'Doantions List', icon: 'bx bx-right-arrow-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
         ]
     },
     { path: '/settings/general', title: 'Setting', icon: 'bx bx-cog', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},

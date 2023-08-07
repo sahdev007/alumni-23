@@ -96,7 +96,7 @@ export class CreateFeaturedAlumniComponent implements OnInit {
       twitter_id: [''],
       linkedin_id: [''],
       overall_rating: ['', Validators.required],
-      file: [''],
+      file: ['', Validators.required],
       status: [''],
       description: ['', Validators.required],
       order_by: ['']

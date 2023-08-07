@@ -21,6 +21,10 @@ export const Full_ROUTES: Routes = [
         loadChildren: () => import('../../about-us/about-us.module').then(m => m.AboutUsModule)
     },
     {
+        path: 'donations',
+        loadChildren: () => import('../../donations/donations.module').then(m => m.DonationsModule)
+    },
+    {
         path: 'communication',
         loadChildren: () => import('../../application/application.module').then(m => m.ApplicationModule)
     },

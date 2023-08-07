@@ -21,7 +21,7 @@
             <div class="col-12 text-center p-3 border" >
                 <form [formGroup]="featuredForm">
                     <div class="row">
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Email <span class="text-danger fs-6">*</span></label>
                                 <input type="email" formControlName="email"
@@ -35,7 +35,7 @@
                                 *ngIf="(submitted || featuredForm.controls['email'].touched) && featuredForm.controls['email']?.errors?.pattern">Email format is incorrect.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Your Full Name <span class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="full_name"
@@ -46,7 +46,7 @@
                                 *ngIf="(submitted || featuredForm.controls['full_name'].touched) && featuredForm.controls['full_name']?.errors?.required">Name is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Your Institute <span class="text-danger fs-6">*</span></label>
                                 <select formControlName="institute_id" class="form-select rounded-0.25">
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Batch Year <span class="text-danger fs-6">*</span></label>
                                 <select formControlName="batchYear_id" class="form-select rounded-0.25">
@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Personal Email 2 (optional)</label>
                                 <input type="email" formControlName="personal_email"
@@ -83,7 +83,7 @@
                                     placeholder="Enter your personal email here">
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Office Email <span class="text-danger fs-6">*</span></label>
                                 <input type="email" formControlName="office_email"
@@ -97,7 +97,7 @@
                                 *ngIf="(submitted || featuredForm.controls['office_email'].touched) && featuredForm.controls['office_email']?.errors?.pattern">Email format is incorrect.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Mobile number <span class="text-danger fs-6">*</span></label>
                                 <input type="text" appNumbersOnly formControlName="mobile_number"
@@ -114,7 +114,7 @@
                                 *ngIf="(submitted || featuredForm.controls['mobile_number'].touched) && featuredForm.controls['mobile_number']?.errors?.maxlength">Maximum 16 number are allowed.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Gender <span class="text-danger fs-6">*</span></label>
                                 <select formControlName="gender" class="form-select rounded-0.25">
@@ -127,7 +127,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Employed / Entrepreneur <span
                                         class="text-danger fs-6">*</span></label>
@@ -143,7 +143,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Current company name <span
                                         class="text-danger fs-6">*</span></label>
@@ -155,7 +155,7 @@
                                 *ngIf="(submitted || featuredForm.controls['current_company'].touched) && featuredForm.controls['current_company']?.errors?.required">Current company is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Current designation <span
                                         class="text-danger fs-6">*</span></label>
@@ -167,7 +167,7 @@
                                 *ngIf="(submitted || featuredForm.controls['current_designation'].touched) && featuredForm.controls['current_designation']?.errors?.required">Current designation is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Current Location <span
                                         class="text-danger fs-6">*</span></label>
@@ -179,7 +179,7 @@
                                 *ngIf="(submitted || featuredForm.controls['current_location'].touched) && featuredForm.controls['current_location']?.errors?.required">Current location is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">If not in your current profession, I
                                     would be a <span class="text-danger fs-6">*</span></label>
@@ -191,7 +191,7 @@
                                 *ngIf="(submitted || featuredForm.controls['alternate_profession'].touched) && featuredForm.controls['alternate_profession']?.errors?.required">Alternate profession is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Native City, State or Your City, State
                                     before joining Institute <span class="text-danger fs-6">*</span></label>
@@ -203,7 +203,7 @@
                                 *ngIf="(submitted || featuredForm.controls['native_city'].touched) && featuredForm.controls['native_city']?.errors?.required">Native city / state is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Your first job / gig / business even as
                                     a young kid prior to joining Institute <span
@@ -216,7 +216,7 @@
                                 *ngIf="(submitted || featuredForm.controls['first_job'].touched) && featuredForm.controls['first_job']?.errors?.required">First job/gig/business is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Your first salary in Rs. per month even
                                     prior to Institute <span class="text-danger fs-6">*</span></label>
@@ -228,9 +228,9 @@
                                 *ngIf="(submitted || featuredForm.controls['first_salary'].touched) && featuredForm.controls['first_salary']?.errors?.required">First salary is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
-                                <label class="fotext-startrm-label">Favourite Book and Author Name <span
+                                <label class="fotext-startrm-label fw-bold">Favourite Book and Author Name <span
                                         class="text-danger fs-6">*</span></label>
                                 <input type="text" formControlName="favourite_book_author"
                                     class="rounded-0.25 custom-form form-control"
@@ -240,7 +240,7 @@
                                 *ngIf="(submitted || featuredForm.controls['favourite_book_author'].touched) && featuredForm.controls['favourite_book_author']?.errors?.required">Favourite book and author name is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Your Personal Hero in Life and/or
                                     Profession <span class="text-danger fs-6">*</span></label>
@@ -252,7 +252,7 @@
                                 *ngIf="(submitted || featuredForm.controls['personal_hero'].touched) && featuredForm.controls['personal_hero']?.errors?.required">Personal life hero is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">How did you first hear about the Institute <span
                                         class="text-danger fs-6">*</span></label>
@@ -269,7 +269,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Marital Status <span class="text-danger fs-6">*</span></label>
                                 <select formControlName="marital_status" [(ngModel)]="updatedMartialStatus" class="form-select rounded-0.25">
@@ -283,7 +283,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Where you placed from Campus <span
                                         class="text-danger fs-6">*</span></label>
@@ -298,7 +298,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">If you were placed from Campus, please
                                     share company name and location <span class="text-danger fs-6">*</span></label>
@@ -310,7 +310,7 @@
                                 *ngIf="(submitted || featuredForm.controls['placement_location'].touched) && featuredForm.controls['placement_location']?.errors?.required">Placement location is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Enter Current Industry</label>
                                 <input type="text" formControlName="current_industry"
@@ -318,7 +318,7 @@
                                     placeholder="Enter current industry">
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">If married, Spouse from SBUP <span
                                         class="text-danger fs-6">*</span></label>
@@ -333,7 +333,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Life long lessons you learnt from the
                                     Institute <span class="text-danger fs-6">*</span></label>
@@ -345,7 +345,7 @@
                                 *ngIf="(submitted || featuredForm.controls['life_lessons'].touched) && featuredForm.controls['life_lessons']?.errors?.required">Life long lessons you learnt is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">If Spouse is from SBUP, Please specify
                                     Full name, SBUP Institute and Batch Year. If not, please mention not applicable
@@ -359,7 +359,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Please share your memories about The
                                     Honorable Founder Chancellor, Prof. Col. A. Balasubramaian / Bala Sir
@@ -372,7 +372,7 @@
                                 *ngIf="(submitted || featuredForm.controls['share_memories'].touched) && featuredForm.controls['share_memories']?.errors?.required">About memory is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Please share your message with current
                                     students. Tips for success
@@ -385,7 +385,7 @@
                                 *ngIf="(submitted || featuredForm.controls['share_current_students'].touched) && featuredForm.controls['share_current_students']?.errors?.required">Share current students is required.
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Please share your message with future
                                     MBA candidates, applicants applying at Institute</label>
@@ -394,7 +394,7 @@
                                     placeholder="Share your message with future alumni">
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Please share your message with your
                                     batchmates and SBUP Alumni community</label>
@@ -403,7 +403,7 @@
                                     placeholder="Enter your message with your batchmates">
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Would be willing to be a mentor to junior students and
                                     alumni <span class="text-danger fs-6">*</span></label>
@@ -418,7 +418,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 my-2">
+                        <div class="col-md-4 my-2 h-100">
                             <div class="text-start d-flex flex-column h-100 justify-content-between">
                                 <label class="form-label fw-bold">Please share your message with current
                                     students. Tips for success
@@ -478,7 +478,10 @@
                             <div class="text-start">
                                 <label class="form-label fw-bold">Please upload your picture
                                     <span class="text-danger fs-6">*</span></label>
-                                    <input type="file" class="rounded-0.25 custom-form form-control" (change)="onUploadImage($event)" accept="image/*" />
+                                    <input type="file" class="rounded-0.25 custom-form form-control" formControlName="file" (change)="onUploadImage($event)" accept="image/*" />
+                                    <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                *ngIf="(submitted || featuredForm.controls['file'].touched) && featuredForm.controls['file']?.errors?.required">Image is required.
+                            </div>
                             </div>
                         </div>
                         <div
