@@ -1,0 +1,33 @@
+@font-face {
+    font-family: roboto;
+    src: url(./../../../assets/fonts/Roboto/Roboto-Regular.ttf);
+}
+.loginPage{
+    .bgImg{
+        .image{
+            height: 100vh;
+            object-fit: cover;
+            width: 100%;
+        }
+    }
+    .headingText{
+        font-family: "roboto";
+        font-size: 36px;
+    }
+    input{
+        border-color:#3D5EE1;
+        &::placeholder {
+            font-size: 16px;
+            color: #000 !important;
+        }
+    }
+    input.ng-invalid.ng-touched {
+        border: red 1px solid;
+    }
+    input.ng-valid.ng-touched {
+        border: green 1px solid;
+    }
+    .authenticateBtn {
+        background-color: #3D5EE1;
+    }
+}

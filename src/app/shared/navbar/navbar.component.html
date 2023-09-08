@@ -318,6 +318,11 @@
                     <li>
                         <a class="dropdown-item" (click)="viewProfile()"><i class="bx bx-user"></i><span>Profile</span></a>
                     </li>
+                    <ng-container *ngIf="(role == 0 || role == 1)">
+                        <li>
+                            <a class="dropdown-item" routerLink="/auth/reset-password"><i class="bx bx-reset"></i><span>Reset Password</span></a>
+                        </li>
+                    </ng-container>
                     <li>
                         <a class="dropdown-item" routerLink="/settings/general"><i class='bx bx-home-circle'></i><span>Settings</span></a>
                     </li>

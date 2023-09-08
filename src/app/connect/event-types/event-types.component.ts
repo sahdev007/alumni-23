@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { Router } from "@angular/router";
 import { TokenInterceptor } from "src/app/core/token.interceptor";
 import { Person } from "src/app/models/person";
 import { Config } from "src/app/services/config";
@@ -21,7 +22,9 @@ export class EventTypesComponent implements OnInit {
 
   public displayedColumns: string[] = ["type"];
   public columnsToDisplay: string[] = [
+    'sr.no',
     ...this.displayedColumns,
+    'created_at',
     "status",
     "actions",
   ];
@@ -38,7 +41,8 @@ export class EventTypesComponent implements OnInit {
     public dialog: MatDialog,
     private connectService: ConnectService,
     private notify: TokenInterceptor,
-    private config: Config
+    private config: Config,
+    public router: Router
   ) {
     this.status = this.config?.status;
     this.dataSource = new MatTableDataSource<Person>();
@@ -132,30 +136,33 @@ export class EventTypesComponent implements OnInit {
   }
 
   add(data: any, params?: string) {
-    const dialogRef = this.dialog.open(AddEditEventTypeComponent, {
-      width: "400px",
-      data: { data: data, action: params },
-    });
+    this.router.navigate(['/connect/add-edit-event-types'], {queryParams: { id: data?.id}});
+    // const dialogRef = this.dialog.open(AddEditEventTypeComponent, {
+    //   width: "400px",
+    //   data: { data: data, action: params },
+    // });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     this.ngOnInit();
+    //   }
+    // });
+
   }
 
   edit(data: any, params: any) {
-    const dialogRef = this.dialog.open(AddEditEventTypeComponent, {
-      width: "400px",
-      data: { data: data, action: params },
-    });
+    this.router.navigate(['/connect/add-edit-event-types'], {queryParams: { id: data?.id, action:params}});
+    // const dialogRef = this.dialog.open(AddEditEventTypeComponent, {
+    //   width: "400px",
+    //   data: { data: data, action: params },
+    // });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result, "Resutl");
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   console.log(result, "Resutl");
+    //   if (result) {
+    //     this.ngOnInit();
+    //   }
+    // });
   }
 
   delete(data: any, params: string) {
@@ -223,4 +230,5 @@ export class EventTypesComponent implements OnInit {
       }
     );
   }
+  
 }

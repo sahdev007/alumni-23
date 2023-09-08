@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { Config } from 'src/app/services/config';
@@ -20,7 +21,7 @@ export class SecurityQuestionsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['question'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', ...this.displayedColumns, 'created_at', 'status', 'actions'];
 
   public columnsFilters = {};
 
@@ -31,7 +32,8 @@ export class SecurityQuestionsComponent implements OnInit {
     private organizationService: OrganizationService, 
     public dialog: MatDialog,
     private config: Config,
-    private notify: TokenInterceptor
+    private notify: TokenInterceptor,
+    public router: Router
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
@@ -128,35 +130,12 @@ export class SecurityQuestionsComponent implements OnInit {
     }
   }
 
-  add(params: any, action?: string, type?: string) {
-    const dialogRef = this.dialog.open(AddEditQuestionsComponent, {
-      width: '400px',
-      data: { data: params, action: action, type: type }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 400);
-      }
-    });
+  add(params?: string) {
+    this.router.navigate(['/organization/add-edit-security-questions'], {queryParams: {action: params}});
   }
 
-
   edit(data: any, params: any) {
-    const dialogRef = this.dialog.open(AddEditQuestionsComponent, {
-      width: '400px',
-      data: {data: data, action: params}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 400);
-      }
-    });
+    this.router.navigate(['/organization/add-edit-security-questions'], {queryParams: {id:data?.id, action: params}});
   }
 
   delete(data: any, params: string) {

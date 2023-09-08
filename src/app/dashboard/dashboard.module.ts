@@ -29,11 +29,13 @@ import { SharedModule } from '../shared/shared.module';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { UserRoleComponent } from './user-role/user-role.component';
 
 
 @NgModule({
   declarations: [
-     DefaultComponent, ECommerceComponent, AnalyticsComponent, DigitalMarketingComponent, HumanResourcesComponent, AllUsersComponent, ManageUsersRequestComponent
+     DefaultComponent, ECommerceComponent, AnalyticsComponent, DigitalMarketingComponent, HumanResourcesComponent, AllUsersComponent, ManageUsersRequestComponent, UserRoleComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +58,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     SharedModule,
     MatRadioModule,
     MatTooltipModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    DragDropModule
   ]
 })
 export class DashboardModule { }

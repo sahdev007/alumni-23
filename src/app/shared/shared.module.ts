@@ -77,6 +77,8 @@ import { EditCostComponent } from './dialog/connect/edit-cost/edit-cost.componen
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { AddEditQuestionsComponent } from './dialog/organization/add-edit-questions/add-edit-questions.component';
+import { SendMailComponent } from './dialog/send-mail/send-mail.component';
+
 
 @NgModule({
     imports: [
@@ -158,7 +160,8 @@ import { AddEditQuestionsComponent } from './dialog/organization/add-edit-questi
         EditCostComponent,
         NumbersOnlyDirective,
         SearchFilterComponent,
-        AddEditQuestionsComponent
+        AddEditQuestionsComponent,
+        SendMailComponent
     ],
     exports: [
         CommonModule,

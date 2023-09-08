@@ -60,7 +60,7 @@ export class AddMenteeComponent implements OnInit {
         secondary_industry_focus: [""],
         primary_function_area: [""],
         secondary_function_area: [""],
-        user_id: [2, Validators.required],
+        user_id: [this.data?.data?.user_id, Validators.required],
         mentee_user_id: [[], Validators.required],
         mentor_user_id: [""]
       });

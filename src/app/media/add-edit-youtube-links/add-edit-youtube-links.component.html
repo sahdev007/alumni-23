@@ -1,0 +1,97 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/media/gallery">Media</a>
+                </li>
+                <li class="breadcrumb-item"><a routerLink="/media/youtube-links">Youtube Links</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{pageType == 'update-youtube' ? 'Update' : 'Add'}} Youtube</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+<div class="get-featured px-4 pb-5">
+    <div class="container">
+        <!-- <div class="align-items-center justify-content-between my-2">
+            <h5 class="mb-0 text-gray-800 text-center fw-bold">{{pageType == 'update-jobType' ? 'Update' : 'Add'}} Job Type</h5>
+        </div> -->
+        <div class="row justify-content-center">
+            <div class="col-xxl-7 col-xl-7 col-lg-8 col-md-8">
+                <div class="row my-3 p-3 bg-white alumni-body card border-top border-0 border-4 border-primary justify-content-center">
+                    <div class="col-12 text-center p-3 border-0" >
+                        <app-loader *ngIf="loading"></app-loader>
+                        <ng-container *ngIf="!loading">
+                            <form [formGroup]="youtubeForm">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12 my-3">
+                                        <div class="row">
+                                            <div class="col-xl-4 text-start">
+                                                <label class="form-label fw-bold">Youtube Linke Name: <span class="text-danger fs-6">*</span></label>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="text-start d-flex flex-column justify-content-between">
+                                                    <input type="text" formControlName="title"
+                                                        class="rounded-0.25 custom-form form-control"
+                                                        placeholder="Enter title here">
+                                                </div>
+                                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                                    *ngIf="(submitted || youtubeForm.controls['title'].touched) && youtubeForm.controls['title']?.errors?.required">Name is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 my-3">
+                                        <div class="row">
+                                            <div class="col-xl-4 text-start">
+                                                <label class="form-label fw-bold">Youtube Link: <span class="text-danger fs-6">*</span></label>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="text-start d-flex flex-column justify-content-between">
+                                                    <input type="text" formControlName="link"
+                                                        class="rounded-0.25 custom-form form-control"
+                                                        placeholder="Enter link here">
+                                                </div>
+                                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                                    *ngIf="(submitted || youtubeForm.controls['link'].touched) && youtubeForm.controls['link']?.errors?.required">Link is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 my-3 ">
+                                        <div class="row">
+                                            <div class="col-xl-4 text-start">
+                                                <label class="form-label fw-bold">Status: <span class="text-danger fs-6">*</span></label>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <select formControlName="status" class="form-select rounded-0.25">
+                                                    <option value="" selected>Choose your Option</option>
+                                                    <option class="text-capitalize" [value]="item?.status" *ngFor="let item of status; let i=index;">
+                                                        {{ item?.status == "active" ? 'Active' : 'Inactive' }}
+                                                    </option>
+                                                </select>
+                                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                                    *ngIf="(submitted || youtubeForm.controls['status'].touched) && youtubeForm.controls['status']?.errors?.required">Status is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <div class="my-3" mat-dialog-actions align="center">
+                                        <button mat-raised-button color="warn" class="me-2" [routerLink]="['/media/youtube-links']">Cancel</button>
+                                        <button  mat-raised-button color="primary" (click)="save()" 
+                                        >{{pageType == 'update-youtube' ? 'Update' : 'Add'}}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

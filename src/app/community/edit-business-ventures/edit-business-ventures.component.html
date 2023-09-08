@@ -22,297 +22,304 @@
   
       <!-- Content Row -->
         <div class="row my-3">
-            <mat-horizontal-stepper #stepper>
-                <mat-step [stepControl]="firstFormGroup">
-                    <form [formGroup]="firstFormGroup">
-                        <ng-template matStepLabel>Fill info</ng-template>
-                        <div class="row mt-xl-3 mt-lg-3 mt-md-3 mt-md-3 mt-2">
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Name of the Company : &nbsp;<span
-                                        class="text-danger">*</span></label>
-                                <input type="name" class="form-control" formControlName="company" id="inputName"
-                                    placeholder="Enter company name"/>
+            <app-loader *ngIf="loading"></app-loader>
+            <ng-container *ngIf="!loading">
+                <mat-horizontal-stepper #stepper>
+                    <mat-step [stepControl]="firstFormGroup">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Fill info</ng-template>
+                            <div class="row mt-xl-3 mt-lg-3 mt-md-3 mt-md-3 mt-2">
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Name of the Company : &nbsp;<span
+                                            class="text-danger">*</span></label>
+                                    <input type="name" class="form-control" formControlName="company" id="inputName"
+                                        placeholder="Enter company name"/>
+                                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                            *ngIf="(submitted || firstFormGroup.controls['company'].touched) && firstFormGroup.controls['company']?.errors?.required">Company name is required
+                                        </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Alumni Founder/Owner :</label>
+                                    <input type="name" class="form-control" formControlName="owner" id="inputName"
+                                        placeholder="Enter Alumni Founder/Owner" />
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Alumni Course :</label>
+                                    <input type="name" class="form-control" formControlName="course" id="inputName"
+                                        placeholder="Enter Alumni course" />
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Alumni Batch : &nbsp;<span
+                                            class="text-danger">*</span></label>
+                                    <!-- <input type="name" class="form-control" formControlName="batch" id="inputName"
+                                        placeholder="Enter Alumni Batch" /> -->
+                                    <select formControlName="batchYear_id"
+                                        class="form-select shadow-none rounded-0">
+                                        <option value="" selected>Choose your batch</option>
+                                        <option [value]="batch?.id" *ngFor="let batch of getBatch; let i=index;">
+                                            {{ batch?.batch }}
+                                        </option>
+                                    </select>
                                     <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                        *ngIf="(submitted || firstFormGroup.controls['company'].touched) && firstFormGroup.controls['company']?.errors?.required">Company name is required
+                                        *ngIf="(submitted || firstFormGroup.controls['batchYear_id'].touched) && firstFormGroup.controls['batchYear_id']?.errors?.required">Batch year is required
                                     </div>
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Alumni Founder/Owner :</label>
-                                <input type="name" class="form-control" formControlName="owner" id="inputName"
-                                    placeholder="Enter Alumni Founder/Owner" />
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Alumni Course :</label>
-                                <input type="name" class="form-control" formControlName="course" id="inputName"
-                                    placeholder="Enter Alumni course" />
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Alumni Batch : &nbsp;<span
-                                        class="text-danger">*</span></label>
-                                <!-- <input type="name" class="form-control" formControlName="batch" id="inputName"
-                                    placeholder="Enter Alumni Batch" /> -->
-                                <select formControlName="batchYear_id"
-                                    class="form-select shadow-none rounded-0">
-                                    <option value="" selected>Choose your batch</option>
-                                    <option [value]="batch?.id" *ngFor="let batch of getBatch; let i=index;">
-                                        {{ batch?.batch }}
-                                    </option>
-                                </select>
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                    *ngIf="(submitted || firstFormGroup.controls['batchYear_id'].touched) && firstFormGroup.controls['batchYear_id']?.errors?.required">Batch year is required
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Contact info : &nbsp;<span
+                                            class="text-danger">*</span></label>
+                                    <input type="name" class="form-control" appNumbersOnly formControlName="contact" id="inputName"
+                                        placeholder="Enter Phone Contact info" />
+                                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                            *ngIf="(submitted || firstFormGroup.controls['contact'].touched) && firstFormGroup.controls['contact']?.errors?.required">Contact is required
+                                        </div>
+                                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                            *ngIf="(submitted || firstFormGroup.controls['contact'].touched) && firstFormGroup.controls['contact']?.errors?.minlength">Minimum 10 number are allowed.
+                                        </div>
+                                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                            *ngIf="(submitted || firstFormGroup.controls['contact'].touched) && firstFormGroup.controls['contact']?.errors?.maxlength"> Maximum 16 number are allowed.
+                                        </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Email contact info : &nbsp;<span
+                                            class="text-danger">*</span></label>
+                                    <input type="name" class="form-control" formControlName="email" id="inputName"
+                                        placeholder="Enter Contact info" />
+                                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                            *ngIf="(submitted || firstFormGroup.controls['email'].touched) && firstFormGroup.controls['email']?.errors?.required">Email is required
+                                        </div>
+                                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                            *ngIf="(submitted || firstFormGroup.controls['email'].touched) && firstFormGroup.controls['email']?.errors?.pattern">Email format is incorrect.
+                                        </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Type of Ownership :</label>
+                                    <input type="name" class="form-control" formControlName="type" id="inputName"
+                                        placeholder="Enter type of Ownership" />
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputemail" class="mb-1 fw-bold">Date Founded :</label>
+                                    <input type="date" class="form-control" id="inputRegisteredDate" formControlName="date_founded"
+                                        placeholder="DD/MM/YYYY" />
                                 </div>
                             </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Contact info : &nbsp;<span
-                                        class="text-danger">*</span></label>
-                                <input type="name" class="form-control" appNumbersOnly formControlName="contact" id="inputName"
-                                    placeholder="Enter Phone Contact info" />
+                            <!-- <div class="row justify-content-center">
+                                <div class="col-4 text-center mt-3">
+                                    <div class="btn-group">
+                                        <button class="btn btn-md btn-info me-2 rounded shadow" mat-button matStepperNext [disabled]="!firstFormGroup.valid">Next</button>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="mt-2" mat-dialog-actions align="center">
+                                <button mat-raised-button color="primary" mat-button (click)="formStatus(this.firstFormGroup)" >Next</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup">
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel>Fill info</ng-template>
+                            <div class="row mt-xl-3 mt-lg-3 mt-md-3 mt-md-3 mt-2">
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Primary Industry :</label>
+                                    <input type="name" class="form-control" formControlName="industry" id="inputName"
+                                        placeholder="Enter Primary Industry" />
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputAddress2" class="mb-1 fw-bold">Primary Customers Served : &nbsp;<span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control" placeholder="Select Primary served" formControlName="customer">
+                                        <option value="" selected disabled hidden>All of the above</option>
+                                        <option value="All">All</option>
+                                        <option value="B2B">B2B</option>
+                                        <option value="B2C">B2C</option>
+                                        <option value="B2B2C">B2B2C</option>
+                                    </select>
                                     <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                        *ngIf="(submitted || firstFormGroup.controls['contact'].touched) && firstFormGroup.controls['contact']?.errors?.required">Contact is required
+                                        *ngIf="(submitted || secondFormGroup.controls['customer'].touched) && secondFormGroup.controls['customer']?.errors?.required">Customer is required
                                     </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Head Office Address : &nbsp;<span
+                                            class="text-danger">*</span></label>
+                                    <input type="name" class="form-control" formControlName="address" id="inputName"
+                                        placeholder="Enter Head office address" />
                                     <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                        *ngIf="(submitted || firstFormGroup.controls['contact'].touched) && firstFormGroup.controls['contact']?.errors?.minlength">Minimum 10 number are allowed.
+                                        *ngIf="(submitted || secondFormGroup.controls['address'].touched) && secondFormGroup.controls['address']?.errors?.required">Address is required
                                     </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Country :</label>
+                                    <input type="name" class="form-control" formControlName="country" id="inputName"
+                                        placeholder="Enter Country" />
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">State :</label>
+                                    <input type="name" class="form-control" formControlName="state" id="inputName"
+                                        placeholder="Enter State" />
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">City :</label>
+                                    <input type="name" class="form-control" formControlName="city" id="inputName"
+                                        placeholder="Enter City" />
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label class="me-2 mb-1 fw-bold" for="inputRadio">Funding Sought :</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="funding" name="funding"
+                                            id="sought1" value="yes" [(ngModel)]="selectedStatus" (change)="onChange(selectedStatus)">
+                                        <label class="form-check-label" for="sought1">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="funding" name="funding"
+                                            id="sought2" value="no" [(ngModel)]="selectedStatus" (change)="onChange(selectedStatus)">
+                                        <label class="form-check-label" for="sought2">No</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="funding" name="funding"
+                                            id="sought3" value="notDecided" [(ngModel)]="selectedStatus"
+                                            (change)="onChange(selectedStatus)">
+                                        <label class="form-check-label" for="sought3">Not decided</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label class="me-2 mb-1 fw-bold" for="inputRadio">Provide Internships :</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="internship" formControlName="internship"
+                                            id="intern1" value="true">
+                                        <label class="form-check-label" for="intern1">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="internship" formControlName="internship"
+                                            id="intern2" value="false">
+                                        <label class="form-check-label" for="intern2">No</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Website : &nbsp;<span
+                                            class="text-danger">*</span></label>
+                                    <input type="name" class="form-control" formControlName="website" id="inputName"
+                                        placeholder="Enter Website" />
                                     <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                        *ngIf="(submitted || firstFormGroup.controls['contact'].touched) && firstFormGroup.controls['contact']?.errors?.maxlength"> Maximum 16 number are allowed.
+                                        *ngIf="(submitted || secondFormGroup.controls['website'].touched) && secondFormGroup.controls['website']?.errors?.required">Website is required
                                     </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Facebook page :</label>
+                                    <input type="name" class="form-control" formControlName="facebook" id="inputName"
+                                        placeholder="Enter Facebook Page address" />
+                                </div>
                             </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Email contact info : &nbsp;<span
-                                        class="text-danger">*</span></label>
-                                <input type="name" class="form-control" formControlName="email" id="inputName"
-                                    placeholder="Enter Contact info" />
-                                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                        *ngIf="(submitted || firstFormGroup.controls['email'].touched) && firstFormGroup.controls['email']?.errors?.required">Email is required
+                            <!-- <div class="row justify-content-center">
+                                <div class="col-4 text-center mt-3">
+                                    <div class="btn-group">
+                                        <button class="btn btn-md btn-info me-2 rounded shadow" mat-button matStepperPrevious>Back</button>
+                                        <button class="btn btn-md btn-info rounded shadow" mat-button matStepperNext [disabled]="!secondFormGroup.valid">Next</button>
                                     </div>
-                                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                        *ngIf="(submitted || firstFormGroup.controls['email'].touched) && firstFormGroup.controls['email']?.errors?.pattern">Email format is incorrect.
+                                </div>
+                            </div> -->
+                            <div class="mt-2" mat-dialog-actions align="center">
+                                <button mat-raised-button color="warn" class="me-2" matStepperPrevious>Cancel</button>
+                                <button mat-raised-button color="primary" mat-button (click)="formStatus(this.secondFormGroup)">Next</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="thirdFormGroup">
+                        <form [formGroup]="thirdFormGroup">
+                            <ng-template matStepLabel>Done</ng-template>
+                            <div class="row mt-xl-3 mt-lg-3 mt-md-3 mt-md-3 mt-2">
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">LinkedIn page :</label>
+                                    <input type="name" class="form-control" formControlName="linkedin" id="inputName"
+                                        placeholder="Enter LinkedIn Page address" />
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Business Operation Hours :</label>
+                                    <input type="number" class="form-control" formControlName="hours" id="inputName"
+                                        placeholder="Enter Business operation hours" />
+                                </div>
+                                <div class="form-group col-md-12 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Brief Products/Services Offered : &nbsp;<span
+                                            class="text-danger">*</span></label>
+                                            <editor
+                                            [init]="{
+                                                height: 300,
+                                                menubar: false,
+                                                plugins: [
+                                                'advlist autolink lists link image charmap print preview anchor',
+                                                'searchreplace visualblocks code fullscreen',
+                                                'insertdatetime media table paste code help wordcount'
+                                                ],
+                                                toolbar:
+                                                'undo redo | formatselect | bold italic backcolor | \
+                                                alignleft aligncenter alignright alignjustify | \
+                                                bullist numlist outdent indent | removeformat | help'
+                                            }"
+                                            formControlName="description"></editor>
+                                        <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                            *ngIf="(submitted || thirdFormGroup.controls['description'].touched) && thirdFormGroup.controls['description']?.errors?.required">Description is required
+                                        </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">International Operations :</label>
+                                    <input type="name" class="form-control" formControlName="international_operations" id="inputName"
+                                        placeholder="Enter international operations" />
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">No. of Employees :</label>
+                                    <input type="number" class="form-control" formControlName="employee_no" id="inputName"
+                                        placeholder="Enter number of Employees" />
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label class="me-2 mb-1 fw-bold" for="inputRadio">Hiring :</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="hiring" formControlName="hiring" id="hiring1"
+                                            value="true">
+                                        <label class="form-check-label" for="hiring1">Yes</label>
                                     </div>
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Type of Ownership :</label>
-                                <input type="name" class="form-control" formControlName="type" id="inputName"
-                                    placeholder="Enter type of Ownership" />
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputemail" class="mb-1 fw-bold">Date Founded :</label>
-                                <input type="date" class="form-control" id="inputRegisteredDate" formControlName="date_founded"
-                                    placeholder="DD/MM/YYYY" />
-                            </div>
-                        </div>
-                        <!-- <div class="row justify-content-center">
-                            <div class="col-4 text-center mt-3">
-                                <div class="btn-group">
-                                    <button class="btn btn-md btn-info me-2 rounded shadow" mat-button matStepperNext [disabled]="!firstFormGroup.valid">Next</button>
-                                </div>
-                            </div>
-                        </div> -->
-						<div class="mt-2" mat-dialog-actions align="center">
-							<button mat-raised-button color="primary" mat-button (click)="formStatus(this.firstFormGroup)" >Next</button>
-						</div>
-                    </form>
-                </mat-step>
-                <mat-step [stepControl]="secondFormGroup">
-                    <form [formGroup]="secondFormGroup">
-                        <ng-template matStepLabel>Fill info</ng-template>
-                        <div class="row mt-xl-3 mt-lg-3 mt-md-3 mt-md-3 mt-2">
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Primary Industry :</label>
-                                <input type="name" class="form-control" formControlName="industry" id="inputName"
-                                    placeholder="Enter Primary Industry" />
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputAddress2" class="mb-1 fw-bold">Primary Customers Served : &nbsp;<span
-                                        class="text-danger">*</span></label>
-                                <select class="form-control" placeholder="Select Primary served" formControlName="customer">
-                                    <option value="" selected disabled hidden>All of the above</option>
-                                    <option value="All">All</option>
-                                    <option value="B2B">B2B</option>
-                                    <option value="B2C">B2C</option>
-                                    <option value="B2B2C">B2B2C</option>
-                                </select>
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                    *ngIf="(submitted || secondFormGroup.controls['customer'].touched) && secondFormGroup.controls['customer']?.errors?.required">Customer is required
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Head Office Address : &nbsp;<span
-                                        class="text-danger">*</span></label>
-                                <input type="name" class="form-control" formControlName="address" id="inputName"
-                                    placeholder="Enter Head office address" />
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                    *ngIf="(submitted || secondFormGroup.controls['address'].touched) && secondFormGroup.controls['address']?.errors?.required">Address is required
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Country :</label>
-                                <input type="name" class="form-control" formControlName="country" id="inputName"
-                                    placeholder="Enter Country" />
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">State :</label>
-                                <input type="name" class="form-control" formControlName="state" id="inputName"
-                                    placeholder="Enter State" />
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">City :</label>
-                                <input type="name" class="form-control" formControlName="city" id="inputName"
-                                    placeholder="Enter City" />
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label class="me-2 mb-1 fw-bold" for="inputRadio">Funding Sought :</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" formControlName="funding" name="funding"
-                                        id="sought1" value="yes" [(ngModel)]="selectedStatus" (change)="onChange(selectedStatus)">
-                                    <label class="form-check-label" for="sought1">Yes</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" formControlName="funding" name="funding"
-                                        id="sought2" value="no" [(ngModel)]="selectedStatus" (change)="onChange(selectedStatus)">
-                                    <label class="form-check-label" for="sought2">No</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" formControlName="funding" name="funding"
-                                        id="sought3" value="notDecided" [(ngModel)]="selectedStatus"
-                                        (change)="onChange(selectedStatus)">
-                                    <label class="form-check-label" for="sought3">Not decided</label>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label class="me-2 mb-1 fw-bold" for="inputRadio">Provide Internships :</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="internship" formControlName="internship"
-                                        id="intern1" value="true">
-                                    <label class="form-check-label" for="intern1">Yes</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="internship" formControlName="internship"
-                                        id="intern2" value="false">
-                                    <label class="form-check-label" for="intern2">No</label>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Website : &nbsp;<span
-                                        class="text-danger">*</span></label>
-                                <input type="name" class="form-control" formControlName="website" id="inputName"
-                                    placeholder="Enter Website" />
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                    *ngIf="(submitted || secondFormGroup.controls['website'].touched) && secondFormGroup.controls['website']?.errors?.required">Website is required
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Facebook page :</label>
-                                <input type="name" class="form-control" formControlName="facebook" id="inputName"
-                                    placeholder="Enter Facebook Page address" />
-                            </div>
-                        </div>
-                        <!-- <div class="row justify-content-center">
-                            <div class="col-4 text-center mt-3">
-                                <div class="btn-group">
-                                    <button class="btn btn-md btn-info me-2 rounded shadow" mat-button matStepperPrevious>Back</button>
-                                    <button class="btn btn-md btn-info rounded shadow" mat-button matStepperNext [disabled]="!secondFormGroup.valid">Next</button>
-                                </div>
-                            </div>
-                        </div> -->
-						<div class="mt-2" mat-dialog-actions align="center">
-							<button mat-raised-button color="warn" class="me-2" matStepperPrevious>Cancel</button>
-							<button mat-raised-button color="primary" mat-button (click)="formStatus(this.secondFormGroup)">Next</button>
-						</div>
-                    </form>
-                </mat-step>
-                <mat-step [stepControl]="thirdFormGroup">
-                    <form [formGroup]="thirdFormGroup">
-                        <ng-template matStepLabel>Done</ng-template>
-                        <div class="row mt-xl-3 mt-lg-3 mt-md-3 mt-md-3 mt-2">
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">LinkedIn page :</label>
-                                <input type="name" class="form-control" formControlName="linkedin" id="inputName"
-                                    placeholder="Enter LinkedIn Page address" />
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Business Operation Hours :</label>
-                                <input type="number" class="form-control" formControlName="hours" id="inputName"
-                                    placeholder="Enter Business operation hours" />
-                            </div>
-                            <div class="form-group col-md-12 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Brief Products/Services Offered : &nbsp;<span
-                                        class="text-danger">*</span></label>
-										<editor
-										[init]="{
-											height: 300,
-											menubar: false,
-											plugins: [
-											'advlist autolink lists link image charmap print preview anchor',
-											'searchreplace visualblocks code fullscreen',
-											'insertdatetime media table paste code help wordcount'
-											],
-											toolbar:
-											'undo redo | formatselect | bold italic backcolor | \
-											alignleft aligncenter alignright alignjustify | \
-											bullist numlist outdent indent | removeformat | help'
-										}"
-										formControlName="description"></editor>
-                                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                        *ngIf="(submitted || thirdFormGroup.controls['description'].touched) && thirdFormGroup.controls['description']?.errors?.required">Description is required
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="hiring" value="false"
+                                            formControlName="hiring" id="hiring2">
+                                        <label class="form-check-label" for="hiring2">No</label>
                                     </div>
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">International Operations :</label>
-                                <input type="name" class="form-control" formControlName="international_operations" id="inputName"
-                                    placeholder="Enter international operations" />
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">No. of Employees :</label>
-                                <input type="number" class="form-control" formControlName="employee_no" id="inputName"
-                                    placeholder="Enter number of Employees" />
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label class="me-2 mb-1 fw-bold" for="inputRadio">Hiring :</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="hiring" formControlName="hiring" id="hiring1"
-                                        value="true">
-                                    <label class="form-check-label" for="hiring1">Yes</label>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="hiring" value="false"
-                                        formControlName="hiring" id="hiring2">
-                                    <label class="form-check-label" for="hiring2">No</label>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label class="me-2 mb-1 fw-bold" for="inputRadio">Participate in Campus Placement :</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="placement" formControlName="placement"
+                                            id="placement1" value="true">
+                                        <label class="form-check-label" for="placement1">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="placement" formControlName="placement"
+                                            id="placement2" value="false">
+                                        <label class="form-check-label" for="placement2">No</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label class="me-2 mb-1 fw-bold" for="inputRadio">Participate in Campus Placement :</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="placement" formControlName="placement"
-                                        id="placement1" value="true">
-                                    <label class="form-check-label" for="placement1">Yes</label>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="inputEmail4" class="mb-1 fw-bold">Locations Served :</label>
+                                    <input type="name" class="form-control" formControlName="locations" id="inputName"
+                                        placeholder="Enter Location" />
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="placement" formControlName="placement"
-                                        id="placement2" value="false">
-                                    <label class="form-check-label" for="placement2">No</label>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Please upload company logo :</label>
+                                        <input type="file" class="rounded-0.25 custom-form form-control" formControlName="company_logo" (change)="onUploadImage($event)" accept="image/*" />
                                 </div>
                             </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputEmail4" class="mb-1 fw-bold">Locations Served :</label>
-                                <input type="name" class="form-control" formControlName="locations" id="inputName"
-                                    placeholder="Enter Location" />
-                            </div>
-                        </div>
-                        <!-- <div class="row justify-content-center">
-                            <div class="col-4 text-center mt-3">
-                                <div class="btn-group">
-                                    <button class="btn btn-md btn-info me-2 rounded shadow" mat-button matStepperPrevious>Back</button>
-                                    <button class="btn btn-md btn-info rounded shadow" mat-button [disabled]="!thirdFormGroup.valid || !secondFormGroup.valid || !firstFormGroup.valid" (click)="update()">Submit</button>
+                            <!-- <div class="row justify-content-center">
+                                <div class="col-4 text-center mt-3">
+                                    <div class="btn-group">
+                                        <button class="btn btn-md btn-info me-2 rounded shadow" mat-button matStepperPrevious>Back</button>
+                                        <button class="btn btn-md btn-info rounded shadow" mat-button [disabled]="!thirdFormGroup.valid || !secondFormGroup.valid || !firstFormGroup.valid" (click)="update()">Submit</button>
+                                    </div>
                                 </div>
+                            </div> -->
+                            <div class="mt-2" mat-dialog-actions align="center">
+                                <button mat-raised-button color="warn" class="me-2" matStepperPrevious>Cancel</button>
+                                <button mat-raised-button color="primary" mat-button (click)="update()">Submit</button>
                             </div>
-                        </div> -->
-						<div class="mt-2" mat-dialog-actions align="center">
-							<button mat-raised-button color="warn" class="me-2" matStepperPrevious>Cancel</button>
-							<button mat-raised-button color="primary" mat-button (click)="update()">Submit</button>
-						</div>
-                    </form>
-                </mat-step>
-            </mat-horizontal-stepper>
+                        </form>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </ng-container>
         </div>
     </div>
 </div>

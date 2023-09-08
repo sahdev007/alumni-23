@@ -18,16 +18,26 @@ import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '../shared/shared.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AddEditKeyContactComponent } from './add-edit-key-contact/add-edit-key-contact.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { AddEditSocialChannelComponent } from './add-edit-social-channel/add-edit-social-channel.component';
+import { ViewKeyContactComponent } from './view-key-contact/view-key-contact.component';
+import { ViewSbupAlumniSocialChannelComponent } from './view-sbup-alumni-social-channel/view-sbup-alumni-social-channel.component';
 
 
 @NgModule({
   declarations: [
     KeyContactComponent,
-    SbupAlumniSocialChannelComponent
+    SbupAlumniSocialChannelComponent,
+    AddEditKeyContactComponent,
+    AddEditSocialChannelComponent,
+    ViewKeyContactComponent,
+    ViewSbupAlumniSocialChannelComponent
   ],
   imports: [
     CommonModule,
     ContactRoutingModule,
+    EditorModule,
 
     CdkTableModule,
     MatTableModule,

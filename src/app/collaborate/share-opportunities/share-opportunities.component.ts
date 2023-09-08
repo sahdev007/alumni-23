@@ -8,9 +8,9 @@ import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CollaborateService } from 'src/app/services/collaborate.service';
 import { Config } from 'src/app/services/config';
-import { EditShareOpportunitiesComponent } from 'src/app/shared/dialog/collaborate/edit-share-opportunities/edit-share-opportunities.component';
 import { ViewShareOpportunityComponent } from 'src/app/shared/dialog/collaborate/view-share-opportunity/view-share-opportunity.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-share-opportunities',
@@ -19,11 +19,12 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
 })
 export class ShareOpportunitiesComponent implements OnInit {
 
+  imgPath: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['author', 'specialization', 'type'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'position', 'salary', 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', 'profile_pic', ...this.displayedColumns, 'position', 'salary', 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -43,6 +44,7 @@ export class ShareOpportunitiesComponent implements OnInit {
     ) {
       this.status = this.config?.status
       this.dataSource = new MatTableDataSource<Person>();
+      this.imgPath = environment?.imgUrl;
   }
 
 
@@ -149,24 +151,11 @@ export class ShareOpportunitiesComponent implements OnInit {
    * @param params 
    */
   edit(data: any, params: any) {
-    console.log(data, params)
-    const dialogRef = this.dialog.open(EditShareOpportunitiesComponent, {
-      width: '450px',
-      data: {data: data, action: params}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+    this.router.navigate(['/collaborate/add-edit-share-opportunities'], {queryParams: {id: data?.id, action: params}});
   }
 
   view(data: any) {
-    const dialogRef = this.dialog.open(ViewShareOpportunityComponent, {
-      width: '450px',
-      data: {data: data}
-    });
+    this.router.navigate(['/collaborate/view-share-opportunities'], {queryParams: {id: data?.id}});
   }
   
   /**

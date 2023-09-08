@@ -34,6 +34,8 @@
         "chart.js": "^2.9.4",
         "date-fns": "2.16.1",
         "flatpickr": "^4.6.6",
+        "grapesjs": "^0.15.10",
+        "grapesjs-preset-webpage": "^1.0.3",
         "hammerjs": "^2.0.8",
         "highcharts": "^9.1.0",
         "highcharts-angular": "^2.10.0",
@@ -42,6 +44,7 @@
         "jszip": "^3.7.1",
         "minireset.css": "~0.0.4",
         "ng2-charts": "^2.4.2",
+        "ngx-pagination": "^6.0.3",
         "ngx-perfect-scrollbar": "^10.1.1",
         "ngx-star-rating": "^2.1.0",
         "rxjs": "~7.5.0",
@@ -49,6 +52,7 @@
         "sweetalert2": "^11.7.18",
         "text-mask-addons": "^3.8.0",
         "tslib": "^2.3.0",
+        "xlsx": "^0.15.6",
         "zone.js": "~0.11.4"
     },
     "devDependencies": {

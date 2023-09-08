@@ -10,6 +10,7 @@ import { CollaborateService } from 'src/app/services/collaborate.service';
 import { Config } from 'src/app/services/config';
 import { ViewExpertiseComponent } from 'src/app/shared/dialog/collaborate/view-expertise/view-expertise.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-offer-expertise',
@@ -17,12 +18,12 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./offer-expertise.component.scss']
 })
 export class OfferExpertiseComponent implements OnInit {
-
+  imgPath: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['author', 'workshopTopic', 'type', 'dateTime'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', 'profile_pic', ...this.displayedColumns, 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -42,6 +43,7 @@ export class OfferExpertiseComponent implements OnInit {
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
+      this.imgPath = environment?.imgUrl;
   }
 
 
@@ -143,10 +145,12 @@ export class OfferExpertiseComponent implements OnInit {
   }
 
   view(data: any) {
-    const dialogRef = this.dialog.open(ViewExpertiseComponent, {
-      width: '500px',
-      data: {data: data}
-    });
+    this.router.navigate(['/collaborate/view-offer-expertise'], {queryParams:{id: data?.id}});
+    
+    // const dialogRef = this.dialog.open(ViewExpertiseComponent, {
+    //   width: '500px',
+    //   data: {data: data}
+    // });
   }
 
   

@@ -5,6 +5,13 @@ export const environment = {
   // imgUrl: "https://swadeshdigital.com/sbsAlumni/public/",
   
   apiUrl: "https://mirchidigital.co.in/sbsAlumni/api",
-  imgUrl: "https://mirchidigital.co.in/sbsAlumni/public/"
+  imgUrl: "https://mirchidigital.co.in/sbsAlumni/public/",
+
+  roles: {
+    ADMIN: 'admin',
+    SUPERADMIN: "superAdmin",
+    MANAGER: "manager"
+  }
+
 
 };

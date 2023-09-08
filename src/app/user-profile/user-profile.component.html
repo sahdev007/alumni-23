@@ -20,23 +20,60 @@
         <div class="col-lg-12 align-middle">
             <form [formGroup]="profileForm">
                 <div class="card d-flex align-items-center flex-row">
-                    <img src="{{(profileData?.Users?.profile_pic)? imgPath + profileData?.Users?.profile_pic :  'assets/images/avatars/user-avatar.webp'}}" class="avatars rounded-circle  card-img-top mx-auto ms-3 " alt="...">
-                    <input name="img" class="upload-profile-pic" type="file" *ngIf="type  ? 'disabled' : ''"  formControlName="profile_pic" id="formGroupLink" (change)="onUploadImage($event)" accept="image/*" />
-                    <i class="lni lni-pencil rounded-circle bg-primary p-1 text-white "></i>
-                    <div class="page-loading" *ngIf="loading">
-                        <div class="spinner-border" role="status"> <span class="visually-hidden">Loading...</span>
+                    <div class="imgIcon position-relative" style="overflow: hidden;">
+                        <img src="{{(profileData?.Users?.profile_pic)? imgPath + profileData?.Users?.profile_pic :  'assets/images/avatars/user-avatar.webp'}}" class="avatars rounded-circle  card-img-top mx-auto ms-3 " alt="...">
+                        <input name="img" class="upload-profile-pic" type="file" *ngIf="type  ? 'disabled' : ''"  formControlName="profile_pic" id="formGroupLink" (change)="onUploadImage($event)" accept="image/*" />
+                        <i class="bx bx-pencil rounded-circle bg-primary p-1 text-white position-absolute bottom-0 end-0" ></i>
+                        <div class="page-loading" *ngIf="loading">
+                            <div class="spinner-border" role="status"> <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="card-body ms-3">
-                        <h5 class="card-title">{{profileData?.Users?.first_name}} {{profileData?.Users?.middle_name}} {{profileData?.Users?.last_name}}</h5>
-                        <div class="lh-3"><span class="text-primary">&nbsp;{{profileData?.Users?.email}}</span>&nbsp;,<span class="text-primary">&nbsp;<a href="tel:{{profileData?.Users?.mobile_number}}">{{profileData?.Users?.mobile_number}}</a></span><br>
-                            <span class="text-primary">&nbsp; {{profileData?.Users?.city}}</span>,<span class="text-primary">&nbsp;{{profileData?.Users?.country}}</span></div>
-
+                    <div class="card-body d-flex align-items-center justify-content-between ms-3 text-center profileInfo">
+                        <div class="text-start">
+                            <h5 class="card-title text-dark">{{profileData?.Users?.first_name}} {{profileData?.Users?.middle_name}} {{profileData?.Users?.last_name}}</h5>
+                            <div class="lh-3 otherInfo"><span class="text-dark"><strong>Email :</strong>&nbsp;{{profileData?.Users?.email}}</span>&nbsp;<br/><span class="text-dark"><strong>Mobile Number :</strong>&nbsp;<a class="text-primary" href="tel:{{profileData?.Users?.mobile_number}}">{{profileData?.Users?.mobile_number}}</a></span><br></div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="card border-primary border-1 pointsCard p-2 mx-2 my-2 shadow-sm">
+                                <h5 class="mt-2 mb-2 text-dark fw-bold">My Level</h5>
+                                <div class="roundPoint d-flex align-items-center justify-content-center">
+                                    <span class="totalPoints">50</span>
+                                </div>
+                                <section class="example-section mt-2">
+                                    <mat-progress-bar
+                                        class="example-margin"
+                                        [color]="color"
+                                        [mode]="mode"
+                                        [value]="value"
+                                        [bufferValue]="bufferValue">
+                                    </mat-progress-bar>
+                                </section>
+                                <p class="d-flex justify-content-between align-items-center fw-bold" style="font-size: 12px;"><span>5000 to next level</span> <span>50%</span></p>
+                            </div>
+                            <div class="card border-primary border-1 pointsCard p-2 mx-2 my-2 shadow-sm">
+                                <h5 class="mt-2 mb-2 text-dark fw-bold">My Level</h5>
+                                <div class="roundPoint d-flex align-items-center justify-content-center">
+                                    <span class="totalPoints">50</span>
+                                </div>
+                                <section class="example-section mt-2">
+                                    <mat-progress-bar
+                                        class="example-margin"
+                                        [color]="color"
+                                        [mode]="mode"
+                                        [value]="value"
+                                        [bufferValue]="bufferValue">
+                                    </mat-progress-bar>
+                                </section>
+                                <p class="d-flex justify-content-between align-items-center fw-bold" style="font-size: 12px;"><span>7000 to next level</span> <span>25%</span></p>
+                            </div>
+                        </div>
+                        
                     </div>
-                    <div class="card d-flex align-items-right flex-row me-3">
+                    <div class="card d-flex align-self-start flex-row me-3 my-3 " *ngIf="!isFormEditable">
                         <div class="col">
-                            <button type="button" class="btn btn-primary px-3" (click)="edit()" *ngIf="!isFormEditable">Edit Profile <i class='lni lni-pencil-alt'></i></button>
+                            <button type="button" class="btn btn-primary px-3" (click)="edit()" >Edit Profile <i class='bx bx-pencil fs-6' style="font-size: 14px;"></i></button>
                             <!-- <button type="button" class="btn btn-primary px-3" (click)="save()" *ngIf="isFormEditable">Save</button> -->
                         </div>
                     </div>
@@ -83,6 +120,30 @@
                             <a class="nav-link" data-bs-toggle="pill" href="#education" role="tab" aria-selected="false">
                                 <div class="d-flex align-items-center">
                                     <div class="tab-title">Education
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item border border-primary rounded" role="presentation">
+                            <a class="nav-link" data-bs-toggle="pill" href="#education" role="tab" aria-selected="false">
+                                <div class="d-flex align-items-center">
+                                    <div class="tab-title">My Activities
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item border border-primary rounded" role="presentation">
+                            <a class="nav-link" data-bs-toggle="pill" href="#education" role="tab" aria-selected="false">
+                                <div class="d-flex align-items-center">
+                                    <div class="tab-title">My Communities
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item border border-primary rounded" role="presentation">
+                            <a class="nav-link" data-bs-toggle="pill" href="#education" role="tab" aria-selected="false">
+                                <div class="d-flex align-items-center">
+                                    <div class="tab-title">My Events
                                     </div>
                                 </div>
                             </a>

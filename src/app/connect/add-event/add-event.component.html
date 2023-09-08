@@ -163,144 +163,147 @@
             <hr/>
             <div class="card border-top border-0 border-4 border-primary">
                 <div class="card-body p-5">
-                    <form class="example-form" [formGroup]="addEventForm">
-                        <div class="row">
-                            <div class="col-lg-12 mb-3">
-                                <!-- <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng"></agm-map> -->
-                            </div>
-                        </div>
-                        <div class="mb-3 row justify-content-center">
-                            <label for="staticEmail" class="col-sm-2 col-xl-3 col-lg-3 col-form-label fw-bold">
-                    Title  <span class="text-danger">*</span></label>
-                            <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
-                                <input type="text" formControlName="title" class="form-control" placeholder="Enter Title here">
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                    *ngIf="(submitted || addEventForm.controls['title'].touched) && addEventForm.controls['title']?.errors?.required">Event name is required.
+                    <app-loader *ngIf="loading"></app-loader>
+                    <ng-container *ngIf="!loading">
+                        <form class="example-form" [formGroup]="addEventForm">
+                            <div class="row">
+                                <div class="col-lg-12 mb-3">
+                                    <!-- <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng"></agm-map> -->
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row justify-content-center">
-                            <label for="formGroupExampleInput" class="col-sm-2 col-xl-3 col-lg-3 col-form-label fw-bold">Event
-                      Type  <span class="text-danger">*</span></label>
-                            <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
-                                <select class="form-select" aria-label="Default select example" formControlName="eventsType_id">
-                                    <option value="" selected>Select event type</option>
-                                    <option *ngFor="let item of updateEventTypes; index as i;" [value]="item?.id">{{item?.type}}</option>
-                                </select>
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                    *ngIf="(submitted || addEventForm.controls['eventsType_id'].touched) && addEventForm.controls['eventsType_id']?.errors?.required">Event type is required.
+                            <div class="mb-3 row justify-content-center">
+                                <label for="staticEmail" class="col-sm-2 col-xl-3 col-lg-3 col-form-label fw-bold">
+                        Title  <span class="text-danger">*</span></label>
+                                <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
+                                    <input type="text" formControlName="title" class="form-control" placeholder="Enter Title here">
+                                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                        *ngIf="(submitted || addEventForm.controls['title'].touched) && addEventForm.controls['title']?.errors?.required">Event name is required.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row justify-content-center">
-                            <label for="formGroupExampleInput" class="col-sm-2 col-xl-3 col-lg-3 col-form-label fw-bold">Start Date & Time <span class="text-danger">*</span></label>
-                            <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
-                                <input type="date" class="form-control" formControlName="date" id="formGroupExampleInput" placeholder="Enter date" />
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.date.touched || submitted) && f.date.errors?.required">
-                                    Start Date & Time is required.
+                            <div class="mb-3 row justify-content-center">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-xl-3 col-lg-3 col-form-label fw-bold">Event
+                        Type  <span class="text-danger">*</span></label>
+                                <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
+                                    <select class="form-select" aria-label="Default select example" formControlName="eventsType_id">
+                                        <option value="" selected>Select event type</option>
+                                        <option *ngFor="let item of updateEventTypes; index as i;" [value]="item?.id">{{item?.type}}</option>
+                                    </select>
+                                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                        *ngIf="(submitted || addEventForm.controls['eventsType_id'].touched) && addEventForm.controls['eventsType_id']?.errors?.required">Event type is required.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row justify-content-center">
-                            <label for="staticEmail" class="col-sm-2 col-xl-3 col-lg-3 col-form-label fw-bold">Venue <span class="text-danger">*</span></label>
-                            <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
-                                <input type="text" class="form-control" formControlName="venue" id="formGroupExampleInput" placeholder="Enter event venue" />
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                    *ngIf="(submitted || addEventForm.controls['venue'].touched) && addEventForm.controls['venue']?.errors?.required">Venue is required.
+                            <div class="mb-3 row justify-content-center">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-xl-3 col-lg-3 col-form-label fw-bold">Start Date & Time <span class="text-danger">*</span></label>
+                                <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
+                                    <input type="date" class="form-control" formControlName="date" id="formGroupExampleInput" placeholder="Enter date" />
+                                    <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.date.touched || submitted) && f.date.errors?.required">
+                                        Start Date & Time is required.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row justify-content-center">
-                            <label for="staticEmail" class="col-sm-2 col-xl-3 col-lg-3 col-form-label fw-bold">Price <span class="text-danger">*</span></label>
-                            <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
-                                <input type="text" class="form-control" appNumbersOnly formControlName="cost" id="formGroupExampleInput" placeholder="Enter price" />
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.cost.touched || submitted) && f.cost.errors?.required">
-                                    Cost is required.
-                                </div>
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                    *ngIf="(submitted || addEventForm.controls['cost'].touched) && addEventForm.controls['cost']?.errors?.required">Cost is required.
+                            <div class="mb-3 row justify-content-center">
+                                <label for="staticEmail" class="col-sm-2 col-xl-3 col-lg-3 col-form-label fw-bold">Venue <span class="text-danger">*</span></label>
+                                <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
+                                    <input type="text" class="form-control" formControlName="venue" id="formGroupExampleInput" placeholder="Enter event venue" />
+                                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                        *ngIf="(submitted || addEventForm.controls['venue'].touched) && addEventForm.controls['venue']?.errors?.required">Venue is required.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row justify-content-center">
-                            <label for="formGroupExampleInput" class="col-md-2 col-xl-3 col-lg-3 col-form-label fw-bold">Event
-                    Image <span class="text-danger">*</span></label>
-                            <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
-                                <input type="file" class="form-control" id="formGroupLink" (change)="onUploadImage($event)" accept="image/*" />
-                                <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.eventImage.touched || submitted) && f.eventImage.errors?.required">
-                                    Event image is required.
+                            <div class="mb-3 row justify-content-center">
+                                <label for="staticEmail" class="col-sm-2 col-xl-3 col-lg-3 col-form-label fw-bold">Price <span class="text-danger">*</span></label>
+                                <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
+                                    <input type="text" class="form-control" appNumbersOnly formControlName="cost" id="formGroupExampleInput" placeholder="Enter price" />
+                                    <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.cost.touched || submitted) && f.cost.errors?.required">
+                                        Cost is required.
+                                    </div>
+                                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                        *ngIf="(submitted || addEventForm.controls['cost'].touched) && addEventForm.controls['cost']?.errors?.required">Cost is required.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- <div class="mb-3 row justify-content-center">
-                            <div class="col-md-6 text-center">
-                                <ng-container *ngIf="image !== undefined">
-                                    <img [src]="image" class="img-fluid h-md-75 my-2" alt="picture">
-                                </ng-container>
-                                <ng-container *ngIf="image == undefined">
-                                    <img [src]="imgPath + userData?.eventImage" class="img-fluid h-md-75 my-3" alt="picture">
-                                </ng-container>
-                            </div>
-                        </div> -->
-                        <div class="mb-3 row justify-content-center">
-                            <div class="col-md-6 text-center">
-                                <ng-container *ngIf="image !== undefined">
-                                    <img [src]="image" class="img-fluid h-md-75 my-2" alt="picture">
-                                </ng-container>
-                                <ng-container *ngIf="image == undefined">
-                                    <img [src]="imgPath + userData?.eventImage" class="img-fluid h-md-75 my-3" alt="picture">
-                                </ng-container>
-                            </div>
-                        </div>
-        
-                        <div class="mb-3 row justify-content-center">
-                            <label for="formGroupExampleInput" class="col-md-2 col-xl-3 col-lg-3 col-form-label fw-bold">Expiry Date & Time <span class="text-danger">*</span></label>
-                            <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
-                                <input type="date" class="form-control" formControlName="date" id="formGroupExampleInput" placeholder="Enter date" />
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                    *ngIf="(submitted || addEventForm.controls['date'].touched) && addEventForm.controls['date']?.errors?.required">Date & Time is required.
+                            <div class="mb-3 row justify-content-center">
+                                <label for="formGroupExampleInput" class="col-md-2 col-xl-3 col-lg-3 col-form-label fw-bold">Event
+                        Image <span class="text-danger">*</span></label>
+                                <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
+                                    <input type="file" class="form-control" id="formGroupLink" (change)="onUploadImage($event)" accept="image/*" />
+                                    <div class="invalidText text-start fw-bold mt-2 mb-0 alert alert-danger p-1 text-danger" *ngIf="(f.eventImage.touched || submitted) && f.eventImage.errors?.required">
+                                        Event image is required.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row justify-content-center">
-                            <label for="formGroupExampleInput" class="col-md-2 col-xl-3 col-lg-3 col-form-label fw-bold">Event Status <span class="text-danger">*</span></label>
-                            <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
-                                <select class="form-select form-control text-capitalize" aria-label="Default select example" formControlName="status">
-                                    <option value="" selected>Select Status</option>
-                                    <option class="text-capitalize" *ngFor="let item of eventStat; index as i;" [value]="item?.value">{{item?.value}}</option>
-                                </select>
-                            </div>
-                        </div>           
-                        <div class="mb-3 row justify-content-center">
-                            <label for="formGroupExampleInput" class="col-md-2 col-xl-3 col-lg-3 col-form-label fw-bold">Description <span class="text-danger">*</span></label>
-                            <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
-                                <editor required formControlName="description"
-                                [init]="{
-                                    height: 200,
-                                    menubar: true,
-                                    plugins: [
-                                    'advlist autolink lists link image charmap print preview anchor',
-                                    'searchreplace visualblocks code fullscreen',
-                                    'insertdatetime media table paste code help wordcount'
-                                    ],
-                                    toolbar:
-                                    'undo redo | formatselect | bold italic backcolor | \
-                                    alignleft aligncenter alignright alignjustify | \
-                                    bullist numlist outdent indent | removeformat | help'
-                                }"
-                                ></editor>
-                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
-                                    *ngIf="(submitted || addEventForm.controls['description'].touched) && addEventForm.controls['description']?.errors?.required">Description is required.
+                            <!-- <div class="mb-3 row justify-content-center">
+                                <div class="col-md-6 text-center">
+                                    <ng-container *ngIf="image !== undefined">
+                                        <img [src]="image" class="img-fluid h-md-75 my-2" alt="picture">
+                                    </ng-container>
+                                    <ng-container *ngIf="image == undefined">
+                                        <img [src]="imgPath + userData?.eventImage" class="img-fluid h-md-75 my-3" alt="picture">
+                                    </ng-container>
+                                </div>
+                            </div> -->
+                            <div class="mb-3 row justify-content-center">
+                                <div class="col-md-6 text-center">
+                                    <ng-container *ngIf="image !== undefined">
+                                        <img [src]="image" class="img-fluid h-md-75 my-2" alt="picture">
+                                    </ng-container>
+                                    <ng-container *ngIf="image == undefined">
+                                        <img [src]="imgPath + userData?.eventImage" class="img-fluid h-md-75 my-3" alt="picture">
+                                    </ng-container>
                                 </div>
                             </div>
-                        </div> 
-                        <div class="row justify-content-center mb-3">
-                            <div class="my-2 pb-4" mat-dialog-actions align="center">
-                                <button mat-raised-button color="warn" class="me-2" type="button" (click)="clickToBack()">Back</button>
-                                <button mat-raised-button color="primary" (click)="addEvent()" >Update</button>
+            
+                            <div class="mb-3 row justify-content-center">
+                                <label for="formGroupExampleInput" class="col-md-2 col-xl-3 col-lg-3 col-form-label fw-bold">Expiry Date & Time <span class="text-danger">*</span></label>
+                                <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
+                                    <input type="date" class="form-control" formControlName="date" id="formGroupExampleInput" placeholder="Enter date" />
+                                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                        *ngIf="(submitted || addEventForm.controls['date'].touched) && addEventForm.controls['date']?.errors?.required">Date & Time is required.
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                            <div class="mb-3 row justify-content-center">
+                                <label for="formGroupExampleInput" class="col-md-2 col-xl-3 col-lg-3 col-form-label fw-bold">Event Status <span class="text-danger">*</span></label>
+                                <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
+                                    <select class="form-select form-control text-capitalize" aria-label="Default select example" formControlName="status">
+                                        <option value="" selected>Select Status</option>
+                                        <option class="text-capitalize" *ngFor="let item of eventStat; index as i;" [value]="item?.value">{{item?.value}}</option>
+                                    </select>
+                                </div>
+                            </div>           
+                            <div class="mb-3 row justify-content-center">
+                                <label for="formGroupExampleInput" class="col-md-2 col-xl-3 col-lg-3 col-form-label fw-bold">Description <span class="text-danger">*</span></label>
+                                <div class="col-sm-10 col-xl-8 col-lg-8 col-md-5">
+                                    <editor required formControlName="description"
+                                    [init]="{
+                                        height: 200,
+                                        menubar: true,
+                                        plugins: [
+                                        'advlist autolink lists link image charmap print preview anchor',
+                                        'searchreplace visualblocks code fullscreen',
+                                        'insertdatetime media table paste code help wordcount'
+                                        ],
+                                        toolbar:
+                                        'undo redo | formatselect | bold italic backcolor | \
+                                        alignleft aligncenter alignright alignjustify | \
+                                        bullist numlist outdent indent | removeformat | help'
+                                    }"
+                                    ></editor>
+                                    <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                        *ngIf="(submitted || addEventForm.controls['description'].touched) && addEventForm.controls['description']?.errors?.required">Description is required.
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row justify-content-center mb-3">
+                                <div class="my-2 pb-4" mat-dialog-actions align="center">
+                                    <button mat-raised-button color="warn" class="me-2" type="button" (click)="clickToBack()">Back</button>
+                                    <button mat-raised-button color="primary" (click)="addEvent()" >Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </ng-container>
                 </div>
             </div>
         </div>

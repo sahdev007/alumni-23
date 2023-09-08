@@ -1,0 +1,61 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/media/gallery">Media</a>
+                </li>
+                <li class="breadcrumb-item"><a routerLink="/media/news-and-updates">News and Updates</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">View News and Updates</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+<div class="container pt-4">
+    <!-- <h5 class="mb-0 text-center fw-bold">View News and Updates</h5> -->
+    <div class="card border-top border-0 border-4 border-primary my-3 mb-5">
+        <div class="card-body px-5 py-3">
+            <app-loader *ngIf="loading"></app-loader>
+            <ng-container *ngIf="!loading">
+                <div class="row">
+                    <div class="col-xl-6 my-xl-2" *ngIf="newsData?.author">
+                        <label class="form-label mb-1 fw-bold fs-6">Author :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ newsData?.author }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="newsData?.title">
+                        <label class="form-label mb-1 fw-bold fs-6">Title :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ newsData?.title }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="newsData?.expiryDate">
+                        <label class="form-label mb-1 fw-bold fs-6">Expiry Date & Time  :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ newsData?.expiryDate }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="newsData?.status">
+                        <label class="form-label mb-1 fw-bold fs-6">Status :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">
+                    {{ newsData?.status == "active" ? 'Active': 'Inactive' }}
+                        </p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="newsData?.created_at">
+                        <label class="form-label mb-1 fw-bold fs-6">Created At :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ newsData?.created_at | date }}</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 my-xl-2" *ngIf="newsData?.newsImage">
+                            <img [src]="imgPath + newsData?.newsImage " class="img-fluid my-2" alt="picture">
+                        </div>
+                    </div>
+                    <div class="col-xl-12 my-xl-2" *ngIf="newsData?.description">
+                        <label class="form-label mb-1 fw-bold fs-6">Description :</label><br />
+                        <div [innerHtml]="newsData?.description"></div>
+                    </div>
+
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

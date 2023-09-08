@@ -1,0 +1,109 @@
+
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/contact/key-contact">Contact</a>
+                </li>
+                <li class="breadcrumb-item text-capitalize"><a routerLink="/contact/key-contact">Key Contact</a>
+                </li>
+                <li class="breadcrumb-item active text text-capitalize" aria-current="page">{{ pageType !== 'update-contact' ? 'Add' : 'Update' }} Contact</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+
+<div class="row">
+    <div class="col-xl-9 mx-auto">
+        <!-- <h5 class="mb-3 text-center fw-bold">{{ pageType !== 'update-journey' ? 'Add' : 'Update' }} {{type}}</h5>
+        <hr/> -->
+        <div class="card border-top border-0 border-4 border-primary">
+            <div class="card-body p-5">
+                <app-loader *ngIf="loading"></app-loader>
+                <ng-container *ngIf="!loading">
+                    <form class="example-form" [formGroup]="form">
+                        <div class="mb-3 row">
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="staticEmail" class="col-form-label fw-bold">Title : <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="title" class="form-control" placeholder="Enter title here">
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || form.controls['title'].touched) && form.controls['title']?.errors?.required">Title is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="staticEmail" class="col-form-label fw-bold">Phone : <span class="text-danger">*</span></label>
+                                <input type="text" appNumbersOnly formControlName="phone" class="form-control" placeholder="Enter phone here">
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || form.controls['phone'].touched) && form.controls['phone']?.errors?.required">Phone number is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="staticEmail" class="col-form-label fw-bold">Email : <span class="text-danger">*</span></label>
+                                <input type="email" formControlName="email" class="form-control" placeholder="Enter email here">
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || form.controls['email'].touched) && form.controls['email']?.errors?.required">Email is required.
+                                </div>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || form.controls['email'].touched) && form.controls['email']?.errors?.pattern ">Email format is incorrect.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="staticEmail" class="col-form-label fw-bold">Designation : <span class="text-danger">*</span></label>
+                                <input type="email" formControlName="designation" class="form-control" placeholder="Enter designation here">
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || form.controls['designation'].touched) && form.controls['designation']?.errors?.required">Designation is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="formGroupExampleInput" class="col-form-label fw-bold ">Status</label>
+                                <select formControlName="status" class="form-select rounded-0.25">
+                                    <option value="" selected>Choose your Option</option>
+                                    <option [value]="item?.status" *ngFor="let item of status; let i=index;">
+                                        {{ item?.status == "active" ? 'Active' : 'Inactive' }}
+                                    </option>
+                                </select>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || form.controls['status'].touched) && form.controls['status']?.errors?.required">Status is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-12">
+                                <label for="inputEmail4" class="mb-1 fw-bold">Description : &nbsp;<span
+                                        class="text-danger">*</span></label>
+								<editor	[init]="{
+											height: 300,
+											menubar: false,
+											plugins: [
+											'advlist autolink lists link image charmap print preview anchor',
+											'searchreplace visualblocks code fullscreen',
+											'insertdatetime media table paste code help wordcount'
+											],
+											toolbar:
+											'undo redo | formatselect | bold italic backcolor | \
+											alignleft aligncenter alignright alignjustify | \
+											bullist numlist outdent indent | removeformat | help'
+										}"
+										formControlName="description">
+                                </editor>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || form.controls['description'].touched) && form.controls['description']?.errors?.required">Description is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-4">
+                            <div class="row justify-content-center">
+                                <div class="my-2" mat-dialog-actions align="center">
+                                    <button mat-raised-button color="warn" class="me-2" [routerLink]="['/contact/key-contact']">Back</button>
+                                    <button mat-raised-button color="primary" (click)="save()">{{ pageType !== 'update-contact' ? 'Add' : 'Update' }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

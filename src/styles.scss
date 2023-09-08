@@ -21,7 +21,7 @@
             
             body {
                 margin: 0;
-                font-family: Roboto, "Helvetica Neue", sans-serif;
+                font-family: Roboto, sans-serif;
             }
             
             .user-profile.view {
@@ -50,6 +50,9 @@
             body {
                 margin: 0;
                 font-family: Roboto, "Helvetica Neue", sans-serif;
+            }
+            p{
+                margin: 0px !important;
             }
             
             .isActive {
@@ -82,6 +85,57 @@
             .isInactive:focus {
                 box-shadow: none;
             }
+            .tableImg{
+                width: 56px;
+                height: 56px;
+                // border-radius: 50%;
+                object-fit: cover;
+                margin: 8px 12px 8px 2px;
+                cursor: pointer;
+            }
+            .displayItems {
+                cursor: pointer;
+            }
+            .listBg{
+                background-color: #3D5EE1;
+                color: #fff;
+                border-radius: 6px;
+            }
+            .gridBg {
+                background-color: #E9E9E9;
+                color:#3D5EE1;
+                border-radius: 6px;
+            }
+
+            .table-responsive {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                .mat-table {
+                    width: 100%;
+                    max-width: 100%;
+                    margin-bottom: 1rem;
+                    display: table;
+                    border-collapse: collapse;
+                    margin: 0px;
+                }
+                .mat-row,
+                .mat-header-row {
+                    display: table-row;
+                }
+                .mat-cell,
+                .mat-header-cell {
+                    word-wrap: initial;
+                    display: table-cell;
+                    padding: 5px 20px;
+                    line-break: unset;
+                    width: auto;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    vertical-align: middle;
+                }
+              }
+
 
             .mat-sort-header,
             .mat-header-cell{
@@ -113,6 +167,10 @@
                 max-height: 168px !important;
             }
 
+            th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
+                max-width: 220px !important;
+            }
+
             .tox .tox-statusbar a{
                 display: none !important;
             }
@@ -121,7 +179,7 @@
                     .cdk-overlay-pane{
                         position: relative !important;
                         .mat-dialog-container{
-                            border-radius: 20px !important;
+                            border-radius: 10px !important;
                             .mat-dialog-title{
                                 .mat-icon{
                                     color: #3f51b5 !important;

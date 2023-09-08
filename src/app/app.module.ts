@@ -72,7 +72,6 @@ import { ApplicationModule } from './application/application.module';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule,
     SharedModule,
     AuthModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyDKXKdHQdtqgPVl2HI2RnUa_1bjCxRCQo4'}),

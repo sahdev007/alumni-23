@@ -17,11 +17,12 @@ export class NavbarComponent implements OnInit{
     showCloseIcon: boolean = false;
     currentUser:any;
     imgPath = environment.imgUrl;
+    role: any
     constructor(public sidebarservice: SidebarService,
         private authService: AuthService,
         public router: Router,
         @Inject(DOCUMENT) private document: any) {
-            
+            this.role = this.authService.getUserRole();
          }
         
     toggleSidebar() {

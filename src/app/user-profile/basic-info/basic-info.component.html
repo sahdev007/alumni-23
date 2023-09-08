@@ -73,8 +73,8 @@
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-9 col-9">
-                                <label class=" form-label fw-bold">Mobile Number <span class="text-danger">*</span></label>
-                                <input type="text" formControlName="mobile_number" appNumbersOnly class="form-control" placeholder="Enter Number">
+                                <label class=" form-label fw-bold">Mobile number <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="mobile_number" appNumbersOnly class="form-control" placeholder="Enter mobile number">
                                 <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || basicInfoForm.controls['mobile_number'].touched) && basicInfoForm.controls['mobile_number'].errors?.required">
                                     Mobile number is required.
                                 </div>
@@ -114,7 +114,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 my-xl-3 my-lg-3 my-2">
-                        <label class=" form-label fw-bold">Personal email Id <span class="text-danger">*</span></label>
+                        <label class=" form-label fw-bold">Personal email id <span class="text-danger">*</span></label>
                         <input type="email" class="form-control" formControlName="email" placeholder="Enter personal email">
                         <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || basicInfoForm.controls['email'].touched) && basicInfoForm.controls['email'].errors?.required">
                             Personal email is required.
@@ -124,7 +124,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 my-xl-3 my-lg-3 my-2">
-                        <label class=" form-label fw-bold">Office email Id </label>
+                        <label class=" form-label fw-bold">Office email id </label>
                         <input type="email" class="form-control" formControlName="office_email" placeholder="Enter offical mail">
                     </div>
                     <div class="col-lg-4 col-md-6 my-xl-3 my-lg-3 my-2">
@@ -145,7 +145,7 @@
 
                 <div class="row">
                     <div class="col-lg-4 col-md-6 my-xl-3 my-lg-3 my-2">
-                        <label class=" form-label fw-bold">Birthdate <span class="text-danger">*</span></label>
+                        <label class=" form-label fw-bold">Birth date <span class="text-danger">*</span></label>
                         <input type="date" placeholder="DD/MM/YYYY" formControlName="birth_date" class="form-control">
                         <!-- <input type="text" placeholder="DD/MM/YYYY" formControlName="birth_date" class="form-control"
                                 bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"> -->
@@ -165,7 +165,7 @@
                     <div class="col-lg-4 col-md-6 my-xl-3 my-lg-3 my-2">
                         <label for="exampleFormControlTextarea1" class=" form-label fw-bold">Current address <span
                                 class="text-danger">*</span></label>
-                        <textarea class="form-control" formControlName="current_address" id="exampleFormControlTextarea1" rows="2"></textarea>
+                        <textarea class="form-control" formControlName="current_address" id="exampleFormControlTextarea1" rows="2" placeholder="Enter current address"></textarea>
                         <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || basicInfoForm.controls['current_address'].touched) && basicInfoForm.controls['current_address'].errors?.required">
                             Current address is required.
                         </div>
@@ -178,10 +178,10 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-lg-4 col-md-6 my-xl-3 my-lg-3 my-2">
+                    <!-- <div class="col-lg-4 col-md-6 my-xl-3 my-lg-3 my-2">
                         <label class="form-label fw-bold">Other current country </label>
                         <input type="text" class="form-control" formControlName="other_current_country" placeholder="Other country">
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="row">
@@ -189,14 +189,14 @@
                         <label class=" form-label fw-bold">Current region </label>
                         <select class="form-select" formControlName="current_region">
                             <option value="" selected disabled>Select region</option>
-                            <option *ngFor="let item of region; let i=index;" [value]="item?.label">{{ item.label }}
+                            <option *ngFor="let item of region; let i=index;" [value]="item?.label">{{ item?.label }}
                             </option>
                         </select>
                     </div>
-                    <div class="col-md-3 my-xl-3 my-lg-3 my-2">
+                    <!-- <div class="col-md-3 my-xl-3 my-lg-3 my-2">
                         <label class="form-label fw-bold">Other current region </label>
                         <input type="text" class="form-control" formControlName="other_current_region" placeholder="Other region">
-                    </div>
+                    </div> -->
                     <div class="col-lg-3 my-xl-3 my-lg-3 my-2">
                         <label class=" form-label fw-bold">Current state <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" formControlName="current_state" placeholder="Enter current state">
@@ -217,7 +217,7 @@
                     <div class="col-lg-7 my-xl-3 my-lg-3 my-2">
                         <label for="exampleFormControlTextarea1" class=" form-label fw-bold">Permanent address <span
                                 class="text-danger">*</span></label>
-                        <textarea class="form-control" formControlName="permanent_address" id="exampleFormControlTextarea1" rows="2"></textarea>
+                        <textarea class="form-control" formControlName="permanent_address" id="exampleFormControlTextarea1" rows="2" placeholder="Enter permanent address"></textarea>
                         <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" *ngIf="(submitted || basicInfoForm.controls['permanent_address'].touched) && basicInfoForm.controls['permanent_address'].errors?.required">
                             Permanent address is required.
                         </div>
@@ -232,10 +232,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4 my-xl-3 my-lg-3 my-2">
-                        <label class="form-label fw-bold">Other Permanent country </label>
+                    <!-- <div class="col-md-4 my-xl-3 my-lg-3 my-2">
+                        <label class="form-label fw-bold">Other permanent country </label>
                         <input type="text" class="form-control" formControlName="other_permanent_country" placeholder="Other country">
-                    </div>
+                    </div> -->
                     <div class="col-lg-4 my-xl-3 my-lg-3 my-2">
                         <label class=" form-label fw-bold">Permanent state <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" formControlName="permanent_state" placeholder="Enter permanent state">
@@ -254,16 +254,16 @@
 
                 <div class="row">
                     <div class="col-lg-4 my-xl-3 my-lg-3 my-2">
-                        <label class=" form-label fw-bold">LinkedIn profile id </label>
-                        <input type="text" class="form-control" formControlName="linkedin_id" placeholder="Enter linkdin id">
+                        <label class=" form-label fw-bold">Linkedin profile id </label>
+                        <input type="text" class="form-control" formControlName="linkedin_id" placeholder="Enter linkedin id">
                     </div>
                     <div class="col-lg-4 my-xl-3 my-lg-3 my-2">
                         <label class=" form-label fw-bold">Twitter id</label>
-                        <input type="text" class="form-control" formControlName="twitter_id" placeholder="Enter Twitter id">
+                        <input type="text" class="form-control" formControlName="twitter_id" placeholder="Enter twitter id">
                     </div>
                     <div class="col-lg-4 my-xl-3 my-lg-3 my-2">
                         <label class=" form-label fw-bold">Skype id </label>
-                        <input type="text" class="form-control" formControlName="skype_id" placeholder="Enter Skype id">
+                        <input type="text" class="form-control" formControlName="skype_id" placeholder="Enter skype id">
                     </div>
                 </div>
 
@@ -277,8 +277,8 @@
                         <input type="text" class="form-control" formControlName="instagram_id" placeholder="Enter instagram id">
                     </div>
                     <div class="col-lg-4 my-xl-3 my-lg-3 my-2">
-                        <label class=" form-label fw-bold">Council Member Designation</label>
-                        <input type="text" class="form-control" formControlName="council_member_designation" placeholder="Enter council member Designation">
+                        <label class=" form-label fw-bold">Council member designation</label>
+                        <input type="text" class="form-control" formControlName="council_member_designation" placeholder="Enter council member designation">
                     </div>
                 </div>
                 <div class="my-3" mat-dialog-actions align="center">

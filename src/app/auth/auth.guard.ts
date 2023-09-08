@@ -25,10 +25,13 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     let data: any = localStorage.getItem("token");
     const token = JSON.parse(data);
+    const role = this.authService.getUserRole();
+
+    
     if (token) {
       return true;
     } else {
-      this.router.navigate(["/auth/sign-in"]);
+      location.assign('/auth/sign-in');
       return false;
     }
   }

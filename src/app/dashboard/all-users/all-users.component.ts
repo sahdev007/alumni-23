@@ -4,13 +4,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
+import { AuthService } from 'src/app/services/auth.service';
 import { Config } from 'src/app/services/config';
 import { DataService } from 'src/app/services/data.service';
 import { UsersService } from 'src/app/services/users.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { SendMailComponent } from 'src/app/shared/dialog/send-mail/send-mail.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-all-users',
@@ -22,12 +25,14 @@ export class AllUsersComponent implements OnInit {
   pageType = "users";
   getAllUser: Array<any> = [];
   searchForm: FormGroup;
+  imgPath: any;
+  display: number = 1;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['first_name', 'mobile_number', 'email', 'institute_name', 'batch', 'city', 'current_designation'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public displayedColumns: string[] = ['mobile_number', 'email', 'institute_name', 'batch','city', 'current_designation'];
+  public columnsToDisplay: string[] = ['sr.no', 'profile_pic',...this.displayedColumns, 'created_at', 'reset', 'mail','status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -45,6 +50,9 @@ export class AllUsersComponent implements OnInit {
   primaryFunc: any;
   secondaryFunc: any;
   formReset: boolean;
+  imgUrl: any;
+  role:any;
+  userRole: any;
 
   constructor(
     public dialog: MatDialog,
@@ -53,10 +61,15 @@ export class AllUsersComponent implements OnInit {
     public notify : TokenInterceptor,
     private config: Config,
     private userService: UsersService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public arouter: ActivatedRoute,
+    private authService: AuthService
   ) {
     this.status = this.config?.userStat;
     this.dataSource = new MatTableDataSource<Person>();
+    this.imgPath = environment?.imgUrl;
+    this.role = this.authService.getUserRole();
+    this.userRole = this.config.role;
   }
 
 
@@ -204,9 +217,25 @@ export class AllUsersComponent implements OnInit {
     }, error => {
       this.notify.notificationService.error(error);
     });
-
   }
 
+  async onRoleChange(e: any, params: any) {
+    let action = "update-role";
+
+    let param = {
+      id: params?.id,
+      role: e?.target?.value
+    }
+ 
+    await this.dataService.updateData(action, param).subscribe((res: any) => {
+      if (res?.status == 200) {
+        this.notify.notificationService.success(res?.message);
+        this.ngOnInit();
+      }
+    }, error => {
+      this.notify.notificationService.error(error);
+    });
+  }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -219,6 +248,11 @@ export class AllUsersComponent implements OnInit {
     this.buildForm();
     this.getCommonApi();
     this.getAllData();
+    if (this.role == 0) {
+      this.columnsToDisplay = ['sr.no', 'profile_pic',...this.displayedColumns, 'created_at', 'reset', 'mail', 'role', 'status', 'actions'];
+    } else if(this.role == 2) {
+      this.columnsToDisplay = ['sr.no', 'profile_pic',...this.displayedColumns, 'created_at','status', 'actions'];
+    }
   }
 
 /**
@@ -314,5 +348,39 @@ export class AllUsersComponent implements OnInit {
     this.getAllData();
     this.searchForm.reset(this.buildForm());
     this.formReset = false;
+  }
+
+  /**
+   * Functiont to reset password
+   * @param params 
+   */
+  async onResetPwd(params: any) {
+    this.router.navigate(['/auth/reset-password'], { queryParams: { id: params?.id, type: 'user' } });
+  }
+
+  /**
+   * Function to 
+   * @param params 
+   */
+  onSendMail(params: any) {
+    const dialogRef = this.dialog.open(SendMailComponent, {
+      width: '400px',
+      data: { user: params }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.dataService.deleteData(action, data?.id).subscribe((res: any) => {
+        //   if(res?.status == 200) this.notify.notificationService.success(res?.message); this.ngOnInit();
+        // })
+      }
+    });
+  }
+  /**
+   * Change view mode
+   * @param mode 
+   */
+  changeView(mode: number): void {
+    this.display = mode;
   }
 }

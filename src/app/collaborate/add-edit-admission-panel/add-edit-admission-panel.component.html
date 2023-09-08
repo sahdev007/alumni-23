@@ -1,0 +1,80 @@
+
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/collaborate/mentor">Collaborate</a>
+                </li>
+                <li class="breadcrumb-item"><a routerLink="/collaborate/participate-in-admission-panel">Admission Panel</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ pageType !== 'update-admission' ? 'Add' : 'Update' }} Admission Panel</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+
+<div class="row">
+    <div class="col-xl-9 mx-auto">
+        <h5 class="mb-0 text-center fw-bold">{{ pageType !== 'update-admission' ? 'Add' : 'Update' }} Admission Panel</h5>
+        <hr/>
+        <div class="card border-top border-0 border-4 border-primary">
+            <div class="card-body p-5">
+                <app-loader *ngIf="loading"></app-loader>
+                <ng-container *ngIf="!loading">
+                    <form class="example-form" [formGroup]="admissionPanelForm">
+                        <div class="mb-3 row">
+                            <div class="col-sm-10 col-md-6">
+                                <label for="staticEmail" class="col-form-label fw-bold">City : <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="city" class="form-control" placeholder="Enter city here">
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || admissionPanelForm.controls['city'].touched) && admissionPanelForm.controls['city']?.errors?.required">City name is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6">
+                                <label for="staticEmail" class="col-form-label fw-bold">Location Details : <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="location" id="formGroupExampleInput" placeholder="Enter event location" />
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || admissionPanelForm.controls['location'].touched) && admissionPanelForm.controls['location']?.errors?.required">Location details is required.
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="mb-3 row">
+                            <div class="col-sm-10 col-md-6">
+                                <label for="staticEmail" class="col-form-label fw-bold">Date : <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" formControlName="date_time" id="formGroupExampleInput" placeholder="Enter event date & time" />
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || admissionPanelForm.controls['date_time'].touched) && admissionPanelForm.controls['date_time']?.errors?.required">Date is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6">
+                                <label for="formGroupExampleInput" class="col-form-label fw-bold ">Status</label>
+                                <select formControlName="status" class="form-select rounded-0.25">
+                                    <option value="" selected>Choose your Option</option>
+                                    <option [value]="item?.status" *ngFor="let item of status; let i=index;">
+                                        {{ item?.status }}
+                                    </option>
+                                </select>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || admissionPanelForm.controls['status'].touched) && admissionPanelForm.controls['status']?.errors?.required">Status is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center my-4">
+                            <div class="row justify-content-center">
+                                <div class="my-2" mat-dialog-actions align="center">
+                                    <button mat-raised-button color="warn" class="me-2" [routerLink]="['/collaborate/participate-in-admission-panel']">Back</button>
+                                    <button mat-raised-button color="primary" (click)="save()">{{ pageType !== 'update-admission' ? 'Add' : 'Update' }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

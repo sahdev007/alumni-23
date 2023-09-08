@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
+import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { CommunityService } from 'src/app/services/community.service';
 
 @Component({
@@ -23,20 +24,25 @@ export class EditBusinessVenturesComponent implements OnInit {
   userId: any;
   userData: any;
   selectedStatus: any;
-  loading: boolean = false;
+  loading: boolean;
   submitted: boolean = false;
   getBatch: any;
+  companyLogo: any;
+  logo: any;
 
   constructor(public loaction: Location, public fb: FormBuilder,
-     public communityService: CommunityService, public aroute: ActivatedRoute, public router: Router) {
+     public communityService: CommunityService, public aroute: ActivatedRoute,
+      public router: Router, private notify: TokenInterceptor) {
     // Get Id by queryparams
       this.aroute.queryParams.subscribe((params: any) => {
         this.userId = params?.userId;
+
       }
     );
   }
 
   async ngOnInit() {
+    this.loading = true;
 
     // this.buildForm();
     this.buildFirtGroup();
@@ -66,6 +72,9 @@ export class EditBusinessVenturesComponent implements OnInit {
           // this.editEntreprenForm.patchValue({
           //   ...this.userData
           // });
+          this.loading = false;
+      }, error => {
+        this.loading = false;
       });  
   }
 
@@ -107,8 +116,8 @@ export class EditBusinessVenturesComponent implements OnInit {
       locations:[''],
       hiring:[false],
       placement:[false],
-      is_active:['active'],
-      status: ['unapproved']
+      company_logo: [''],
+      status: ['']
     });
   }
  get f() { return this.editEntreprenForm.controls;}
@@ -142,26 +151,79 @@ export class EditBusinessVenturesComponent implements OnInit {
       }
     );
   }
+
+    /**
+   * Function to Upload File
+   * @param event 
+   */
+    onUploadImage(event: any) {
+      this.companyLogo = event.target.files[0];
+      if (event?.target?.files && event?.target?.files[0]) {
+        this.companyLogo = event?.target?.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = (_event) => {
+          this.logo = _event.target?.result;
+        };
+      }
+    }
+  
+    
   /**
    * Function to update entrepreneur By Id
    */
   async update() {
-    let action: string = 'update-entrepreneur';
+    // let action: string = 'update-entrepreneur';
+    let action = {
+      action: 'update-entrepreneur',
+      id: this.userId 
+    }
     let params = {
       ...this.firstFormGroup?.value, ...this.secondFormGroup?.value, ...this.thirdFormGroup?.value
     }
+
     this.submitted = true;
     if(this.firstFormGroup.invalid && this.secondFormGroup.invalid && this.thirdFormGroup.invalid) {
       return;
     } else {
-      await this.communityService.updateData(action, params).subscribe((res: any) => {
+      let formData = new FormData();
+
+      formData.append('company_logo', (this.companyLogo) ? this.companyLogo : '' );
+      formData.append('company', this.firstFormGroup?.value?.company);
+      formData.append('owner', this.firstFormGroup?.value?.owner);
+      formData.append('course', this.firstFormGroup?.value?.course);
+      formData.append('batchYear_id', this.firstFormGroup?.value?.batchYear_id);
+      formData.append('email', this.firstFormGroup?.value?.email);
+      formData.append('type', this.firstFormGroup?.value?.type);
+      formData.append('date_founded', this.firstFormGroup?.value?.date_founded);
+      formData.append('industry', this.secondFormGroup?.value?.industry);
+      formData.append('customer', this.secondFormGroup?.value?.customer);
+      formData.append('address', this.secondFormGroup?.value?.address);
+      formData.append('country', this.secondFormGroup?.value?.country);
+      formData.append('state', this.secondFormGroup?.value?.state);
+      formData.append('city', this.secondFormGroup?.value?.city);
+      formData.append('funding', this.secondFormGroup?.value?.funding);
+      formData.append('internship', this.secondFormGroup?.value?.internship);
+      formData.append('website', this.secondFormGroup?.value?.website);
+      formData.append('facebook', this.secondFormGroup?.value?.facebook);
+      formData.append('linkedin', this.thirdFormGroup?.value?.linkedin);
+      formData.append('hours', this.thirdFormGroup?.value?.hours);
+      formData.append('description', this.thirdFormGroup?.value?.description);
+      formData.append('international_operations', this.thirdFormGroup?.value?.international_operations);
+      formData.append('employee_no', this.thirdFormGroup?.value?.employee_no);
+      formData.append('locations', this.thirdFormGroup?.value?.locations);
+      formData.append('hiring', this.thirdFormGroup?.value?.hiring);
+      formData.append('placement', this.thirdFormGroup?.value?.placement);
+      formData.append('status', this.thirdFormGroup?.value?.status);
+
+      await this.communityService.postData(action, formData).subscribe((res: any) => {
         if(res?.status == 200) {
-          // this.notify.notificationService.openSuccessSnackBar(res?.message);
+          this.notify.notificationService.success(res?.message);
           this.router.navigate(['/community/business-ventures'])
         }
       },
       error => {
-        console.log(error);
+        this.notify.notificationService.error(error);
       });
     }
   }

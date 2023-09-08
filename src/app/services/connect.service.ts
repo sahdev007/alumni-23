@@ -34,9 +34,11 @@ export class ConnectService {
       action === "update-news" ||
       action === "update-mentorship" ||
       action == "update-event" ||
-      action == "update-club" || action == "update-journey"
+      action == "update-club" || action == "update-journey" 
     ) {
       return this.http.post(`${this.url}/${action}/${data?.id}`, data);
+    } else if(action == "update-eventType") {
+      return this.http.put(`${this.url}/${action}/${data?.id}`, data);
     }
     return this.http.post<any>(`${this.url}/${action}`, data);
 

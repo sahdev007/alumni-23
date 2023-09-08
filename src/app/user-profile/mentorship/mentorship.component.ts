@@ -31,7 +31,9 @@ export class MentorshipComponent implements OnInit {
   imgPath = environment?.imgUrl;
   allSkills: any;
   user: any;
-  loadTrue: boolean | undefined;
+  loadTrue: boolean;
+  mentorCount: number = 1;
+  menteeCount: number = 1;
   constructor(
     public fb: FormBuilder,
     private config: Config,
@@ -161,5 +163,12 @@ export class MentorshipComponent implements OnInit {
         }
       );
     }
+  }
+
+  viewUser(data: any) {
+    this.router.navigate(['user-profile'], {queryParams: {id: data?.id}});
+    setTimeout(() => {
+      location.reload();
+    }, 500);
   }
 }

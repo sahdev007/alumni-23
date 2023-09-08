@@ -1,0 +1,122 @@
+
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="celebrate/featured-alumni">Celebrate</a>
+                </li>
+                <li class="breadcrumb-item text-capitalize"><a routerLink="/celebrate/journey">{{type}}</a>
+                </li>
+                <li class="breadcrumb-item active text text-capitalize" aria-current="page">{{ pageType !== 'update-journey' ? 'Add' : 'Update' }} {{type}}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+
+<div class="row">
+    <div class="col-xl-9 mx-auto">
+        <!-- <h5 class="mb-3 text-center fw-bold">{{ pageType !== 'update-journey' ? 'Add' : 'Update' }} {{type}}</h5>
+        <hr/> -->
+        <div class="card border-top border-0 border-4 border-primary">
+            <div class="card-body p-5">
+                <app-loader *ngIf="loading"></app-loader>
+                <ng-container *ngIf="!loading">
+                    <form class="example-form" [formGroup]="journeyForm">
+                        <div class="mb-3 row">
+                            <!-- <div class="col-sm-10 col-md-6 my-2">
+                                <label for="staticEmail" class="col-form-label fw-bold">Author :</label>
+                                <input type="text" [(ngModel)]="author" class="form-control" placeholder="Enter author here" readonly>
+                            </div> -->
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="staticEmail" class="col-form-label fw-bold">Title : <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="title" class="form-control" placeholder="Enter title here">
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || journeyForm.controls['title'].touched) && journeyForm.controls['title']?.errors?.required">Title is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="formGroupExampleInput" class="col-form-label fw-bold ">Institute :</label>
+                                <select formControlName="institute_id" class="form-select rounded-0.25">
+                                    <option value="" selected>Choose Institute</option>
+                                    <option [value]="item?.id" *ngFor="let item of allInstitutes; let i=index;">
+                                        {{ item?.institute_name }}
+                                    </option>
+                                </select>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || journeyForm.controls['institute_id'].touched) && journeyForm.controls['institute_id']?.errors?.required">Institute name is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="staticEmail" class="col-form-label fw-bold">Type :</label>
+                                <input type="text" formControlName="type" [(ngModel)]="type" class="form-control" placeholder="Enter author here" readonly>
+                            </div>
+
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="formGroupExampleInput" class="col-form-label fw-bold ">Status</label>
+                                <select formControlName="status" class="form-select rounded-0.25">
+                                    <option value="" selected>Choose your Option</option>
+                                    <option [value]="item?.status" *ngFor="let item of status; let i=index;">
+                                        {{ item?.status == "active" ? 'Active' : 'Inactive' }}
+                                    </option>
+                                </select>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || journeyForm.controls['status'].touched) && journeyForm.controls['status']?.errors?.required">Status is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <div class="text-start">
+                                    <label class="form-label fw-bold">Please upload your picture
+                                        <span class="text-danger fs-6">*</span></label>
+                                        <input type="file" class="rounded-0.25 custom-form form-control" formControlName="photo" (change)="onUploadImage($event)" accept="image/*" />
+                                        <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                            *ngIf="(submitted || journeyForm.controls['photo'].touched) && journeyForm.controls['photo']?.errors?.required">Image is required.
+                                        </div>
+                                        <!-- <ng-container *ngIf="image">
+                                            <img [src]="image" class="img-fluid h-100 my-2" alt="picture">
+                                        </ng-container>
+                                        <ng-container *ngIf="!image && pageType === 'update-team' && this.updatedFile">
+                                            <img [src]="imgPath + this.updatedFile" class="img-fluid h-100" alt="logo">
+                                        </ng-container> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-12">
+                                <label for="inputEmail4" class="mb-1 fw-bold">Description : &nbsp;<span
+                                        class="text-danger">*</span></label>
+								<editor	[init]="{
+											height: 300,
+											menubar: false,
+											plugins: [
+											'advlist autolink lists link image charmap print preview anchor',
+											'searchreplace visualblocks code fullscreen',
+											'insertdatetime media table paste code help wordcount'
+											],
+											toolbar:
+											'undo redo | formatselect | bold italic backcolor | \
+											alignleft aligncenter alignright alignjustify | \
+											bullist numlist outdent indent | removeformat | help'
+										}"
+										formControlName="description">
+                                </editor>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || journeyForm.controls['description'].touched) && journeyForm.controls['description']?.errors?.required">Description is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center my-4">
+                            <div class="row justify-content-center">
+                                <div class="my-2" mat-dialog-actions align="center">
+                                    <button mat-raised-button color="warn" class="me-2" [routerLink]="['/celebrate/journey']">Back</button>
+                                    <button mat-raised-button color="primary" (click)="save()">{{ pageType !== 'update-journey' ? 'Add' : 'Update' }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

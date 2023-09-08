@@ -12,6 +12,7 @@ import { Config } from 'src/app/services/config';
 import { DataService } from 'src/app/services/data.service';
 import { UsersService } from 'src/app/services/users.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-business-ventures',
@@ -21,12 +22,13 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
 export class BusinessVenturesComponent implements OnInit {
   searchForm : FormGroup;
   pageType = "entrepreneurship";
+  imgPath: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['company', 'owner', 'contact', 'email'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', 'company_logo', ...this.displayedColumns, 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -45,6 +47,7 @@ export class BusinessVenturesComponent implements OnInit {
   secondaryFunc: any;
   primaryFunc: any;
   secondaryInd: any;
+  display: number = 1;
 
   constructor(
     public dialog: MatDialog,
@@ -58,6 +61,7 @@ export class BusinessVenturesComponent implements OnInit {
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
+      this.imgPath = environment?.imgUrl;
   }
 
 
@@ -192,7 +196,7 @@ export class BusinessVenturesComponent implements OnInit {
   }
 
   async onStatusChange(e:any, params: any) {
-    let action = "update-entrepreneur";
+    let action = "update-c";
       let param = {
         id: params?.id,
         status: e?.target?.value
@@ -303,4 +307,13 @@ export class BusinessVenturesComponent implements OnInit {
     this.searchForm.reset(this.buildForm());
     this.formReset = false;
   }
+
+
+  /**
+   * Change view mode
+   * @param mode 
+   */
+    changeView(mode: number): void {
+      this.display = mode;
+    }
 }

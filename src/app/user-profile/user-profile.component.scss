@@ -2,7 +2,14 @@
     height: 100px;
     width: 100px;
 }
-
+@font-face {
+    font-family: roboto-medium;
+    src: url('./../../assets/fonts/Roboto/Roboto-Medium.ttf');
+}
+@font-face {
+    font-family: roboto;
+    src: url('./../../assets/fonts/Roboto/Roboto-Regular.ttf');
+}
 .user-profile {
     i.lni.lni-pencil {
         margin: 26px 0 0 -14px;
@@ -17,7 +24,48 @@
         position: absolute;
         background: red;
         opacity: 0;
-        height: 80px;
+        left: 0;
+        height: 100px;
         cursor: pointer;
     }
+    .profileInfo {
+        h5{
+            font-size: 16px;
+            font-family: roboto-medium;
+        }
+        .otherInfo {
+            font-size: 14px;
+            font-family: roboto;
+            font-weight: 300;
+        }
+    }
 }
+.pointsCard {
+    width: 174px;
+    border-radius: 12px;
+    // height: 144px;
+    h5{
+        font-size: 16px;
+    }
+    .roundPoint{
+        background-color: black;
+        text-align: center;
+        height: 68px;
+        width: 74px;    
+        margin: auto;
+        -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        .totalPoints{
+            font-size: 36px;
+            color: #fff;
+            font-family: roboto;
+            font-weight: 500;
+        }
+    }
+}
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 20px;
+  }

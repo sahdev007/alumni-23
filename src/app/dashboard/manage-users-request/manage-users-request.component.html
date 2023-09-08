@@ -20,23 +20,23 @@
             <form class="" [formGroup]="searchForm">
               <div class="row g-3">
                 <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
-                  <label for="inputEmail4" class="form-label">Search By Name:</label>
+                  <label for="inputEmail4" class="form-label">Search By Name</label>
                   <input type="name" class="form-control" formControlName="first_name" id="inputName"
                     placeholder="Search by name" />
                 </div>
                 <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
-                  <label for="inputemail" class="form-label">Search By Email:</label>
+                  <label for="inputemail" class="form-label">Search By Email</label>
                   <input type="email" class="form-control" formControlName="email" id="inputEmail"
                     placeholder="Search by email" />
                 </div>
                 <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
-                  <label for="inputAddress2" class="form-label">Search By Mobile Number:</label>
+                  <label for="inputAddress2" class="form-label">Search By Mobile Number</label>
                   <input type="text" appNumbersOnly class="form-control" formControlName="mobile_number" id="inputMobileNumber"
                     placeholder="Search by mobile number" />
                 </div>
         
                 <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
-                  <label for="inputAddress" class="form-label">Search Institute Name:</label>
+                  <label for="inputAddress" class="form-label">Search Institute Name</label>
                   <select class="form-select" placeholder="Select institute name" formControlName="institute_name">
                     <option value="" selected>Choose your institute</option>
                     <option [value]="institute.institute_name" *ngFor="let institute of getInstitutes">
@@ -45,7 +45,7 @@
                   </select>
                 </div>
                 <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
-                  <label for="inputemail" class="form-label">Search By Passout Year:</label>
+                  <label for="inputemail" class="form-label">Search By Batch Year</label>
                   <select placeholder="Select Year" class="form-select" formControlName="batch">
                     <option value="" selected>Choose your batch</option>
                     <option [value]="batch.batch" *ngFor="let batch of getBatch">
@@ -55,7 +55,7 @@
                 </div>
                   <ng-container *ngIf="pageType == 'users'">
                     <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
-                      <label for="inputAddress2" class="form-label">Search By Status:</label>
+                      <label for="inputAddress2" class="form-label">Search By Status</label>
                       <select class="form-select form-control" placeholder="Select institute name" formControlName="status">
                         <option value="" selected>All</option>
                         <option value="active">Active</option>
@@ -65,17 +65,17 @@
                     </div>
                   </ng-container>
                   <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
-                    <label for="inputAddress" class="form-label">Search By Company Name:</label>
+                    <label for="inputAddress" class="form-label">Search By Company Name</label>
                     <input type="text" class="form-control" id="inputCompanyName" formControlName="current_company"
                       placeholder="Search by company name" />
                   </div>
                   <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
-                    <label for="inputemail" class="form-label">Search By Registered Date From:</label>
+                    <label for="inputemail" class="form-label">Search By Registered Date From</label>
                     <input type="date" class="form-control" id="inputRegisteredDate" formControlName="reg_date_from"
                       placeholder="Search by registered date from" />
                   </div>
                   <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 my-2">
-                    <label for="inputAddress2" class="form-label">Search By Registered Date To:</label>
+                    <label for="inputAddress2" class="form-label">Search By Registered Date To</label>
                     <input type="date" class="form-control" id="inputStatus" formControlName="reg_date_to"
                       placeholder="Search by registered date to" />
                   </div>
@@ -96,39 +96,59 @@
         <mat-icon>add</mat-icon>
       </button>
     </div> -->
-    <table mat-table [dataSource]="dataSource" matSort class=" w-100">
-        <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-            <th mat-header-cell *matHeaderCellDef>
-                <div style="display: flex; align-items: center;">
-                    <span mat-sort-header class="text-capitalize">{{column | replaceUnderscore}}</span>
-                    <button mat-icon-button>
-                        <mat-icon mat-icon-button color="primary" [matMenuTriggerFor]="menu"
-                            [matMenuTriggerData]="{columnName: column}">filter_list </mat-icon>
-                    </button>
-                </div>
-            </th>
-            <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" matSort class=" w-100">
+        <ng-container [matColumnDef]="'sr.no'">
+          <th class="text-capitalize fs-6 text-center" mat-header-cell *matHeaderCellDef>Sr. no.</th>
+          <td class="text-center ps-4" mat-cell *matCellDef="let element;index as i;">
+              <p>{{i+1}}</p>
+          </td>
         </ng-container>
+        
+        <ng-container [matColumnDef]="'profile_pic'">
+          <th class="text-capitalize fs-6 ps-3" mat-header-cell *matHeaderCellDef>Name</th>
+          <td class="ps-3" mat-cell *matCellDef="let element">
+              <img class="tableImg" [src]="element?.profile_pic ? imgPath + element?.profile_pic : './assets/images/dummyImg.jpg'" alt="img"/> <span> {{element?.first_name}} {{element?.last_name}}</span>
+          </td>
+        </ng-container>
+        
+          <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+              <th mat-header-cell *matHeaderCellDef>
+                  <div style="display: flex; align-items: center;">
+                      <span mat-sort-header class="text-capitalize">{{column | replaceUnderscore}}</span>
+                  </div>
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+          </ng-container>
 
-        <ng-container [matColumnDef]="'actions'">
-            <th class="text-capitalize" mat-header-cell *matHeaderCellDef> Actions </th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-icon-button (click)="approveUser(element, 'User')">
-                    <mat-icon mat-icon-button color='primary' matTooltip="Verify User">verified_user </mat-icon>
-                </button>
-                <button mat-icon-button (click)="reject(element, 'User')">
-                    <mat-icon mat-icon-button color="warn" matTooltip="Reject User">delete</mat-icon>
-                </button>
+          <ng-container [matColumnDef]="'created_at'">
+            <th class="text-capitalize fs-6 text-center" mat-header-cell *matHeaderCellDef> Reg. Date </th>
+            <td class="text-center ps-4" mat-cell *matCellDef="let element">
+               <p>{{element?.created_at  | date}}</p>
             </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-    </table>
+          </ng-container>
+
+          
+          <ng-container [matColumnDef]="'actions'">
+              <th class="text-capitalize" mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="approveUser(element, 'User')">
+                      <mat-icon mat-icon-button color='primary' matTooltip="Verify User">verified_user </mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="reject(element, 'User')">
+                      <mat-icon mat-icon-button color="warn" matTooltip="Reject User">delete</mat-icon>
+                  </button>
+              </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      </table>
+    </div>
     <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 50]" showFirstLastButtons></mat-paginator>
 </div>
 
 <!-- menu for column filtering-->
-<mat-menu #menu="matMenu" class="matMenu">
+<!-- <mat-menu #menu="matMenu" class="matMenu">
     <ng-template matMenuContent let-dataColumnName="columnName">
         <div class="flex-column p-2" (click)="$event.stopPropagation();">
             <div class="mb-1">
@@ -164,4 +184,4 @@
             </div>
         </div>
     </ng-template>
-</mat-menu>
+</mat-menu> -->

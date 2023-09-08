@@ -4,6 +4,8 @@ import { EventTypesComponent } from './event-types/event-types.component';
 import { AddEventComponent } from './add-event/add-event.component';
 import { AdminEventComponent } from './admin-event/admin-event.component';
 import { AlumniEventComponent } from './alumni-event/alumni-event.component';
+import { ViewEventComponent } from './view-event/view-event.component';
+import { AddEditEventTypeComponent } from './add-edit-event-type/add-edit-event-type.component';
 
 const routes: Routes = [
   {
@@ -11,31 +13,27 @@ const routes: Routes = [
     children: [
       {
         path: 'admin-events',
-        component: AdminEventComponent,
-        data: {
-          title: 'Admin Events'
-        }
+        component: AdminEventComponent
       },
       {
         path: 'alumni-events',
-        component: AlumniEventComponent,
-        data: {
-          title: 'Alumni Events'
-        }
+        component: AlumniEventComponent
       },
       {
         path: 'add-event',
-        component: AddEventComponent,
-        data: {
-          title: 'Event'
-        }
+        component: AddEventComponent
+      },
+      {
+        path: 'view-event',
+        component: ViewEventComponent
       },
       {
         path: 'add-event-types',
-        component: EventTypesComponent,
-        data: {
-          title: 'Event Types'
-        }
+        component: EventTypesComponent
+      },
+      {
+        path: 'add-edit-event-types',
+        component: AddEditEventTypeComponent
       }
     ]
   }

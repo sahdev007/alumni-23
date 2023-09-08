@@ -1,0 +1,147 @@
+
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/donations/donations-list">Donation</a>
+                </li>
+                <li class="breadcrumb-item active text text-capitalize" aria-current="page">{{ pageType !== 'update-donation' ? 'Add' : 'Update' }} Donation</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+
+<div class="row">
+    <div class="col-xl-9 mx-auto mt-4">
+        <!-- <h5 class="mb-3 text-center fw-bold">{{ pageType !== 'update-journey' ? 'Add' : 'Update' }} {{type}}</h5>
+        <hr/> -->
+        <div class="card border-top border-0 border-4 border-primary">
+            <div class="card-body p-5">
+                <app-loader *ngIf="loading"></app-loader>
+                <ng-container *ngIf="!loading">
+                    <form class="example-form" [formGroup]="donationForm">
+                        <div class="mb-3 row">
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="staticEmail" class="col-form-label fw-bold">Donation Title : <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="donation_title" class="form-control" placeholder="Enter donation title here">
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || donationForm.controls['donation_title'].touched) && donationForm.controls['donation_title']?.errors?.required">Donation title is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="formGroupExampleInput" class="col-form-label fw-bold ">Donation Type</label>
+                                <select formControlName="donation_type" class="form-select rounded-0.25">
+                                    <option value="" selected>Choose your Option</option>
+                                    <option [value]="item?.type" *ngFor="let item of donationType; let i=index;">
+                                        {{ item?.type }}
+                                    </option>
+                                </select>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || donationForm.controls['donation_type'].touched) && donationForm.controls['donation_type']?.errors?.required">Donation type is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="formGroupExampleInput" class="col-form-label fw-bold ">Donation Category</label>
+                                <select formControlName="donation_category_id" class="form-select rounded-0.25">
+                                    <option value="" selected>Choose your Option</option>
+                                    <option [value]="item?.id" *ngFor="let item of donationCategory; let i=index;">
+                                        {{ item?.name }}
+                                    </option>
+                                </select>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || donationForm.controls['donation_category_id'].touched) && donationForm.controls['donation_category_id']?.errors?.required">Donation category is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="staticEmail" class="col-form-label fw-bold">Amount : <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="donation_amount" class="form-control" placeholder="Enter amount here">
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || donationForm.controls['donation_amount'].touched) && donationForm.controls['donation_amount']?.errors?.required">Amount is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="staticEmail" class="col-form-label fw-bold">Target Amount : <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="donation_target_amount" class="form-control" placeholder="Enter target amount here">
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || donationForm.controls['donation_target_amount'].touched) && donationForm.controls['donation_target_amount']?.errors?.required">Target amount is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="staticEmail" class="col-form-label fw-bold">Order : <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="order" class="form-control" placeholder="Enter order here">
+                                <!-- <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || donationForm.controls['order'].touched) && donationForm.controls['order']?.errors?.required">Order is required.
+                                </div> -->
+                            </div>
+                            
+                            <div class="col-sm-10 col-md-6 my-2">
+                                <label for="formGroupExampleInput" class="col-form-label fw-bold ">Status</label>
+                                <select formControlName="status" class="form-select rounded-0.25">
+                                    <option value="" selected>Choose your Option</option>
+                                    <option [value]="item?.status" *ngFor="let item of status; let i=index;">
+                                        {{ item?.status == "active" ? 'Active' : 'Inactive' }}
+                                    </option>
+                                </select>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || donationForm.controls['status'].touched) && donationForm.controls['status']?.errors?.required">Status is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6">
+                                <!-- <div>
+                                    <ng-container>
+                                        <input type="file" id="file" multiple (change)="getFileDetails($event)">
+                                    </ng-container>
+                                </div> -->
+                                <label for="inputAddress4" class="col-sm-3 col-form-label fw-bold">Image :</label>
+                                <div class="col-sm-9">
+                                    <app-upload-donation-images formControlName="donation_image_id" [user_id]="currentUser?.id"></app-upload-donation-images>
+                                    <!-- <input type="file" class="form-control mb-2" multiple id="file" accept="image/*" (change)="getFileDetails($event)" placeholder="Upload Image" /> -->
+                                    <!-- <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                        *ngIf="(submitted || donationForm.controls['file'].touched) && donationForm.controls['file']?.errors?.required">Image is required.
+                                    </div> -->
+                                
+                                </div>
+                            </div>
+
+                            <div class="col-sm-10 col-md-12">
+                                <label for="inputEmail4" class="mb-1 fw-bold">Description : &nbsp;<span
+                                        class="text-danger">*</span></label>
+								<editor	[init]="{
+											height: 300,
+											menubar: false,
+											plugins: [
+											'advlist autolink lists link image charmap print preview anchor',
+											'searchreplace visualblocks code fullscreen',
+											'insertdatetime media table paste code help wordcount'
+											],
+											toolbar:
+											'undo redo | formatselect | bold italic backcolor | \
+											alignleft aligncenter alignright alignjustify | \
+											bullist numlist outdent indent | removeformat | help'
+										}"
+										formControlName="donation_description">
+                                </editor>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || donationForm.controls['donation_description'].touched) && donationForm.controls['donation_description']?.errors?.required">Description is required
+                                </div>
+                            </div>
+                          
+                        </div>
+                        <div class="row justify-content-center mt-4">
+                            <div class="row justify-content-center">
+                                <div class="my-2" mat-dialog-actions align="center">
+                                    <button mat-raised-button color="warn" class="me-2" [routerLink]="['/donations/donations-list']">Back</button>
+                                    <button mat-raised-button color="primary" (click)="save()">{{ pageType !== 'update-donation' ? 'Add' : 'Update' }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

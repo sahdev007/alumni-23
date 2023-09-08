@@ -24,7 +24,7 @@ export class SpecialProjectsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['author', 'title', 'charityName'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'userList', 'description', 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', 'profile_pic', ...this.displayedColumns, 'userList', 'description', 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -148,27 +148,31 @@ export class SpecialProjectsComponent implements OnInit {
    * Function to Special Project
    */
   view(data: any){
-    const dialogRef = this.dialog.open(ViewSpecialProjectComponent, {
-      width:'450px',
-      data: {data: data}
-    })
+    this.router.navigate(['/collaborate/view-special-project'], {queryParams: {id: data?.id}});
+    
+    // const dialogRef = this.dialog.open(ViewSpecialProjectComponent, {
+    //   width:'450px',
+    //   data: {data: data}
+    // })
   }
   /**
    * Function to edit project
    * @param data 
    * @param params 
    */
-  edit(data: any, params: any) {
-    const dialogRef = this.dialog.open(EditSpecialProjectComponent, {
-      width: '580px',
-      data: {data: data, action: params}
-    });
+  edit(data: any, params: string) {
+    this.router.navigate(['/collaborate/add-edit-special-projects'], {queryParams: {id: data?.id, action: params}});
+    
+    // const dialogRef = this.dialog.open(EditSpecialProjectComponent, {
+    //   width: '580px',
+    //   data: {data: data, action: params}
+    // });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     this.ngOnInit();
+    //   }
+    // });
   }
   /**
    * Function to remove items by id

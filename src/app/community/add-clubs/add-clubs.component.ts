@@ -26,6 +26,8 @@ export class AddClubsComponent implements OnInit {
   clubStatus: any;
   clubType: any;
   clubDescription: any;
+  loading: any;
+  display: number = 1;
 
   constructor(public fb: FormBuilder, public router: Router, 
     public location: Location, private communityService: CommunityService,
@@ -43,18 +45,24 @@ export class AddClubsComponent implements OnInit {
       this.updatedClub = res?.action;
 
       if(this.newClubId){
-        setTimeout(async () => {
-          await this.communityService.getDataById('single-club', this.newClubId).subscribe((res:any) => {
-            if(res?.status == 200) {
-              this.updatedClubData = res?.data[0];
-              this.clubType = this.updatedClubData.clubsType_id;
-              this.clubStatus = this.updatedClubData.status;
-              this.clubDescription = this.updatedClubData.description;
-              this.addClubForm.patchValue(this.updatedClubData);
-            }
-          });
-        }, 500);
+        this.getSingleClub(this.newClubId);
       }
+    });
+  }
+
+  async getSingleClub(id) {
+    this.loading = true;
+    await this.communityService.getDataById('single-club', id).subscribe((res:any) => {
+      if(res?.status == 200) {
+        this.updatedClubData = res?.data[0];
+        this.clubType = this.updatedClubData.clubsType_id;
+        this.clubStatus = this.updatedClubData.status;
+        this.clubDescription = this.updatedClubData.description;
+        this.addClubForm.patchValue(this.updatedClubData);
+        this.loading = false;
+      }
+    }, error=> {
+      this.loading = false;
     });
   }
 
@@ -133,4 +141,12 @@ export class AddClubsComponent implements OnInit {
       });
     }
   }
+
+    /**
+   * Change view mode
+   * @param mode 
+   */
+    changeView(mode: number): void {
+      this.display = mode;
+    }
 }

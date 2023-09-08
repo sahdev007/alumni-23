@@ -113,6 +113,7 @@ public updateData(action?: any, data?: any) {
   deleteData(action?: string, id?: any): Observable<any> {
     return this.http.delete(`${this.url}/${action}/${id}`);
   }
+  
   public getDataById(action?: string, id?: any) {
     return this.http.get(`${this.url}/${action}/${id}`);
   }

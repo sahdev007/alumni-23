@@ -9,6 +9,7 @@ import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 import { Config } from 'src/app/services/config';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-featured-alumni',
@@ -16,12 +17,15 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./featured-alumni.component.scss']
 })
 export class FeaturedAlumniComponent implements OnInit {
+  imgPath:any;
+  display: number = 1;
+  allFeaturedAlumni: any;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['full_name', 'email', 'batch'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no','file', ...this.displayedColumns, 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -41,6 +45,7 @@ export class FeaturedAlumniComponent implements OnInit {
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
+      this.imgPath = environment?.imgUrl;
   }
 
 
@@ -133,9 +138,11 @@ export class FeaturedAlumniComponent implements OnInit {
       this.filter();
     }
   }
+  
 add(data:any, params:string){
   this.router.navigate(['/celebrate/create-featured-alumni']);
 }
+
 view(data: any){
   console.log(data);
   this.router.navigate(['/celebrate/view-featured-alumni'],{
@@ -149,7 +156,7 @@ view(data: any){
  * @param params 
  */
   edit(data: any, params: string) {
-    this.router.navigate(['/celebrate/create-featured-alumni'], {queryParams: {alumniId: data?.id, action: params}, skipLocationChange: true});
+    this.router.navigate(['/celebrate/create-featured-alumni'], {queryParams: {alumniId: data?.id, action: params}});
   }
 
 /**
@@ -209,11 +216,19 @@ view(data: any){
     let action = "all-getFeatured";
     await this.celebrateService.getAllData(action).subscribe(
       (res: any) => {
-        if(res?.status == 200) this.dataSource.data = res?.data;
+        if(res?.status == 200) this.allFeaturedAlumni = res?.data; this.dataSource.data = res?.data;
       },
       (error) => {
         this.notifyService.notificationService.error(error);
       }
     );
+  }
+
+  /**
+ * Change view mode
+ * @param mode 
+ */
+  changeView(mode: number): void {
+    this.display = mode;
   }
 }

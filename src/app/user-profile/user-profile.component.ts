@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { CountryService } from '../services/country.service';
 import { Location } from '@angular/common';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressBarMode } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-user-profile',
@@ -28,6 +30,10 @@ export class UserProfileComponent implements OnInit {
   user: any;
   type: any;
   commonData: any;
+  color: ThemePalette = 'primary';
+  mode: ProgressBarMode = 'determinate';
+  value = 50;
+  bufferValue = 75;
 
   //Basic Info
   basicInfoForm: FormGroup | any;

@@ -18,13 +18,14 @@ export class CreateFeaturedAlumniComponent implements OnInit {
   getBatch: any;
   profilePic: any;
   image: any;
-  loading: boolean = true;
+  loading: boolean;
   pageType: any;
   alumniId: any;
   currentUser: any;
   updatedMartialStatus: any;
   updatedFile: any;
   marStatus: any;
+
   constructor(public fb: FormBuilder,
     private celebrateService : CelebrateService,
     private arouter: ActivatedRoute,
@@ -131,6 +132,7 @@ export class CreateFeaturedAlumniComponent implements OnInit {
  * @param params 
  */
   async getAlumniById(params:any) {
+    this.loading = true;
     let action: string = "single-getFeatured";
     await this.celebrateService.getDataById(action, params).subscribe((res: any) => {
       this.updatedMartialStatus = res?.data?.marital_status;
@@ -139,6 +141,7 @@ export class CreateFeaturedAlumniComponent implements OnInit {
         ...this.updatedFile,
         ...res?.data
       });
+      this.loading = false;
     })
   }
   /**

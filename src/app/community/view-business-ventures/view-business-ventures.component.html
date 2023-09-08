@@ -15,80 +15,83 @@
 </div>
 <!--end breadcrumb-->
 <div class="container pt-4">
-    <h5 class="mb-0 text-center fw-bold">Business Ventures Detail</h5>
+    <!-- <h5 class="mb-0 text-center fw-bold">Business Ventures Detail</h5> -->
   <div class="card border-top border-0 border-4 border-primary my-3 mb-5">
     <div class="card-body px-5 py-3">
-        <div class="row">
-        <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-6">Company Name :</label>
-            <p class="m-0 fs-6">{{ ventureData?.company }}</p>
-        </div>
-        <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-6">Author Name :</label><br />
-            <p class="m-0 fs-6">{{ ventureData?.owner }}</p>
-        </div>
-        <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-6">Contact No. :</label>
-            <p class="m-0 fs-6">
-            <a href="tel:{{ ventureData?.contact }}">{{
-                ventureData?.contact
-            }}</a>
-            </p>
-        </div>
-        <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-6">Email ID :</label><br />
-            <p class="m-0 fs-6">
-            <a href="mailto:{{ ventureData?.email }}">{{ ventureData?.email }}</a>
-            </p>
-        </div>
-        <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-6">Address. :</label>
-            <p class="m-0 fs-6">{{ ventureData?.address }}</p>
-        </div>
-        <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-6">City :</label><br />
-            <p class="m-0 fs-6">{{ ventureData?.city }}</p>
-        </div>
-        <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-6">State :</label>
-            <p class="m-0 fs-6">{{ ventureData?.state }}</p>
-        </div>
-        <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-6">Country. :</label>
-            <p class="m-0 fs-6">{{ ventureData?.country }}</p>
-        </div>
-        <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.course">
-            <label class="form-label mb-1 fw-bold fs-6">Course :</label><br />
-            <p class="m-0 fs-6">{{ ventureData?.course }}</p>
-        </div>
-        <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.industry">
-            <label class="form-label mb-1 fw-bold fs-6">Industry. :</label>
-            <p class="m-0 fs-6">{{ ventureData?.industry }}</p>
-        </div>
+        <app-loader *ngIf="loading"></app-loader>
+        <ng-container *ngIf="!loading">
+            <div class="row">
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Company Name :</label>
+                    <p class="m-0 fs-6">{{ ventureData?.company }}</p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Author Name :</label><br />
+                    <p class="m-0 fs-6">{{ ventureData?.owner }}</p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Contact No. :</label>
+                    <p class="m-0 fs-6">
+                    <a href="tel:{{ ventureData?.contact }}">{{
+                        ventureData?.contact
+                    }}</a>
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Email ID :</label><br />
+                    <p class="m-0 fs-6">
+                    <a href="mailto:{{ ventureData?.email }}">{{ ventureData?.email }}</a>
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Address. :</label>
+                    <p class="m-0 fs-6">{{ ventureData?.address }}</p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">City :</label><br />
+                    <p class="m-0 fs-6">{{ ventureData?.city }}</p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">State :</label>
+                    <p class="m-0 fs-6">{{ ventureData?.state }}</p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Country. :</label>
+                    <p class="m-0 fs-6">{{ ventureData?.country }}</p>
+                </div>
+                <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.course">
+                    <label class="form-label mb-1 fw-bold fs-6">Course :</label><br />
+                    <p class="m-0 fs-6">{{ ventureData?.course }}</p>
+                </div>
+                <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.industry">
+                    <label class="form-label mb-1 fw-bold fs-6">Industry. :</label>
+                    <p class="m-0 fs-6">{{ ventureData?.industry }}</p>
+                </div>
 
-        <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.facebook">
-            <label class="form-label mb-1 fw-bold fs-6">Facebook ID :</label><br />
-            <p class="m-0 fs-6">
-            <a href="{{ ventureData?.facebook }}" target="_blank">{{ ventureData?.facebook }}</a>
-            </p>
-        </div>
-        <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.linkedin">
-            <label class="form-label mb-1 fw-bold fs-6">Linkedin ID :</label><br />
-            <p class="m-0 fs-6">
-            <a href="{{ ventureData?.linkedin }}" target="_blank">{{ ventureData?.linkedin }}</a>
-            </p>
-        </div>
-        <div class="col-xl-6 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-6">Status. :</label>
-            <p class="m-0 fs-6">
-            {{ ventureData?.status == "active" ? "Active" : "Inactive" }}
-            </p>
-        </div>
-        <div class="col-12 my-xl-2">
-            <label class="form-label mb-1 fw-bold fs-6">Description. :</label>
-            <div [innerHTML]="ventureData?.description"></div>
-        </div>
-        </div>
+                <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.facebook">
+                    <label class="form-label mb-1 fw-bold fs-6">Facebook ID :</label><br />
+                    <p class="m-0 fs-6">
+                    <a href="{{ ventureData?.facebook }}" target="_blank">{{ ventureData?.facebook }}</a>
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2" *ngIf="ventureData?.linkedin">
+                    <label class="form-label mb-1 fw-bold fs-6">Linkedin ID :</label><br />
+                    <p class="m-0 fs-6">
+                    <a href="{{ ventureData?.linkedin }}" target="_blank">{{ ventureData?.linkedin }}</a>
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Status. :</label>
+                    <p class="m-0 fs-6">
+                    {{ ventureData?.status == "active" ? "Active" : "Inactive" }}
+                    </p>
+                </div>
+                <div class="col-12 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Description. :</label>
+                    <div [innerHTML]="ventureData?.description"></div>
+                </div>
+            </div>
+        </ng-container>
     </div>
   </div>
 </div>

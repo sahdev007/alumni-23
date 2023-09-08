@@ -10,6 +10,7 @@ import { CelebrateService } from 'src/app/services/celebrate.service';
 import { Config } from 'src/app/services/config';
 import { AddEditJourneyAchievementPassionComponent } from 'src/app/shared/dialog/celebrate/add-edit-journey-achievement-passion/add-edit-journey-achievement-passion.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-achievements',
@@ -23,7 +24,7 @@ export class AchievementsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['first_name', 'type'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'description', 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', 'photo', ...this.displayedColumns, 'description', 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -33,6 +34,7 @@ export class AchievementsComponent implements OnInit {
 
   public dataSource: MatTableDataSource<Person>;
   status: any;
+  imgPath: any;
 
   constructor(
     private celebrateService: CelebrateService, 
@@ -43,6 +45,7 @@ export class AchievementsComponent implements OnInit {
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
+      this.imgPath = environment?.imgUrl;
   }
 
   private filter() {
@@ -136,16 +139,17 @@ export class AchievementsComponent implements OnInit {
   }
 
   edit(data: any, params: any) {
-    const dialogRef = this.dialog.open(AddEditJourneyAchievementPassionComponent, {
-      width: '450px',
-      data: {data: data, type: params, action: 'update-journey'}
-    });
+    this.router.navigate(['/celebrate/add-edit-journey'], {queryParams: {id: data?.id, action: params, type:'achievement'}});
+    // const dialogRef = this.dialog.open(AddEditJourneyAchievementPassionComponent, {
+    //   width: '450px',
+    //   data: {data: data, type: params, action: 'update-journey'}
+    // });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     this.ngOnInit();
+    //   }
+    // });
   }
 
   delete(data: any, params: string) {

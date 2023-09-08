@@ -12,13 +12,17 @@ import { CollaborateService } from 'src/app/services/collaborate.service';
 export class AddEditParticipateAdmissionComponent implements OnInit {
   admissionPanelForm: FormGroup;
   submitted: boolean = false;
+  currentUser: any;
 
   constructor(public fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private collaborateService: CollaborateService,
   private notifyService: TokenInterceptor,
-  public dialog: MatDialog, public dialogref: MatDialogRef<AddEditParticipateAdmissionComponent>) { }
+  public dialog: MatDialog, public dialogref: MatDialogRef<AddEditParticipateAdmissionComponent>) {
+    if (localStorage) {
+      this.currentUser = JSON?.parse(localStorage?.getItem('currentUser') || '');
+    }
+   }
 
   ngOnInit(): void {
-    console.log(this.data)
     this.buildForm();
     this.admissionPanelForm.patchValue({ ...this.data?.data });
   }
@@ -29,7 +33,8 @@ export class AddEditParticipateAdmissionComponent implements OnInit {
       city: ['', Validators.required],
       location: ['', Validators.required],
       dateTime: ['', Validators.required],
-      status: ["", Validators.required]
+      status: ["", Validators.required],
+      user_id: [this.currentUser?.id]
     });
   }
 

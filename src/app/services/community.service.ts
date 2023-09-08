@@ -22,10 +22,9 @@ export class CommunityService {
   }
 
   postData(action?: any, data?:any): Observable<any> {
-    console.log(action, data);
     if(action?.action === "create-team" || action?.action == 'create-club') {
       return this.http.post<any>(`${this.url}/${action?.action}`, data);
-    } else if(action?.action == "update-team" || action?.action == "update-club") {
+    } else if(action?.action == "update-team" || action?.action == "update-club" || action?.action == "update-entrepreneur") {
       return this.http.post<any>(`${this.url}/${action?.action}` + "/" + action?.id,  data);
     } else if(
       action === "update-featured" ||

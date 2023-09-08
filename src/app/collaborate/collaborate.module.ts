@@ -15,32 +15,35 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '../shared/shared.module';
-import { AdminJobsComponent } from './careers-and-jobs/admin-jobs/admin-jobs.component';
-import { AlumniJobsComponent } from './careers-and-jobs/alumni-jobs/alumni-jobs.component';
-import { AddJobTypeComponent } from './careers-and-jobs/add-job-type/add-job-type.component';
-import { AddJobComponent } from './careers-and-jobs/add-job/add-job.component';
-import { MentorComponent } from './mentorship/mentor/mentor.component';
-import { MenteeComponent } from './mentorship/mentee/mentee.component';
 import { ParticipateInAdmissionPanelComponent } from './participate-in-admission-panel/participate-in-admission-panel.component';
 import { OfferExpertiseComponent } from './offer-expertise/offer-expertise.component';
 import { ShareOpportunitiesComponent } from './share-opportunities/share-opportunities.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ViewSpecialProjectComponent } from './view-special-project/view-special-project.component';
+import { AddEditSpecialProjectComponent } from './add-edit-special-project/add-edit-special-project.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { ViewAdmissionPanelComponent } from './view-admission-panel/view-admission-panel.component';
+import { AddEditAdmissionPanelComponent } from './add-edit-admission-panel/add-edit-admission-panel.component';
+import { AddEditShareOpportunityComponent } from './add-edit-share-opportunity/add-edit-share-opportunity.component';
+import { ViewOfferExpertiseComponent } from './view-offer-expertise/view-offer-expertise.component';
+import { ViewShareOpportunitiesComponent } from './view-share-opportunities/view-share-opportunities.component';
 
 
 @NgModule({
   declarations: [
     SpecialProjectsComponent,
-    AdminJobsComponent,
-    AlumniJobsComponent,
-    AddJobTypeComponent,
-    AddJobComponent,
-    MentorComponent,
-    MenteeComponent,
     ParticipateInAdmissionPanelComponent,
     OfferExpertiseComponent,
-    ShareOpportunitiesComponent
+    ShareOpportunitiesComponent,
+    ViewSpecialProjectComponent,
+    AddEditSpecialProjectComponent,
+    ViewAdmissionPanelComponent,
+    AddEditAdmissionPanelComponent,
+    AddEditShareOpportunityComponent,
+    ViewOfferExpertiseComponent,
+    ViewShareOpportunitiesComponent
   ],
   imports: [
     CommonModule,
@@ -60,8 +63,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatRadioModule,
     MatTooltipModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class CollaborateModule { }

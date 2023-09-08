@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -6,8 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Person } from 'src/app/models/person';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 import { Router } from '@angular/router';
-import { AddEditKeyContactComponent } from 'src/app/shared/dialog/contact/add-edit-key-contact/add-edit-key-contact.component';
-import { ViewContactComponent } from 'src/app/shared/dialog/contact/view-contact/view-contact.component';
 import { ContactService } from 'src/app/services/contact.service';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Config } from 'src/app/services/config';
@@ -24,7 +22,7 @@ export class KeyContactComponent implements OnInit, AfterViewInit{
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['title', 'phone', 'email', 'designation'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', ...this.displayedColumns, 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -34,6 +32,7 @@ export class KeyContactComponent implements OnInit, AfterViewInit{
 
   public dataSource: MatTableDataSource<Person>;
   status: any;
+  display: number = 1;
 
   constructor(
     public dialog: MatDialog,
@@ -141,27 +140,13 @@ export class KeyContactComponent implements OnInit, AfterViewInit{
    * Function to add project List
    */
   add(params: string) {
-    console.log(params);
-    const dialogRef = this.dialog.open(AddEditKeyContactComponent, {
-      width: '450px',
-      data: {action: params}
-    });
-    
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+    this.router.navigate(['/contact/add-edit-key-contact'], {queryParams: {action: params}});
   }
   /**
    * Function to View Contact
    */
   view(params: any) {
-    console.log(params);
-    const dialogRef = this.dialog.open(ViewContactComponent, {
-      width: '450px',
-      data: {data: params}
-    });
+    this.router.navigate(['/contact/view-key-contact'], {queryParams: {id:params?.id}});
   }
   /**
    * Function to edit project
@@ -169,18 +154,7 @@ export class KeyContactComponent implements OnInit, AfterViewInit{
    * @param params 
    */
   edit(data: any, params: any) {
-    const dialogRef = this.dialog.open(AddEditKeyContactComponent, {
-      width: '450px',
-      data: {data: data, action: params}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 500);
-      }
-    });
+    this.router.navigate(['/contact/add-edit-key-contact'], {queryParams: {id:data?.id, action: params}});
   }
   /**
    * Function to remove items by id
@@ -255,4 +229,11 @@ export class KeyContactComponent implements OnInit, AfterViewInit{
     );
   }
 
+/**
+ * Change view mode
+ * @param mode 
+ */
+  changeView(mode: number): void {
+    this.display = mode;
+  }
 }

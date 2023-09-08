@@ -12,7 +12,14 @@ export const environment = {
   // imgUrl: "http://192.168.1.50:3307/public/"
 
   apiUrl: "https://mirchidigital.co.in/sbsAlumni/api",
-  imgUrl: "https://mirchidigital.co.in/sbsAlumni/public/"
+  imgUrl: "https://mirchidigital.co.in/sbsAlumni/public/",
+
+  roles: {
+    SUPERADMIN: "superAdmin",
+    ADMIN: 'admin',
+    MANAGER: "manager"
+  }
+
 };
 
 /*

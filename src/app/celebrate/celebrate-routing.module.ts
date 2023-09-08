@@ -4,16 +4,11 @@ import { FeaturedAlumniComponent } from './featured-alumni/featured-alumni.compo
 import { JourneyComponent } from './journey/journey.component';
 import { AchievementsComponent } from './achievements/achievements.component';
 import { PassionComponent } from './passion/passion.component';
-import { GalleryComponent } from './gallery/gallery.component';
-import { MagazineComponent } from './magazine/magazine.component';
-import { NewsAndUpdatesComponent } from './news-and-updates/news-and-updates.component';
-
-import { YoutubeLinksComponent } from './youtube-links/youtube-links.component';
 import { CreateFeaturedAlumniComponent } from './create-featured-alumni/create-featured-alumni.component';
-import { AddEditNewsComponent } from './add-edit-news/add-edit-news.component';
 import { BirthdayComponent } from './birthday/birthday.component';
 import { AnniversaryComponent } from './anniversary/anniversary.component';
 import { ViewFeaturedAlumniComponent } from './view-featured-alumni/view-featured-alumni.component';
+import { AddEditJourneyComponent } from './add-edit-journey/add-edit-journey.component';
 
 const routes: Routes = [
   {
@@ -36,32 +31,16 @@ const routes: Routes = [
         component: JourneyComponent
       },
       {
+        path: 'add-edit-journey',
+        component: AddEditJourneyComponent
+      },
+      {
         path: 'achievements',
         component: AchievementsComponent
       },
       {
         path: 'passion',
         component: PassionComponent
-      },
-      {
-        path: 'gallery',
-        component: GalleryComponent
-      },
-      {
-        path: 'youtube-links',
-        component: YoutubeLinksComponent
-      },
-      {
-        path: 'magazine',
-        component: MagazineComponent
-      },
-      {
-        path: 'news-and-updates',
-        component: NewsAndUpdatesComponent
-      },
-      {
-        path: 'add-news',
-        component: AddEditNewsComponent
       },
       {
         path: 'birthday',

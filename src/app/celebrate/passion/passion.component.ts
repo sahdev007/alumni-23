@@ -8,8 +8,8 @@ import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 import { Config } from 'src/app/services/config';
-import { AddEditJourneyAchievementPassionComponent } from 'src/app/shared/dialog/celebrate/add-edit-journey-achievement-passion/add-edit-journey-achievement-passion.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-passion',
@@ -19,12 +19,13 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
 export class PassionComponent implements OnInit {
 
   getAllJourney: Array<any> = [];
+  imgPath: any;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['first_name', 'type'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'description', 'status', 'actions'];
+  public columnsToDisplay: string[] = [ 'sr.no' ,'photo', ...this.displayedColumns, 'description', 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -44,6 +45,7 @@ export class PassionComponent implements OnInit {
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
+      this.imgPath = environment?.imgUrl;
   }
 
 
@@ -138,18 +140,19 @@ export class PassionComponent implements OnInit {
   }
 
   edit(data: any, params: any) {
-    const dialogRef = this.dialog.open(AddEditJourneyAchievementPassionComponent, {
-      width: '450px',
-      data: {data: data, type: params, action: 'update-journey'}
-    });
+    this.router.navigate(['/celebrate/add-edit-journey'], {queryParams: {id: data?.id, action: params, type:'passion'}});
+    // const dialogRef = this.dialog.open(AddEditJourneyAchievementPassionComponent, {
+    //   width: '450px',
+    //   data: {data: data, type: params, action: 'update-journey'}
+    // });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 500);
-      }
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     setTimeout(() => {
+    //       this.ngOnInit();
+    //     }, 500);
+    //   }
+    // });
   }
 
   delete(data: any, params: string) {

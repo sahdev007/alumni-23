@@ -28,11 +28,8 @@
                             <label for="inputSiteTitle" class="col-sm-3 col-form-label d-flex algin-items-center">Site Title<span class="text-danger ms-1 fs-5">*</span></label>
                             <div class="col-sm-6">
                                 <input type="text" formControlName="appName" class="form-control" id="inputSiteTitle" placeholder="Site title">
-                                <div *ngIf="f['appName'].invalid">
-                                    <div class="text-danger mt-2"
-                                        *ngIf="(f['appName'].touched || submitted) && f['appName'].errors['required']">
-                                        Site name is required.
-                                    </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['appName'].touched) && settingForm.controls['appName']?.errors?.required">Site name is required.
                                 </div>
                             </div>
                         </div>
@@ -40,12 +37,19 @@
                         <div class="row mb-3">
                             <label for="inputSiteLogo" class="col-sm-3 col-form-label d-flex algin-items-center">Site Logo<span class="text-danger ms-1 fs-5">*</span></label>
                             <div class="col-sm-6">
-                                <input type="file" class="form-control mb-2" formControlName="logo" [(ngModel)]="updateLogo" id="formGroupLink" (change)="onUploadImage($event)" accept="image/*" placeholder="Upload Image" />
-                                <div *ngIf="f['logo'].invalid">
-                                    <div class="text-danger mt-2"
-                                        *ngIf="(f['logo'].touched || submitted) && f['logo'].errors['required']">
-                                        Site Logo is required.
-                                    </div>
+                                <input type="file" class="form-control mb-2" formControlName="logo" id="formGroupLink" (change)="onUploadImage($event)" accept="image/*" placeholder="Upload Image" />
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['logo'].touched) && settingForm.controls['logo']?.errors?.required">Logo is required.
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-xl-2">
+                                    <ng-container *ngIf="image">
+                                        <img [src]="image" class="img-fluid h-75 w-75 my-2" alt="logo">
+                                    </ng-container>
+                                    <!-- <ng-container *ngIf="!image && settingData.logo">
+                                        <img [src]="imgPath + settingData.logo" class="img-fluid h-100" alt="logo">
+                                    </ng-container> -->
                                 </div>
                             </div>
                         </div>
@@ -57,7 +61,7 @@
                             </div>
 
                         </div>
-                        <div class="row mb-3">
+                        <!-- <div class="row mb-3">
                             <label for="inputSiteAddress" class="col-sm-3 col-form-label d-flex algin-items-center">Site Address (URL)<span class="text-danger ms-1 fs-5">*</span></label>
                             <div class="col-sm-6">
                                 <input type="text" formControlName="siteAddress" class="form-control" id="inputSiteAddress" placeholder="Site URL">
@@ -69,18 +73,16 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> -->
                         <div class="row mb-3">
                             <label for="inputEmailAddress2" class="col-sm-3 col-form-label d-flex algin-items-center">Email Address<span class="text-danger ms-1 fs-5">*</span></label>
                             <div class="col-sm-6">
                                 <input type="email" formControlName="email" class="form-control" id="inputEmailAddress2" placeholder="Email Address">
-                                <div *ngIf="f['email'].invalid">
-                                    <div class="text-danger mt-2" *ngIf="(f['email'].touched || submitted) && f['email'].errors['required']">
-                                        Email is required.
-                                    </div>
-                                    <div class="text-danger mt-2" *ngIf="f['email'].dirty && f['email'].errors['pattern']">
-                                        Email format is incorrect.
-                                    </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['email'].touched) && settingForm.controls['email']?.errors?.required">Email is required.
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['email'].touched) && settingForm.controls['email']?.errors?.pattern">Email format is incorrect.
                                 </div>
                             </div>
                         </div>
@@ -88,19 +90,14 @@
                             <label for="inputPhone" class="col-sm-3 col-form-label d-flex algin-items-center">Mobile Number<span class="text-danger ms-1 fs-5">*</span></label>
                             <div class="col-sm-6">
                                 <input type="text" appNumbersOnly formControlName="mobileNumber" class="form-control" id="inputPhone" placeholder="Phone number">
-                                <div *ngIf="f['mobileNumber'].invalid">
-                                    <div class="text-danger mt-2"
-                                        *ngIf="(f['mobileNumber'].touched || submitted) && f['mobileNumber'].errors['required']">
-                                        Mobile Number is required.
-                                    </div>
-                                    <div class="text-danger mt-2"
-                                        *ngIf="(f['mobileNumber'].touched || submitted) && f['mobileNumber'].errors['minlength']">
-                                        Mobile Number must be at least 10 characters long.
-                                    </div>
-                                    <div class="text-danger mt-2"
-                                        *ngIf="(f['mobileNumber'].touched || submitted) && f['mobileNumber'].errors['maxlength']">
-                                        Mobile Number can be max 14 characters long.
-                                    </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['mobileNumber'].touched) && settingForm.controls['mobileNumber']?.errors?.required">Mobile number is required.
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['mobileNumber'].touched) && settingForm.controls['mobileNumber']?.errors?.minlength">Mobile Number must be at least 10 characters long.
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['mobileNumber'].touched) && settingForm.controls['mobileNumber']?.errors?.maxlength"> Mobile Number can be max 14 characters long.
                                 </div>
                             </div>
                         </div>
@@ -117,11 +114,8 @@
                             <label for="inputMeta" class="col-sm-3 col-form-label d-flex algin-items-center">Facebook<span class="text-danger ms-1 fs-5">*</span></label>
                             <div class="col-sm-6">
                                 <input type="text" formControlName="facebook" class="form-control" id="inputMeta" placeholder="www.facebook.com">
-                                <div *ngIf="f['facebook'].invalid">
-                                    <div class="text-danger mt-2"
-                                        *ngIf="(f['facebook'].touched || submitted) && f['facebook'].errors['required']">
-                                        Facebook is required.
-                                    </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['facebook'].touched) && settingForm.controls['facebook']?.errors?.required"> Facebook is required.
                                 </div>
                             </div>
 
@@ -130,11 +124,8 @@
                             <label for="inputInsta" class="col-sm-3 col-form-label d-flex algin-items-center">Instagram<span class="text-danger ms-1 fs-5">*</span></label>
                             <div class="col-sm-6">
                                 <input type="text" formControlName="instagram" class="form-control" id="inputInsta" placeholder="www.instagram.com">
-                                <div *ngIf="f['instagram'].invalid">
-                                    <div class="text-danger mt-2"
-                                        *ngIf="(f['instagram'].touched || submitted) && f['instagram'].errors['required']">
-                                        Instagram is required.
-                                    </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['instagram'].touched) && settingForm.controls['instagram']?.errors?.required">Instagram is required.
                                 </div>
                             </div>
 
@@ -143,11 +134,8 @@
                             <label for="inputLinkedin" class="col-sm-3 col-form-label d-flex algin-items-center">Linkedin<span class="text-danger ms-1 fs-5">*</span></label>
                             <div class="col-sm-6">
                                 <input type="text" formControlName="linkedin" class="form-control" id="inputLinkedin" placeholder="www.linkedin.com">
-                                <div *ngIf="f['linkedin'].invalid">
-                                    <div class="text-danger mt-2"
-                                        *ngIf="(f['linkedin'].touched || submitted) && f['linkedin'].errors['required']">
-                                        Linkedin is required.
-                                    </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['linkedin'].touched) && settingForm.controls['linkedin']?.errors?.required">Linkedin is required.
                                 </div>
                             </div>
 
@@ -156,11 +144,8 @@
                             <label for="inputYoutube" class="col-sm-3 col-form-label d-flex algin-items-center">Youtube <span class="text-danger ms-1 fs-5">*</span></label>
                             <div class="col-sm-6">
                                 <input type="text" formControlName="youtube" class="form-control" id="inputYoutube" placeholder="wwww.youtube.com">
-                                <div *ngIf="f['youtube'].invalid">
-                                    <div class="text-danger mt-2"
-                                        *ngIf="(f['youtube'].touched || submitted) && f['youtube'].errors['required']">
-                                        Youtube is required.
-                                    </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['youtube'].touched) && settingForm.controls['youtube']?.errors?.required">Youtube is required.
                                 </div>
                             </div>
 
@@ -169,11 +154,8 @@
                             <label for="inputTwitter" class="col-sm-3 col-form-label d-flex algin-items-center">Twitter <span class="text-danger ms-1 fs-5">*</span></label>
                             <div class="col-sm-6">
                                 <input type="text" formControlName="twitter" class="form-control" id="inputTwitter" placeholder="twitter.com">
-                                <div *ngIf="f['twitter'].invalid">
-                                    <div class="text-danger mt-2"
-                                        *ngIf="(f['twitter'].touched || submitted) && f['twitter'].errors['required']">
-                                        Twitter is required.
-                                    </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['twitter'].touched) && settingForm.controls['twitter']?.errors?.required">Twitter is required.
                                 </div>
                             </div>
 
@@ -196,17 +178,13 @@
                             <label for="inputAddress4" class="col-sm-3 col-form-label d-flex algin-items-center">Copyright Text <span class="text-danger ms-1 fs-5">*</span></label>
                             <div class="col-sm-6">
                                 <input type="text" formControlName="footerText" class="form-control" id="inputAddress4" placeholder="Enter Copyright text">
-                                <div *ngIf="f['footerText'].invalid">
-                                    <div class="text-danger mt-2"
-                                        *ngIf="(f['footerText'].touched || submitted) && f['footerText'].errors['required']">
-                                        Copy right text is required.
-                                    </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || settingForm.controls['footerText'].touched) && settingForm.controls['footerText']?.errors?.required">Copy right text is required.
                                 </div>
-                                <!-- <textarea class="form-control" formControlName="appName" id="inputAddress4" rows="3" placeholder="Copy"></textarea> -->
                             </div>
                         </div>
                         <div class="mt-4" mat-dialog-actions align="center">
-                            <button mat-raised-button color="primary" (click)="save()">Update</button>
+                            <button mat-raised-button color="primary" (click)="save()">{{settingData ? 'Update' : 'Add'}}</button>
                         </div>
 
                     </div>

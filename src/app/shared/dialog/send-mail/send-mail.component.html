@@ -1,0 +1,33 @@
+<h5 mat-dialog-title class="mb-3 mt-0 fw-bold text-center">Send mail</h5>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div>
+            <mat-form-field class="fullWidth w-100" appearance="fill">
+                <mat-label>To </mat-label>
+                <input matInput type="text" name="to" value="{{data?.user?.first_name}} {{data?.user?.last_name}}" readonly/>
+            </mat-form-field>
+        </div>
+        <div class="mt-2">
+            <label for="inputAddress4" class="col-sm-3 col-form-label">Subject :</label>
+            <editor required formControlName="subject"
+            [init]="{
+                height: 120,
+                menubar: false,
+                plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar:
+                'undo redo | formatselect | bold italic backcolor | \
+                alignleft aligncenter alignright alignjustify | \
+                bullist numlist outdent indent | removeformat | help'
+            }"
+            ></editor>
+        </div>
+    </form>
+</div>
+<div class="mt-2" mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Submit</button>
+</div>

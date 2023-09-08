@@ -1,0 +1,178 @@
+<!-- breadcrumb -->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/collaborate/mentor">Collaborate</a>
+                </li>
+                <li class="breadcrumb-item"><a routerLink="/collaborate/special-projects">Special Projects</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{pageType == 'update-project' ? 'Update' : 'Add'}} Special Project</li>
+            </ol>
+        </nav>
+    </div>
+  </div>
+<!--end breadcrumb-->
+<div class="get-featured px-4 pb-5">
+    <div class="container">
+        <div class="align-items-center justify-content-between my-2">
+            <h5 class="mb-0 text-gray-800 text-center fw-bold">{{pageType == 'update-project' ? 'Update' : 'Add'}} Special Project</h5>
+        </div>
+        <div class="row my-3 p-3 bg-white alumni-body card border-top border-0 border-4 border-primary">
+            <div class="col-12 text-center p-3 border" >
+                <app-loader *ngIf="loading"></app-loader>
+                <ng-container *ngIf="!loading">
+                    <form [formGroup]="editSpecialForm">
+                        <div class="row">
+                            <div class="col-md-4 my-2 h-100">
+                                <div class="text-start d-flex flex-column justify-content-between">
+                                    <label class="form-label fw-bold">Author <span class="text-danger fs-6">*</span></label>
+                                    <input type="text" formControlName="author" [(ngModel)]="author"
+                                        class="rounded-0.25 custom-form form-control"
+                                        placeholder="Enter your name here" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 h-100">
+                                <div class="text-start d-flex flex-column justify-content-between">
+                                    <label class="form-label fw-bold">Project Title <span class="text-danger fs-6">*</span></label>
+                                    <input type="text" formControlName="title"
+                                        class="rounded-0.25 custom-form form-control"
+                                        placeholder="Enter your name here">
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || editSpecialForm.controls['title'].touched) && editSpecialForm.controls['title']?.errors?.required">Project Title is required.
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 h-100">
+                                <div class="text-start d-flex flex-column justify-content-between">
+                                    <label class="form-label fw-bold">Charity/Initiative name <span class="text-danger fs-6">*</span></label>
+                                    <input type="text" formControlName="charityName"
+                                        class="rounded-0.25 custom-form form-control"
+                                        placeholder="Enter your name here">
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || editSpecialForm.controls['charityName'].touched) && editSpecialForm.controls['charityName']?.errors?.required">Charity/Initiative is required.
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 h-100">
+                                <div class="text-start d-flex flex-column justify-content-between">
+                                    <label class="form-label fw-bold">Contact Person name <span class="text-danger fs-6">*</span></label>
+                                    <input type="text" formControlName="charityName"
+                                        class="rounded-0.25 custom-form form-control"
+                                        placeholder="Enter your name here">
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || editSpecialForm.controls['charityName'].touched) && editSpecialForm.controls['charityName']?.errors?.required">Name is required.
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 h-100">
+                                <div class="text-start d-flex flex-column h-100 justify-content-between">
+                                    <label class="form-label fw-bold">Email <span class="text-danger fs-6">*</span></label>
+                                    <input type="email" formControlName="email"
+                                        class="rounded-0.25 custom-form form-control"
+                                        placeholder="Enter email here">
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || editSpecialForm.controls['email'].touched) && editSpecialForm.controls['email']?.errors?.required">Email is required.
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || editSpecialForm.controls['email'].touched) && editSpecialForm.controls['email']?.errors?.pattern">Email format is incorrect.
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 h-100">
+                                <div class="text-start d-flex flex-column h-100 justify-content-between">
+                                    <label class="form-label fw-bold">Contact number <span class="text-danger fs-6">*</span></label>
+                                    <input type="text" appNumbersOnly formControlName="mobileNumber"
+                                        class="rounded-0.25 custom-form form-control"
+                                        placeholder="Enter your number here">
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || editSpecialForm.controls['mobileNumber'].touched) && editSpecialForm.controls['mobileNumber']?.errors?.required">Mobile is required.
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || editSpecialForm.controls['mobileNumber'].touched) && editSpecialForm.controls['mobileNumber']?.errors?.minlength">Minimum 10 number are allowed.
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || editSpecialForm.controls['mobileNumber'].touched) && editSpecialForm.controls['mobileNumber']?.errors?.maxlength">Maximum 16 number are allowed.
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 h-100">
+                                <div class="text-start d-flex flex-column justify-content-between">
+                                    <label class="form-label fw-bold">Social Link <span class="text-danger fs-6">*</span></label>
+                                    <input type="text" formControlName="link"
+                                        class="rounded-0.25 custom-form form-control"
+                                        placeholder="Enter your name here">
+                                </div>
+                                <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                    *ngIf="(submitted || editSpecialForm.controls['link'].touched) && editSpecialForm.controls['link']?.errors?.required">Social Link is required.
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 text-start align-self-center">
+                                <div class="row">
+                                    <label class="col fw-bold" id="example-radio-group-label">Monetary donations accepted :</label>
+                                    <mat-radio-group class="ms-2 col-12" aria-label="Select an option" formControlName="monetaryDonation">
+                                        <mat-radio-button value="true" class="me-2">Yes</mat-radio-button>
+                                        <mat-radio-button value="false">No</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 text-start align-self-center">
+                                <div class="row">
+                                    <label class="col fw-bold" id="example-radio-group-label col-12">Time/effort donations invited :</label>
+                                    <mat-radio-group class="ms-2 col-12" aria-label="Select an option" formControlName="timeDonation">
+                                        <mat-radio-button value="true" class="me-2">Yes</mat-radio-button>
+                                        <mat-radio-button value="false">No</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 h-100">
+                                <div class="text-start d-flex flex-column h-100 justify-content-between">
+                                    <label class="form-label fw-bold">Status <span class="text-danger fs-6">*</span></label>
+                                    <select formControlName="status" class="form-select rounded-0.25">
+                                        <option value="" selected>Choose your Option</option>
+                                        <option [value]="item?.status" *ngFor="let item of status; let i=index;">
+                                            {{ item?.status }}
+                                        </option>
+                                    </select>
+                                    <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                        *ngIf="(submitted || editSpecialForm.controls['status'].touched) && editSpecialForm.controls['status']?.errors?.required">Status is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 my-2 text-start ">
+                                <label class="form-label fw-bold">Description
+                                    <span class="text-danger fs-6">*</span></label>
+                                
+                                    <editor formControlName="description"
+                                    [init]="{
+                                        height: 199,
+                                        menubar: true,
+                                        plugins: [
+                                        'advlist autolink lists link image charmap print preview anchor',
+                                        'searchreplace visualblocks code fullscreen',
+                                        'insertdatetime media table paste code help wordcount'
+                                        ],
+                                        toolbar:
+                                        'undo redo | formatselect | bold italic backcolor | \
+                                        alignleft aligncenter alignright alignjustify | \
+                                        bullist numlist outdent indent | removeformat | help'
+                                    }"
+                                    ></editor>
+                                    <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                        *ngIf="(submitted || editSpecialForm.controls['description'].touched) && editSpecialForm.controls['description']?.errors?.required">Description is required.
+                                    </div>
+                            </div>
+                            <div class="my-3" mat-dialog-actions align="center">
+                                <button mat-raised-button color="warn" class="me-2" [routerLink]="['/collaborate/special-projects']">Cancel</button>
+                                <button mat-raised-button color="primary" (click)="save()" 
+                                >{{pageType == 'update-project' ? 'Update' : 'Add'}}</button>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

@@ -15,6 +15,8 @@ import { OthersComponent } from './others/others.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxPaginationModule } from 'ngx-pagination';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     UserProfileRoutingModule,
     NgbModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+
+    NgxPaginationModule,
+    MatProgressBarModule
   ]
 })
 export class UserProfileModule { }

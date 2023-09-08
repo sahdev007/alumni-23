@@ -15,10 +15,15 @@ export class AddEditYoutubeLinksComponent implements OnInit {
   profilePic: any;
   image: any;
   submitted: boolean = false;
+  currentUser: any;
 
   constructor(private celebrateService: CelebrateService, public fb: FormBuilder, private notifyService: TokenInterceptor,
      @Inject(MAT_DIALOG_DATA) public data: any,
-  public dialog: MatDialog, public dialogref: MatDialogRef<AddEditYoutubeLinksComponent>) { }
+  public dialog: MatDialog, public dialogref: MatDialogRef<AddEditYoutubeLinksComponent>) {
+    if (localStorage) {
+      this.currentUser = JSON?.parse(localStorage?.getItem('currentUser') || '');
+    }
+   }
 
   ngOnInit(): void {
     this.buildForm();
@@ -33,7 +38,8 @@ export class AddEditYoutubeLinksComponent implements OnInit {
       title: ['', Validators.required],
       link: ['', Validators.required],
       category: ['youtube'],
-      status: ['']
+      status: [''],
+      user_id:[this.currentUser?.id]
     });
   }
 

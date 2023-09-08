@@ -10,8 +10,8 @@ import { Config } from 'src/app/services/config';
 import { ConnectService } from 'src/app/services/connect.service';
 import { DataService } from 'src/app/services/data.service';
 import { EditCostComponent } from 'src/app/shared/dialog/connect/edit-cost/edit-cost.component';
-import { ViewEventComponent } from 'src/app/shared/dialog/connect/view-event/view-event.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-admin-event',
@@ -20,12 +20,13 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
 })
 export class AdminEventComponent implements OnInit {
   getAllAdmin: Array<any> = [];
+  imgPath: any;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['author', 'title', 'type', 'date'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'cost', 'status', 'actions'];
+  public displayedColumns: string[] = ['title', 'type', 'date'];
+  public columnsToDisplay: string[] = ['sr.no', 'eventImage', 'author', ...this.displayedColumns, 'cost', 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -35,6 +36,7 @@ export class AdminEventComponent implements OnInit {
 
   public dataSource: MatTableDataSource<Person>;
   status: any;
+  display: number = 1;
 
   constructor(
     public dialog: MatDialog,
@@ -46,6 +48,7 @@ export class AdminEventComponent implements OnInit {
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
+      this.imgPath = environment?.imgUrl;
   }
 
 
@@ -147,10 +150,12 @@ export class AdminEventComponent implements OnInit {
   }
 
   view(data:any){
-    const dialogRef = this.dialog.open(ViewEventComponent, {
-      width: '400px',
-      data: { data: data }
-    });
+    this.router.navigate(['/connect/view-event'], {queryParams: { id: data?.id, type: 'admin-events' }});
+    // const dialogRef = this.dialog.open(ViewEventComponent, {
+    //   width: '400px',
+    //   data: { data: data }
+    // });
+    
   }
   /**
    * Function to edit project
@@ -254,4 +259,12 @@ export class AdminEventComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * Change view mode
+   * @param mode 
+   */
+    changeView(mode: number): void {
+      this.display = mode;
+    }
 }

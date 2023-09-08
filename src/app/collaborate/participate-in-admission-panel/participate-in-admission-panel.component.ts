@@ -12,6 +12,7 @@ import { AddEditParticipateAdmissionComponent } from 'src/app/shared/dialog/coll
 import { ViewAdmissionPanelComponent } from 'src/app/shared/dialog/collaborate/view-admission-panel/view-admission-panel.component';
 import { ViewUserListComponent } from 'src/app/shared/dialog/collaborate/view-user-list/view-user-list.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-participate-in-admission-panel',
@@ -19,12 +20,12 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./participate-in-admission-panel.component.scss']
 })
 export class ParticipateInAdmissionPanelComponent implements OnInit {
- 
+  imgPath: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['city', 'location', 'date_time'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'userList','is_active', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', 'profile_pic', ...this.displayedColumns, 'userList','is_active', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -44,6 +45,7 @@ export class ParticipateInAdmissionPanelComponent implements OnInit {
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
+      this.imgPath = environment?.imgUrl;
   }
 
 
@@ -154,10 +156,12 @@ export class ParticipateInAdmissionPanelComponent implements OnInit {
   }
 
   view(data: any) {
-    const dialogRef = this.dialog.open(ViewAdmissionPanelComponent, {
-      width: '400px',
-      data: {data: data}
-    });
+    this.router.navigate(['/collaborate/view-admission-panel'], {queryParams: {id: data?.id}});
+    
+    // const dialogRef = this.dialog.open(ViewAdmissionPanelComponent, {
+    //   width: '400px',
+    //   data: {data: data}
+    // });
 
   }
 
@@ -167,16 +171,17 @@ export class ParticipateInAdmissionPanelComponent implements OnInit {
    * @param params 
    */
   edit(data: any, params: any) {
-    const dialogRef = this.dialog.open(AddEditParticipateAdmissionComponent, {
-      width: '500px',
-      data: {data: data, action: params}
-    });
+    this.router.navigate(['/collaborate/add-edit-admission-panel'], {queryParams: {id: data?.id, action: params}});
+    // const dialogRef = this.dialog.open(AddEditParticipateAdmissionComponent, {
+    //   width: '500px',
+    //   data: {data: data, action: params}
+    // });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     this.ngOnInit();
+    //   }
+    // });
   }
 
     /**

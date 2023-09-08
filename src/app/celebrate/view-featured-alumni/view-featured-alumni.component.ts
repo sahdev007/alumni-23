@@ -11,6 +11,7 @@ import { CelebrateService } from 'src/app/services/celebrate.service';
 export class ViewFeaturedAlumniComponent implements OnInit {
   alumniId: number;
   alumniData: any;
+  loading: boolean;
   
   constructor(public aroute: ActivatedRoute, private celebrateService: CelebrateService) { 
         // Get Id by queryparams
@@ -20,9 +21,11 @@ export class ViewFeaturedAlumniComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.loading = true;
     let action  = 'single-getFeatured';
       await this.celebrateService.getDataById(action, this.alumniId).subscribe((res:any) => {
         this.alumniData = res?.data;
+        this.loading = false;
       });  
   }
 

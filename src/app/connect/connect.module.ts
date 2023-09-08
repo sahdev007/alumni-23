@@ -22,6 +22,8 @@ import { AlumniEventComponent } from './alumni-event/alumni-event.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ViewEventComponent } from './view-event/view-event.component';
+import { AddEditEventTypeComponent } from './add-edit-event-type/add-edit-event-type.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     EventTypesComponent,
     AddEventComponent,
     AdminEventComponent,
-    AlumniEventComponent
+    AlumniEventComponent,
+    ViewEventComponent,
+    AddEditEventTypeComponent
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,7 @@
             <form [formGroup]="mentorForm" (ngSubmit)="edit()">
                 <div class="row">
                     <div class="col-lg-4 my-xl-3 my-lg-3 my-2">
-                        <label class="form-label fw-bold">Willing to provide Mentorship
+                        <label class="form-label fw-bold">Willing to provide mentorship
                             <span class="text-danger">*</span>
                         </label>
                         <select class="form-select" formControlName="willing_to_provide_mentorship">
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 my-xl-3 my-lg-3 my-2">
-                        <label class="form-label fw-bold">Willing to be Mentee
+                        <label class="form-label fw-bold">Willing to be mentee
                             <span class="text-danger">*</span>
                         </label>
                         <select class="form-select" formControlName="willing_to_be_mentee">
@@ -109,15 +109,17 @@
                             <ng-container *ngIf="mentee.length > 0">
                                 <div class="userInfo">
                                     <li *ngFor="let item of mentee; index as i;" class="list-group-item text-start mt-3 shadow-sm px-2 py-1">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img class="img-thumbnail rounded-circle me-2" style="width: 46px; height: 46px; object-fit: cover;" [src]="item?.profile_pic ? (imgPath + item?.profile_pic) : 'https://www.bootdey.com/img/Content/User_for_snippets.png'" alt="Pic">
+                                        <a (click)="viewUser(item)" style="cursor: pointer;">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <img class="img-thumbnail rounded-circle me-2" style="width: 46px; height: 46px; object-fit: cover;" [src]="item?.profile_pic ? (imgPath + item?.profile_pic) : 'https://www.bootdey.com/img/Content/User_for_snippets.png'" alt="Pic">
+                                                </div>
+                                                <div class="col-10">
+                                                    <p class="m-0">{{item?.first_name}} {{item?.last_name}}</p>
+                                                    <p class="m-0">{{item?.email}}</p>
+                                                </div>
                                             </div>
-                                            <div class="col-10">
-                                                <p class="m-0">{{item?.first_name}} {{item?.last_name}}</p>
-                                                <p class="m-0">{{item?.email}}</p>
-                                            </div>
-                                        </div>
+                                        </a>
                                     </li>
                                 </div>
                             </ng-container>
@@ -134,15 +136,17 @@
                             <ng-container *ngIf="mentor.length > 0">
                                 <div class="userInfo">
                                     <li *ngFor="let item of mentor; index as i;" class="list-group-item text-start mt-3 shadow-sm px-2 py-1">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img class="img-thumbnail rounded-circle me-2" style="width: 46px; height: 46px; object-fit: cover;" [src]="item?.profile_pic ? (imgPath + item?.profile_pic) : 'https://www.bootdey.com/img/Content/User_for_snippets.png'" alt="Pic">
+                                        <a (click)="viewUser(item)" style="cursor: pointer;">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <img class="img-thumbnail rounded-circle me-2" style="width: 46px; height: 46px; object-fit: cover;" [src]="item?.profile_pic ? (imgPath + item?.profile_pic) : 'https://www.bootdey.com/img/Content/User_for_snippets.png'" alt="Pic">
+                                                </div>
+                                                <div class="col-10">
+                                                    <p class="m-0">{{item?.first_name}} {{item?.last_name}}</p>
+                                                    <p class="m-0">{{item?.email}}</p>
+                                                </div>
                                             </div>
-                                            <div class="col-10">
-                                                <p class="m-0">{{item?.first_name}} {{item?.last_name}}</p>
-                                                <p class="m-0">{{item?.email}}</p>
-                                            </div>
-                                        </div>
+                                        </a>
                                     </li>
                                 </div>
                             </ng-container>

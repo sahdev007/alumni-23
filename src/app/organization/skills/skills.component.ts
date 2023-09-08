@@ -6,9 +6,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Person } from 'src/app/models/person';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
-import { AddEditSkillsComponent } from 'src/app/shared/dialog/organization/add-edit-skills/add-edit-skills.component';
 import { Config } from 'src/app/services/config';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-skills',
@@ -21,7 +21,7 @@ export class SkillsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['skill'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', ...this.displayedColumns, 'created_at', 'status', 'actions'];
 
   public columnsFilters = {};
 
@@ -32,7 +32,8 @@ export class SkillsComponent implements OnInit {
     private organizationService: OrganizationService, 
     public dialog: MatDialog,
     private config: Config,
-    public notify: TokenInterceptor
+    public notify: TokenInterceptor,
+    public router: Router
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
@@ -129,33 +130,12 @@ export class SkillsComponent implements OnInit {
     }
   }
 
-  add(params: any, action?: string) {
-    const dialogRef = this.dialog.open(AddEditSkillsComponent, {
-      width: '400px',
-      data: { data: params, action: action }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+  add(params?: string) {
+    this.router.navigate(['/organization/add-edit-skill'], {queryParams: {action: params}});
   }
 
-
   edit(data: any, params: any) {
-    const dialogRef = this.dialog.open(AddEditSkillsComponent, {
-      width: '400px',
-      data: {data: data, action: params}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 400);
-      }
-    });
+    this.router.navigate(['/organization/add-edit-skill'], {queryParams: {id:data?.id, action: params}});
   }
 
   delete(data: any, params: string) {

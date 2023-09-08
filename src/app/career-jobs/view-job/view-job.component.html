@@ -1,0 +1,133 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/careers-jobs/admin-jobs">Collaborate</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <ng-container *ngIf="pageType=='admin-jobs'">
+                        <a routerLink="/careers-jobs/admin-jobs">Admin Jobs</a>
+                    </ng-container>
+                    <ng-container *ngIf="pageType=='alumni-jobs'">
+                        <a routerLink="/careers-jobs/alumni-jobs">Alumni Jobs</a>
+                    </ng-container>
+                </li>
+                <!-- <li class="breadcrumb-item"><a routerLink="/collaborate/admin-jobs">Featured Alumni</a>
+                </li> -->
+                <li class="breadcrumb-item active" aria-current="page">View Detail</li>
+            </ol>
+        </nav>
+    </div>
+  </div>
+<!--end breadcrumb-->
+<div class="container pt-4">
+    <!-- <h5 class="mb-0 text-center fw-bold">Job Detail</h5> -->
+  <div class="card border-top border-0 border-4 border-primary my-3 mb-5">
+    <div class="card-body px-5 py-3">
+        <app-loader *ngIf="loading"></app-loader>
+        <ng-container *ngIf="!loading">
+            <div class="row">
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Author :</label>
+                    <p class="m-0 fs-6 text-capitalize">{{ jobsData?.author }}</p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Title :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">{{ jobsData?.title }}</p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Company Name :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.companyName }}
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Location :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.location }}
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">City :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.city }}
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Salary :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.salary }}
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Work Experience :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.workExperience }}
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Skills Required :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.skillsRequired }}
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Qualification :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.qualification }}
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Contact Person :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.contactPerson }}
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Contact Number :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.contactNumber }}
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">email :</label><br />
+                    <p class="m-0 fs-6">
+                        <a href="mailto:{{ jobsData?.email }}">{{ jobsData?.email }}</a>
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Website :</label><br />
+                    <p class="m-0 fs-6">
+                        <a href="mailto:{{ jobsData?.website }}">{{ jobsData?.website }}</a>
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Fresher can Apply :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.fresherApply }}
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Status :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.status == "open" ? 'Open': 'Close' }}
+                    </p>
+                </div>
+                <div class="col-xl-6 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Created At :</label><br />
+                    <p class="m-0 fs-6 text-capitalize">
+                {{ jobsData?.created_at | date }}
+                    </p>
+                </div>
+                
+                <div class="col-12 my-xl-2">
+                    <label class="form-label mb-1 fw-bold fs-6">Description :</label>
+                    <div [innerHTML]="jobsData?.description"></div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+  </div>
+</div>

@@ -22,7 +22,6 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    // public notification: Notification,
     public fb: FormBuilder,
     public router: Router,
     public _snackBar: MatSnackBar,
@@ -45,8 +44,6 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-      $.getScript('./assets/js/form-validations.js');
-      $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
 
   buildForm() {
@@ -55,7 +52,7 @@ export class SignInComponent implements OnInit {
         "",
         [
           Validators.required,
-          Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$"),
+          Validators.pattern("^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([A-Za-z]{2,6}(?:\\.[A-Za-z]{2,6})?)$"),
         ],
       ],
       password: [
@@ -83,15 +80,17 @@ export class SignInComponent implements OnInit {
       let params = this.loginForm.value;
       await this.authService.login(params).subscribe(
         (res: any) => {
-          if (res.status === 200) {
+          if (res?.status == 200) {
             localStorage.setItem("currentUser", JSON.stringify(res?.user));
-            localStorage.setItem("token", JSON.stringify(res?.access_token));
+            this.authService.storeJwtToken(res?.access_token);
+            // localStorage.setItem("token", JSON.stringify(res?.access_token));
+            localStorage.setItem("userRole", JSON.stringify(res?.user?.role));
             this.loading=false;
             this.interceptor.notificationService.success(
               res?.message
             );
             setTimeout(() => {
-              location.assign('/dashboard')
+              location.assign('/dashboard');
             }, 1000);
           } else if(res?.status == 401) {
             this.loading=false;

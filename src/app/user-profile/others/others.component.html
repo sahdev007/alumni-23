@@ -5,7 +5,7 @@
             <form [formGroup]="othersForm" (ngSubmit)="edit()">
                 <div class="row">
                     <div class="col-lg-6 my-xl-3 my-lg-3 my-2">
-                        <label class="form-label fw-bold">Family/Relatives associated with SBS </label>
+                        <label class="form-label fw-bold">Family/relatives associated with SBS </label>
                         <select class="form-select" formControlName="family_and_relatives">
                             <option value="" selected>Select family/relative</option>
                             <option *ngFor="let item of familyRelative; let i=index;" [value]="item?.label">{{ item?.label

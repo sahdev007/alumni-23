@@ -1,0 +1,63 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/collaborate/mentor">Collaborate</a>
+                </li>
+                <li class="breadcrumb-item"><a routerLink="/collaborate/offer-expertise">Offer Expertise</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">View Offer Expertise</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+<div class="container pt-4">
+    <!-- <h5 class="mb-0 text-center fw-bold">Offer Expertise</h5> -->
+    <div class="card border-top border-0 border-4 border-primary my-3 mb-5">
+        <div class="card-body px-5 py-3">
+            <app-loader *ngIf="loading"></app-loader>
+            <ng-container *ngIf="!loading">
+                <div class="row">
+                    <div class="col-xl-6 my-xl-2" *ngIf="expertiseData?.author">
+                        <label class="form-label mb-1 fw-bold fs-6">Author :</label>
+                        <p class="m-0 fs-6 text-capitalize">{{ expertiseData?.author }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="expertiseData?.workshopTopic">
+                        <label class="form-label mb-1 fw-bold fs-6">Workshop Topic :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ expertiseData?.workshopTopic }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="expertiseData?.eventName">
+                        <label class="form-label mb-1 fw-bold fs-6">Event Name :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ expertiseData?.eventName }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="expertiseData?.type">
+                        <label class="form-label mb-1 fw-bold fs-6">Type :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ expertiseData?.type }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="expertiseData?.participationType">
+                        <label class="form-label mb-1 fw-bold fs-6">Participation Type :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ expertiseData?.participationType }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="expertiseData?.status">
+                        <label class="form-label mb-1 fw-bold fs-6">Status :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">
+                    {{ expertiseData?.status == "active" ? 'Active': 'Inactive' }}
+                        </p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="expertiseData?.description">
+                        <label class="form-label mb-1 fw-bold fs-6">Description :</label><br />
+                        <div [innerHtml]="expertiseData?.description"></div>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="expertiseData?.created_at">
+                        <label class="form-label mb-1 fw-bold fs-6">Created At :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ expertiseData?.created_at | date }}</p>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

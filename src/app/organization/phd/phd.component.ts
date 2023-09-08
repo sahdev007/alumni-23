@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { Config } from 'src/app/services/config';
@@ -21,7 +22,7 @@ export class PhdComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['course'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', ...this.displayedColumns, 'created_at', 'status', 'actions'];
 
   public columnsFilters = {};
 
@@ -31,7 +32,8 @@ export class PhdComponent implements OnInit {
     private organizationService: OrganizationService, 
     public dialog: MatDialog,
     private config: Config,
-    private notify: TokenInterceptor
+    private notify: TokenInterceptor,
+    public router: Router
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
@@ -128,30 +130,12 @@ export class PhdComponent implements OnInit {
     }
   }
 
-  add(params: any, action?: string, type?: string) {
-    const dialogRef = this.dialog.open(AddEditCoursesComponent, {
-      width: '400px',
-      data: { data: params, action: action, type: type}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+  add(data: any, params?: string, type?: string) {
+    this.router.navigate(['/organization/add-edit-course'], {queryParams: {id:data?.id, action: params, type: type}});
   }
 
   edit(data: any, params: any, type: string) {
-    const dialogRef = this.dialog.open(AddEditCoursesComponent, {
-      width: '400px',
-      data: {data: data, action: params, type: type}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+    this.router.navigate(['/organization/add-edit-course'], {queryParams: {id:data?.id, action: params, type: type}});
   }
 
   delete(data: any, params: string) {

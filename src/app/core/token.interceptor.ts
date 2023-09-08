@@ -5,48 +5,68 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpResponse,
+  HttpErrorResponse,
+  HttpClient,
 } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { catchError, map, switchMap } from "rxjs/operators";
 import { NotificationService } from "../services/notification.service";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
+import { AuthService } from "../services/auth.service";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+ 
+  url: any;
+  requestedToken:any;
+
   constructor(
     public notificationService: NotificationService,
-    private router: Router
-  ) {}
-
+    private router: Router,
+    public http: HttpClient,
+    private authService: AuthService
+  ) {
+    this.url = environment?.apiUrl;
+  }
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const getToken: string | any = localStorage.getItem("token");
-
     let token = JSON.parse(getToken);
+
     if (token) {
       request = request.clone({
-        headers: request.headers.set("Authorization", "Bearer " + token)
+        headers: request.headers.set("Authorization", "Bearer " +token)
       });
     }
+
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
+          console.log(event, 'Interceptor Event');
+          if(event?.body?.message == "Unauthenticated."){ 
+            this.authService.logout();
+            location.assign('/auth/sign-in');
+          }
         }
         return event;
       }),
       catchError((error: any) => {
-        if (
-          error.error.message == "Unauthenticated" &&
-          error.url !== "https://mirchidigital.co.in/sbsAlumni/api/login"
-        ) {
-          this.router.navigate(["login"]);
-        } else if (
-          error.error.message == "Unauthenticated" &&
-          error.url == "https://mirchidigital.co.in/sbsAlumni/api/login"
-        ) {
-          return throwError(error.error.message);
+        if(error?.status == 401) {
+          return this.authService.refreshToken().pipe(
+            switchMap((res:any) => {
+              console.log(res, 'resge')
+              this.requestedToken = res?.access_token;
+
+              return next.handle(request.clone({
+                  setHeaders: {
+                    Authorization: `Bearer ${this.requestedToken}`
+                  }
+              }))
+            })
+          )
         }
         return throwError(error.error.message);
       })

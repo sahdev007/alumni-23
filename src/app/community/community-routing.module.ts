@@ -7,6 +7,9 @@ import { AddClubTypeComponent } from './add-club-type/add-club-type.component';
 import { AddClubsComponent } from './add-clubs/add-clubs.component';
 import { EditBusinessVenturesComponent } from './edit-business-ventures/edit-business-ventures.component';
 import { ViewBusinessVenturesComponent } from './view-business-ventures/view-business-ventures.component';
+import { AddEditClubTypeComponent } from './add-edit-club-type/add-edit-club-type.component';
+import { ViewClubTypeComponent } from './view-club-type/view-club-type.component';
+import { ViewClubComponent } from './view-club/view-club.component';
 
 const routes: Routes = [
   { 
@@ -32,31 +35,31 @@ const routes: Routes = [
       },
       {
         path: 'clubs',
-        component: ClubsComponent,
-        data: {
-          title: 'clubs'
-        }
+        component: ClubsComponent
+      },
+      {
+        path: 'view-club',
+        component: ViewClubComponent
       },
       {
         path: 'add-clubs',
-        component: AddClubsComponent,
-        data: {
-          title: 'Add clubs'
-        }
+        component: AddClubsComponent
       },
       {
-        path: 'add-club-type',
-        component: AddClubTypeComponent,
-        data: {
-          title: 'Add clubs type'
-        }
+        path: 'club-types',
+        component: AddClubTypeComponent
+      },
+      {
+        path: 'add-edit-club-type',
+        component: AddEditClubTypeComponent
+      },
+      {
+        path: 'view-club-type',
+        component: ViewClubTypeComponent
       },
       {
         path: 'invite-batchmates',
-        component: InviteBatchmatesComponent,
-        data: {
-          title: 'Invite batchmates'
-        }
+        component: InviteBatchmatesComponent
       }
     ]
   }

@@ -31,11 +31,21 @@
                 <!-- Second level menu -->
                 <ul class="menu-content" *ngIf="menuItem.submenu.length > 0">
                     <li *ngFor="let menuSubItem of menuItem.submenu" [routerLinkActive]="menuSubItem.submenu.length > 0 ? '' : 'active'" [ngClass]="[menuSubItem.class]">
-                        <a [routerLink]="menuSubItem.submenu.length > 0 ? null : [menuSubItem.path]" *ngIf="!menuSubItem.isExternalLink; else externalSubLinkBlock">
-                            <i [ngClass]="[menuSubItem.icon]"></i>
-                            <span class="sub-menu-title">{{menuSubItem.title}}</span>
-                            <span *ngIf="menuSubItem.badge != '' " [ngClass]="[menuSubItem.badgeClass]">{{menuSubItem.badge}}</span>
-                        </a>
+                        <ng-container *ngIf="menuSubItem.isRole !== 0">
+                            <a [routerLink]="menuSubItem.submenu.length > 0 ? null : [menuSubItem.path]" *ngIf="!menuSubItem.isExternalLink; else externalSubLinkBlock">
+                                <i [ngClass]="[menuSubItem.icon]"></i>
+                                <span class="sub-menu-title">{{menuSubItem.title}}</span>
+                                <span *ngIf="menuSubItem.badge != '' " [ngClass]="[menuSubItem.badgeClass]">{{menuSubItem.badge}}</span>
+                            </a>
+                        </ng-container>
+                        <ng-container *ngIf="menuSubItem.isRole == 0">
+                            <a [routerLink]="menuSubItem.submenu.length > 0 ? null : [menuSubItem.path]" *ngIf="!menuSubItem.isExternalLink; else externalSubLinkBlock">
+                                <i [ngClass]="[menuSubItem.icon]"></i>
+                                <span class="sub-menu-title">{{menuSubItem.title}}</span>
+                                <span *ngIf="menuSubItem.badge != '' " [ngClass]="[menuSubItem.badgeClass]">{{menuSubItem.badge}}</span>
+                            </a>
+                        </ng-container>
+                        
                         <ng-template #externalSubLinkBlock>
                             <a [href]="[menuSubItem.path]" target="_blank">
                                 <i [ngClass]="[menuSubItem.icon]"></i>

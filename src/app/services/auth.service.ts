@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthService {
    * @param data 
    * @returns 
    */
-  public register(data: any) {
+  register(data: any) {
     return this.http.post(`${this.url}/create-register`, data);
   }
 
@@ -27,8 +28,32 @@ export class AuthService {
    * @param data 
    * @returns 
    */
-  public login(data: any) {
+  login(data: any): Observable<any> {
     return this.http.post(`${this.url}/login`, data);
+  }
+
+  getUserRole() {
+    return localStorage.getItem("userRole") !== null ? localStorage.getItem("userRole")?.toString() : '';
+  }
+
+  /**
+   * Function to refresh token
+   * @returns 
+   */
+  refreshToken() {
+    return this.http.post<any>(`${this.url}/refresh`, {
+      'refreshToken': this.getRefreshToken()
+    }).pipe(tap((tokens: any) => {
+      this.storeJwtToken(tokens);
+    }));
+  }
+
+  private getRefreshToken() {
+    return localStorage.getItem("currentUser");
+  }
+
+  storeJwtToken(jwt: string) {
+    localStorage.setItem("token", JSON.stringify(jwt));
   }
 
   /**
@@ -36,7 +61,7 @@ export class AuthService {
    * @param data 
    * @returns 
    */
-  public forgotPassword(data: any) {
+  forgotPassword(data: any) {
     return this.http.post(`${this.url}/forgot-passwords`, data);
   }
   /**
@@ -44,7 +69,7 @@ export class AuthService {
    * @param data 
    * @returns 
    */
-   public resetPassword(data: any) {
+   resetPassword(data: any) {
     return this.http.post(`${this.url}/reset-password`, data);
   }
 /**
@@ -52,14 +77,15 @@ export class AuthService {
  * @param data 
  * @returns 
  */
-  public resetPasswordById(data: any) {
+  resetPasswordById(data: any) {
     return this.http.post(`${this.url}/reset-passwordByAdmin/${data.id}`, data);
   }
   /**
    * Function to remove token from localstorage
    */
-  public logout() {
+  logout() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
   }
 }

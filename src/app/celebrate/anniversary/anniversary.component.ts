@@ -7,6 +7,7 @@ import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CelebrateService } from 'src/app/services/celebrate.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-anniversary',
@@ -16,12 +17,12 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
 export class AnniversaryComponent implements OnInit {
   public status = 'active';
   getAllJourney: Array<any> = [];
- 
+  imgPath: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['first_name', 'email', 'mobile_number', 'birth_date'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', 'profile_pic', ...this.displayedColumns, 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -37,6 +38,7 @@ export class AnniversaryComponent implements OnInit {
     private notifyService: TokenInterceptor
     ) {
     this.dataSource = new MatTableDataSource<Person>();
+    this.imgPath = environment?.imgUrl;
   }
 
   private filter() {

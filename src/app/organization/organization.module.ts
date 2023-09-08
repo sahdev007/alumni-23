@@ -27,6 +27,15 @@ import { SecondaryFunctionComponent } from './secondary-function/secondary-funct
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SecurityQuestionsComponent } from './security-questions/security-questions.component';
+import { AddEditBatchesComponent } from './add-edit-batches/add-edit-batches.component';
+import { AddEditCourseComponent } from './add-edit-course/add-edit-course.component';
+import { AddEditInstituteComponent } from './add-edit-institute/add-edit-institute.component';
+import { AddEditSecondaryFunctionComponent } from './add-edit-secondary-function/add-edit-secondary-function.component';
+import { AddEditPrimaryFunctionComponent } from './add-edit-primary-function/add-edit-primary-function.component';
+import { AddEditPrimaryIndustryComponent } from './add-edit-primary-industry/add-edit-primary-industry.component';
+import { AddEditSecondaryIndustryComponent } from './add-edit-secondary-industry/add-edit-secondary-industry.component';
+import { AddEditSecurityQuestionsComponent } from './add-edit-security-questions/add-edit-security-questions.component';
+import { AddEditSkillsComponent } from './add-edit-skills/add-edit-skills.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +49,16 @@ import { SecurityQuestionsComponent } from './security-questions/security-questi
     SecondaryIndustryComponent,
     PrimaryFunctionComponent,
     SecondaryFunctionComponent,
-    SecurityQuestionsComponent
+    SecurityQuestionsComponent,
+    AddEditBatchesComponent,
+    AddEditCourseComponent,
+    AddEditInstituteComponent,
+    AddEditSecondaryFunctionComponent,
+    AddEditPrimaryFunctionComponent,
+    AddEditPrimaryIndustryComponent,
+    AddEditSecondaryIndustryComponent,
+    AddEditSecurityQuestionsComponent,
+    AddEditSkillsComponent
   ],
   imports: [
     CommonModule,

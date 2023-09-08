@@ -11,6 +11,7 @@ import { CommunityService } from 'src/app/services/community.service';
 export class ViewBusinessVenturesComponent implements OnInit {
   userId: number;
   ventureData: any;
+  loading:boolean;
 
   constructor(public aroute: ActivatedRoute, private communityService: CommunityService) {
     // Get Id by queryparams
@@ -20,7 +21,7 @@ export class ViewBusinessVenturesComponent implements OnInit {
   }
 
   async ngOnInit() {
-    console.log(this.userId);
+    this.loading = true;
     let action  = 'single-entrepreneur';
       await this.communityService.getDataById(action, this.userId).pipe(
         map((x:any) => {
@@ -28,7 +29,7 @@ export class ViewBusinessVenturesComponent implements OnInit {
         })
       ).subscribe((res:any) => {
         this.ventureData = res[0];
-        console.log(this.ventureData)
+        this.loading = false;
       });  
   }
 

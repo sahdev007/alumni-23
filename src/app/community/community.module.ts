@@ -26,6 +26,9 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { ViewBusinessVenturesComponent } from './view-business-ventures/view-business-ventures.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AddEditClubTypeComponent } from './add-edit-club-type/add-edit-club-type.component';
+import { ViewClubTypeComponent } from './view-club-type/view-club-type.component';
+import { ViewClubComponent } from './view-club/view-club.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AddClubTypeComponent,
     EditBusinessVenturesComponent,
     ViewBusinessVenturesComponent,
+    AddEditClubTypeComponent,
+    ViewClubTypeComponent,
+    ViewClubComponent,
   ],
   imports: [
     CommonModule,
@@ -58,7 +64,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatFormFieldModule,
 
     EditorModule,
-    SharedModule,
+    SharedModule
   ]
 })
 export class CommunityModule { }

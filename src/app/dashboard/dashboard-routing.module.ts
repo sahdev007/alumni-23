@@ -8,6 +8,7 @@ import { DigitalMarketingComponent } from './digital-marketing/digital-marketing
 import { HumanResourcesComponent } from './human-resources/human-resources.component';
 import { AllUsersComponent } from './all-users/all-users.component';
 import { ManageUsersRequestComponent } from './manage-users-request/manage-users-request.component';
+import { UserRoleComponent } from './user-role/user-role.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
         data: {
           title: 'All User'
         }
+      },
+      {
+        path: 'user-role',
+        component: UserRoleComponent
       },
       {
         path: 'manage-request',

@@ -70,15 +70,15 @@ $(function() {
     var myChart = new Chart(ctx, {
       type: 'doughnut',
       data: {
-        labels: ["Direct", "Affiliate", "E-mail", "Other"],
+        labels: ["Registered", "Approved", "Pending", "Rejected"],
         datasets: [{
           backgroundColor: [
-            "#14abef",
             "#02ba5a",
-            "#d13adf",
-            "#fba540"
+            "#14abef",
+            "#fba540",
+            "#e42343"
           ],
-          data: [5856, 2602, 1802, 1105],
+          data: [50, 45, 6, 2],
           borderWidth: [0, 0, 0, 0]
         }]
       },
@@ -169,7 +169,7 @@ jQuery('#dashboard-map').vectorMap(
   hoverColor: '#009efb',
   markers : [{
       latLng : [21.00, 78.00],
-      name : 'Lorem Ipsum Dollar'
+      name : 'India'
     
     }],
   hoverOpacity: null,

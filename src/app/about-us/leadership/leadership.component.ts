@@ -1,15 +1,16 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { Config } from 'src/app/services/config';
 import { OrganizationService } from 'src/app/services/organization.service';
-import { AddEditLeadershipComponent } from 'src/app/shared/dialog/about/add-edit-leadership/add-edit-leadership.component';
-import { ViewLeadershipComponent } from 'src/app/shared/dialog/about/view-leadership/view-leadership.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-leadership',
@@ -17,26 +18,32 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
   styleUrls: ['./leadership.component.scss']
 })
 export class LeadershipComponent implements OnInit {
+  imgPath: any;
+  allTeam: any;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['name', 'designation', 'institute_name', 'order'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public displayedColumns: string[] = [ 'designation', 'institute_name', 'order'];
+  public columnsToDisplay: string[] = ['sr.no', 'profile_pic', ...this.displayedColumns, 'status', 'actions'];
 
   public columnsFilters = {};
 
-  public dataSource: MatTableDataSource<Person>;
+  dataSource: MatTableDataSource<Person>;
   status: any;
+  display: number = 1;
+  team: any;
 
   constructor(
     private organizationService: OrganizationService, 
     public dialog: MatDialog,
     private notifyService : TokenInterceptor,
-    private config: Config
+    private config: Config,
+    public router: Router
     ) {
       this.status = this.config?.status;
       this.dataSource = new MatTableDataSource<Person>();
+      this.imgPath = environment.imgUrl;
   }
 
 
@@ -131,38 +138,15 @@ export class LeadershipComponent implements OnInit {
   }
 
   add(params: any, action?: string, type?: string) {
-    const dialogRef = this.dialog.open(AddEditLeadershipComponent, {
-      width: '480px',
-      data: { data: params, action: action}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+    this.router.navigate(['/about-us/add-edit-leadership'])
   }
 
-  view(params: any){
-    const dialogRef = this.dialog.open(ViewLeadershipComponent, {
-      width: '540px',
-      data: { data: params }
-    });
+  view(data: any){
+    this.router.navigate(['/about-us/view-leadership'],{queryParams: {id: data?.id}});
   }
 
   edit(data: any, params: any) {
-    const dialogRef = this.dialog.open(AddEditLeadershipComponent, {
-      width: '580px',
-      data: {data: data, action: params}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 400);
-      }
-    });
+    this.router.navigate(['/about-us/add-edit-leadership'],{queryParams: {id: data?.id, action: params}});
   }
 
   delete(data: any, params: string) {
@@ -201,7 +185,8 @@ export class LeadershipComponent implements OnInit {
     let action = "all-team";
     await this.organizationService.getAllData(action).subscribe(
       (prim: any) => {
-        if(prim?.status == 200) this.dataSource.data = prim?.data;
+        this.team = prim?.data;
+        if(prim?.status == 200) this.allTeam = prim?.data; this.dataSource.data = prim?.data;
       },
       (error) => {
         this.notifyService.notificationService.error(error);
@@ -225,4 +210,16 @@ export class LeadershipComponent implements OnInit {
         this.notifyService.notificationService.error(error);
       });
   }
+
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.allTeam, event.previousIndex, event.currentIndex);
+  }
+  /**
+   * Change view mode
+   * @param mode 
+   */
+    changeView(mode: number): void {
+      this.display = mode;
+    }
 }

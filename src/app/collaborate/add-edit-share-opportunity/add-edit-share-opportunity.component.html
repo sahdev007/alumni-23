@@ -1,0 +1,88 @@
+
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/collaborate/mentor">Collaborate</a>
+                </li>
+                <li class="breadcrumb-item"><a routerLink="/collaborate/share-opportunities">Share Opportunity</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ pageType !== 'update-opportunity' ? 'Add' : 'Update' }} Opportunity</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+
+<div class="row">
+    <div class="col-xl-9 mx-auto">
+        <h5 class="mb-3 text-center fw-bold">{{ pageType !== 'update-opportunity' ? 'Add' : 'Update' }} Opportunity</h5>
+        <hr/>
+        <div class="card border-top border-0 border-4 border-primary">
+            <div class="card-body p-5">
+                <app-loader *ngIf="loading"></app-loader>
+                <ng-container *ngIf="!loading">
+                    <form class="example-form" [formGroup]="shareOppForm">
+                        <div class="mb-3 row">
+                            <div class="col-sm-10 col-md-6">
+                                <label for="staticEmail" class="col-form-label fw-bold">Author : <span class="text-danger">*</span></label>
+                                <ng-container *ngIf="pageType == 'update-opportunity'">
+                                    <input type="text" formControlName="author" class="form-control" placeholder="Enter author here">
+                                </ng-container>
+                                <ng-container *ngIf="pageType != 'update-opportunity'">
+                                    <input type="text" formControlName="author" [(ngModel)]="author" class="form-control" placeholder="Enter author here" readonly>
+                                </ng-container>
+                            </div>
+                            <div class="col-sm-10 col-md-6">
+                                <label for="staticEmail" class="col-form-label fw-bold">No. of positions for Internship : <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="positionsForInternship"  class="form-control" placeholder="Enter positions here">
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || shareOppForm.controls['positionsForInternship'].touched) && shareOppForm.controls['positionsForInternship']?.errors?.required">Position is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6">
+                                <label for="staticEmail" class="col-form-label fw-bold">Specialization : <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="specialization"  class="form-control" placeholder="Enter positions here">
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || shareOppForm.controls['specialization'].touched) && shareOppForm.controls['specialization']?.errors?.required">Enter specialization is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6">
+                                <label for="formGroupExampleInput" class="col-form-label fw-bold ">Status</label>
+                                <select formControlName="status" class="form-select rounded-0.25">
+                                    <option value="" selected>Choose your Option</option>
+                                    <option [value]="item?.status" *ngFor="let item of status; let i=index;">
+                                        {{ item?.status == "active" ? 'Active' : 'Inactive' }}
+                                    </option>
+                                </select>
+                                <div class="invalidText fw-bold mt-2 m-0 alert alert-danger text-danger p-1 m-0" 
+                                    *ngIf="(submitted || shareOppForm.controls['status'].touched) && shareOppForm.controls['status']?.errors?.required">Status is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-md-6 align-self-center">
+                                <div class="row">
+                                    <mat-label class="col-form-label col-12 fw-bold">Stipend Paid </mat-label>
+                                    <mat-radio-group aria-label="Select an option" class="" formControlName="stipend">
+                                        <mat-radio-button class="me-2" value="true">Yes</mat-radio-button>
+                                        <mat-radio-button value="false">No</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center my-4">
+                            <div class="row justify-content-center">
+                                <div class="my-2" mat-dialog-actions align="center">
+                                    <button mat-raised-button color="warn" class="me-2" [routerLink]="['/collaborate/share-opportunities']">Back</button>
+                                    <button mat-raised-button color="primary" (click)="save()">{{ pageType !== 'update-opportunity' ? 'Add' : 'Update' }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

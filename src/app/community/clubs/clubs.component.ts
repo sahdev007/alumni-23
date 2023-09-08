@@ -9,8 +9,8 @@ import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/delete
 import { Router } from '@angular/router';
 import { CommunityService } from 'src/app/services/community.service';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
-import { ViewClubComponent } from 'src/app/shared/dialog/community/view-club/view-club.component';
 import { Config } from 'src/app/services/config';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-clubs',
@@ -20,12 +20,13 @@ import { Config } from 'src/app/services/config';
 export class ClubsComponent implements OnInit {
 
   status: any;
+  imgPath: any;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['name', 'type'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', 'clubImage', ...this.displayedColumns, 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -34,6 +35,8 @@ export class ClubsComponent implements OnInit {
   public columnsFilters = {};
 
   public dataSource: MatTableDataSource<Person>;
+  display: number = 1;
+  clubs: any;
 
   constructor(
     public dialog: MatDialog,
@@ -45,6 +48,7 @@ export class ClubsComponent implements OnInit {
     ) {
       this.status = this.config?.status
       this.dataSource = new MatTableDataSource<Person>();
+      this.imgPath = environment?.imgUrl;
   }
 
 
@@ -143,10 +147,11 @@ export class ClubsComponent implements OnInit {
   }
 
   view(data:any){
-    const dialogRef = this.dialog.open(ViewClubComponent, {
-      width: '380px',
-      data: { data: data }
-    });
+    this.router.navigate(['/community/view-club'], {queryParams: { id: data.id}});
+    // const dialogRef = this.dialog.open(ViewClubComponent, {
+    //   width: '380px',
+    //   data: { data: data }
+    // });
   }
   
   edit(id: number, params: string) {
@@ -204,12 +209,23 @@ export class ClubsComponent implements OnInit {
     let action = "all-clubsGet";
     await this.dataService.getAllData(action).subscribe(
       (club: any) => {
-        if(club?.status == 200) this.dataSource.data = club?.data;
+        if(club?.status == 200) {
+          this.clubs = club?.data;
+          this.dataSource.data = club?.data;
+        }
       },
       (error) => {
         this.notify.notificationService.error(error);
       }
     );
   }
+
+  /**
+   * Change view mode
+   * @param mode 
+   */
+    changeView(mode: number): void {
+      this.display = mode;
+    }
 
 }

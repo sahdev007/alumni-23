@@ -37,7 +37,7 @@ export class EditMenteeComponent implements OnInit {
             if(m.isSelected == 'false') return m;
           });
     
-        }, 3500);
+        }, 1000);
     }
   }
 

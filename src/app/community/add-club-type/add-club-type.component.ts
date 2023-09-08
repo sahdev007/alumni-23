@@ -8,8 +8,6 @@ import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { Person } from 'src/app/models/person';
 import { CommunityService } from 'src/app/services/community.service';
 import { Config } from 'src/app/services/config';
-import { AddEditClubTypeComponent } from 'src/app/shared/dialog/community/add-edit-club-type/add-edit-club-type.component';
-import { ViewClubTypeComponent } from 'src/app/shared/dialog/community/view-club-type/view-club-type.component';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
 
 @Component({
@@ -23,7 +21,7 @@ export class AddClubTypeComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   public displayedColumns: string[] = ['type'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'status', 'actions'];
+  public columnsToDisplay: string[] = ['sr.no', ...this.displayedColumns, 'created_at', 'status', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -33,6 +31,8 @@ export class AddClubTypeComponent implements OnInit {
 
   public dataSource: MatTableDataSource<Person>;
   status: any;
+  display: number = 1;
+
   constructor(
     public dialog: MatDialog,
     private communityService: CommunityService,
@@ -139,26 +139,14 @@ export class AddClubTypeComponent implements OnInit {
  * @param action 
  */
   async add(params: any, action?: string) {
-    const dialogRef = this.dialog.open(AddEditClubTypeComponent, {
-      width: '400px',
-      data: {data: params, action: action}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+    this.router.navigate(['/community/add-edit-club-type'], {queryParams: {id: params?.id, action: action}});
   }
   /**
    * Function to view Club type detail
    * @param param 
    */
-  view(param: any) {
-    const dialogRef = this.dialog.open(ViewClubTypeComponent, {
-      width: '400px',
-      data: {data: param}
-    });
+  view(data: any) {
+    this.router.navigate(['/community/view-club-type'], {queryParams: { id: data?.id}});
   }
 /**
  * Function to update Club Type
@@ -166,18 +154,7 @@ export class AddClubTypeComponent implements OnInit {
  * @param params 
  */
   edit(data: any, params: string) {
-    const dialogRef = this.dialog.open(AddEditClubTypeComponent, {
-      width: '400px',
-      data: {data: data, action: params}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 400);
-      }
-    });
+    this.router.navigate(['/community/add-edit-club-type'], {queryParams: {id: data?.id, action: params}});
   }
 
   /**
@@ -244,4 +221,5 @@ export class AddClubTypeComponent implements OnInit {
       }
     );
   }
+
 }

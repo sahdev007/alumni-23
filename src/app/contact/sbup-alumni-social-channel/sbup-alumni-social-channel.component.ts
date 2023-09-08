@@ -25,6 +25,7 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
 
   public displayedColumns: string[] = ["title", "link"];
   public columnsToDisplay: string[] = [
+    'sr.no',
     ...this.displayedColumns,
     "status",
     "actions",
@@ -38,6 +39,7 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
 
   public dataSource: MatTableDataSource<Person>;
   status :any;
+  display: number = 1;
 
   constructor(
     private contactService: ContactService,
@@ -141,25 +143,13 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
    * Function to add project List
    */
   add(params: string) {
-    const dialogRef = this.dialog.open(AddEditSocialContactComponent, {
-      width: "450px",
-      data: { action: params },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.ngOnInit();
-      }
-    });
+    this.router.navigate(['/contact/add-edit-social-channel'], {queryParams: {action: params}});
   }
   /**
    * Function to View Contact
    */
   view(params: any) {
-    const dialogRef = this.dialog.open(ViewContactComponent, {
-      width: "450px",
-      data: { data: params, type: "socialContact" },
-    });
+    this.router.navigate(['/contact/view-social-channel'], {queryParams: {id: params?.id}});
   }
 
   /**
@@ -168,18 +158,7 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
    * @param params
    */
   edit(data: any, params: any) {
-    const dialogRef = this.dialog.open(AddEditSocialContactComponent, {
-      width: "450px",
-      data: { data: data, action: params },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 500);
-      }
-    });
+    this.router.navigate(['/contact/add-edit-social-channel'], {queryParams: {id: data?.id, action: params}});
   }
   /**
    * Function to remove items by id
@@ -257,5 +236,13 @@ export class SbupAlumniSocialChannelComponent implements OnInit {
         this.notify.notificationService.error(error);
       }
     );
+  }
+
+  /**
+ * Change view mode
+ * @param mode 
+ */
+  changeView(mode: number): void {
+    this.display = mode;
   }
 }

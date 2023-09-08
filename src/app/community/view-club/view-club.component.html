@@ -1,0 +1,67 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/community/clubs">Club</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">View Club</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+<div class="get-featured px-4 pb-5">
+    <div class="container">
+        <!-- <div class="align-items-center justify-content-between my-2">
+            <h5 class="mb-0 text-gray-800 text-center fw-bold">View Club Detail</h5>
+        </div> -->
+        <app-loader *ngIf="loading"></app-loader>
+        <ng-container *ngIf="!loading">
+            <div class="row justify-content-center">
+                <div class="col-xxl-7 col-xl-7 col-lg-8 col-md-8">
+                    <div class="row my-3 p-3 bg-white alumni-body card border-top border-0 border-4 border-primary">
+                        <div class="col-12 text-center p-3 border">
+                            
+                                <div class="row justify-content-center">
+                                    <div class="col-md-3 text-start my-2">
+                                        <label class="form-label fw-bold">Club Name:</label>
+                                    </div>
+                                    <div class="col-md-9 my-2 h-100">
+                                        <p class="text-start">{{clubData?.name}}</p>
+                                    </div>
+                                    <div class="col-md-3 text-start my-2">
+                                        <label class="form-label fw-bold">Club Type:</label>
+                                    </div>
+                                    <div class="col-md-9 my-2 h-100">
+                                        <p class="text-start">{{clubData?.type}}</p>
+                                    </div>
+                                    <div class="col-md-3 text-start my-2">
+                                        <label class="form-label fw-bold">Description:</label>
+                                    </div>
+                                    <div class="col-md-9 my-2 h-100">
+                                        <div class="text-start" [innerHTML]="clubData?.description"></div>
+                                    </div>
+                                    <div class="col-md-3 text-start my-2">
+                                        <label class="form-label fw-bold">Status:</label>
+                                    </div>
+                                    <div class="col-md-9 my-2 h-100">
+                                        <p class="text-start">{{clubData?.status == "active" ? 'Active' : 'Inactive'}}</p>
+                                    </div>
+                                    <div class="col-md-3  text-start my-2">
+                                        <label class="form-label fw-bold">Created At:</label>
+                                    </div>
+                                    <div class="col-md-9 my-2 h-100">
+                                        <p class="text-start">{{clubData?.created_at | date}}</p>
+                                    </div>
+                                </div>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

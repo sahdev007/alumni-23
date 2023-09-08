@@ -1,0 +1,73 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/collaborate/mentor">Collaborate</a>
+                </li>
+                <li class="breadcrumb-item"><a routerLink="/collaborate/share-opportunities">Share opportunities</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">View Share opportunities</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+<div class="container pt-4">
+    <!-- <h5 class="mb-0 text-center fw-bold">Share opportunities</h5> -->
+    <div class="card border-top border-0 border-4 border-primary my-3 mb-5">
+        <div class="card-body px-5 py-3">
+            <app-loader *ngIf="loading"></app-loader>
+            <ng-container *ngIf="!loading">
+                <div class="row">
+                    <div class="col-xl-6 my-xl-2" *ngIf="opportunitiesData?.author">
+                        <label class="form-label mb-1 fw-bold fs-6">Author :</label>
+                        <p class="m-0 fs-6 text-capitalize">{{ opportunitiesData?.author }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="opportunitiesData?.specialization">
+                        <label class="form-label mb-1 fw-bold fs-6">Specialization :</label>
+                        <p class="m-0 fs-6 text-capitalize">{{ opportunitiesData?.specialization }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="opportunitiesData?.type">
+                        <label class="form-label mb-1 fw-bold fs-6">Type :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ opportunitiesData?.type }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="opportunitiesData?.positionsForInternship">
+                        <label class="form-label mb-1 fw-bold fs-6">No of Positions For Internship :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ opportunitiesData?.positionsForInternship }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="opportunitiesData?.positionsLookingToHire">
+                        <label class="form-label mb-1 fw-bold fs-6">Positions Looking To Hire :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ opportunitiesData?.positionsLookingToHire }}</p>
+                    </div>
+                    
+                    <div class="col-xl-6 my-xl-2" *ngIf="opportunitiesData?.stipend">
+                        <label class="form-label mb-1 fw-bold fs-6">Salary :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">Stipend : {{ opportunitiesData?.stipend=="true" ? "yes":"No" }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="opportunitiesData?.hiringExperience">
+                        <label class="form-label mb-1 fw-bold fs-6">Hiring Experience :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ opportunitiesData?.hiringExperience }}</p>
+                    </div>
+
+                    <div class="col-xl-6 my-xl-2" *ngIf="opportunitiesData?.status">
+                        <label class="form-label mb-1 fw-bold fs-6">Status :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">
+                    {{ opportunitiesData?.status == "active" ? 'Active': 'Inactive' }}
+                        </p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="opportunitiesData?.description">
+                        <label class="form-label mb-1 fw-bold fs-6">Description :</label><br />
+                        <div [innerHtml]="opportunitiesData?.description"></div>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="opportunitiesData?.created_at">
+                        <label class="form-label mb-1 fw-bold fs-6">Created At :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ opportunitiesData?.created_at | date }}</p>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

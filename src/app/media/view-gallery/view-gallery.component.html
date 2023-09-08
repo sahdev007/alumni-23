@@ -1,0 +1,65 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/media/gallery">Media</a>
+                </li>
+                <li class="breadcrumb-item"><a routerLink="/media/gallery">Gallery</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">View Gallery</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+<div class="container pt-4">
+    <!-- <h5 class="mb-0 text-center fw-bold">Gallery</h5> -->
+    <div class="card border-top border-0 border-4 border-primary my-3 mb-5">
+        <div class="card-body px-5 py-3">
+            <app-loader *ngIf="loading"></app-loader>
+            <ng-container *ngIf="!loading">
+                <div class="row">
+                    <div class="col-xl-6 my-xl-2" *ngIf="galleryData?.title">
+                        <label class="form-label mb-1 fw-bold fs-6">Title :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ galleryData?.title }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="galleryData?.type">
+                        <label class="form-label mb-1 fw-bold fs-6">Gallery Type :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ galleryData?.type }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="galleryData?.link">
+                        <label class="form-label mb-1 fw-bold fs-6">Link :</label><br />
+                        <p class="m-0 fs-6 text-capitalize"><a href="{{ galleryData?.link }}" target="_blank">{{ galleryData?.link }}</a></p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="galleryData?.order_by">
+                        <label class="form-label mb-1 fw-bold fs-6">Order By :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ galleryData?.order_by }}</p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="galleryData?.status">
+                        <label class="form-label mb-1 fw-bold fs-6">Status :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">
+                    {{ galleryData?.status == "active" ? 'Active': 'Inactive' }}
+                        </p>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="galleryData?.description">
+                        <label class="form-label mb-1 fw-bold fs-6">Description :</label><br />
+                        <div [innerHtml]="galleryData?.description"></div>
+                    </div>
+                    <div class="col-xl-6 my-xl-2" *ngIf="galleryData?.created_at">
+                        <label class="form-label mb-1 fw-bold fs-6">Created At :</label><br />
+                        <p class="m-0 fs-6 text-capitalize">{{ galleryData?.created_at }}</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-4 my-xl-2" *ngIf="galleryData?.file">
+                            <img [src]="imgPath + galleryData?.file" class="img-fluid my-2" alt="picture">
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

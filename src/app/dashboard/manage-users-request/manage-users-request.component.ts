@@ -9,6 +9,7 @@ import { Person } from 'src/app/models/person';
 import { DataService } from 'src/app/services/data.service';
 import { UsersService } from 'src/app/services/users.service';
 import { DeletedialogComponent } from 'src/app/shared/dialog/deletedialog/deletedialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-manage-users-request',
@@ -20,12 +21,13 @@ export class ManageUsersRequestComponent implements OnInit {
   pageType = "users";
   searchForm: FormGroup;
   getAllUser: Array<any> = [];
+  imgPath: any;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['first_name', 'mobile_number', 'email', 'institute_name', 'batch', 'city', 'current_designation'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'actions'];
+  public displayedColumns: string[] = ['mobile_number', 'email', 'institute_name', 'batch','city', 'current_designation'];
+  public columnsToDisplay: string[] = ['sr.no', 'profile_pic',...this.displayedColumns, 'created_at', 'actions'];
 
   /**
    * it holds a list of active filter for each column.
@@ -51,6 +53,7 @@ export class ManageUsersRequestComponent implements OnInit {
     private userService: UsersService
     ) {
     this.dataSource = new MatTableDataSource<Person>();
+    this.imgPath = environment?.imgUrl;
   }
 
 

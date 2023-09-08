@@ -49,6 +49,7 @@ export class BasicInfoComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.loading = true;
     this.buildForm();
     this.loadCountries();
 
@@ -59,6 +60,7 @@ export class BasicInfoComponent implements OnInit {
         this.basicInfoForm.patchValue({
           ...this.otherProfile
         });
+        this.loading = false;
     }, 2000);
   }
 

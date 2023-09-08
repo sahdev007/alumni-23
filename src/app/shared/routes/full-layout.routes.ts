@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/auth/auth.guard';
 import { SitemapComponent } from 'src/app/sitemap/sitemap.component';
+import { environment } from 'src/environments/environment';
 
 
 //Route for content layout with sidebar, navbar and footer.
@@ -10,11 +11,15 @@ export const Full_ROUTES: Routes = [
         path: 'auth',
         loadChildren: () => import('./../../auth/auth.module').then(m => m.AuthModule)
     },
-    
     {
         path: 'dashboard',
         canActivate: [AuthGuard],
+        data: { role: [environment.roles.ADMIN] },
         loadChildren: () => import('../../dashboard/dashboard.module').then(m => m.DashboardModule)
+    },
+    {
+        path: 'alumni-directory',
+        loadChildren: () => import('../../alumni-directory/alumni-directory.module').then(d => d.AlumniDirectoryModule)
     },
     {
         path: 'about-us',
@@ -41,12 +46,24 @@ export const Full_ROUTES: Routes = [
         loadChildren: () => import('../../celebrate/celebrate.module').then(m => m.CelebrateModule)
     },
     {
+        path: 'media',
+        loadChildren: () => import('../../media/media.module').then(m => m.MediaModule)
+    },
+    {
         path: 'contact',
         loadChildren: () => import('../../contact/contact.module').then(m => m.ContactModule)
     },
     {
         path: 'collaborate',
         loadChildren: () => import('../../collaborate/collaborate.module').then(c => c.CollaborateModule)
+    },
+    {
+        path: 'mentorship',
+        loadChildren: () => import('../../mentorship/mentorship.module').then(m => m.MentorshipModule)
+    },
+    {
+        path: 'careers-jobs',
+        loadChildren: () => import('../../career-jobs/career-jobs.module').then(c => c.CareerJobsModule)
     },
     {
         path: 'organization',
@@ -66,6 +83,11 @@ export const Full_ROUTES: Routes = [
         path: 'components',
         loadChildren: () => import('../../components/components.module').then(m => m.ComponentsModule)
     },
+    {
+        path: 'leaderboard',
+        loadChildren: () => import('../../leaderboard/leaderboard.module').then(l => l.LeaderboardModule)
+    },
+
     // {
     //     path: 'content',
     //     loadChildren: () => import('../../content/content.module').then(m => m.ContentModule)

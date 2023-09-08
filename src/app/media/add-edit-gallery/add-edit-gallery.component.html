@@ -1,0 +1,109 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+    <div class="breadcrumb-title pe-3"><a routerLink="/"><i class="bx bx-home-alt"></i></a></div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a routerLink="/media/gallery">Media</a>
+                </li>
+                <li class="breadcrumb-item"><a routerLink="/media/gallery">Gallery</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{pageType == 'update-gallery' ? 'Update' : 'Add'}} Gallery</li>
+            </ol>
+        </nav>
+    </div>
+  </div>
+<!--end breadcrumb-->
+<div class="row">
+	<div class="col-xl-9 mx-auto">
+        <!-- <div class="align-items-center justify-content-between my-2">
+            <h5 class="mb-0 text-gray-800 text-center fw-bold">{{pageType == 'update-gallery' ? 'Update' : 'Add'}} News</h5>
+        </div> -->
+		<div class="card border-top border-0 border-4 border-info my-3">
+			<div class="card-body">
+				<div class="border-0 p-4 rounded">
+                    <app-loader *ngIf="loading"></app-loader>
+                    <ng-container *ngIf="!loading">
+                        <form class="row g-3 needs-validation" [formGroup]="galleryForm">
+                            <div class="row mb-3 justify-content-center mt-3">
+                                <label for="inputEnterYourName" class="col-sm-3 col-form-label fw-bold">Title :</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="inputEnterYourName" formControlName="title" placeholder="Enter Title here">
+                                    <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                        *ngIf="(submitted || galleryForm.controls['title'].touched) && galleryForm.controls['title']?.errors?.required">Title is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3 justify-content-center">
+                                <label for="inputEnterYourName" class="col-sm-3 col-form-label fw-bold">Flickr Link :</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="inputEnterYourName" formControlName="link" placeholder="Enter link here">
+                                    <!-- <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                        *ngIf="(submitted || galleryForm.controls['link'].touched) && galleryForm.controls['link']?.errors?.required">Enter Link is required.
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="row mb-3 justify-content-center">
+                                <label for="inputChoosePassword2" class="col-sm-3 col-form-label fw-bold">Gallery Type :</label>
+                                <div class="col-sm-6">
+                                    <select class="form-select form-control" aria-label="Default select example" formControlName="type">
+                                        <option value="" selected>---Select Gallery type---</option>
+                                        <option value="Home main banner">Home main banner</option>
+                                        <option value="Class wise picture">Class wise picture</option>
+                                        <option value="Alumni club inaguration">Alumni club inaguration</option>
+                                        <option value="Annual alumni events">Annual alumni events</option>
+                                        <option value="Annual driven events">Annual driven events</option>
+                                        <option value="Alumni Engaging at Sri Balaji Society - Alma Mater">Alumni Engaging at Sri Balaji Society -
+                                            Alma Mater</option>
+                                    </select>
+                                    <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                        *ngIf="(submitted || galleryForm.controls['type'].touched) && galleryForm.controls['type']?.errors?.required">Gallery type is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3 justify-content-center">
+                                <label for="inputConfirmPassword2" class="col-sm-3 col-form-label fw-bold">Order :</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="inputConfirmPassword2" formControlName="order_by" placeholder="Enter order">
+                                    <!-- <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                        *ngIf="(submitted || galleryForm.controls['order_by'].touched) && galleryForm.controls['order_by']?.errors?.required">Order is required.
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="row mb-3 justify-content-center">
+                                <label for="inputChoosePassword2" class="col-sm-3 col-form-label fw-bold">Status :</label>
+                                <div class="col-sm-6">
+                                    <select class="form-select form-control" aria-label="Default select example" formControlName="status">
+                                        <option value="" selected>Choose your Option</option>
+                                        <option [value]="item?.status" *ngFor="let item of status; let i=index;">
+                                            {{ item?.status == "active" ? 'Active' : 'Inactive' }}
+                                        </option>
+                                    </select>
+                                    <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                        *ngIf="(submitted || galleryForm.controls['status'].touched) && galleryForm.controls['status']?.errors?.required">Status is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3 justify-content-center">
+                                <label for="inputAddress4" class="col-sm-3 col-form-label fw-bold">Image :</label>
+                                <div class="col-sm-6">
+                                    <input type="file" class="form-control mb-2" formControlName="file" id="formGroupLink" accept="image/*" (change)="onUploadImage($event)" placeholder="Upload Image" />
+                                    <div class="invalidText fw-bold mt-1 mb-2 m-0 alert alert-danger text-start text-danger p-1 m-0" 
+                                        *ngIf="(submitted || galleryForm.controls['file'].touched) && galleryForm.controls['file']?.errors?.required">Image is required.
+                                    </div>
+                                
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3" mat-dialog-actions align="center">
+                                <button mat-raised-button color="warn" [routerLink]="['/media/gallery']">Cancel</button>
+                                <button mat-raised-button color="primary" class="ms-2" (click)="save()" 
+                                >{{pageType == 'update-gallery' ? 'Update' : 'Submit'}}</button>
+                            </div>
+                        </form>
+                    </ng-container>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -16,6 +16,10 @@ url: any;
     return this.http
       .get(`${this.url}/${action}`);
   }
+  
+  getDataById(action?: string, id?: any) {
+    return this.http.get(`${this.url}/${action}/${id}`);
+  }
 
   postData(action?: any, data?:any): Observable<any> {
     console.log(action, data);

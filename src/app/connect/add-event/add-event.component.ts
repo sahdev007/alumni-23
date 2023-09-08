@@ -21,6 +21,7 @@ export class AddEventComponent implements OnInit {
   newEventId: any;
   updateAction: any;
   updatedEventData: any;
+  loading: boolean;
 
   eventStat = [{id:1, value:'active'}, {id:2, value:'inActive'}]
 
@@ -48,18 +49,21 @@ export class AddEventComponent implements OnInit {
     this.arouter.queryParams.subscribe((res: any) => {
       this.newEventId = res?.clubId;
       this.updateAction = res?.action;
-      if(this.newEventId){
-        setTimeout(async () => {
-          await this.connectService.getDataById('single-event', this.newEventId).subscribe((res:any) => {
+      if(this.newEventId) this.getSingleEvent(this.newEventId);
+    });
+  }
 
-            if(res?.status == 200) {
-              this.updatedEventData = res?.data;
-              this.addEventForm.patchValue({...this.updatedEventData});
-            }
-          });
-        }, 500);
+  async getSingleEvent(id) {
+    this.loading = true;
+    await this.connectService.getDataById('single-event', id).subscribe((res:any) => {
+
+      if(res?.status == 200) {
+        this.updatedEventData = res?.data;
+        this.addEventForm.patchValue({...this.updatedEventData});
+        this.loading = false;
       }
-
+    }, error => {
+      this.loading = false;
     });
   }
 

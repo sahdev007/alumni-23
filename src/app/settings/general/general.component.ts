@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TokenInterceptor } from 'src/app/core/token.interceptor';
 import { DataService } from 'src/app/services/data.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-general',
@@ -13,24 +14,25 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   token: any;
   image: any;
   siteLogo: any;
-  submitted: boolean = false;
+  submitted: boolean;
   settingData: any;
   updateLogo: any;
+  imgPath: any;
+
   constructor(public fb: FormBuilder, private dataService: DataService, private notify: TokenInterceptor) {
     if (localStorage.hasOwnProperty("token")) {
       this.token =
         JSON?.parse(localStorage?.getItem("token") || "");
     }
+    this.imgPath = environment?.imgUrl;
    }
 
   ngOnInit(): void {
     this.buildForm();
     this.getSetting();
     setTimeout(() => {
-      this.updateLogo = this.settingData?.logo;
-
       this.settingForm.controls['appName'].setValue(this.settingData?.appName);
-      this.settingForm.controls['siteAddress'].setValue(this.settingData?.siteAddress);
+      // this.settingForm.controls['siteAddress'].setValue(this.settingData?.siteAddress);
       this.settingForm.controls['email'].setValue(this.settingData?.email);
       this.settingForm.controls['mobileNumber'].setValue(this.settingData?.mobileNumber);
       this.settingForm.controls['facebook'].setValue(this.settingData?.facebook);
@@ -39,15 +41,17 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       this.settingForm.controls['youtube'].setValue(this.settingData?.youtube);
       this.settingForm.controls['twitter'].setValue(this.settingData?.twitter);
       this.settingForm.controls['footerText'].setValue(this.settingData?.footerText);
-
-    }, 1500);
+      this.updateLogo = this.settingData?.logo;
+      
+      console.log(this.updateLogo);
+    }, 2000);
   }
 
   buildForm() {
     this.settingForm = this.fb.group({
       id: [''],
       appName: ['', Validators.required],
-      siteAddress: ['', Validators.required],
+      // siteAddress: ['', Validators.required],
       email: ['',  [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$")]],
       mobileNumber: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10), Validators.maxLength(16)]],
       facebook: ['', Validators.required],
@@ -73,7 +77,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       action: route
     }
     this.dataService.postData(params).subscribe((x:any) => {
-      this.settingData = x?.data[0];
+      if(x?.data) this.settingData = x?.data[0];
     })
   }
 
@@ -99,6 +103,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
    */
   async save() {
     this.submitted = true;
+    console.log(this.settingForm.value);
     if (this.settingForm.invalid) {
       return;
     } else {
@@ -110,7 +115,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
 
       formData.append('logo', (this.siteLogo) ? this.siteLogo : '');
       formData.append('appName', this.settingForm?.value?.appName);
-      formData.append('siteAddress', this.settingForm?.value?.siteAddress);
+      // formData.append('siteAddress', this.settingForm?.value?.siteAddress);
       formData.append('email', this.settingForm?.value?.email);
       formData.append('mobileNumber', this.settingForm?.value?.mobileNumber);
       formData.append('facebook', this.settingForm?.value?.facebook);

@@ -6,13 +6,11 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { LockScreenComponent } from './lock-screen/lock-screen.component';
-import { SigninWithHeaderFooterComponent } from './signin-with-header-footer/signin-with-header-footer.component';
-import { SignupWithHeaderFooterComponent } from './signup-with-header-footer/signup-with-header-footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -21,10 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SignInComponent, 
     SignUpComponent,
     ForgotPasswordComponent, 
-    ResetPasswordComponent, 
-    LockScreenComponent, 
-    SigninWithHeaderFooterComponent,
-    SignupWithHeaderFooterComponent
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +28,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     EditorModule,
     NgbModule,
-    SharedModule
+    SharedModule,
+    MatButtonModule
   ],
   
 })
